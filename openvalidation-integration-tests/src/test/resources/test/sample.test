@@ -1,0 +1,10 @@
+################# subfolder test ########################
+
+the name should be validaria
+
+
+{name:'', addresses:[{country:''}] }
+
+--------------  first  -------------------
+
+{ name : 'alex' }

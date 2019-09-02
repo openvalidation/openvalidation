@@ -1,0 +1,117 @@
+################# accessor of simple ########################
+
+If the name of person in question is Peter
+then Peter is not allowed
+
+{person: {name: ''}}
+
+--------------  invalid  -------------------
+{person: {name: Peter}}
+
+{id: 12345, person: {name: Peter}}
+
+{id: 12345, person: {name: Peter}, age: 25}
+
+{id: 12345, person: {name: Peter}, age: 25, married: true}
+
+Peter is not allowed
+
+################# accessor of on unique property ########################
+
+If the name of person in question is Peter
+then Peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# accessor of on unique property with underscore in entity ########################
+
+If the name of the random person in question is Peter
+then Peter is not allowed
+
+{contract: {random_person: {name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {random_person: {name: Peter}}}
+
+{id: 12345, contract: {random_person: {name: Peter}}}
+
+{id: 12345, contract: {random_person: {name: Peter}}, age: 25}
+
+{id: 12345, contract: {random_person: {name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# accessor of on unique property with underscore in property ########################
+
+If the any name of the person in question is Peter
+then Peter is not allowed
+
+{contract: {person: {any_name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {person: {any_name: Peter}}}
+
+{id: 12345, contract: {person: {any_name: Peter}}}
+
+{id: 12345, contract: {person: {any_name: Peter}}, age: 25}
+
+{id: 12345, contract: {person: {any_name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# accessor of equals accessor of ########################
+
+If name of person is not owner of pet
+then match invalid
+
+if name of person is owner of pet
+then person and owner cannot match
+
+{person:{name:''}, pet:{owner:''}}
+
+--------------  equal  -------------------
+{person:{name:Heinz}, pet:{owner:Heinz}}
+
+{person:{name:Dieter}, pet:{owner:Dieter}}
+
+{person:{name:Jessen}, pet:{owner:Jessen}}
+
+person and owner cannot match
+
+--------------  not equal  -------------------
+{person:{name:Heinz}, pet:{owner:Dieter}}
+
+{person:{name:Dieter}, pet:{owner:Jessen}}
+
+{person:{name:Jessen}, pet:{owner:Heinz}}
+
+match invalid
+
+################# accessor of variable ########################
+
+name of person as var1
+
+COMMENT name of person of team of unit of company
+
+if var1 is Peter
+then Peter is invalid
+
+{company:{unit:{team:{person:{name:''}}}}}
+
+--------------  invalid  -------------------
+{company:{unit:{team:{person:{name:Peter}}}}}
+
+{company:{unit:{team:{person:{name:Peter, age:41}}}}}
+
+Peter is invalid

@@ -1,0 +1,10 @@
+################# PlainRule should not be empty ########################
+
+your number has to be greater than 3.01
+
+
+{ number : 4 }
+
+--------------  arbitrary input  -------------------
+
+{ number : 1 }

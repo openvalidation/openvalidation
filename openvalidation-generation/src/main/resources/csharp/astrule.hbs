@@ -1,0 +1,6 @@
+huml.appendRule("{{name}}",
+                   new String[]{ {{tmpl "relatedfields"}} },
+                   {{tmpl "action"}},
+                   ({{params.model_type}} model) => {{#if allParentProperties}}(({{#allParentProperties}}{{tmpl "precondition"}}{{#unless @last}} && {{/unless}}{{/allParentProperties}}) && ({{/if}}{{#condition}}{{tmpl}}{{/condition}}{{#if allParentProperties}})){{/if}},
+                   false
+                );

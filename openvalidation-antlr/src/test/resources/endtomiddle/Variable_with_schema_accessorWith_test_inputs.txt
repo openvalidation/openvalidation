@@ -1,0 +1,10 @@
+Complete_with_schema_accessorWith_implicite_comparison_with_true
+
+Persons WITH isAdult AS Adults
+
+---------------------------------------------------------------------
+Complete_with_schema_accessorWith_explicit_comparison_with_true
+
+Persons WITH isAdult EQUALS true AS Adults
+
+---------------------------------------------------------------------

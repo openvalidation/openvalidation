@@ -1,0 +1,25 @@
+var {{params.generated_class_name}} = function() {
+    var huml = new HUMLFramework();
+
+{{#if nullCheckRules}}
+    //pre validation null checks rules
+    {{#nullCheckRules}}        {{tmpl}}
+
+    {{/nullCheckRules}}
+    //++++++++++++++++++++++++++++++++
+{{/if}}
+
+
+
+    {{#elements}}        {{tmpl}}
+
+    {{/elements}}
+
+    this.validate = function(model){
+        return huml.validate(model);
+    }
+}
+
+{{#if params.single_file}}
+{{tmpl "framework"}}
+{{/if}}

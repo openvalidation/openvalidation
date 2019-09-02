@@ -1,0 +1,239 @@
+################# arithmetic chaining plus static equals property ########################
+
+if 1 + 1 equals number
+then number cannot be 2
+
+if 1 + 1 plus 1 equals number
+then number cannot be 3
+
+if 1 + 1 plus 1 plus 1 equals number
+then number cannot be 4
+
+if 1 + 1 plus 1 plus 1 PLUS 1 equals number
+then number cannot be 5
+
+{number:0}
+
+--------------  first  -------------------
+
+{number:2}
+
+number cannot be 2
+
+--------------  second  -------------------
+
+{number:3}
+
+number cannot be 3
+
+--------------  third  -------------------
+
+{number:4}
+
+number cannot be 4
+
+--------------  fourth  -------------------
+
+{number:5}
+
+number cannot be 5
+
+################# arithmetic chaining minus static equals property ########################
+
+if 5 - 1 equals number
+then number cannot be 4
+
+if 5 - 1 minus 1 equals number
+then number cannot be 3
+
+if 5 - 1 minus 1 minus 1 equals number
+then number cannot be 2
+
+if 5 - 1 minus 1 minus 1 MINUS 1 equals number
+then number cannot be 1
+
+{number:0}
+
+--------------  first  -------------------
+
+{number:1}
+
+number cannot be 1
+
+--------------  second  -------------------
+
+{number:2}
+
+number cannot be 2
+
+--------------  third  -------------------
+
+{number:3}
+
+number cannot be 3
+
+--------------  fourth  -------------------
+
+{number:4}
+
+number cannot be 4
+
+################# arithmetic chaining times static equals property ########################
+
+if 5 * 2 equals number
+then number cannot be 10
+
+if 5 * 2 times 2 equals number
+then number cannot be 20
+
+if 5 * 2 times 2 times 2 equals number
+then number cannot be 40
+
+if 5 * 2 times 2 times 2 TIMES 2 equals number
+then number cannot be 80
+
+{number:0}
+
+--------------  first  -------------------
+
+{number:10}
+
+number cannot be 10
+
+--------------  second  -------------------
+
+{number:20}
+
+number cannot be 20
+
+--------------  third  -------------------
+
+{number:40}
+
+number cannot be 40
+
+--------------  fourth  -------------------
+
+{number:80}
+
+number cannot be 80
+
+################# arithmetic chaining divide static equals property ########################
+
+if 80 / 2 equals number
+then number cannot be 40
+
+if 80 / 2 divided by 2 equals number
+then number cannot be 20
+
+if 80 / 2 divided by 2 divided by 2 equals number
+then number cannot be 10
+
+if 80 / 2 divided by 2 divided by 2 DIVIDED BY 2 equals number
+then number cannot be 5
+
+{number:0}
+
+--------------  first  -------------------
+
+{number:40}
+
+number cannot be 40
+
+--------------  second  -------------------
+
+{number:20}
+
+number cannot be 20
+
+--------------  third  -------------------
+
+{number:10}
+
+number cannot be 10
+
+--------------  fourth  -------------------
+
+{number:5}
+
+number cannot be 5
+
+################# arithmetic chaining modulo static equals property ########################
+
+if 5 mod 10 equals number
+then number cannot be 5
+
+if 10 mod 7 mod 4 equals number
+then number cannot be 3
+
+if 10 mod 7 mod 2 modulo 5 equals number
+then number cannot be 1
+
+if 85 mod 8 mod 3 equals number
+then number cannot be 2
+
+{number:0}
+
+--------------  first  -------------------
+
+{number:5}
+
+number cannot be 5
+
+--------------  second  -------------------
+
+{number:3}
+
+number cannot be 3
+
+--------------  third  -------------------
+
+{number:1}
+
+number cannot be 1
+
+--------------  fourth  -------------------
+
+{number:2}
+
+number cannot be 2
+
+################# IGNORE arithmetic chaining power static equals property ########################
+
+if 2 ^ 2 equals number
+then number cannot be 4
+
+if 2 ^ 2 to the power of 2 equals number
+then number cannot be 8
+
+if 2 ^ 2 to the power of 2 to the power of 2 equals number
+then number cannot be 16
+
+if 2 ^ 2 to the power of 2 to the power of 2 TO THE POWER OF 2 equals number
+then number cannot be 32
+
+{number:0}
+
+--------------  first  -------------------
+
+{number:4}
+
+number cannot be 4
+
+--------------  second  -------------------
+
+{number:8}
+
+number cannot be 8
+
+--------------  third  -------------------
+
+{number:16}
+
+number cannot be 16
+
+--------------  fourth  -------------------
+
+{number:32}
+
+number cannot be 32

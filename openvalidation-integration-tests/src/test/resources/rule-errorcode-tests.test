@@ -1,0 +1,103 @@
+################# rule errorcode property is string with errorcode ########################
+
+if name is validaria
+then validariaerror
+with errorcode 1
+
+if name is otto
+then ottoerror
+with errorcode 2
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first1  -------------------
+
+{name:'validaria'}
+
+validariaerror
+
+
+--------------  second1  -------------------
+
+{name:'otto'}
+
+ottoerror
+
+################# rule errorcode property is string with error ########################
+
+if name is validaria
+then validariaerror
+with error 1
+
+if name is otto
+then ottoerror
+with error 2
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first2  -------------------
+
+{name:'validaria'}
+
+validariaerror
+
+
+--------------  second2  -------------------
+
+{name:'otto'}
+
+ottoerror
+
+################# rule errorcode property is string with code ########################
+
+if name is validaria
+then validariaerror
+with code 1
+
+if name is otto
+then ottoerror
+with code 2
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first2  -------------------
+
+{name:'validaria'}
+
+validariaerror
+
+
+--------------  second2  -------------------
+
+{name:'otto'}
+
+ottoerror
+
+################# rule errorcode property is string errorcode ########################
+
+if name is validaria
+then validariaerror
+errorcode 1
+
+if name is otto
+then ottoerror
+errorcode 2
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first2  -------------------
+
+{name:'validaria'}
+
+validariaerror
+
+
+--------------  second2  -------------------
+
+{name:'otto'}
+
+ottoerror

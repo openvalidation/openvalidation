@@ -1,0 +1,66 @@
+################# rule equals property equals string ########################
+
+if name equals validaria
+then this error message
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'validaria'}
+
+this error message
+
+################# rule equals property equal string ########################
+
+if name equal validaria
+then name can not equal validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'validaria'}
+
+name can not equal validaria
+
+################# rule equals property is string ########################
+
+if name is validaria
+then name is validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'validaria'}
+
+name is validaria
+
+################# rule equals property not equals string ########################
+
+if name not equals validaria
+then not validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'heinz'}
+
+not validaria
+
+################# rule equals property equals decimal ############################
+
+number must be 5
+
+
+{number:0.1}
+
+-------------- standard -------------------
+
+{number:5.1}

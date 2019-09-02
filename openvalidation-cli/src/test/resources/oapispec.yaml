@@ -1,0 +1,62 @@
+openapi: "3.0.0"
+info:
+  title: Sample
+  version: "1.0"
+paths:
+  /simple:
+    post:
+      requestBody:
+        content:
+          application/json:
+            x-ov-rules:
+              name: SimpleRule
+              rule: |
+                WENN der Name IST GLEICH Ilja
+                DANN was für ein Quatsch!
+            schema:
+              $ref: '#/components/schemas/Model'
+      responses:
+        '200':
+          description: successful response
+
+  /second:
+    post:
+      requestBody:
+        content:
+          application/json:
+            x-ov-rules:
+              name: SecondRule2
+              rule: |
+                WENN das Alter des Bewerbers IST KLEINER ALS 18 Jahre
+                DANN mööp!
+            schema:
+              $ref: '#/components/schemas/Model'
+      responses:
+        '200':
+          description: successful response
+components:
+  schemas:
+    Model:
+      properties:
+        Name:
+          type: string
+        Alter:
+          type: number
+        Strasse:
+          type: string
+        Ort:
+          type: string
+        Plz:
+          type: string
+        EMail:
+          type: string
+        Telefonnummer:
+          type: string
+        Kuendigungsfrist:
+          type: number
+        Berufserfahrung:
+          type: number
+        Jahresbruttogehalt:
+          type: number
+        Position:
+          type: string

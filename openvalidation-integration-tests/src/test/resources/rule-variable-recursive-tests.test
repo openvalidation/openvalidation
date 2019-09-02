@@ -1,0 +1,68 @@
+################# rule variable recursive property as var should be string ########################
+
+name as varname
+
+the varname should be validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'alex'}
+
+the varname should be validaria
+
+--------------  second  -------------------
+
+{name:'peter'}
+
+the varname should be validaria
+
+################# rule variable recursive property as var x2 should be string ########################
+
+name as varname
+
+varname as othervarname
+
+the othervarname should be validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'alex'}
+
+the othervarname should be validaria
+
+--------------  second  -------------------
+
+{name:'peter'}
+
+the othervarname should be validaria
+
+################# rule variable recursive property as var x3 should be string ########################
+
+name as varname
+
+varname as othervarname
+
+othervarname as thirdvarname
+
+the thirdvarname should be validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'alex'}
+
+the thirdvarname should be validaria
+
+--------------  second  -------------------
+
+{name:'peter'}
+
+the thirdvarname should be validaria

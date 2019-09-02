@@ -1,0 +1,16 @@
+
+
+var openValidatorFactory = function(){
+    var _validators = {
+            {{#params.validators}}"{{id}}" : new {{name}}(),
+            {{/params.validators}}
+    };
+
+    this.create = function(validatorID){
+        if (_validators != null){
+            return _validators[validatorID];
+        }
+
+        return null;
+    }
+}

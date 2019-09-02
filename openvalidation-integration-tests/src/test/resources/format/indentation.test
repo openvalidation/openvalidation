@@ -1,0 +1,251 @@
+################# format indentation no indentation context baseline ########################
+
+If name is Peter
+then Peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# format indentation without context baseline ########################
+
+If	 name 
+	is 	
+		Peter
+then Peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# format indentation with basic context or baseline ########################
+
+If name is Peter
+	or married
+then Peter is not allowed
+
+{contract: {person: {name: ''}}, married: true}
+
+--------------  invalid  -------------------
+
+{contract: {person: {name: Peter}}, married: false}
+
+{id: 12345, contract: {person: {name: Peter}}, married: false}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false, whatever: random}
+
+{id: 12345, contract: {person: {name: Gunter}}, age: 25, married: true}
+
+{id: 12345, contract: {person: {name: Walter}}, age: 25, married: true}
+
+
+
+Peter is not allowed
+
+################# format indentation with context and baseline ########################
+
+If name is Peter
+	and married
+then Peter is not allowed
+
+{contract: {person: {name: ''}}, married: true}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}, married: true}
+
+{id: 12345, contract: {person: {name: Peter}}, married: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, whatever: random}
+
+Peter is not allowed
+
+################# format indentation with context and or ########################
+
+If name is Peter
+	and married
+		or signed
+then Peter is not allowed
+
+{contract: {person: {name: ''}}, married: true, signed: true}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: false}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false, signed: true}
+
+Peter is not allowed
+
+################# format indentation with context and double or nest ########################
+
+If name is Peter
+	and married
+		or signed
+		    or valid
+then Peter is not allowed
+
+{contract: {person: {name: ''}}, married: true, signed: true, valid : false}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: false}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false, signed: false, valid: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false, signed: true, valid: false}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: false, valid: false}
+
+Peter is not allowed
+
+################# format indentation with context and double or nest pinched ########################
+
+If name is Peter
+	and married
+		or signed
+		    or valid
+	or irrelevant
+then Peter is not allowed
+
+{contract: {person: {name: ''}}, married: true, signed: true, valid : false, irrelevant: false}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: false}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false, signed: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false, signed: false, valid: true}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false, signed: true, valid: false}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: false, valid: false}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true, signed: false, valid: false, irrelevant: false}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: false, signed: false, valid: false, irrelevant: true}
+
+{id: 12345, contract: {person: {name: Dieter}}, age: 25, married: false, signed: false, valid: false, irrelevant: true}
+
+Peter is not allowed
+
+################# format indentation with context double nested pinched ########################
+
+If name is Peter
+	and married
+		or signed
+    and valid
+	    or irrelevant
+then Peter is not allowed
+
+{contract: {person: {name: ''}}, married: true, signed: true, valid : false, irrelevant: false}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}, married: true, valid: true}
+
+{contract: {person: {name: Peter}}, married: false, signed: true, valid: true}
+
+{contract: {person: {name: Peter}}, married: false, signed: true, valid: false, irrelevant: true}
+
+Peter is not allowed
+
+################# format indentation with context double nested double pinched ########################
+
+If name is Peter
+		and married
+			or signed
+		and valid
+			or irrelevant
+	or alwaysfailing
+then Peter is not allowed
+
+{contract: {person: {name: ''}}, married: true, signed: true, valid : false, irrelevant: false, alwaysfailing: false}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}, married: true, valid: true}
+
+{contract: {person: {name: Peter}}, married: false, signed: true, valid: true}
+
+{contract: {person: {name: Peter}}, married: false, signed: true, valid: false, irrelevant: true}
+
+{contract: {person: {name: Peter}}, married: false, signed: false, valid: false, irrelevant: false, alwaysfailing: true}
+
+{contract: {person: {name: Ralf}}, married: false, signed: false, valid: false, irrelevant: false, alwaysfailing: true}
+
+{contract: {person: {name: Olaf}}, married: false, signed: false, valid: false, irrelevant: false, alwaysfailing: true}
+
+Peter is not allowed
+
+################# format indentation with context multi pinched ########################
+
+If name is Peter
+		and married
+	or signed
+	or irrelevant
+then Peter is not allowed
+
+{contract: {person: {name: ''}}, married: true, signed: false, irrelevant: false}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}, married: true}
+
+{contract: {person: {name: Peter}}, married: true, signed: true}
+
+{contract: {person: {name: Peter}}, married: false, signed: true}
+
+{contract: {person: {name: Marcus}}, married: true, signed: true}
+
+{contract: {person: {name: Peter}}, married: true, signed: false, irrelevant: false}
+
+{contract: {person: {name: Peter}}, married: true, signed: false, irrelevant: true}
+
+{contract: {person: {name: Peter}}, married: false, signed: false, irrelevant: true}
+
+{contract: {person: {name: Marcus}}, married: true, signed: false, irrelevant: true}
+
+Peter is not allowed

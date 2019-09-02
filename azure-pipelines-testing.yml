@@ -1,0 +1,17 @@
+
+trigger:
+  branches:
+    exclude:
+    - master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+  - task: Maven@3
+    inputs:
+      jdkVersionOption: '1.8'
+      publishJUnitResults: true
+      goals: 'clean test'
+      options: '-Pintegration'
+# Add linting and other quality checks here.

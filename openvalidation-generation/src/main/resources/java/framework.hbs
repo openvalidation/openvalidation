@@ -1,0 +1,587 @@
+{{#if params.single_file}}
+
+{{else}}
+    package {{params.generated_class_namespace}};
+
+    {{tmpl "frameworkimports"}}
+{{/if}}
+
+
+public class HUMLFramework {
+
+public List<ValidationRule> Rules = new ArrayList<>();
+
+    public interface IOpenValidator {
+        String getValidatorID();
+        OpenValidationSummary validate(Object model);
+    }
+
+    //VALIDATION METHODS
+
+    public <T> ValidationRule  appendRule(String name, String[] fields, String error, Predicate<T> validationFunc, Boolean disabled) {
+        ValidationRule rule = new ValidationRule(name, fields, error, validationFunc, disabled);
+        this.Rules.add(rule);
+        return rule;
+    }
+
+
+    public <T> OpenValidationSummary validate(T model) {
+        OpenValidationSummary summary = new OpenValidationSummary();
+
+        for(ValidationRule rule : this.getEnabledRules()){
+            try {
+                ValidationResult result = rule.Validate(model);
+
+                    if (result.hasErrors()) {
+                        summary.AppendError(result.getRule().getError(), result.getRule().getFields());
+                    }
+            } catch (Exception ex) {
+                summary.AppendError((ex.getMessage() == null)? ex.toString() : ex.getMessage(), null);
+            }
+        }
+
+        return summary;
+    }
+
+    public <T> ValidationResult ValidateRule(T model, String ruleName) throws Exception{
+        ValidationRule preCondition = this.GetRule(model, ruleName);
+        ValidationResult preConditionResult = preCondition.Validate(model);
+
+        if (preConditionResult.hasErrors())
+            return new ValidationResult(preConditionResult.getRule());
+
+        return null;
+    }
+
+    public <T> Boolean ExecuteRuleCondition(T model, String ruleName) throws Exception{
+        ValidationRule preCondition = this.GetRule(model, ruleName);
+        return preCondition.ExecuteCondition(model);
+    }
+
+    public List<ValidationRule> getEnabledRules() {
+        return this.Rules.stream().filter(r -> !r.isDisabled() && r.hasError()).collect(Collectors.toList());
+    }
+
+    //    public <T> Variable<T> CreateVariable(String name, T value)
+    //    {
+    //        return new Variable<T>(name, value);
+    //    }
+
+    public <TM, T> Variable<TM, T> CreateVariable(String name, Function<TM, T> value)
+    {
+        return new Variable<TM, T>(name, value);
+    }
+
+    public <T> ValidationRule GetRule(T model, String ruleName) throws Exception {
+        Optional<ValidationRule> rule = this.Rules.stream()
+                                        .filter(r -> r.getName() != null && !r.getName().isEmpty())
+                                        .filter(r -> r.getName().toLowerCase() == ruleName.toLowerCase())
+                                        .findFirst();
+
+        if (rule.isPresent())
+            return rule.get();
+
+        throw new Exception("Rule with name: \"" + ruleName + "\" could not be found.");
+    }
+
+    //END OF VALIDATION METHODS
+
+    public abstract class RuleItem {
+        private String _name;
+
+        public String getName()
+        {
+            return _name;
+        }
+
+        protected void setName(String name){
+            this._name = name;
+        }
+    }
+
+    public class ValidationRule<T> extends RuleItem {
+        private Predicate<T> _conditionFnc;
+        private String _name;
+        private String[] _fields;
+        private String _error;
+        private Boolean _disabled;
+
+        public String getName()
+        {
+            return this._name;
+        }
+
+        public String[] getFields()
+        {
+            return this._fields;
+        }
+
+        public String getError()
+        {
+            return this._error;
+        }
+
+        public Boolean isDisabled()
+        {
+            return this._disabled;
+        }
+
+        public Boolean hasError(){
+            return this._error != null && !this._error.isEmpty();
+        }
+
+        public ValidationRule(String name, String[] fields, Predicate<T> conditionFnc, Boolean disabled) {
+            this._name = name;
+            this._fields = fields;
+            this._conditionFnc = conditionFnc;
+            this._disabled = disabled;
+        }
+
+        public ValidationRule(String name, String[] fields, String error, Predicate<T> conditionFnc, Boolean disabled) {
+            this._name = name;
+            this._fields = fields;
+            this._error = error;
+            this._conditionFnc = conditionFnc;
+            this._disabled = disabled;
+        }
+
+        public ValidationResult Validate(T model) {
+            return this.CreateResult(model, this, this._conditionFnc);
+        }
+
+        public ValidationResult CreateResult(T model, ValidationRule rule, Predicate<T> isInvalidFnc) {
+            return isInvalidFnc.test(model) ?
+            new ValidationResult(rule) : new ValidationResult();
+        }
+
+        public Boolean ExecuteCondition(T model) {
+            return this._conditionFnc.test(model);
+        }
+    }
+
+    public class Variable<TM, T> extends RuleItem {
+        private Function<TM, T> _valueFunc;
+
+        public Variable(String name, T value) {
+            this.setName(name);
+            this._valueFunc = (model) -> value;
+        }
+
+        public Variable(String name, Function<TM, T> valueFunc) {
+            this.setName(name);
+            this._valueFunc = valueFunc;
+        }
+
+        public T GetValue(TM model) {
+            return this._valueFunc.apply(model);
+        }
+    }
+
+    public class OpenValidationSummary {
+        private List<OpenValidationSummaryError> _errors  = new ArrayList<>();
+        private List<String>  _fields = new ArrayList<>();
+
+        public OpenValidationSummaryError[] getErrors()
+        {
+            return this._errors.stream().toArray(OpenValidationSummaryError[]::new);
+        }
+
+        public String[] getFields()
+        {
+            return this._errors.stream()
+                                .filter(e -> e.getFields() != null && e.getFields().length > 0 )
+                                .flatMap(e -> Arrays.stream(e.getFields()) )
+                                .toArray(String[]::new);
+        }
+
+
+        public void AppendError(String error, String[] fields) {
+            this._errors.add(new OpenValidationSummaryError(error, fields));
+        }
+
+        public Boolean hasErrors()
+        {
+            return this._errors != null && this._errors.size() > 0;
+        }
+
+        public List<OpenValidationSummaryError> GeErrors() {
+            return (this.getErrors() != null) ?
+                Arrays.stream(this.getErrors()).filter( distinctByKey(e -> e.getError())).collect(Collectors.toList()) : new ArrayList<>();
+        }
+    }
+
+    public class OpenValidationSummaryError {
+        private String _error;
+        private String[] _fields;
+
+        public String getError()
+        {
+            return _error;
+        }
+
+        public String[] getFields()
+        {
+            return this._fields;
+        }
+
+        public OpenValidationSummaryError(String error, String[] fields) {
+            this._error = error;
+            this._fields = fields;
+        }
+    }
+
+    public class ValidationResult {
+        private ValidationRule _rule;
+
+        public ValidationResult(ValidationRule rule){
+            this.setRule(rule);
+        }
+
+        public ValidationResult(){}
+
+
+        public ValidationRule getRule()
+        {
+            return _rule;
+        }
+
+        public void setRule(ValidationRule rule)
+        {
+            _rule = rule;
+        }
+
+
+        public Boolean hasErrors()
+        {
+            return (getError() != null);
+        }
+
+
+        public String getError()
+        {
+            return (getRule() != null)? getRule().getError() : null;
+        }
+    }
+
+    public class NumberComparator implements Comparator<Number> {
+        public int compare(Number a, Number b){
+            if (a != null && b != null)
+                return new BigDecimal(a.toString()).compareTo(new BigDecimal(b.toString()));
+            else
+                return ((a == null && b != null) || (a != null && b == null))?
+                                 -1 : 0;
+        }
+    }
+
+    private NumberComparator _numcomp = new NumberComparator();
+
+    public <T> Boolean EQUALS(T leftOperand, T rightOperand) {
+        if (leftOperand instanceof Number && rightOperand instanceof Number)
+            return EQUALS((Number) leftOperand, (Number)rightOperand);
+
+
+        if (leftOperand != null && rightOperand != null){
+                if (leftOperand instanceof Enum<?> && rightOperand instanceof String ||
+                rightOperand instanceof Enum<?> && leftOperand instanceof String){
+                    return leftOperand.toString().equals(rightOperand.toString());
+                }
+                else{
+                    return leftOperand.equals(rightOperand);
+                }
+        }
+
+
+        if (leftOperand == null && rightOperand == null)
+            return true;
+
+        return false;
+    }
+
+    public  Boolean EQUALS(Number left, Number right) {
+        if (left != null && right != null)
+            return _numcomp.compare(left, right) == 0;
+
+        return false;
+    }
+
+    public <T> Boolean NOT_EQUALS(T leftOperand, T rightOperand)
+    {
+        return !EQUALS(leftOperand, rightOperand);
+    }
+
+    public Boolean NOT_EQUALS(Number leftOperand, Number rightOperand)
+    {
+        return !EQUALS(leftOperand, rightOperand);
+    }
+
+    public <T> Boolean EMPTY(T operand) {
+        if (operand == null) return true;
+
+        if (operand instanceof String)
+            return ((String)operand).length() < 1;
+
+        if (operand instanceof List<?>)
+            return ((List)operand).size() < 1;
+
+        return false;
+    }
+
+    public <T> Boolean NOT_EMPTY(T operand) {
+        return !EMPTY(operand);
+    }
+
+    public <T> Boolean LESS_THAN(T leftOperand, T rightOperand)
+    {
+        Number left = (Number) leftOperand;
+        Number right = (Number) rightOperand;
+        return _numcomp.compare(left, right) < 0;
+    }
+
+    public <T> Boolean GREATER_THAN( T leftOperand, T rightOperand)
+    {
+        Number left = (Number) leftOperand;
+        Number right = (Number) rightOperand;
+        return _numcomp.compare(left, right) > 0;
+    }
+
+    public <T> Boolean LESS_OR_EQUALS( T leftOperand, T rightOperand)
+    {
+        return LESS_THAN(leftOperand, rightOperand) || EQUALS(leftOperand, rightOperand);
+    }
+
+    public Boolean LESS_OR_EQUALS(Number leftOperand, Number rightOperand)
+    {
+        return LESS_THAN(leftOperand, rightOperand) || EQUALS(leftOperand, rightOperand);
+    }
+
+    public <T> Boolean GREATER_OR_EQUALS( T leftOperand, T rightOperand)
+    {
+        return GREATER_THAN(leftOperand, rightOperand) || EQUALS(leftOperand, rightOperand);
+    }
+
+    public Boolean GREATER_OR_EQUALS(Number leftOperand, Number rightOperand)
+    {
+        return GREATER_THAN(leftOperand, rightOperand) || EQUALS(leftOperand, rightOperand);
+    }
+
+    public <T> Boolean ONE_OF(T leftOperand, T... rightOperand)
+    {
+        boolean value = (rightOperand != null && rightOperand.length > 0);
+        if(value && rightOperand[0] instanceof Collection)
+        {
+            value = ((Collection<T>)rightOperand[0]).stream().anyMatch(i -> i.equals(leftOperand));
+        }
+        else if (value){
+            value = Arrays.stream(rightOperand).anyMatch(i -> i.equals(leftOperand));
+        }
+        else{
+            value = false;
+        }
+        
+        return value;
+    }
+
+    public <T> Boolean AT_LEAST_ONE_OF(T leftOperand, T... rightOperand)
+    {
+        return ONE_OF(leftOperand, rightOperand);
+    }
+
+    public <T> Boolean NONE_OF(T leftOperand, T... rightOperand){
+        return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
+    }
+
+    public <T extends Number> Double SUM_OF(T... items)
+    {
+        if (items == null || items.length < 1)
+            return 0.0;
+
+        return Arrays.stream(items).mapToDouble(i -> i.doubleValue()).sum();
+    }
+
+    public <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
+    {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
+
+    // Arrays...
+    public <T,R> R[] getArrayOf(T[] array, Function<? super T, ? extends R> propertySelctor) {
+        return getArrayOf(Arrays.stream(array).collect(Collectors.toList()), propertySelctor);
+    }
+
+    public <T,R> R[] getArrayOf(List<T> list, Function<? super T, ? extends R> propertySelctor) {
+        if (list == null || list.size() < 1)
+            return null;
+
+        List<R> out = list.stream().map(propertySelctor).collect(Collectors.toList());
+        return listToArray(out);
+    }
+
+    public <T> List<T> toList(T... array) {
+        if (array == null || array.length < 1)
+            return Collections.EMPTY_LIST;
+
+        return Arrays.stream(array).collect(Collectors.toList());
+    }
+
+
+    public static <T> T[] listToArray(List<T> list) {
+        if (list == null || list.size() < 1) return  null;
+
+        T cls = ((T)list.get(0));
+        Class<T> zlz = (Class<T>) cls.getClass();
+
+
+        T[] arr = (T[]) Array.newInstance(zlz, list.size());
+
+        for (int i = 0; i < list.size(); ++i) {
+            arr[i] = list.get(i);
+        }
+
+        return arr;
+    }
+
+    public <T> T[] where(T[] array, Predicate<? super T> condition) {
+        return where(toList(array), condition);
+    }
+
+    public <T> T[] where(List<T> list, Predicate<? super T> condition) {
+        if (list == null || list.size() < 1)
+            return null;
+
+        List<T> out = list.stream().filter(condition).collect(Collectors.toList());
+        return listToArray(out);
+    }
+
+    //first functions
+
+    public <T> T FIRST(List<T> list) {
+        return FIRST(listToArray(list));
+    }
+
+    public <T> T FIRST(T[] array) {
+        return atPosition(array, 0);
+    }
+
+    public <T,R> R FIRST(List<T> list, Function<? super T, ? extends R> propertySelctor) {
+        return FIRST(listToArray(list), propertySelctor);
+    }
+
+    public <T,R> R FIRST(T[] array, Function<? super T, ? extends R> propertySelctor) {
+        if (array == null || array.length < 1)
+            return null;
+
+        List<R> out = Arrays.stream(array).map(propertySelctor).collect(Collectors.toList());
+        return FIRST(out);
+    }
+
+    public <T,R> R[] FIRST(List<T> list, Function<? super T, ? extends R> propertySelctor, int amount) {
+        return FIRST(listToArray(list), propertySelctor, amount);
+    }
+
+    public <T,R> R[] FIRST(T[] array, Function<? super T, ? extends R> propertySelctor, int amount) {
+        if (array == null || array.length < 1)
+            return null;
+
+        List<R> out = Arrays.stream(array).map(propertySelctor).collect(Collectors.toList());
+        return FIRST(out, amount);
+    }
+
+    public <T> T[] FIRST(List<T> list, int amout){
+        return FIRST(listToArray(list), amout);
+    }
+
+    public <T> T[] FIRST(T[] array, int amout){
+        if (array == null || array.length < 1) return  null;
+
+        List<T> out = Arrays.stream(array).limit(amout).collect(Collectors.toList());
+        return listToArray(out);
+    }
+
+    //#end first functions
+
+
+
+    //last
+    public <T> T LAST(List<T> list) {
+        return LAST(listToArray(list));
+    }
+
+    public <T> T LAST(T[] array) {
+        if (array.length > 0 )
+            return atPosition(array, array.length-1);
+
+        return null;
+    }
+
+    public <T,R> R LAST(List<T> list, Function<? super T, ? extends R> propertySelctor) {
+        return LAST(listToArray(list), propertySelctor);
+    }
+
+    public <T,R> R LAST(T[] array, Function<? super T, ? extends R> propertySelctor) {
+        if (array == null || array.length < 1)
+            return null;
+
+        List<R> out = Arrays.stream(array).map(propertySelctor).collect(Collectors.toList());
+        return LAST(out);
+    }
+
+    public <T> T[] LAST(List<T> list, int amout){
+        return LAST(listToArray(list), amout);
+    }
+
+    public <T> T[] LAST(T[] array, int amout){
+        if (array == null || array.length < 1)
+        return null;
+
+        Deque<T> result = new ArrayDeque<>(amout);
+        Arrays.stream(array).forEachOrdered(x -> {
+            if (result.size() == amout) {
+                result.pop();
+            }
+            result.add(x);
+        });
+
+        return listToArray(new ArrayList<>(result));
+    }
+
+    public <T,R> R[] LAST(List<T> list, Function<? super T, ? extends R> propertySelctor, int amount) {
+        return LAST(listToArray(list), propertySelctor, amount);
+    }
+
+    public <T,R> R[] LAST(T[] array, Function<? super T, ? extends R> propertySelctor, int amount) {
+        if (array == null || array.length < 1)
+        return null;
+
+        List<R> out = Arrays.stream(array).map(propertySelctor).collect(Collectors.toList());
+        return LAST(out, amount);
+    }
+
+    public <T> int sizeOf(List<T> list) {
+        if (list == null) return 0;
+
+        return list.size();
+    }
+
+    public <T> int sizeOf(T[] array) {
+        if (array == null || array.length < 1)
+            return 0;
+
+        return array.length;
+    }
+
+    //#end last functions
+
+    public <T> T atPosition(List<T> list, int position) {
+        return atPosition(listToArray(list), position);
+    }
+
+    public <T> T atPosition(T[] array, int position) {
+        if (array != null && array.length > position)
+            return array[position];
+
+        return null;
+    }
+
+    //#end array functions
+}

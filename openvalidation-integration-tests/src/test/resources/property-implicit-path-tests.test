@@ -1,0 +1,72 @@
+################# property implicit path access on unique ########################
+
+If the person's name is Peter
+then Peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# property implicit path access on unique uppercase to lowercase correction ########################
+
+If the person's Name is Peter
+then Peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# property implicit path access on unique lowercase to uppercase correction ########################
+
+If the person's name is Peter
+then Peter is not allowed
+
+{Contract: {Person: {Name: ''}}}
+
+--------------  invalid  -------------------
+{Contract: {Person: {Name: Peter}}}
+
+{id: 12345, Contract: {Person: {Name: Peter}}}
+
+{id: 12345, Contract: {Person: {Name: Peter}}, age: 25}
+
+{id: 12345, Contract: {Person: {Name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+
+################# property implicit path access on unique with underline in property name ########################
+
+If the any name is Peter
+then Peter is not allowed
+
+{person: {any_name: ''}}
+
+--------------  invalid  -------------------
+{person: {any_name: Peter}}
+
+{id: 12345, person: {any_name: Peter}}
+
+{id: 12345, person: {any_name: Peter}, age: 25}
+
+{id: 12345, person: {any_name: Peter}, age: 25, married: true}
+
+Peter is not allowed

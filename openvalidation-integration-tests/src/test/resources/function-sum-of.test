@@ -1,0 +1,110 @@
+################# function sum of all shares example ########################
+
+sum of portfolio.shares.percentage as totalsum
+
+if totalsum of all shares is not equal 100 %
+then the total sum of all portfolio shares should be exactly 100%
+
+{portfolio:{shares:[{percentage: 2.1}]}}
+
+--------------  invalid  -------------------
+{portfolio:{shares:[{percentage: 20}, {percentage: 70}]}}
+
+{portfolio:{shares:[{percentage: 20}, {percentage: 70}, {percentage: 5}]}}
+
+{portfolio:{shares:[{percentage: 20}, {percentage: 70}, {percentage: 5}, {percentage: 3}]}}
+
+{portfolio:{shares:[{percentage: 20}, {percentage: 70}, {percentage: 10}, {percentage: 1}]}}
+
+{portfolio:{shares:[{percentage: 20}, {percentage: 70}, {percentage: 10}, {percentage: 0.0001}]}}
+
+the total sum of all portfolio shares should be exactly 100%
+
+################# function sum of ages ########################
+
+sum of people.age as ages
+
+if ages greater 100
+then old people
+
+if ages less than 100
+then young people
+
+if ages equal 100
+then some people
+
+{people:[{age: 12}]}
+
+--------------  less 100  -------------------
+{people:[{age: 12}]}
+
+{people:[{age: 12}, {age: 24}]}
+
+{people:[{age: 12}, {age: 24}, {age: 48}]}
+
+
+young people
+
+--------------  equal 100  -------------------
+{people:[{age: 50}, {age: 40}, {age: 10}]}
+
+
+some people
+
+--------------  greater 100  -------------------
+{people:[{age: 50}, {age: 51}]}
+
+{people:[{age: 50}, {age: 51}, {age: 52}]}
+
+{people:[{age: 50}, {age: 51}, {age: 52}, {age: 55}]}
+
+{people:[{age: 50}, {age: 51}, {age: 52}, {age: 55}, {age: 67}]}
+
+
+old people
+
+################# function sum of compare sum of ########################
+
+sum of people.age as people_ages
+
+sum of animals.age as animal_ages
+
+if people_ages less than animal_ages
+then it is a wild world
+
+if people_ages equal animal_ages
+then it is a petting zoo
+
+if people_ages greater than animal_ages
+then it is manhattan
+
+{people:[{age: 12}], animals:[{age:1}]}
+
+--------------  people greater animals  -------------------
+{people:[{age: 12}]}
+
+{people:[{age: 12}, {age: 24}], animals:[{age:35}]}
+
+{people:[{age: 12}, {age: 24}, {age: 1}], animals:[{age:35}]}
+
+{people:[{age: 2}, {age: 4}], animals:[{age: 1}]}
+
+{people:[{age: 2}, {age: 4}], animals:[{age: 1}, {age: 3}]}
+
+it is manhattan
+
+--------------  people equal animals  -------------------
+{people:[{age: 50}], animals:[{age: 50}]}
+
+
+it is a petting zoo
+
+--------------  people less than animals  -------------------
+{animals:[{age:35}]}
+
+{people:[{age: 12}, {age: 22}], animals:[{age:35}]}
+
+{people:[{age: 12}, {age: 22}], animals:[{age:35}, {age: 120}]}
+
+
+it is a wild world

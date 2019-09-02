@@ -1,0 +1,34 @@
+################# arrays strings one of static ########################
+
+if name one of Boris, Donald, Jimmy
+then error1
+
+if the name is one of Jenny, Lenny, Penny
+then error2
+
+{name:"lenny"}
+
+--------------  num1  -------------------
+
+{name:"Jimmy"}
+
+error1
+
+--------------  num2  -------------------
+
+{name:"Penny"}
+
+error2
+
+################# arrays strings one of based on schema ########################
+
+if key one of names
+then name is invalid
+
+{key:'', names:['']}
+
+--------------  num1  -------------------
+
+{key:Jimmy, names:[Jimmy, Jonny, Ronny, Steve]}
+
+name is invalid

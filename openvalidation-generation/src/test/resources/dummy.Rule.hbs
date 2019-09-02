@@ -1,0 +1,11 @@
+{
+    {{#if this.ruleName}}
+        {{#autotemp this.ruleName}}
+        {{/autotemp}}
+    {{/if}}
+    
+    method : function(model) {
+        return logic;
+    },
+    error: '{{errorMsg}}',
+}

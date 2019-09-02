@@ -1,0 +1,241 @@
+
+################# condition variables with variable referencing another variable  ########################
+
+value AS var1
+
+var1 AS var2
+
+If var2 equals valueofproperty
+then error
+
+
+{value:''}
+
+
+--------------  value -------------------
+
+{value:'valueofproperty'}
+
+error
+
+################# condition variables with variable referencing chain with length of 5  ########################
+
+value AS var1
+
+var1 AS var2
+
+var2 AS var3
+
+var3 AS var4
+
+var4 AS var5
+
+If var5 equals valueofproperty
+then error
+
+
+{value:''}
+
+
+--------------  value -------------------
+
+{value:'valueofproperty'}
+
+error
+
+
+################# condition variables with variable referencing a string  ########################
+
+some text AS var
+
+If var equals some text
+then error
+
+
+{value:''}
+
+
+--------------  value -------------------
+
+{value:'valueofproperty'}
+
+error
+
+
+################# condition variables with variable referencing a string property ########################
+
+text AS var
+
+If var equals text
+then error
+
+
+{value: ''}
+
+
+--------------  value -------------------
+
+{value:'a random string'}
+
+error
+
+################# condition variables with variable referencing a number ########################
+
+25 AS var
+
+If var equals number
+then error
+
+
+{number: 100}
+
+
+--------------  value -------------------
+
+{number: 25}
+
+error
+
+################# condition variables with variable referencing a number property ########################
+
+number AS var
+
+If var is 25
+then error
+
+
+{number: 100}
+
+
+--------------  value -------------------
+
+{number: 25}
+
+error
+
+################# condition variables with variable referencing a bool property implicit 1 ########################
+
+boolean AS var
+
+If var
+then error
+
+
+{boolean: true}
+
+
+--------------  value -------------------
+
+{boolean: true}
+
+error
+
+
+################# condition variables with variable referencing a bool property implicit 2 with comparison keyword in sugar ########################
+
+con_signed AS signed
+
+If contract is not signed
+then error
+
+
+{con_signed: true}
+
+
+--------------  value -------------------
+
+{con_signed: false}
+
+error
+
+################# condition variables with variable referencing a bool property implicit 3 german grammar style ########################
+
+con_signed AS signed
+
+If not signed IS
+then error
+
+
+{con_signed: true}
+
+
+--------------  value -------------------
+
+{con_signed: false}
+
+error
+
+################# condition variables with variable referencing a bool property implicit 3 german grammar style with string as sugar 2 ########################
+
+con_signed AS signed
+
+If the contract not signed IS
+then error
+
+
+{con_signed: true}
+
+
+--------------  value -------------------
+
+{con_signed: false}
+
+error
+
+################# condition variables with variable referencing a bool property implicit 2 with object property comparison ########################
+
+con_signed AS signed
+
+If contract is not signed
+then error
+
+
+{contract: {id: 1}, con_signed: true}
+
+
+--------------  value -------------------
+
+{contract: {id: 1}, con_signed: false}
+
+error
+
+
+
+
+
+
+
+
+################# condition variables with variable referencing a bool property implicit 3 german grammar style with object property as sugar 2 ########################
+
+con_signed AS signed
+
+If the contract not signed IS
+then error
+
+
+{contract: {id: 1}, con_signed: true}
+
+
+--------------  value -------------------
+
+{contract: {id: 1}, con_signed: false}
+
+error
+
+################# condition with variable referencing a bool property implicit 3 german grammar style with only boolean in comparison ########################
+
+con_signed AS signed
+
+If signed wahr IS
+then error
+
+
+{contract: {id: 1}, con_signed: true}
+
+
+--------------  value -------------------
+
+{contract: {id: 1}, con_signed: true}
+
+error

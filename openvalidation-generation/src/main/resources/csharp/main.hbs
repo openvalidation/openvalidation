@@ -1,0 +1,49 @@
+{{#if params.single_file}}
+{{tmpl "frameworkimports"}}
+{{/if}}
+
+namespace {{params.generated_class_namespace}}
+{
+    public class {{params.generated_class_name}} : HUMLFramework.IOpenValidator
+    {
+        public HUMLFramework huml;
+
+        public {{params.generated_class_name}}()
+        {
+            huml = new HUMLFramework();
+
+{{#if nullCheckRules}}
+    //pre validation null checks rules
+    {{#nullCheckRules}}        {{tmpl}}
+
+    {{/nullCheckRules}}
+    //++++++++++++++++++++++++++++++++
+{{/if}}
+
+
+
+    {{#elements}}        {{tmpl}}
+
+    {{/elements}}
+
+        }
+
+        public String ValidatorID {
+            get {
+                return {{#if params.validatorID}}"{{params.validatorID}}"{{else}}""{{/if}};
+            }
+        }
+
+        public HUMLFramework.OpenValidationSummary Validate({{params.model_type}} model) {
+            return huml.validate(model);
+        }
+
+        public HUMLFramework.OpenValidationSummary Validate(Object model) {
+            return this.Validate(({{params.model_type}})model);
+        }
+
+        {{#if params.single_file}}
+            {{tmpl "framework"}}
+        {{/if}}
+    }
+}

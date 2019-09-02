@@ -1,0 +1,268 @@
+################# arithmetic sugar times divide static as var with sugar equals property ########################
+
+5 * number / 5 as first1
+
+5 times number / 5 as second
+
+5 * number divided by 5 as third
+
+5 times number divided by 5 as fourth
+
+5 things * number things / 5 stuff as fifth
+
+5 things times number things divided by 5 stuff as sixt
+
+if first1 equals 5
+then error as number 5
+
+if second equals 4
+then error as number 4
+
+if third equals 3
+then error as number 3
+
+if fourth equals 2
+then error as number 2
+
+if fifth equals 6
+then error as number 6
+
+if sixt equals 7
+then error as number 7
+
+{number:0}
+
+--------------  num1  -------------------
+
+{number:5}
+
+error as number 5
+
+--------------  num2  -------------------
+
+{number:4}
+
+error as number 4
+
+--------------  num3  -------------------
+
+{number:3}
+
+error as number 3
+
+--------------  num4  -------------------
+
+{number:2}
+
+error as number 2
+
+--------------  num5  -------------------
+
+{number:6}
+
+error as number 6
+
+--------------  num6  -------------------
+
+{number:7}
+
+error as number 7
+
+################# arithmetic sugar times static as var with sugar equals property ########################
+
+5 
+    * 
+        number / 5 as first1
+
+5 times 
+number / 5 as second
+
+5 
+    * number divided by 5 as third
+
+                5 times 
+number divided by 5 as fourth
+
+5 
+things 
+* 
+number 
+things 
+/ 
+5 
+stuff 
+as fifth
+
+5 
+things 
+times 
+number                  things 
+divided by 5 
+stuff 
+as sixt
+
+if first1 equals 5
+then error as number 5
+
+if second equals 4
+then error as number 4
+
+if third equals 3
+then error as number 3
+
+if fourth equals 2
+then error as number 2
+
+if fifth equals 6
+then error as number 6
+
+if sixt equals 7
+then error as number 7
+
+{number:0}
+
+--------------  num1  -------------------
+
+{number:5}
+
+error as number 5
+
+--------------  num2  -------------------
+
+{number:4}
+
+error as number 4
+
+--------------  num3  -------------------
+
+{number:3}
+
+error as number 3
+
+--------------  num4  -------------------
+
+{number:2}
+
+error as number 2
+
+--------------  num5  -------------------
+
+{number:6}
+
+error as number 6
+
+--------------  num6  -------------------
+
+{number:7}
+
+error as number 7
+
+################# arithmetic sugar equals property withbraces ########################
+
+(5 * number) / 5 as first1
+
+(5 times number / 5) as second
+
+((5 * number) divided by 5) as third
+
+((5 times number) divided by 5) as fourth
+
+((5 things * number things) / 5) stuff as fifth
+
+((((5 things times number things)) divided by 5)) stuff as sixt
+
+if first1 equals 5
+then error as number 5
+
+if second equals 4
+then error as number 4
+
+if third equals 3
+then error as number 3
+
+if fourth equals 2
+then error as number 2
+
+if fifth equals 6
+then error as number 6
+
+if sixt equals 7
+then error as number 7
+
+{number:0}
+
+--------------  num1  -------------------
+
+{number:5}
+
+error as number 5
+
+--------------  num2  -------------------
+
+{number:4}
+
+error as number 4
+
+--------------  num3  -------------------
+
+{number:3}
+
+error as number 3
+
+--------------  num4  -------------------
+
+{number:2}
+
+error as number 2
+
+--------------  num5  -------------------
+
+{number:6}
+
+error as number 6
+
+--------------  num6  -------------------
+
+{number:7}
+
+error as number 7
+
+################# arithmetic sugar equals property withbraces ########################
+
+(5 * number) / 5 as first1
+
+(5 times number / 5) as second
+
+((5 * number) divided by 5) as third
+
+((5 times number) divided by 5) as fourth
+
+((5 things * number things) / 5) stuff as fifth
+
+((((5 things times number things)) divided by 5)) stuff as sixt
+
+if first1 equals 5
+then error as number 5
+
+if second equals 4
+then error as number 4
+
+if third equals 3
+then error as number 3
+
+if fourth equals 2
+then error as number 2
+
+if fifth equals 6
+then error as number 6
+
+if sixt equals 7
+then error as number 7
+
+{number:0}
+
+--------------  num1  -------------------
+
+{number:5}
+
+error as number 5

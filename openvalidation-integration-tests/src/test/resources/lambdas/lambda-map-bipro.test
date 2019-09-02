@@ -1,0 +1,50 @@
+################# lambda map bipro simple  ########################
+
+SUM OF   shares.percentage
+    AS   total_sum
+
+a total_sum of all shares should not be 100 %
+
+
+{shares:[ { percentage: 20 }]}
+
+
+--------------  sum of mapped array -------------------
+
+{ shares:[ { percentage: 20 }, { percentage: 80 }]}
+
+a total_sum of all shares should not be 100 %
+
+
+################# lambda map bipro sum of tests  ########################
+
+SUM OF   portfolio.shares.percentage
+    AS   TOTAL_SUM
+
+    IF   a TOTAL_SUM of all shares is NOT EQUALS 100 %
+  THEN   The total sum of all portfolio shares should be exactly 100%
+
+    IF   the name of product EQUALS TikTok
+  THEN   i do not like it
+
+
+{name: "string", portfolio:{ shares:[ { percentage: 20 }]}}
+
+
+--------------  sum of mapped array -------------------
+
+{ portfolio:{shares:[{percentage:98},{percentage:1}]} }
+
+{ portfolio:{shares:[{percentage:98},{percentage:3}]} }
+
+
+The total sum of all portfolio shares should be exactly 100%
+
+
+--------------  more and less  -------------------
+
+
+{ name:'TikTok', portfolio:{shares:[{percentage:100}]} }
+
+
+i do not like it

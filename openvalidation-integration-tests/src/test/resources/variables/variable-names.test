@@ -1,0 +1,63 @@
+################# variable name contains keyword should working  ########################
+
+value AS variable of
+
+a variable of should not be valueofproperty
+
+
+{value:''}
+
+
+--------------  value -------------------
+
+{value:'valueofproperty'}
+
+a variable of should not be valueofproperty
+
+################# variable name contains multiplekeywords should working  ########################
+
+value AS and variable of
+
+a and variable of should not be valueofproperty
+
+
+{value:''}
+
+
+--------------  value -------------------
+
+{value:'valueofproperty'}
+
+a and variable of should not be valueofproperty
+
+################# variable name base64 long name  ########################
+
+value AS GjEWf7TjiSXXbGLHIFalANeZLZCAwUBWPPMtitlqOE
+
+GjEWf7TjiSXXbGLHIFalANeZLZCAwUBWPPMtitlqOE must not be value
+
+
+{value:''}
+
+
+--------------  value -------------------
+
+{value:'valueofproperty'}
+
+GjEWf7TjiSXXbGLHIFalANeZLZCAwUBWPPMtitlqOE must not be value
+
+################# variable name base64 very long 64 byte name  ########################
+
+value AS HPaEFhq7TC-Y3uvq6LUH32H7X6YeoQz7rboDJmS3TaUE4G9KKn0jb13QsWaTLKF41VThejAouR9OVyInJjYxCA
+
+HPaEFhq7TC-Y3uvq6LUH32H7X6YeoQz7rboDJmS3TaUE4G9KKn0jb13QsWaTLKF41VThejAouR9OVyInJjYxCA must not be value
+
+
+{value:''}
+
+
+--------------  value -------------------
+
+{value:'valueofproperty'}
+
+HPaEFhq7TC-Y3uvq6LUH32H7X6YeoQz7rboDJmS3TaUE4G9KKn0jb13QsWaTLKF41VThejAouR9OVyInJjYxCA must not be value

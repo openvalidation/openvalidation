@@ -1,0 +1,6 @@
+FROM openjdk:8-jdk-alpine
+EXPOSE 80
+
+COPY ./ov-rest.jar .
+
+ENTRYPOINT ["java","-jar","/ov-rest.jar","--server.port=80"]

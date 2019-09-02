@@ -1,0 +1,165 @@
+Complete_with_schema_accessor_path_for_numeric
+
+Person.Age AS Age
+
+---------------------------------------------------------------------
+Complete_with_schema_accessor_path_for_string
+
+Person.Name AS Name
+
+---------------------------------------------------------------------
+Complete_with_schema_accessor_path_for_boolean
+
+Person.underAge AS Person is underage
+
+---------------------------------------------------------------------
+Complete_with_schema_accessor_path_for_array
+
+Person.Parents AS Adresses
+
+---------------------------------------------------------------------
+Complete_with_schema_accessor_path_for_object
+
+Person.favouriteObject AS Persons favourite object
+
+---------------------------------------------------------------------
+
+Complete_with_schema_arithmetic_with_accessor_paths_addition_AS_symbol
+
+Person.Age + 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_subtraction_AS_symbol
+
+Person.Age - 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_multiplication_AS_symbol
+
+Person.Age * 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_division_AS_symbol
+
+Person.Age / 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_exponential_AS_symbol
+
+Person.Age ^ 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_addition_AS_symbol_no_spacing_at_operator
+
+Person.Age+18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_subtraction_AS_symbol_no_spacing_at_operator
+
+Person.Age-18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_multiplication_AS_symbol_no_spacing_at_operator
+
+Person.Age*18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_division_AS_symbol_no_spacing_at_operator
+
+Person.Age/18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_exponential_AS_symbol_no_spacing_at_operator
+
+Person.Age^18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_addition_AS_word
+
+Person.Age PLUS 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_subtraction_AS_word
+
+Person.Age MINUS 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_multiplication_AS_word
+
+Person.Age TIMES 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_division_AS_word
+
+Person.Age DIVIDED BY 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_exponential_AS_word
+
+Person.Age TO THE POWER OF 18 AS A very high number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_addition_AS_word_no_spacing_at_operator
+
+Person.AgePLUS18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_subtraction_AS_word_no_spacing_at_operator
+
+Person.AgeMINUS18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_multiplication_AS_word_no_spacing_at_operator
+
+Person.AgeTIMES18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_division_AS_word_no_spacing_at_operator
+
+Person.AgeDIVIDED BY18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_exponential_AS_word_no_spacing_at_operator
+
+Person.AgeTO THE POWER OF18 AS A very high number
+
+---------------------------------------------------------------------
+Complete_with_schema_long_arithmetic_with_accessor_paths
+
+Person.Age * 18 - 2000 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessor_paths_with_sugar
+
+The Person.Age * 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_long_arithmetic_with_accessor_paths_with_sugar
+
+The Person.Age * 18 - 2000 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_long_arithmetic_with_accessor_paths_with_parentheses
+
+Person.Age * (18 - Person.Age) AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_long_arithmetic_with_accessor_paths_with_parentheses_with_sugar
+
+The Person.Age * (18 - the Person.Age) AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_complex_arithmetic_with_accessor_paths_with_parentheses
+
+The Person.Age + ((18 - 2) * the Person.Age) AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_complex_arithmetic_with_accessor_paths_with_parentheses_exponential
+
+(Person.Age + 2000) ^ (Person.Age - 8) AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_complex_arithmetic_with_accessor_paths_with_parentheses_with_sugar
+
+The Person.Age + ((18 - 2) * the Person.Age) AS Some number
+

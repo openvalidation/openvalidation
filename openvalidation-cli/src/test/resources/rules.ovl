@@ -1,0 +1,11 @@
+IMPORTIERE model.ovl
+
+WENN  das Alter IST KLEINER ALS 18
+DANN  Sie müssen mindestens 18 Jahre Alt sein, um sich bewerben zu können!
+ALS   Ist_Noch_Keine_18
+
+WENN  die Kuendigungsfrist IST GRÖßER ALS 4 Wochen
+DANN  Die Kündigungsfrist kann maximal 4 Wochen zum Monatsende betragen.
+
+WENN  das Jahresbruttogehalt IST MEHR ALS 100000 EUR    UND die Berufserfahrung IST WENIGER ALS 10 Jahre
+DANN  Sie benötigen mindestens 10 Jahre Berufserfahrung und einen sehr guten Grund, um ein Gehalt von über 100.000€ zu verlangen!

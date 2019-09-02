@@ -1,0 +1,31 @@
+KOMMENTAR dies ist ein Kommentar
+
+      das Alter - 18 Jahre
+ ALS  TaatsaechlicheBerufserfahrung
+
+      Berufserfahrung
+ ALS  AngegebeneBerufserfahrung
+
+      die TaatsaechlicheBerufserfahrung ist GRÖßER als 10 Jahre
+ ALS  Senior
+
+
+WENN  der Bewerber KEIN Senior ist
+DANN  Sie sind noch kein Senior!
+
+WENN  das Alter des Bewerbers ist KLEINER als 18 Jahre
+DANN  Sie müssen mindestens 18 Jahre Alt sein, um sich bewerben zu können!
+
+WENN  die Kuendigungsfrist ist GRÖßER als 4 Wochen
+DANN  Die Kündigungsfrist kann maximal 4 Wochen zum Monatsende betragen.
+
+WENN  das Jahresbruttogehalt des Bewerbers ist MEHR als 100000 EUR
+UND   seine Berufserfahrung ist WENIGER als 10 Jahre
+DANN  Sie benötigen mindestens 10 Jahre Berufserfahrung und einen sehr guten Grund, um ein Gehalt von über 100.000€ zu verlangen!
+
+WENN  TaatsaechlicheBerufserfahrung ist KLEINER als die AngegebeneBerufserfahrung
+DANN  Ihre Berufserfahrung und Ihr Alter stimmen nicht überein. Die Berufserfahrung zählt ab dem 18'en Lebensjahr!
+
+WENN  der Ort des Bewerbers IST Gelsenkirchen
+ UND  sein Name ist NICHT Christian
+DANN  geh doch zu Hause du alte Scheiben Kleister

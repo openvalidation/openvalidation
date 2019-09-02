@@ -1,0 +1,178 @@
+_if_src
+
+_if_src zeug
+
+_if_src _then_src
+
+_if_src zeug _then_src
+
+_if_src _then_src zeug
+
+_if_src zeug _as_src
+
+_if_src _as_src
+
+_if_src zeug _as_src
+
+_if_src _as_src zeug
+
+_if_src _then_src _as_src
+
+_if_src _then_src _as_src zeug
+
+_if_src _then_src zeug _as_src
+
+_if_src _then_src zeug _as_src zeug
+
+_if_src zeug _then_src _as_src
+
+_if_src zeug _then_src _as_src zeug
+
+_if_src zeug _then_src zeug _as_src
+
+_then_src
+
+_then_src zeug
+
+zeug _then_src
+
+_then_src _as_src zeug
+
+_then_src zeug _as_src
+
+_then_src zeug _as_src zeug
+
+zeug _then_src _as_src
+
+zeug _then_src _as_src zeug
+
+zeug _then_src zeug _as_src
+
+_as_src
+
+_as_src zeug
+
+zeug _as_src
+
+zeug _as_src zeug
+
+
+
+zeug
+_and_src zeug
+    _and_src zeug
+_then_src
+_as_src zeug
+
+zeug
+_and_src zeug
+    _and_src zeug (1337)
+_then_src zeug
+_as_src zeug
+
+_if_src zeug
+    _and_src zeug() _operator_operatorname_src 1337
+    _and_src das zeug _of_src zeug
+_then_src zeug
+_as_src zeug
+
+_if_src zeug
+    _and_src das ding zeug _of_src zeug
+_then_src zeug
+_as_src zeug
+
+_if_src _of_src
+_then_src zeug
+
+_if_src _of_src zeug
+_then_src zeug
+
+_if_src zeug _of_src
+_then_src zeug
+
+_if_src das _of_src
+_then_src zeug
+
+_if_src das zeug _of_src
+_then_src zeug
+
+_if_src das zeug _of_src ze)ug
+_then_src zeug
+
+_if_src das ze)ug _of_src zeug
+_then_src zeug
+
+_if_src das ze)ug _of_src ze)ug
+_then_src zeug
+
+
+
+_if_src _then_src _as_src name+-*/
+
+_if_src _then_src _as_src name.
+
+_if_src _then_src _as_src name()
+
+_if_src _then_src _as_src (name)
+
+
+zeug
+_and_src noch.mehr-zeug
+_or_src zeug _of_src zeug
+_then_src action
+
+
+_if_src _and_src noch.mehr-zeug
+_or_src zeug _of_src zeug
+
+
+_and_src noch.mehr-zeug
+_or_src zeug _of_src zeug
+_then_src
+
+_if_src
+_and_src noch.mehr-zeug
+_or_src zeug _of_src zeug
+_then_src
+
+_if_src
+_and_src noch.mehr-zeug
+_or_src zeug _of_src zeug
+_then_src
+_as_src
+
+_if_src
+_and_src noch.mehr-zeug
+_or_src zeug _of_src zeug
+_then_src action
+_as_src
+
+
+_if_src
+_and_src noch.mehr-zeug
+_or_src zeug _of_src zeug
+_then_src action
+_as_src corrupted
+name
+
+_if_src zeug _if_src zeug
+
+_if_src zeug _if_src _then_src action
+
+_if_src zeug _then_src _then_src action
+
+_if_src zeug _as_src _then_src action
+
+_if_src zeug _as_src _then_src action
+
+_if_src zeug _then_src action _errorcode_src 123
+
+_if_src zeug _then_src action _errorcode_src
+
+_if_src zeug _then_src action _errorcode_src
+
+_if_src zeug _then_src_errorcode_src 123
+
+_if_src zeug _then_src_errorcode_src123
+
+_if_src zeug _then_src_errorcode_src

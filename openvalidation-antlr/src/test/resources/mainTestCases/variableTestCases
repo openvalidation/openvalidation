@@ -1,0 +1,451 @@
+#########################################
+Variable_with_arithmetic_with_negative_value_at_beginning
+
+_arithmoperator_minus_sourceText 1 _arithmoperator_plus_sourceText 2 _as_sourceText Some
+
+----------------------------------------
+
+variable
+    arithmetic
+        operator minus
+        content 1
+        operator plus
+        content 2
+    name Some
+
+#########################################
+Variable_with_arithmetic_with_negative_value_after_operator
+
+1 _arithmoperator_plus_sourceText _arithmoperator_minus_sourceText 2 _as_sourceText Some
+
+----------------------------------------
+
+variable
+    arithmetic
+        content 1
+        operator plus
+        operator minus
+        content 2
+    name Some
+
+
+#########################################
+Variable_with_content
+
+Any _as_sourceText Some
+
+----------------------------------------
+
+variable
+  content Any
+  name Some
+
+#########################################
+Variable_multiword_name
+
+Any _as_sourceText Some Name
+
+----------------------------------------
+
+variable
+    content Any
+    name Some Name
+    
+    
+#########################################
+Variable_multiline_name
+
+Any _as_sourceText Some
+Name
+
+----------------------------------------
+
+variable
+    content Any
+    name Some Name
+    
+    
+#########################################
+Variable_whitespace_in_content
+
+   A
+     n
+       y _as_sourceText Some
+
+----------------------------------------
+
+variable
+    content A      n        y
+    name Some
+   
+   
+   
+   
+   
+#########################################
+
+Variable_links_und_rechts_Newlines_und_Spaces_auch_am_Anfang_einer_Newline_und_Newlines_vor_und_nach_as
+
+  Bruce the
+    Wayne
+      _as_sourceText
+    Bat the
+  man
+
+----------------------------------------
+
+
+variable
+    content Bruce the     Wayne
+    name Bat the   man
+    
+#########################################
+
+
+Variable_links_und_rechts_Newlines_und_Spaces_und_Newlines_vor_und_nach_as
+
+Bruce the
+Wayne
+_as_sourceText
+Bat the
+man
+
+----------------------------------------
+
+
+variable
+    content Bruce the Wayne
+    name Bat the man
+    
+#########################################
+
+
+Variable_links_mit_Spaces_rechts_ganzes_Wort
+
+Bruce Wayne _as_sourceText Batman
+
+----------------------------------------
+
+
+variable
+    content Bruce Wayne
+    name Batman
+    
+#########################################
+
+
+Variable_links_mit_Spaces_rechts_mit_Spaces
+
+Bruce Wayne _as_sourceText Bat man
+
+----------------------------------------
+
+
+variable
+    content Bruce Wayne
+    name Bat man
+    
+#########################################
+
+
+Variable_links_und_rechts_mit_Newlines
+
+Bruce
+Wayne _as_sourceText Bat
+man
+
+----------------------------------------
+
+
+variable
+    content Bruce Wayne
+    name Bat man
+    
+#########################################
+
+
+Variable_vor_as_Newline
+
+Bruce
+_as_sourceText Batman
+
+----------------------------------------
+
+
+variable
+    content Bruce
+    name Batman
+    
+#########################################
+
+
+Variable_nach_as_Newline
+
+Bruce _as_sourceText
+Batman
+
+----------------------------------------
+
+
+variable
+    content Bruce
+    name Batman
+    
+#########################################
+
+
+Variable_vor_und_nach_as_Newline
+
+Bruce
+_as_sourceText
+Batman
+
+----------------------------------------
+
+
+variable
+    content Bruce
+    name Batman
+    
+#########################################
+
+
+Variable_links_ganzes_Wort_rechts_mit_Newlines
+
+Batman _as_sourceText
+Bruce
+Wayne
+
+----------------------------------------
+
+variable
+    content Batman
+    name Bruce Wayne
+
+
+#########################################
+
+
+Variable_links_ganzes_Wort_rechts_mit_Spaces
+
+Batman _as_sourceText Bruce Wayne
+
+----------------------------------------
+
+variable
+    content Batman
+    name Bruce Wayne
+
+
+#########################################
+
+
+Variable_beide_Seiten_ganzes_Wort
+
+Batman _as_sourceText Bruce
+
+----------------------------------------
+
+variable
+    content Batman
+    name Bruce
+    
+#########################################
+
+
+
+
+
+
+   
+Variable_variableWith_with_comparison_with_breaks
+
+Person.Pets _with_sourceText 
+    Race 
+    _operator_equals_sourceText
+    DogRaces.Shepperd
+    _as_sourceText 
+MyShepperd
+
+----------------------------------------
+
+variable
+    lambda
+        content Person.Pets
+        accessor_with
+            condition
+                content Race
+                operator equals
+                content DogRaces.Shepperd
+    name MyShepperd
+    
+    
+#########################################
+
+Variable_accessorWith_with_condition
+
+Person.Pets _with_sourceText Race _operator_equals_sourceText DogRaces.Shepperd_as_sourceText MyShepperd
+
+----------------------------------------
+
+
+variable
+    lambda
+        content Person.Pets
+        accessor_with
+            condition
+                content Race
+                operator equals
+                content DogRaces.Shepperd
+    name MyShepperd
+
+#########################################
+
+Variable_with_simple_condition
+
+Partnerrolle _operator_equals_sourceText Versicherungsnehmer _as_sourceText Versicherungsnehmer
+
+----------------------------------------
+
+variable
+    condition
+        content Partnerrolle
+        operator equals
+        content Versicherungsnehmer
+    name Versicherungsnehmer
+    
+#########################################  
+
+Variable_with_condition_group
+
+Der _and_sourceText die _or_sourceText das _as_sourceText Artikel
+
+----------------------------------------
+
+variable
+    condition_group
+            content Der
+            combinator and
+            content die
+            combinator or
+            content das
+    name Artikel
+    
+#########################################  
+
+Variable_with_condition
+
+Der _operator_equals_sourceText das _as_sourceText Artikel
+
+----------------------------------------
+
+variable
+    condition
+            content Der
+            operator equals
+            content das
+    name Artikel
+    
+#########################################  
+        
+Variable_with_arithmetic
+
+123 _arithmoperator_plus_sourceText 456 _as_sourceText An arithmetic
+
+----------------------------------------
+
+
+variable
+    arithmetic
+        content 123
+        operator plus
+        content 456
+    name An arithmetic
+    
+#########################################
+
+        
+Variable_with_accessorWith
+
+Versicherungsnehmer _with_sourceText Partnerrolle _as_sourceText Partner
+
+----------------------------------------
+
+
+variable
+    lambda
+        content Versicherungsnehmer
+        accessor_with
+            content Partnerrolle
+    name Partner
+    
+#########################################
+
+Variable_with_accessorOf
+
+Der _of_sourceText das _as_sourceText Artikel
+
+----------------------------------------
+
+variable
+    accessor_of
+        content Der
+        content das
+    name Artikel
+    
+#########################################  
+
+Variable_with_condition_group_with_missing_first_condition
+
+_and_sourceText die _or_sourceText das _as_sourceText Artikel
+
+----------------------------------------
+
+variable
+    condition_group
+            combinator and
+            content die
+            combinator or
+            content das
+    name Artikel      
+    
+#########################################  
+
+Variable_with_condition_group_with_missing_consecutive_condition
+
+Der _and_sourceText _or_sourceText das _as_sourceText Artikel
+
+----------------------------------------
+
+variable
+    condition_group
+            content Der
+            combinator and
+            combinator or
+            content das
+    name Artikel      
+    
+#########################################
+Variable_with_content_with_single_parenthesis_in_content
+
+An_lparen_y _as_sourceText Some
+
+----------------------------------------
+
+variable
+    content An_lparen_y
+    name Some
+    
+    
+#########################################
+Variable_with_content_with_multiple_parenthesis_in_content
+
+An_lparen_y_lparen_thi_rparen_n_lparen_g _as_sourceText Some
+
+----------------------------------------
+
+variable
+    content An_lparen_y_lparen_thi_rparen_n_lparen_g
+    name Some
+    
+

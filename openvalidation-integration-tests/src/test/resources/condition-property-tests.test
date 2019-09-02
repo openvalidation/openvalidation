@@ -1,0 +1,219 @@
+################# condition property with explicit property string comparison ########################
+
+If person.name is Peter
+then Error message
+
+{person: {name: ''}}
+
+--------------  invalid  -------------------
+{person: {name: Peter}}
+
+{id: 12345, person: {name: Peter}}
+
+{id: 12345, person: {name: Peter}, age: 25}
+
+{id: 12345, person: {name: Peter}, age: 25, married: true}
+
+Error message
+
+################# condition property with explicit property decimal comparison ########################
+
+If person.age is 25
+then Error message
+
+{person: {age: 0}}
+
+--------------  invalid  -------------------
+{person: {age: 25}}
+
+{id: 12345, person: {age: 25}}
+
+{id: 12345, person: {age: 25}, job: Technician}
+
+{id: 12345, person: {age: 25}, job: Technician, married: true}
+
+Error message
+
+################# condition property with explicit property bool comparison explicit ########################
+
+If person.fulltime is true
+then Error message
+
+{person: {fulltime: true}}
+
+--------------  invalid  -------------------
+{person: {fulltime: true}}
+
+{id: 12345, person: {fulltime: true}}
+
+{id: 12345, person: {fulltime: true}, job: Technician}
+
+{id: 12345, person: {fulltime: true}, job: Technician, married: true}
+
+Error message
+
+################# condition property with explicit property bool comparison implicit ########################
+
+If person.isAlien
+then Aliens need to apply on the Mars-Station
+
+{person: {isAlien: true}}
+
+--------------  invalid  -------------------
+{person: {isAlien: true}}
+
+{id: 12345, person: {isAlien: true}}
+
+{id: 12345, person: {isAlien: true}, job: Technician}
+
+{id: 12345, person: {isAlien: true}, job: Technician, married: true}
+
+Aliens need to apply on the Mars-Station
+
+
+
+
+
+################# condition property with implicit unique property string comparison ########################
+
+If name is Peter
+then Error message
+
+{person: {name: ''}}
+
+--------------  invalid  -------------------
+{person: {name: Peter}}
+
+{id: 12345, person: {name: Peter}}
+
+{id: 12345, person: {name: Peter}, age: 25}
+
+{id: 12345, person: {name: Peter}, age: 25, married: true}
+
+Error message
+
+################# condition property with implicit unique property decimal comparison ########################
+
+If the age is 25
+then Error message
+
+{person: {age: 0}}
+
+--------------  invalid  -------------------
+{person: {age: 25}}
+
+{id: 12345, person: {age: 25}}
+
+{id: 12345, person: {age: 25}, job: Technician}
+
+{id: 12345, person: {age: 25}, job: Technician, married: true}
+
+Error message
+
+################# condition property with implicit unique property bool comparison implicit ########################
+
+If fulltime is true
+then Error message
+
+{person: {fulltime: true}}
+
+--------------  invalid  -------------------
+{person: {fulltime: true}}
+
+{id: 12345, person: {fulltime: true}}
+
+{id: 12345, person: {fulltime: true}, job: Technician}
+
+{id: 12345, person: {fulltime: true}, job: Technician, married: true}
+
+Error message
+
+################# condition property with implicit unique property bool comparison implicit type I ########################
+
+If isAlien
+then Aliens need to apply on the Mars-Station
+
+{person: {isAlien: true}}
+
+--------------  invalid  -------------------
+{person: {isAlien: true}}
+
+{id: 12345, person: {isAlien: true}}
+
+{id: 12345, person: {isAlien: true}, job: Technician}
+
+{id: 12345, person: {isAlien: true}, job: Technician, married: true}
+
+Aliens need to apply on the Mars-Station
+
+################# condition property with implicit unique property bool comparison implicit type II ########################
+
+If the employee is an alien
+then Aliens need to apply on the Mars-Station
+
+{person: {alien: true}}
+
+--------------  invalid  -------------------
+{person: {alien: true}}
+
+{id: 12345, person: {alien: true}}
+
+{id: 12345, person: {alien: true}, job: Technician}
+
+{id: 12345, person: {alien: true}, job: Technician, married: true}
+
+Aliens need to apply on the Mars-Station
+
+
+
+
+
+################# condition property comparison of two properties string ########################
+
+If his name is his nickname
+then Error message
+
+{peter: {name: '', nickname: ''}}
+
+--------------  invalid  -------------------
+{peter: {name: Peter, nickname: Peter}}
+
+{peter: {name: Peter, nickname: Peter}, job: Technician}
+
+{married: true, peter: {name: Peter, nickname: Peter}, job: Technician}
+
+Error message
+
+
+################# condition property comparison of two properties decimal ########################
+
+If the id is equal to the age
+then Error message
+
+{peter: {age: 0, id: 0}}
+
+--------------  invalid  -------------------
+{peter: {age: 0, id: 0}}
+
+{peter: {age: 0, id: 0}, job: Technician}
+
+{married: true, peter: {age: 0, id: 0}, job: Technician}
+
+Error message
+
+
+################# condition property comparison of two properties decimal ########################
+
+If fulltime equals smoker
+then Error message
+
+{peter: {fulltime: true, smoker: true}}
+
+--------------  invalid  -------------------
+{peter: {fulltime: true, smoker: true}}
+
+{peter: {fulltime: true, smoker: true}, job: Technician}
+
+{married: true, peter: {fulltime: true, smoker: true}, job: Technician}
+
+Error message

@@ -1,0 +1,751 @@
+Rule_with_action_and_tname
+
+_if_sourceText This _then_sourceText That _as_sourceText A rule
+
+----------------------------------------
+
+rule
+    content This
+    action That    A rule
+
+######################################### 
+
+Rule_with_action
+
+_if_sourceText This _then_sourceText That
+
+----------------------------------------
+
+rule
+    content This
+    action That
+    
+######################################### 
+
+Rule_with_name
+
+_if_sourceText This _as_sourceText A rule
+
+----------------------------------------
+
+rule
+    content This
+    action A rule
+    
+######################################### 
+
+
+Rule_with_condition
+
+_if_sourceText this _operator_equals_sourceText that _then_sourceText Fehler
+
+----------------------------------------
+
+rule
+    condition
+        content this
+        operator equals
+        content that
+    action Fehler
+    
+######################################### 
+
+Rule_with_arithmetic
+
+_if_sourceText 123 _arithmoperator_plus_sourceText 456 _as_sourceText An arithmetic
+
+----------------------------------------
+
+
+rule
+    arithmetic
+        content 123
+        operator plus
+        content 456
+    action An arithmetic
+    
+#########################################
+
+        
+Rule_with_accessorWith
+ 
+ _if_sourceText Versicherungsnehmer _with_sourceText Partnerrolle _as_sourceText Partner
+ 
+ ----------------------------------------
+ 
+ 
+ rule
+     accessor_with
+         content Versicherungsnehmer
+         content Partnerrolle
+     action Partner
+     
+#########################################
+
+Rule_with_accessorWith_with_single_condition
+
+_if_sourceText Versicherungsnehmer _with_sourceText Rolle _operator_equals_sourceText Partner _as_sourceText Partner
+
+----------------------------------------
+
+
+rule
+    condition
+        accessor_with
+            content Versicherungsnehmer
+            content Rolle
+        operator equals
+        content Partner
+    action Partner
+    
+    
+#########################################
+
+Rule_with_accessorWith_with_condition_group
+
+_if_sourceText Versicherungsnehmer _with_sourceText
+                  Rolle _operator_equals_sourceText Partner 
+            _and_sourceText Name _operator_equals_sourceText Hans
+_as_sourceText Partner
+
+----------------------------------------
+
+
+rule
+    condition_group
+        condition
+            accessor_with
+                content Versicherungsnehmer
+                content Rolle
+            operator equals
+            content Partner
+        combinator and
+        condition
+            content Name
+            operator equals
+            content Hans
+    action Partner
+   
+   
+#########################################
+
+Rule_with_accessorWith_with_accessorOf
+
+_if_sourceText die Rolle _of_sourceText Person _with_sourceText ist vertrauenswürdig _as_sourceText Partner
+
+----------------------------------------
+
+
+rule
+    accessor_with
+        accessor_of
+            content die Rolle
+            content Person
+        content ist vertrauenswürdig
+    action Partner
+    
+#########################################
+
+Rule_with_accessorOf
+
+_if_sourceText Der _of_sourceText das _as_sourceText Artikel
+
+----------------------------------------
+
+rule
+    accessor_of
+        content Der
+        content das
+    action Artikel
+    
+#########################################  
+
+Rule_with_condition_group_with_missing_first_condition
+
+_if_sourceText _and_sourceText die _or_sourceText das _as_sourceText Artikel
+
+----------------------------------------
+
+rule
+    condition_group
+            combinator and
+            content die
+            combinator or
+            content das
+    action Artikel
+    
+#########################################  
+
+Rule_with_condition_group_with_missing_consecutive_condition
+
+_if_sourceText Der _and_sourceText _or_sourceText das _as_sourceText Artikel
+
+----------------------------------------
+
+rule
+    condition_group
+            content Der
+            combinator and
+            combinator or
+            content das
+    action Artikel
+        
+    
+#########################################  
+
+Rule_with_condition_group_with_and
+
+_if_sourceText Bool _and_sourceText Buhl _then_sourceText Kuhl!
+
+----------------------------------------
+
+rule
+    condition_group
+        content Bool
+        combinator and
+        content Buhl
+    action Kuhl!
+
+
+#########################################
+
+
+Rule_whitespace_and_newline_before_combinator
+
+_if_sourceText Bool    
+        _and_sourceText Buhl
+_then_sourceText Kuhl!
+
+----------------------------------------
+
+rule
+    condition_group
+        content Bool
+        combinator and
+        content Buhl
+    action Kuhl!
+
+#########################################
+
+
+Rule_with_condition_group_with_whitespace_before_combinator_in_same_line
+
+_if_sourceText Bool            _and_sourceText Bewl
+_then_sourceText Cewl!
+
+----------------------------------------
+
+rule
+    condition_group
+        content Bool
+        combinator and
+        content Bewl
+    action Cewl!
+
+
+#########################################
+
+
+Rule_whitespace_before_combinator
+
+_if_sourceText Bool    _and_sourceText Bewl
+_then_sourceText Cool!
+
+----------------------------------------
+
+rule
+    condition_group
+        content Bool
+        combinator and
+        content Bewl
+    action Cool!
+
+
+#########################################
+
+
+Rule_with_multiline_error
+
+_if_sourceText Person ist gesund
+_then_sourceText 
+Person
+  ist
+    arbeitsfähig!
+
+----------------------------------------
+
+rule
+    content Person ist gesund
+    action Person   ist     arbeitsfähig!
+
+
+
+#########################################
+
+
+Rule_with_newlines_and_spaces_everywhere
+
+_if_sourceText  
+Jema
+    nd
+        hat Ge
+burtstag
+_and_sourceText
+Du 
+hast k
+    ein Ge
+        schenk
+    _then_sourceText
+ Un
+ hö    flich!
+
+----------------------------------------
+
+rule
+    condition_group
+        content Jema     nd         hat Ge burtstag
+        combinator and
+        content Du  hast k     ein Ge         schenk
+    action Un  hö    flich!
+
+
+#########################################
+
+
+Rule_with_newlines_and_whitespace_after_keywords_and_combinators
+
+_if_sourceText        
+    Jemand hat Geburtstag
+_and_sourceText         
+      Du hast kein Geschenk
+_then_sourceText      
+        Unhöflich!
+
+----------------------------------------
+
+rule
+    condition_group
+        content Jemand hat Geburtstag
+        combinator and
+        content Du hast kein Geschenk
+    action Unhöflich!
+
+
+#########################################
+
+
+Rule_Newlines_nach_Keywords_mit_Spaces_nach_Keywords
+
+_if_sourceText 
+Jemand hat Geburtstag
+_and_sourceText 
+Du hast kein Geschenk
+_then_sourceText 
+Unhöflich!
+
+----------------------------------------
+
+rule
+    condition_group
+        content Jemand hat Geburtstag
+        combinator and
+        content Du hast kein Geschenk
+    action Unhöflich!
+
+
+#########################################
+
+
+Rule_with_only_a_newline_after_keywords_and_combinators
+
+_if_sourceText
+Jemand hat Geburtstag
+_and_sourceText
+Du hast kein Geschenk
+_then_sourceText
+Unhöflich!
+
+----------------------------------------
+
+rule
+    condition_group
+        content Jemand hat Geburtstag
+        combinator and
+        content Du hast kein Geschenk
+    action Unhöflich!
+
+
+#########################################
+
+
+Rule_one_of_each_comment_variable_rule
+
+_comment_sourceText Ich bin ein Kommentar!
+
+Batman _as_sourceText Bruce Wayne
+
+_if_sourceText Antrag.Person
+_then_sourceText Fehler!
+_as_sourceText Tollername
+
+----------------------------------------
+
+
+comment Ich bin ein Kommentar!
+variable
+    content Batman
+    name Bruce Wayne
+rule
+    content Antrag.Person
+    action Fehler!    Tollername
+
+
+#########################################
+
+
+Rule_newlines_and_spaces_in_content
+
+_if_sourceText Ba na na
+na
+ na
+_as_sourceText Sliced Banana
+
+----------------------------------------
+
+rule
+    content Ba na na na  na
+    action Sliced Banana
+
+
+#########################################
+
+
+Rule_Newline_in_Word
+
+_if_sourceText Banana
+nana
+_as_sourceText PotasiumEnthalten
+
+----------------------------------------
+
+rule
+    content Banana nana
+    action PotasiumEnthalten
+
+
+#########################################
+
+
+Rule_with_comparison_operator
+
+_if_sourceText der Jahresbeitrag des Versicherungsnehmers _operator_greaterthan_sourceText 1.000.000 DOLLAR
+_as_sourceText Steuerbetrug
+
+----------------------------------------
+
+rule
+    condition
+        content der Jahresbeitrag des Versicherungsnehmers
+        operator greaterthan
+        content 1.000.000 DOLLAR
+    action Steuerbetrug
+
+
+#########################################
+
+
+Rule_with_content
+
+_if_sourceText Geraet.IstRegistriert
+_as_sourceText Name
+
+----------------------------------------
+
+rule
+    content Geraet.IstRegistriert
+    action Name
+
+
+#########################################
+
+
+Rule_with_condition_with_trailing_operator
+
+_if_sourceText Geraet _operator_exists_sourceText
+_as_sourceText Name
+
+----------------------------------------
+
+rule
+    condition
+        content Geraet
+        operator exists
+    action Name
+
+
+#########################################
+
+
+Rule_with_condition_group_with_multiple_conditions_with_whitespace_and_newlines
+
+_if_sourceText Das.Funktioniert
+    _and_sourceText Ich.seheGrün
+        _or_sourceText Nichts.istRot
+    _and_sourceText Er.meckertNicht
+_then_sourceText Wäre Das Echt Gut!
+
+----------------------------------------
+
+rule
+    condition_group
+        content Das.Funktioniert
+        combinator and
+        content Ich.seheGrün
+        combinator or
+        content Nichts.istRot
+        combinator and
+        content Er.meckertNicht
+    action Wäre Das Echt Gut!
+
+
+#########################################
+
+
+Rule_with_condition_group_with_combinator_in_same_line
+
+_if_sourceText Antrag.Person _and_sourceText Person.IstVolljährig
+_then_sourceText Fehler!
+
+
+----------------------------------------
+
+rule
+    condition_group
+        content Antrag.Person
+        combinator and
+        content Person.IstVolljährig
+    action Fehler!
+
+
+#########################################
+
+Rule_with_arithmetic_in_comparison_and_2_conditions
+
+_if_sourceText alter _arithmoperator_minus_sourceText 180 _arithmoperator_plus_sourceText 200 _operator_greaterthan_sourceText 2000
+    _and_sourceText eine weitere Bedingung
+_then_sourceText Fehler
+_as_sourceText Regelname
+
+----------------------------------------
+
+rule
+    condition_group
+        condition
+            arithmetic
+                content alter
+                operator minus
+                content 180
+                operator plus
+                content 200
+            operator greaterthan
+            content 2000
+        combinator and
+        content eine weitere Bedingung
+    action Fehler    Regelname
+
+
+#########################################
+
+
+Rule_with_multiple_arithmetics_in_comparison
+
+_if_sourceText alter _arithmoperator_minus_sourceText 180 _arithmoperator_plus_sourceText 200 _operator_greaterthan_sourceText 2000
+_then_sourceText Fehler
+_as_sourceText Regelname
+
+----------------------------------------
+
+rule
+    condition
+        arithmetic
+            content alter
+            operator minus
+            content 180
+            operator plus
+            content 200
+        operator greaterthan
+        content 2000
+    action Fehler    Regelname
+    
+
+#########################################
+
+
+Rule_with_condition_with_two_arithmetics_in_comparison
+
+_if_sourceText das Alter von Goofy _arithmoperator_div_sourceText 2 _operator_equals_sourceText dem Alter von Max _arithmoperator_plus_sourceText 3
+_then_sourceText Interesting
+
+----------------------------------------
+
+rule
+    condition
+        arithmetic
+            content das Alter von Goofy
+            operator div
+            content 2
+        operator equals
+        arithmetic
+            content dem Alter von Max
+            operator plus
+            content 3
+    action Interesting
+    
+#########################################
+
+
+Rule_with_condition_with_two_accessorOfs_in_comparison
+
+_if_sourceText das Alter _of_sourceText Goofy _operator_equals_sourceText dem Alter _of_sourceText Max
+_then_sourceText Interesting
+
+----------------------------------------
+
+rule
+    condition
+        accessor_of
+            content das Alter
+            content Goofy
+        operator equals
+        accessor_of
+            content dem Alter
+            content Max
+    action Interesting
+    
+    
+#########################################
+
+
+Rule_with_condition_with_two_accessors_in_comparison
+
+_if_sourceText das Alter _of_sourceText Goofy _operator_equals_sourceText der Lottozahl _with_sourceText 3 am Ende
+_then_sourceText Interesting
+
+----------------------------------------
+
+rule
+    condition
+        accessor_of
+            content das Alter
+            content Goofy
+        operator equals
+        accessor_with
+            content der Lottozahl
+            content 3 am Ende
+    action Interesting
+    
+
+#########################################
+
+Rule_with_function_in_content
+
+_if_sourceText _function_sum_sourceText array _then_sourceText Fehler
+
+----------------------------------------
+
+rule
+    function sum array
+    action Fehler
+
+#########################################
+
+Rule_with_function_in_content_and_sugar
+
+_if_sourceText sugar _function_sum_sourceText array _then_sourceText Fehler
+
+----------------------------------------
+
+rule
+    function sum array
+    action Fehler
+
+#########################################
+
+Rule_with_function_in_arithmetic
+
+_if_sourceText eine zahl _arithmoperator_plus_sourceText _function_sum_sourceText array _then_sourceText Fehler
+
+----------------------------------------
+
+rule
+    arithmetic
+        content eine zahl
+        operator plus
+        function sum array
+    action Fehler
+
+#########################################
+
+Rule_with_function_in_comparison
+
+_if_sourceText 42 _operator_greaterthan_sourceText _function_sum_sourceText array _then_sourceText Fehler
+
+----------------------------------------
+
+rule
+    condition
+        content 42
+        operator greaterthan
+        function sum array
+    action Fehler
+
+#########################################
+
+Rule_with_function_in_condition_group
+
+_if_sourceText _function_sum_sourceText array
+_and_sourceText _function_product_sourceText array
+_then_sourceText Fehler
+
+----------------------------------------
+
+rule
+    condition_group
+        function sum array
+        combinator and
+        function product array
+    action Fehler
+
+
+#########################################
+
+Rule_with_function_in_accessorOf
+
+_if_sourceText _function_numberof_sourceText kids _of_sourceText mother
+_then_sourceText Fehler
+
+----------------------------------------
+
+rule
+    accessor_of
+        function numberof kids
+        content mother
+    action Fehler
+
+#########################################
+
+Rule_with_function_in_accessorWith
+
+_if_sourceText mother _with_sourceText _function_numberof_sourceText kids _operator_greaterthan_sourceText 2
+_then_sourceText Fehler
+
+----------------------------------------
+
+rule
+    condition
+        accessor_with
+            content mother
+            function numberof kids
+        operator greaterthan
+        content 2
+    action Fehler

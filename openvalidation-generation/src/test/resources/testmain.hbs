@@ -1,0 +1,11 @@
+var openValidation = {
+rules:
+[
+{{#each rules.rules}}
+    {{#autotemp this}}
+
+    {{/autotemp}}
+    {{#unless @last}},{{/unless}}
+{{/each}}
+]
+};

@@ -1,0 +1,155 @@
+Complete_with_expression_content_static_string
+
+Some content AS Randomcontent
+
+---------------------------------------------------------------------
+Complete_with_expression_content_static_number
+
+365 AS Days in a year
+
+---------------------------------------------------------------------
+Complete_with_expression_content_static_number_with_sugar
+
+1000$ AS Income
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_addition_AS_symbol
+
+50000 + 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_subtraction_AS_symbol
+
+50000 - 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_multiplication_AS_symbol
+
+50000 * 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_division_AS_symbol
+
+50000 / 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_exponential_AS_symbol
+
+50000 ^ 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_addition_AS_symbol_no_spacing_at_operator
+
+50000+12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_subtraction_AS_symbol_no_spacing_at_operator
+
+50000-12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_multiplication_AS_symbol_no_spacing_at_operator
+
+50000*12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_division_AS_symbol_no_spacing_at_operator
+
+50000/12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_exponential_AS_symbol_no_spacing_at_operator
+
+50000^12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_addition_AS_word
+
+50000 PLUS 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_subtraction_AS_word
+
+50000 MINUS 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_multiplication_AS_word
+
+50000 TIMES 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_division_AS_word
+
+50000 DIVIDED BY 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_exponential_AS_word
+
+50000 TO THE POWER OF 12 AS A very high number
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_addition_AS_word_no_spacing_at_operator
+
+50000PLUS12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_subtraction_AS_word_no_spacing_at_operator
+
+50000MINUS12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_multiplication_AS_word_no_spacing_at_operator
+
+50000TIMES12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_division_AS_word_no_spacing_at_operator
+
+50000DIVIDED BY12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_exponential_AS_word_no_spacing_at_operator
+
+50000TO THE POWER OF12 AS A very high number
+
+---------------------------------------------------------------------
+Complete_with_expression_long_arithmetic_only_numbers
+
+50000 * 12 - 2000 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_arithmetic_only_numbers_with_sugar
+
+50000€ * 12 AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_long_arithmetic_only_numbers_with_sugar
+
+50000€ * 12 - 2000€ AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_long_arithmetic_only_numbers_with_parentheses
+
+50000 * (12 - 2000) AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_long_arithmetic_only_numbers_with_parentheses_with_sugar
+
+50000€ * (12 - 2000€) AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_complex_arithmetic_only_numbers_with_parentheses
+
+50000 + ((12 - 2) * 2000) AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_complex_arithmetic_only_numbers_with_parentheses_exponential
+
+(50000 + 2000) ^ (10 - 8) AS Yearly revenue
+
+---------------------------------------------------------------------
+Complete_with_expression_complex_arithmetic_only_numbers_with_parentheses_with_sugar
+
+50000€ + ((12 - 2) * 2000€) AS Yearly revenue
+
+

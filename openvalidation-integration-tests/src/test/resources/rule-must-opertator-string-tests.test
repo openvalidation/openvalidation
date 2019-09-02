@@ -1,0 +1,73 @@
+################# rule must operator string property should be string ########################
+
+the name should be validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'alex'}
+
+{name:'peter'}
+
+
+--------------  second  -------------------
+
+{addresses:[{country:'DE'}]}
+
+################# rule must operator string property must be string ########################
+
+the name must be validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'alex'}
+
+{name:'peter'}
+
+{name:'heinrich'}
+
+################# rule must operator string property must not be string ########################
+
+the name must not be validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'validaria'}
+
+################# rule must operator string property has to be string ########################
+
+the name has to be validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'frank'}
+
+{name:'walter'}
+
+{name:'alexander'}
+
+################# rule must operator string property have to be string ########################
+
+the name have to be validaria
+
+
+{name:'',addresses:[{country:''}]}
+
+--------------  first  -------------------
+
+{name:'marcus'}
+
+{name:'elliot'}
+
+{name:'theodore'}

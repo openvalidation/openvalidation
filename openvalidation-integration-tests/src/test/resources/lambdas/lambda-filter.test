@@ -1,0 +1,16 @@
+################# lambda filter where  ########################
+
+    SUM OF population from addresses with population greater than 1000000
+AS  big cities population
+
+big cities population should not be 4200000
+
+
+{ addresses:[{ city:'Dortmund', population:0}]}
+
+
+--------------  sum of where in -------------------
+
+{ addresses:[{ city:'Dortmund', population:600000}, { city:'Cologne', population:1200000}, { city:'Berlin', population:3000000}]}
+
+big cities population should not be 4200000

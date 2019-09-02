@@ -1,0 +1,67 @@
+#########################################
+Comment_single_word
+
+_comment_comment Achtung
+
+----------------------------------------
+
+comment Achtung
+
+
+#########################################
+Comment_multiple_Words
+
+_comment_comment Achtung das hier ist wichtig!
+
+----------------------------------------
+
+comment Achtung das hier ist wichtig!
+
+
+#########################################
+Comment_multiple_Words_with_whitespace_and_newlines_in_middle
+
+_comment_comment Achtung
+das
+    hier ist
+wichtig!
+
+----------------------------------------
+
+comment Achtung\ndas\n    hier ist\nwichtig!
+
+
+#########################################
+Comment_multiple_Words_with_initial_whitespace_and_newlines
+
+_comment_comment
+   Achtung das hier ist wichtig!
+
+----------------------------------------
+
+comment Achtung das hier ist wichtig!
+
+
+#########################################
+Comment_multiple_comments
+
+_comment_comment Achtung das hier ist wichtig!
+
+_comment_comment Das hier nicht!   
+
+----------------------------------------
+
+comment Achtung das hier ist wichtig!
+comment Das hier nicht!
+
+
+#########################################
+Comment_with_special_characters
+
+_comment_comment A[h7/ng das h1#r ist w{chti&!
+
+----------------------------------------
+
+comment A[h7/ng das h1#r ist w{chti&!
+
+

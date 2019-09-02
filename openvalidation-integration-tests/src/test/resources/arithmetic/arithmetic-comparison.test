@@ -1,0 +1,78 @@
+################# arithmetic comparison value less than value times 2 ########################
+
+if value less than value * 2
+then value is not applicable
+
+{value:0}
+
+--------------  num1  -------------------
+
+{value:2}
+
+{value:4}
+
+{value:1024}
+
+{value:123456789}
+
+value is not applicable
+
+################# arithmetic comparison value constrained less and greater for negative and large numbers ########################
+
+if value greater than 100
+    or value * value * value less than 0
+then value is not applicable
+
+{value:0}
+
+--------------  num1  -------------------
+
+{value:101}
+
+{value:-4}
+
+{value:-5}
+
+{value:250}
+
+value is not applicable
+
+################# arithmetic comparison value less of equal ########################
+
+if value less or equal othervalue
+then value is not applicable
+
+{value:0, othervalue:0}
+
+--------------  num1  -------------------
+
+{value:100, othervalue: 100}
+
+{value:100, othervalue: 101}
+
+{value:-5, othervalue: 100}
+
+{value:-5, othervalue: -5}
+
+{value:-6, othervalue: -5}
+
+value is not applicable
+
+################# arithmetic comparison less or equal at most ########################
+
+status must be at most 0
+
+{status: 0}
+
+--------------  invalid  -------------------
+
+{status: 1}
+
+{status: 2}
+
+{status: 10254}
+
+{status: 9}
+
+status must be at most 0
+

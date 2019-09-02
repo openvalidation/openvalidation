@@ -1,0 +1,44 @@
+################# format case sensitivity lower case rule and variable ########################
+
+name as personname
+
+if personname is peter
+then peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+
+{contract: {person: {name: peter}}}
+
+peter is not allowed
+
+################# format case sensitivity mixed case rule and variable ########################
+
+name As PeRsOnNaMe
+
+iF PeRsOnNaMe Is peter
+tHeN peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+
+{contract: {person: {name: peter}}}
+
+peter is not allowed
+
+################# format case sensitivity upper case rule and variable ########################
+
+name AS PERSONNAME
+
+IF PERSONNAME IS peter
+THEN peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+
+{contract: {person: {name: peter}}}
+
+peter is not allowed

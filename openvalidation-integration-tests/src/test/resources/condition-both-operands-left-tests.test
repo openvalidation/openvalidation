@@ -1,0 +1,184 @@
+################# condition both operands left with string property and static ########################
+
+If die Farbe Gelb IS
+Then error
+
+
+{farbe:''}
+
+--------------  value -------------------
+
+{farbe: Gelb}
+
+error
+
+################# condition both operands left with number with number property and static ########################
+
+If die nummer 1337 IS
+Then error
+
+
+{nummer: 100}
+
+--------------  value -------------------
+
+{nummer: 1337}
+
+error
+
+################# condition both operands left with two string properties ########################
+
+If die Farbe Lieblingsfarbe  IS
+Then error
+
+
+{farbe:'', lieblingsfarbe:''}
+
+--------------  value -------------------
+
+{farbe: Gelb, lieblingsfarbe: Gelb}
+
+error
+
+################# condition both operands left with two string properties with misleading ofAccessor ########################
+
+If die Farbe in of Anzeige meine Lieblingsfarbe IS
+Then error
+
+
+{farbe:'', lieblingsfarbe:''}
+
+--------------  value -------------------
+
+{farbe: Gelb, lieblingsfarbe: Gelb}
+
+error
+
+################# condition both operands left with two number properties ########################
+
+If die nummer Geheimzahl IS
+Then error
+
+
+{nummer: 100, geheimzahl: 123}
+
+--------------  value -------------------
+
+{nummer: 1337, geheimzahl: 1337}
+
+error
+
+################# condition both operands left with two string properties and sugar ########################
+
+If die Farbe tatsächlich Lieblingsfarbe der Person  IS
+Then error
+
+
+{farbe:'', lieblingsfarbe:''}
+
+--------------  value -------------------
+
+{farbe: Gelb, lieblingsfarbe: Gelb}
+
+error
+
+
+
+
+################# condition both operands left with two number properties and sugar ########################
+
+If die nummer in diesem Fall wirklich die Geheimzahl der Tür IS
+Then error
+
+
+{nummer: 100, geheimzahl: 123}
+
+--------------  value -------------------
+
+{nummer: 1337, geheimzahl: 1337}
+
+error
+
+
+################# condition both operands left with string variable and static ########################
+
+Farbe AS var1
+
+If var1 Gelb IS
+Then error
+
+{farbe:''}
+
+--------------  value -------------------
+
+{farbe: Gelb}
+
+error
+
+################# condition both operands left with number variable and static ########################
+
+number AS var1
+
+If var1 1337 IS
+Then error
+
+{number: 100}
+
+--------------  value -------------------
+
+{number: 1337}
+
+error
+
+
+
+################# condition both operands left with two string variables ########################
+
+first_name AS var1
+
+last_name AS var2
+
+If var1 var2 IS
+Then error
+
+{first_name: '', last_name: ''}
+
+--------------  value -------------------
+
+{first_name: Peter, last_name: Peter}
+
+error
+
+
+################# condition both operands left with two number variables ########################
+
+number AS var1
+
+num AS var2
+
+If var1 var2 IS
+Then error
+
+{number: 100, num: 100}
+
+--------------  value -------------------
+
+{number: 1337, num: 1337}
+
+error
+
+################# condition both operands left with number variable and number property ########################
+
+number AS var1
+
+If var1 num IS
+Then error
+
+{number: 123, num: 456}
+
+--------------  value -------------------
+
+{number: 1337, num: 1337}
+
+error
+

@@ -1,0 +1,24 @@
+var huml = require('./HUMLFramework');
+
+var {{params.generated_class_name}} = function() {
+
+    {{#elements}}        {{tmpl}}
+
+    {{/elements}}
+
+    this.validate = function(model){
+        return huml.validate(model);
+    }
+
+    this.getValidatorID = function(){
+        return {{#if params.validatorID}}"{{params.validatorID}}"{{else}}""{{/if}};
+    }
+}
+
+{{#if params.single_file}}
+{{tmpl "framework"}}
+{{/if}}
+
+
+var openVALIDATION = new {{params.generated_class_name}}();
+module.exports = openVALIDATION;

@@ -1,0 +1,161 @@
+################# rule must condition group single arithmetic no braces ########################
+
+1 * 2 must not be number 
+
+( 2 * 2) must not be number
+
+( 2 + 2 ) + ( 4 * 4 ) must not be number
+
+{number:0}
+
+--------------  first  -------------------
+
+{number:2}
+
+{number:2, somename:Jerry}
+
+1 * 2 must not be number 
+
+--------------  second  -------------------
+
+{number:4}
+
+{number:4, name: John}
+
+( 2 * 2) must not be number
+
+--------------  third  -------------------
+
+{number: 20}
+
+{prequel: Word, number: 20, Sequel: OtherWord}
+
+( 2 + 2 ) + ( 4 * 4 ) must not be number
+
+################# rule must condition group and implicit equal ########################
+
+name must be Peter and city must be Berlin
+
+{name:'', city:''}
+
+--------------  first  -------------------
+
+{name: Peter, city: London}
+
+{name: Jenny, city: Berlin}
+
+{name: Linda, city: Tokyo}
+
+name must be Peter and city must be Berlin
+
+################# rule must condition group and regular equal ########################
+
+name must be Peter and city equal Berlin
+
+{name:'', city:''}
+
+--------------  first  -------------------
+
+{name: Peter, city: Frankfurt}
+
+{name: Jenny, city: Berlin}
+
+name must be Peter and city equal Berlin
+
+################# rule must condition group or ########################
+
+name must be Peter or city must be Berlin
+
+{name:'', city:''}
+
+--------------  first  -------------------
+
+{name: Heinz, city: London}
+
+{name: Franz, city: Paris}
+
+{name: Jenny, city: New York}
+
+{name: Satori, city: Tokyo}
+
+{name: Artem, city: Moscow}
+
+name must be Peter or city must be Berlin
+
+################# rule must condition group or with and ########################
+
+name must be Peter or city must be Berlin and status must be signed 
+
+{name:'', city:'', status:''}
+
+--------------  first  -------------------
+
+{name: Peter, city: London, status:unsigned}
+
+{name: Mary, city: Berlin, status:unsigned}
+
+{name: Jenny, city: Paris, status:signed}
+
+name must be Peter or city must be Berlin and status must be signed 
+
+################# rule must condition group and with or ########################
+
+name must be Peter and city must be Berlin or status must be signed 
+
+{name:'', city:'', status:''}
+
+--------------  first  -------------------
+
+{name: Peter, city: London, status:unsigned}
+
+{name: Mary, city: Berlin, status:unsigned}
+
+{name: Jenny, city: Paris, status:unsigned}
+
+name must be Peter and city must be Berlin or status must be signed
+
+################# rule must condition group and with or and ########################
+
+name must be Peter and city must be Berlin or status must be signed and valid must be true 
+
+{name:'', city:'', status:'', valid:false}
+
+--------------  first  -------------------
+
+{name: Peter, city: London, status: unsigned}
+
+{name: Mary, city: Berlin, status: unsigned}
+
+{name: Jenny, city: Paris, status: unsigned}
+
+{name: Peter, city: Berlin, status: unsigned}
+
+{name: Peter, city: Berlin, status: signed, valid: false}
+
+{name: Rico, city: Manchester, status: signed, valid: false}
+
+name must be Peter and city must be Berlin or status must be signed and valid must be true
+
+################# rule must condition group and with or and or ########################
+
+name must be Peter and city must be Berlin or status must be signed and valid must be true or overwrite must be true
+
+{name:'', city:'', status:'', valid:false, overwrite: false}
+
+--------------  first  -------------------
+
+{name: Peter, city: London, status: unsigned}
+
+{name: Mary, city: Berlin, status: unsigned}
+
+{name: Jenny, city: Paris, status: unsigned}
+
+{name: Peter, city: Berlin, status: unsigned}
+
+{name: Peter, city: Berlin, status: signed, valid: false}
+
+{name: Rico, city: Manchester, status: signed, valid: false}
+
+{name: Rico, city: Manchester, status: signed, valid: false, overwrite: false}
+
+name must be Peter and city must be Berlin or status must be signed and valid must be true or overwrite must be true 

@@ -1,0 +1,292 @@
+################# arithmetic basic times static equals property ########################
+
+if 25 * 4 equals number
+then number cannot be 100
+
+if 25 times 8 equals number
+then number cannot be 200
+
+if (25 times 12) equals number
+then number cannot be 300
+
+if ( 25 times 16 ) equals number
+then number cannot be 400
+
+{number:0}
+
+--------------  first1  -------------------
+
+{number:100}
+
+number cannot be 100
+
+--------------  second2  -------------------
+
+{number:200}
+
+number cannot be 200
+
+--------------  third3  -------------------
+
+{number:300}
+
+number cannot be 300
+
+--------------  fourth4  -------------------
+
+{number:400}
+
+number cannot be 400
+
+################# arithmetic basic plus static equals property  ########################
+
+if 50 + 50 equals number
+then first error
+
+if 100 plus 100 equals number
+then second error
+
+if (100 plus 200) equals number
+then third error
+
+if ( 200 plus 200 ) equals number
+then forth error
+
+{number:0}
+
+--------------  1first  -------------------
+
+{number:100}
+
+first error
+
+--------------  2second  -------------------
+
+{number:200}
+
+second error
+
+--------------  3third  -------------------
+
+{number:300}
+
+third error
+
+--------------  4fourth  -------------------
+
+{number:400}
+
+forth error
+
+################# arithmetic basic minus static equals property  ########################
+
+if 50 - 25 equals number
+then first error
+
+if 100 minus 10 equals number
+then second error
+
+if (200 minus 20) equals number
+then third error
+
+if ( 99 minus 1 ) equals number
+then forth error
+
+{number:0}
+
+--------------  1first  -------------------
+
+{number:25}
+
+first error
+
+--------------  2second  -------------------
+
+{number:90}
+
+second error
+
+--------------  3third  -------------------
+
+{number:180}
+
+third error
+
+--------------  4fourth  -------------------
+
+{number:98}
+
+forth error
+
+################# arithmetic basic divided by static equals property  ########################
+
+if 50 / 25 equals number
+then first error
+
+if 100 divided by 10 equals number
+then second error
+
+if (100 divided by 20) equals number
+then third error
+
+if ( 99 divided by 11 ) equals number
+then forth error
+
+{number:0}
+
+--------------  1first  -------------------
+
+{number:2}
+
+first error
+
+--------------  2second  -------------------
+
+{number:10}
+
+second error
+
+--------------  3third  -------------------
+
+{number:5}
+
+third error
+
+--------------  4fourth  -------------------
+
+{number:9}
+
+forth error
+
+################# arithmetic basic variables equals property  ########################
+
+number as num1
+
+100 as num2
+
+25 as num3
+
+1100 as num4
+
+250 as num5
+
+if (num1 - 75) equals (25 minus 50)
+then first error
+
+if num3 equals num1
+then second error
+
+if (number + num2) equals (500 + 500)
+then another error is happening
+
+if (num2 + number) equals num4
+then number was 1000
+
+if (num1 - num2) equals (num5 * 2) - num2
+then number was 500
+
+{number:0}
+
+--------------  1first  -------------------
+
+{number:50}
+
+first error
+
+--------------  secondx  -------------------
+
+{number:25}
+
+second error
+
+--------------  third  -------------------
+
+{number:900}
+
+another error is happening
+
+--------------  fourth  -------------------
+
+{number:1000}
+
+number was 1000
+
+--------------  fifth  -------------------
+
+{number:500}
+
+number was 500
+
+################# arithmetic basic multi level property equals static ########################
+
+container.number as var1
+
+if container.number equals 5
+then error as number 5
+
+if var1 equals 4
+then error as number 4
+
+{container: {number:0}}
+
+--------------  num1  -------------------
+
+{container: {number:5}}
+
+error as number 5
+
+--------------  num2  -------------------
+
+{container: {number:4}}
+
+error as number 4
+
+################# arithmetic basic value variety check ########################
+
+if value less than value * 2
+then value is not applicable
+
+{value:0.1}
+
+--------------  num1  -------------------
+
+{value:0.1}
+
+
+{value:2}
+
+{value:0.0002}
+
+
+{value:1024}
+
+{value:1000000}
+
+{value:2.201234567}
+
+value is not applicable
+
+################# arithmetic basic negative value variety check ########################
+
+if value * -1 less than value * -2
+then value is not applicable
+
+{value:0.1}
+
+--------------  num1  -------------------
+
+{value:-0.1}
+
+
+{value:-2}
+
+{value:-0.0002}
+
+
+{value:-1024}
+
+{value:-1000000}
+
+{value:-2.201234567}
+
+value is not applicable

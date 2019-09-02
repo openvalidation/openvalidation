@@ -1,0 +1,118 @@
+################# rule constrained implicid bool condition as variable ########################
+
+the age greater than 18 years as Adult 
+
+if applicant is not Adult
+then application is not valid
+
+{age: 0}
+
+--------------  invalid  -------------------
+
+{age:0}
+
+{age:2}
+
+{age:15}
+
+{age:17}
+
+{age:18}
+
+application is not valid
+
+################# rule constrained implicid bool from model ########################
+
+applicant must be Student
+
+{Student: false}
+
+--------------  invalid  -------------------
+
+{Student: false}
+
+applicant must be Student
+
+################# rule constrained implicid equal from model ########################
+
+status must be refurbished
+
+{status: ''}
+
+--------------  invalid  -------------------
+
+{status: new}
+
+{status: old}
+
+{status: repaired}
+
+status must be refurbished
+
+################# rule constrained must not implicid equal from variable ########################
+
+active as status
+
+status must not be active
+
+{active: ''}
+
+--------------  invalid  -------------------
+
+{active: new}
+
+{active: old}
+
+{active: repaired}
+
+status must not be active
+
+################# rule constrained must implicid equal from variable as number ########################
+
+active as status
+
+status must be 0
+
+{active: 0}
+
+--------------  invalid  -------------------
+
+{active: 1}
+
+{active: 2}
+
+{active: 1024}
+
+status must be 0
+
+################# rule constrained must not implicid equal from variable as number ########################
+
+active as status
+
+status must not be 0
+
+{active: 0}
+
+--------------  invalid  -------------------
+
+{active: 0}
+
+status must not be 0
+
+################# rule constrained must greater ########################
+
+status must be greater 0
+
+{status: 0}
+
+--------------  invalid  -------------------
+
+{status: 0}
+
+{status: -5}
+
+{status: 0.5}
+
+{status: -0.5}
+
+status must be greater 0

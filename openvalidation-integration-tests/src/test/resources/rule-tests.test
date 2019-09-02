@@ -1,0 +1,10 @@
+################# rule tests main ölajdsöföasdf ö ########################
+
+the name should be validaria
+
+
+{name:'', addresses:[{country:''}] }
+
+--------------  first  -------------------
+
+{ name : 'alex' }

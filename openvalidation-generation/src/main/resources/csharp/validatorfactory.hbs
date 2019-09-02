@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace {{params.generated_class_namespace}}
+{
+    public class OpenValidatorFactory {
+        private List<HUMLFramework.IOpenValidator> _validators = new List<HUMLFramework.IOpenValidator>();
+
+        public OpenValidatorFactory() {
+            {{#params.validators}}
+                this._validators.Add(new {{name}}());
+            {{/params.validators}}
+        }
+
+        public HUMLFramework.IOpenValidator Create(String validatorID) {
+
+            if (this._validators != null){
+                HUMLFramework.IOpenValidator validator = this._validators
+                                                            .Where(v => v.ValidatorID != null &&
+                                                                        v.ValidatorID.Equals(validatorID, StringComparison.InvariantCultureIgnoreCase))
+                                                            .FirstOrDefault();
+
+                if(validator != null) return  validator;
+            }
+
+            return null;
+        }
+    }
+}

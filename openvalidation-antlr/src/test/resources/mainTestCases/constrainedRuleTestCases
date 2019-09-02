@@ -1,0 +1,448 @@
+#########################################
+
+ConstraintRule_with_content
+
+Tom _constraint_must_must Jerry sein
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Tom
+        constraint must
+        content Jerry sein
+
+#########################################
+
+ConstraintRule_with_comparison_operator
+
+Toms Alter _constraint_must_must _operator_greaterthan_sourceText Jerrys Alter sein
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        condition
+            operator greaterthan
+            content Jerrys Alter sein
+
+#########################################
+
+ConstraintRule_only_must_(implicit_equals)
+
+Tom.Alter _constraint_must_must Jerry.Alter
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Tom.Alter
+        constraint must
+        content Jerry.Alter
+
+#########################################
+
+ConstraintRule_with_two_arithmetics
+
+Tom _arithmoperator_minus_sourceText Alter _constraint_must_must Jerry _arithmoperator_plus_sourceText Alter
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        arithmetic
+            content Tom
+            operator minus
+            content Alter
+        constraint must
+        arithmetic
+            content Jerry
+            operator plus
+            content Alter
+
+#########################################
+
+ConstraintRule_both_operators_arithmetics_with_comparison
+
+Tom _arithmoperator_minus_sourceText Alter _constraint_must_must _operator_greaterthan_sourceText Jerry _arithmoperator_plus_sourceText Alter
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        arithmetic
+            content Tom
+            operator minus
+            content Alter
+        constraint must
+        condition
+            operator greaterthan
+            arithmetic
+                content Jerry
+                operator plus
+                content Alter
+
+
+#########################################
+
+
+ConstraintRule_with_single_concatenated_must_no_operator
+
+Toms Alter _constraint_must_must Jerries Alter
+_and_sourceText Toms Name _constraint_mustnot_mustnot Jerries Name
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        content Jerries Alter
+    combinator and
+    condition_constrained
+        content Toms Name
+        constraint mustnot
+        content Jerries Name
+
+#########################################
+
+
+ConstraintRule_with_multiple_concatenated_must_no_operator
+
+Toms Alter _constraint_must_must Jerries Alter
+_and_sourceText Toms Name _constraint_mustnot_mustnot Jerries Name
+_or_sourceText Toms Mutter _constraint_must_must Jerries Mutter
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        content Jerries Alter
+    combinator and
+    condition_constrained
+        content Toms Name
+        constraint mustnot
+        content Jerries Name
+    combinator or
+    condition_constrained
+        content Toms Mutter
+        constraint must
+        content Jerries Mutter
+
+#########################################
+
+
+ConstraintRule_with_single_concatenated_content_no_operator
+
+Toms Alter _constraint_must_must Jerries Alter
+_and_sourceText Tom ist braun
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        content Jerries Alter
+    combinator and
+    content Tom ist braun
+
+#########################################
+
+
+ConstraintRule_with_multiple_concatenated_content_no_operator
+
+Toms Alter _constraint_must_must Jerries Alter
+_and_sourceText Tom ist braun
+_or_sourceText Tom ist schwarz
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        content Jerries Alter
+    combinator and
+    content Tom ist braun
+    combinator or
+    content Tom ist schwarz
+
+#########################################
+
+
+ConstraintRule_with_single_concatenated_condition_no_operator
+
+Toms Alter _constraint_must_must Jerries Alter
+_and_sourceText Toms Fellfarbe _operator_equals_sourceText braun
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        content Jerries Alter
+    combinator and
+    condition
+        content Toms Fellfarbe
+        operator equals
+        content braun
+
+#########################################
+
+ConstraintRule_with_multiple_concatenated_condition_no_operator
+
+Toms Alter _constraint_must_must Jerries Alter
+_and_sourceText Toms Fellfarbe _operator_equals_sourceText braun
+_or_sourceText Toms Fellmuster _operator_equals_sourceText gestreift
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        content Jerries Alter
+    combinator and
+    condition
+        content Toms Fellfarbe
+        operator equals
+        content braun
+    combinator or
+    condition
+        content Toms Fellmuster
+        operator equals
+        content gestreift
+
+#########################################
+
+
+ConstraintRule_with_multiple_different_concatenated_no_operator
+
+Toms Alter _constraint_must_must Jerries Alter entsprechen
+_and_sourceText Toms Fellfarbe _operator_equals_sourceText braun
+_or_sourceText Tom ein Kater
+_and_sourceText Jerry _constraint_must_must eine Maus sein
+_and_sourceText Jerries Alter _constraint_must_must _operator_equals_sourceText 5 sein
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        content Jerries Alter entsprechen
+    combinator and
+    condition
+        content Toms Fellfarbe
+        operator equals
+        content braun
+    combinator or
+    content Tom ein Kater
+    combinator and
+    condition_constrained
+        content Jerry
+        constraint must
+        content eine Maus sein
+    combinator and
+    condition_constrained
+        content Jerries Alter
+        constraint must
+        condition
+            operator equals
+            content 5 sein
+
+
+
+
+
+#########################################
+
+ConstraintRule_with_single_concatenated_must_with_operator
+
+Toms Alter _constraint_must_must _operator_equals_sourceText Jerries Alter
+_and_sourceText Toms Name _constraint_mustnot_mustnot _operator_equals_sourceText Jerries Name
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        condition
+            operator equals
+            content Jerries Alter
+    combinator and
+    condition_constrained
+        content Toms Name
+        constraint mustnot
+        condition
+            operator equals
+            content Jerries Name
+
+#########################################
+
+
+ConstraintRule_with_multiple_concatenated_must_with_operator
+
+Toms Alter _constraint_must_must _operator_equals_sourceText Jerries Alter
+_and_sourceText Toms Name _constraint_must_must _operator_equals_sourceText Jerries Name
+_or_sourceText Toms Mutter _constraint_must_must _operator_equals_sourceText Jerries Mutter
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        condition
+            operator equals
+            content Jerries Alter
+    combinator and
+    condition_constrained
+        content Toms Name
+        constraint must
+        condition
+            operator equals
+            content Jerries Name
+    combinator or
+    condition_constrained
+        content Toms Mutter
+        constraint must
+        condition
+            operator equals
+            content Jerries Mutter
+
+#########################################
+
+
+ConstraintRule_with_single_concatenated_content_with_operator
+
+Toms Alter _constraint_must_must _operator_equals_sourceText Jerries Alter
+_and_sourceText Tom ist braun
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        condition
+            operator equals
+            content Jerries Alter
+    combinator and
+    content Tom ist braun
+
+#########################################
+
+
+ConstraintRule_with_multiple_concatenated_content_with_operator
+
+Toms Alter _constraint_must_must _operator_equals_sourceText Jerries Alter
+_and_sourceText Tom ist braun
+_or_sourceText Tom ist schwarz
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        condition
+            operator equals
+            content Jerries Alter
+    combinator and
+    content Tom ist braun
+    combinator or
+    content Tom ist schwarz
+
+#########################################
+
+
+ConstraintRule_with_single_concatenated_condition_with_operator
+
+Toms Alter _constraint_must_must _operator_equals_sourceText Jerries Alter
+_and_sourceText Toms Fellfarbe _operator_equals_sourceText braun
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        condition
+            operator equals
+            content Jerries Alter
+    combinator and
+    condition
+        content Toms Fellfarbe
+        operator equals
+        content braun
+
+#########################################
+
+
+ConstraintRule_with_multiple_concatenated_condition_with_operator
+
+Toms Alter _constraint_must_must _operator_equals_sourceText Jerries Alter
+_and_sourceText Toms Fellfarbe _operator_equals_sourceText braun
+_or_sourceText Toms Fellmuster _operator_equals_sourceText gestreift
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        condition
+            operator equals
+            content Jerries Alter
+    combinator and
+    condition
+        content Toms Fellfarbe
+        operator equals
+        content braun
+    combinator or
+    condition
+        content Toms Fellmuster
+        operator equals
+        content gestreift
+
+#########################################
+
+
+ConstraintRule_with_multiple_different_concatenated_with_operator
+
+Toms Alter _constraint_must_must _operator_equals_sourceText Jerries Alter
+_and_sourceText Toms Fellfarbe _operator_equals_sourceText braun
+_or_sourceText Tom ein Kater
+_and_sourceText Jerry _constraint_mustnot_mustnot _operator_equals_sourceText Peter sein
+
+----------------------------------------
+
+rule_constrained
+    condition_constrained
+        content Toms Alter
+        constraint must
+        condition
+            operator equals
+            content Jerries Alter
+    combinator and
+    condition
+        content Toms Fellfarbe
+        operator equals
+        content braun
+    combinator or
+    content Tom ein Kater
+    combinator and
+    condition_constrained
+        content Jerry
+        constraint mustnot
+        condition
+            operator equals
+            content Peter sein

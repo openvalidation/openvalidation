@@ -1,0 +1,29 @@
+package {{params.generated_class_namespace}};
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class OpenValidatorFactory {
+    private List<HUMLFramework.IOpenValidator> _validators = new ArrayList<>();
+
+    public OpenValidatorFactory() {
+        {{#params.validators}}
+            this._validators.add(new {{#package}}{{.}}.{{/package}}{{name}}());
+        {{/params.validators}}
+    }
+
+    public HUMLFramework.IOpenValidator create(String validatorID) {
+        String valID = (validatorID.startsWith("/v1"))?
+                        validatorID.replace("/v1","") : validatorID;
+
+        if (this._validators != null){
+            Optional<HUMLFramework.IOpenValidator> validator = this._validators.stream().filter(v -> v.getValidatorID()
+                                                                                                      .equalsIgnoreCase(valID))
+                                                                                        .findFirst();
+            if(validator.isPresent()) return  validator.get();
+        }
+
+        return null;
+    }
+}

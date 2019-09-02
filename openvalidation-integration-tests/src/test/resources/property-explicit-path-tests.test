@@ -1,0 +1,163 @@
+################# property explicit path access simple ########################
+
+If the name is Peter
+then Peter is not allowed
+
+{name: ''}
+
+--------------  invalid  -------------------
+{name: Peter}
+
+{id: 12345, name: Peter}
+
+{id: 12345, name: Peter, age: 25}
+
+{id: 12345, name: Peter, age: 25, married: true}
+
+Peter is not allowed
+
+################# property explicit path access simple with sugar around ########################
+
+If the name in question is Peter
+then Peter is not allowed
+
+{name: ''}
+
+--------------  invalid  -------------------
+{name: Peter}
+
+{id: 12345, name: Peter}
+
+{id: 12345, name: Peter, age: 25}
+
+{id: 12345, name: Peter, age: 25, married: true}
+
+Peter is not allowed
+
+################# property explicit path access nested ########################
+
+If the contract.person.name is Peter
+then Peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# property explicit path access nested with sugar around ########################
+
+If the contract.person.name in question is Peter
+then Peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# property explicit path access simple uppercase to lowercase correction ########################
+
+If the Name is Peter
+then Peter is not allowed
+
+{name: ''}
+
+--------------  invalid  -------------------
+{name: Peter}
+
+{id: 12345, name: Peter}
+
+{id: 12345, name: Peter, age: 25}
+
+{id: 12345, name: Peter, age: 25, married: true}
+
+Peter is not allowed
+
+################# property explicit path access simple lowercase to uppercase correction ########################
+
+If the name is Peter
+then Peter is not allowed
+
+{Name: ''}
+
+--------------  invalid  -------------------
+{Name: Peter}
+
+{id: 12345, Name: Peter}
+
+{id: 12345, Name: Peter, age: 25}
+
+{id: 12345, Name: Peter, age: 25, married: true}
+
+Peter is not allowed
+
+################# property explicit path access nested uppercase to lowercase correction ########################
+
+If the Contract.Person.Name is Peter
+then Peter is not allowed
+
+{contract: {person: {name: ''}}}
+
+--------------  invalid  -------------------
+{contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25}
+
+{id: 12345, contract: {person: {name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# property explicit path access nested lowercase to uppercase correction ########################
+
+If the contract.person.name is Peter
+then Peter is not allowed
+
+{Contract: {Person: {Name: ''}}}
+
+--------------  invalid  -------------------
+{Contract: {Person: {Name: Peter}}}
+
+{id: 12345, Contract: {Person: {Name: Peter}}}
+
+{id: 12345, Contract: {Person: {Name: Peter}}, age: 25}
+
+{id: 12345, Contract: {Person: {Name: Peter}}, age: 25, married: true}
+
+Peter is not allowed
+
+################# property explicit path access simple with underline in property name ########################
+
+If the any name is Peter
+then Peter is not allowed
+
+{any_name: ''}
+
+--------------  invalid  -------------------
+{any_name: Peter}
+
+{id: 12345, any_name: Peter}
+
+{id: 12345, any_name: Peter, age: 25}
+
+{id: 12345, any_name: Peter, age: 25, married: true}
+
+Peter is not allowed
+
+

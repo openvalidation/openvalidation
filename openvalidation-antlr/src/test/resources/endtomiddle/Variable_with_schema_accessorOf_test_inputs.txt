@@ -1,0 +1,165 @@
+Complete_with_schema_accessorOf_for_numeric
+
+Age OF Person AS Age
+
+---------------------------------------------------------------------
+Complete_with_schema_accessorOf_for_string
+
+Person.Name AS Name
+
+---------------------------------------------------------------------
+Complete_with_schema_accessorOf_for_boolean
+
+Person.underAge AS Person is underage
+
+---------------------------------------------------------------------
+Complete_with_schema_accessorOf_for_array
+
+Person.Parents AS Adresses
+
+---------------------------------------------------------------------
+Complete_with_schema_accessorOf_for_object
+
+Person.favouriteObject AS Persons favourite object
+
+---------------------------------------------------------------------
+
+Complete_with_schema_arithmetic_with_accessorOfs_addition_AS_symbol
+
+Age OF Person + 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_subtraction_AS_symbol
+
+Age OF Person - 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_multiplication_AS_symbol
+
+Age OF Person * 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_division_AS_symbol
+
+Age OF Person / 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_exponential_AS_symbol
+
+Age OF Person ^ 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_addition_AS_symbol_no_spacing_at_operator
+
+Age OF Person+18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_subtraction_AS_symbol_no_spacing_at_operator
+
+Age OF Person-18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_multiplication_AS_symbol_no_spacing_at_operator
+
+Age OF Person*18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_division_AS_symbol_no_spacing_at_operator
+
+Age OF Person/18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_exponential_AS_symbol_no_spacing_at_operator
+
+Age OF Person^18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_addition_AS_word
+
+Age OF Person PLUS 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_subtraction_AS_word
+
+Age OF Person MINUS 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_multiplication_AS_word
+
+Age OF Person TIMES 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_division_AS_word
+
+Age OF Person DIVIDED BY 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_exponential_AS_word
+
+Age OF Person TO THE POWER OF 18 AS A very high number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_addition_AS_word_no_spacing_at_operator
+
+Age OF PersonPLUS18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_subtraction_AS_word_no_spacing_at_operator
+
+Age OF PersonMINUS18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_multiplication_AS_word_no_spacing_at_operator
+
+Age OF PersonTIMES18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_division_AS_word_no_spacing_at_operator
+
+Age OF PersonDIVIDED BY18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_exponential_AS_word_no_spacing_at_operator
+
+Age OF PersonTO THE POWER OF18 AS A very high number
+
+---------------------------------------------------------------------
+Complete_with_schema_long_arithmetic_with_accessorOfs
+
+Age OF Person * 18 - 2000 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_arithmetic_with_accessorOfs_with_sugar
+
+The Age OF the Person * 18 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_long_arithmetic_with_accessorOfs_with_sugar
+
+The Age OF the Person * 18 - 2000 AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_long_arithmetic_with_accessorOfs_with_parentheses
+
+Age OF Person * (18 - Age OF Person) AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_long_arithmetic_with_accessorOfs_with_parentheses_with_sugar
+
+The Age OF the Person * (18 - the Age OF the Person) AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_complex_arithmetic_with_accessorOfs_with_parentheses
+
+The Age OF the Person + ((18 - 2) * the Age OF the Person) AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_complex_arithmetic_with_accessorOfs_with_parentheses_exponential
+
+(Age OF Person + 2000) ^ (Age OF Person - 8) AS Some number
+
+---------------------------------------------------------------------
+Complete_with_schema_complex_arithmetic_with_accessorOfs_with_parentheses_with_sugar
+
+The Age OF the Person + ((18 - 2) * the Age OF the Person) AS Some number
+
