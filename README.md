@@ -8,7 +8,7 @@ The validation rules can be automatically translated by openVALIDATION into Java
 This readme provides a brief overview. For detailed documentation and guides go [here](https://docs.openvalidation.io), to try it out directly in the browser go [here](http://playground.openvalidation.io/#/).
 
 ### Download & Installation
-Download the openVALIDATION CLI [here](https://oss.sonatype.org/content/repositories/snapshots/io/openvalidation/openvalidation-cli/0.0.1-SNAPSHOT/openvalidation-cli-0.0.1-20190902.135915-1.jar) (requires the Java SE 8 runtime environment).
+Download the openVALIDATION CLI [here](https://repo1.maven.org/maven2/io/openvalidation/openvalidation-cli/0.0.1/openvalidation-cli-0.0.1.jar) (requires the Java SE 8 runtime environment).
 
 The openVALIDATION Java API is also available via the Maven Central Repository. Add this to your `pom.xml`:
 ```xml
