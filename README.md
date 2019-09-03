@@ -9,10 +9,10 @@ The validation rules can be automatically translated by openVALIDATION into Java
 
 # Getting Started
 
-This readme provides a brief overview. For detailed documentation and guides go [here](https://docs.openvalidation.io), to try it out directly in the browser go [here](http://playground.openvalidation.io/#/).
+This readme provides a brief overview. For more details check out our [documentation and guides](https://docs.openvalidation.io), to try it out directly in the browser on the [playground](http://playground.openvalidation.io/#/).
 
 ### Download & Installation
-Download the openVALIDATION CLI [here](https://repo1.maven.org/maven2/io/openvalidation/openvalidation-cli/0.0.1/openvalidation-cli-0.0.1.jar) (requires the Java SE 8 runtime environment).
+Download the [openVALIDATION CLI](https://repo1.maven.org/maven2/io/openvalidation/openvalidation-cli/0.0.1/openvalidation-cli-0.0.1.jar) (requires the Java SE 8 runtime environment).
 
 The openVALIDATION Java API is also available via the Maven Central Repository. Add this to your `pom.xml`:
 ```xml
@@ -40,7 +40,8 @@ For now openVALIDATION is developed and tested for `jdk 1.8.*` only.
 ### Using the CLI
 We will use the rule `your age HAS to be greater than 22` to validate the data `{ age: 21 }`. The rule will be translated into code that validates the data according to our defined rule.
 ```bash
-java -jar openvalidation-cli/target/openvalidation.jar --culture en --language javascript --rule "your age HAS to be greater than 22" --schema "{ age: 21 }" --output age_check.js
+java -jar openvalidation-cli/target/openvalidation.jar --culture en --language javascript \
+     --rule "your age HAS to be greater than 22" --schema "{ age: 21 }" --output age_check.js
 ```
 If you check `age_check.js` you will see the generated code:
 ```js
@@ -57,7 +58,7 @@ var HUMLValidator = function() {
     }
 }
 ```
-As this is a validation rule, we will throw an error `your age HAS to be greater than 22` if the criteria specified in the rule is not met.
+As this is a validation rule, we will throw an error "`your age HAS to be greater than 22`" if the criteria specified in the rule is not met.
 
 Besides raw strings the `--rule` flag also accepts paths to files containing the rules.
 
@@ -91,7 +92,7 @@ if(model.getWeather() == "rainy")
 }
 ```
 
-There's also a second way to express rules in openVALIDATION. Let's have another look at an example.
+There's also a second way to express rules in openVALIDATION. Let's have another look at an example:
 ```
 The weather must be rainy.
 ```
@@ -108,7 +109,7 @@ Furthermore it is possible to construct complex condition groups (by using `and`
 
 ## Variables
 
-Variables can be used to hold simple values or store complex expressions. Each variable ends on the keyword `as` followed by its name. An example.
+Variables can be used to hold simple values or store complex expressions. Each variable ends on the keyword `as` followed by its name:
 ```
 today's weather is sunny as sunny_day
 ```
@@ -134,3 +135,7 @@ like:
 ## Getting involved
 
 Please refer to our [contribution guidelines](CONTRIBUTING.md).
+
+## Contact
+
+You can mention our twitter account [@Validaria_](https://twitter.com/validaria_)
