@@ -101,6 +101,18 @@ public class Aliases {
         .anyMatch(k -> k.toLowerCase().equals(alias.toLowerCase()));
   }
 
+  public static String getSpecificAliasByToken(String token) {
+    Map<String, String> allAliases = Aliases.getAvailableAliases();
+
+    for (Map.Entry<String, String> entry : allAliases.entrySet()) {
+      if (entry.getValue().equals(token)) {
+        return entry.getKey();
+      }
+    }
+
+    return null;
+  }
+
   public static String resolve(String plainText, Locale locale) {
 
     String ruleContent =
