@@ -16,6 +16,8 @@
 
 package io.openvalidation.common.ast;
 
+import io.openvalidation.common.data.DataPropertyType;
+
 public enum ASTComparisonOperator {
   GREATER_THAN,
   GREATER_OR_EQUALS,
@@ -82,6 +84,33 @@ public enum ASTComparisonOperator {
 
   public boolean isSimpleComparisonOperator() {
     return isSimpleComparisonOperator;
+  }
+
+  private DataPropertyType validDataType;
+
+  static {
+    GREATER_THAN.validDataType = DataPropertyType.Decimal;
+    GREATER_OR_EQUALS.validDataType = DataPropertyType.Decimal;
+    LESS_THAN.validDataType = DataPropertyType.Decimal;
+    LESS_OR_EQUALS.validDataType = DataPropertyType.Decimal;
+    EQUALS.validDataType = DataPropertyType.Object;
+    NOT_EQUALS.validDataType = DataPropertyType.Object;
+    ONE_OF.validDataType = DataPropertyType.Array;
+    AT_LEAST_ONE_OF.validDataType = DataPropertyType.Array;
+    ALL_OF.validDataType = DataPropertyType.Array;
+    NONE_OF.validDataType = DataPropertyType.Array;
+    IS_BETWEEN.validDataType = DataPropertyType.Unknown;
+    CONTAINS.validDataType = DataPropertyType.String;
+    EXISTS.validDataType = DataPropertyType.Array;
+    NOT_EXISTS.validDataType = DataPropertyType.Array;
+    IS.validDataType = DataPropertyType.Object;
+    SUM_OF.validDataType = DataPropertyType.String;
+    EMPTY.validDataType = DataPropertyType.String;
+    NOT_EMPTY.validDataType = DataPropertyType.String;
+  }
+
+  public DataPropertyType validDataType() {
+    return validDataType;
   }
 }
 // {{#resolve-operator operator}}{{/resolve-operator}}

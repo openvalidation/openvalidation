@@ -1,0 +1,57 @@
+/*
+ *    Copyright 2019 BROCKHAUS AG
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+package io.openvalidation.rest.model.dto.astDTO.element;
+
+import io.openvalidation.common.ast.ASTVariable;
+import io.openvalidation.rest.model.dto.astDTO.GenericElement;
+import io.openvalidation.rest.model.dto.astDTO.operation.ConditionMapper;
+import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
+import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
+
+public class VariableNode extends GenericElement {
+  private String name;
+  private OperandNode value;
+
+  public VariableNode(ASTVariable variable, DocumentSection section) {
+    super.initializeElement(section);
+
+    this.name = variable.getName();
+
+    DocumentSection newSection = new RangeGenerator(section).generate(variable.getValue());
+
+    if (variable.getValue() != null) {
+      this.value = ConditionMapper.createOperand(variable.getValue(), newSection);
+    }
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public OperandNode getValue() {
+    return value;
+  }
+
+  public void setValue(OperandNode value) {
+    this.value = value;
+  }
+}
