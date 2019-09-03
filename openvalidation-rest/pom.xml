@@ -22,7 +22,7 @@
     <parent>
         <artifactId>openvalidation</artifactId>
         <groupId>io.openvalidation</groupId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>openvalidation-rest</artifactId>
@@ -77,13 +77,13 @@
         <dependency>
             <groupId>io.openvalidation</groupId>
             <artifactId>openvalidation-core</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>${revision}</version>
             <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>io.openvalidation</groupId>
             <artifactId>openvalidation-common</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>${revision}</version>
             <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
