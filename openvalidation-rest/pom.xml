@@ -77,13 +77,13 @@
         <dependency>
             <groupId>io.openvalidation</groupId>
             <artifactId>openvalidation-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1</version>
             <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>io.openvalidation</groupId>
             <artifactId>openvalidation-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1</version>
             <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
