@@ -19,13 +19,20 @@ package io.openvalidation.rest.model.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.openvalidation.common.ast.ASTActionError;
+import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.ASTRule;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.converter.SchemaConverterFactory;
+import io.openvalidation.common.data.DataSchema;
 import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.CodeGenerationResult;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.LINQ;
+import io.openvalidation.rest.model.dto.astDTO.MainNode;
+import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
+import io.openvalidation.rest.model.dto.schema.SchemaDTO;
+import io.openvalidation.rest.service.OVParams;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +61,20 @@ public class GenerationResultDTO {
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   private List<String> ruleErrors;
 
+  @JsonAlias("main_ast_node")
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private MainNode mainAstNode;
+
+  @JsonAlias("schema_list")
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private SchemaDTO schema;
+
   public GenerationResultDTO() {
     // serializable
   }
 
-  public GenerationResultDTO(OpenValidationResult ovResult) {
+  public GenerationResultDTO(
+      OpenValidationResult ovResult, OVParams parameters, List<ASTItem> astItemList) {
     if (ovResult == null)
       throw new IllegalArgumentException("OpenValidationResult should not be null");
     if (ovResult.hasErrors()) errors = ovResult.getErrors();
@@ -69,7 +85,19 @@ public class GenerationResultDTO {
         frameworkGenerationResult == null ? "" : ovResult.getFrameworkResult().getCode());
     this.setImplementationResult(ovResult.getImplementationCodeContent());
 
+    TreeTransformer transformator = new TreeTransformer(ovResult, astItemList);
+    MainNode node = transformator.transform(parameters.getRule());
+    this.setMainAstNode(node);
+
+    try {
+      DataSchema schema = SchemaConverterFactory.convert(parameters.getSchema());
+      this.setSchema(new SchemaDTO(schema));
+    } catch (Exception ex) {
+      System.err.print("Schema could not be generated");
+    }
+
     ASTModel ast = ovResult.getASTModel();
+
     if (ast != null) {
       this.setVariableNames(LINQ.select(ast.getVariables(), v -> v.getName()));
       this.setStaticStrings(
@@ -85,15 +113,22 @@ public class GenerationResultDTO {
                           && r.getAction() instanceof ASTActionError),
               r -> ((ASTActionError) r.getAction()).getErrorMessage()));
     }
-  } // TODO: verbose
+  }
 
   public List<OpenValidationException> getErrors() {
     return errors;
   }
 
-  // TODO nested Class public oder setter entfernen
   public void setErrors(List<OpenValidationException> errors) {
     this.errors = errors;
+  }
+
+  public SchemaDTO getSchema() {
+    return schema;
+  }
+
+  public void setSchema(SchemaDTO schema) {
+    this.schema = schema;
   }
 
   public String getImplementationResult() {
@@ -134,5 +169,13 @@ public class GenerationResultDTO {
 
   public void setRuleErrors(List<String> ruleErrors) {
     this.ruleErrors = ruleErrors;
+  }
+
+  public MainNode getMainAstNode() {
+    return mainAstNode;
+  }
+
+  public void setMainAstNode(MainNode mainAstNode) {
+    this.mainAstNode = mainAstNode;
   }
 }

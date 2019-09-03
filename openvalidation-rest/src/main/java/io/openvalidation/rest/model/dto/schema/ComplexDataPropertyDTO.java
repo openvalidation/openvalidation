@@ -14,13 +14,33 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.rest.service;
+package io.openvalidation.rest.model.dto.schema;
 
-import io.openvalidation.common.model.OpenValidationResult;
+import io.openvalidation.common.data.DataProperty;
 
-public interface OpenValidationService {
-  OpenValidationResult generate(OVParams openValidationParameters) throws Exception;
+public class ComplexDataPropertyDTO {
 
-  OpenValidationResult generate(OVParams openValidationParameters, boolean withCode)
-      throws Exception;
+  private String parent;
+  private String child;
+
+  public ComplexDataPropertyDTO(DataProperty property) {
+    this.parent = property.getPath();
+    this.child = property.getName();
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
+  public void setParent(String parent) {
+    this.parent = parent;
+  }
+
+  public String getChild() {
+    return child;
+  }
+
+  public void setChild(String child) {
+    this.child = child;
+  }
 }

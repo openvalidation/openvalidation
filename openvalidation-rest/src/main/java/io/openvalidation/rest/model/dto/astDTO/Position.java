@@ -14,13 +14,35 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.rest.service;
+package io.openvalidation.rest.model.dto.astDTO;
 
-import io.openvalidation.common.model.OpenValidationResult;
+public class Position {
+  private int line;
+  private int column;
 
-public interface OpenValidationService {
-  OpenValidationResult generate(OVParams openValidationParameters) throws Exception;
+  public Position(int line, int column) {
+    this.line = line;
+    this.column = column;
+  }
 
-  OpenValidationResult generate(OVParams openValidationParameters, boolean withCode)
-      throws Exception;
+  public Position(Position position) {
+    this.line = position.getLine();
+    this.column = position.getColumn();
+  }
+
+  public int getLine() {
+    return line;
+  }
+
+  public int getColumn() {
+    return column;
+  }
+
+  public void setLine(int line) {
+    this.line = line;
+  }
+
+  public void setColumn(int column) {
+    this.column = column;
+  }
 }

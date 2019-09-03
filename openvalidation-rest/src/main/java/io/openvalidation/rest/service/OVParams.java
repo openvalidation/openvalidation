@@ -23,6 +23,13 @@ public class OVParams {
 
   public OVParams() {}
 
+  public OVParams(String rule, String schema, String culture, String language) {
+    this.rule = rule;
+    this.schema = schema;
+    this.culture = culture;
+    this.language = language;
+  }
+
   public String getRule() {
     return rule;
   }

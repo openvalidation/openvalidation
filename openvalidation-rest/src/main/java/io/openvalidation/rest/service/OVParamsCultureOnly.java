@@ -16,11 +16,22 @@
 
 package io.openvalidation.rest.service;
 
-import io.openvalidation.common.model.OpenValidationResult;
+import io.openvalidation.common.utils.StringUtils;
 
-public interface OpenValidationService {
-  OpenValidationResult generate(OVParams openValidationParameters) throws Exception;
+public class OVParamsCultureOnly {
+  private String culture;
 
-  OpenValidationResult generate(OVParams openValidationParameters, boolean withCode)
-      throws Exception;
+  public OVParamsCultureOnly() {}
+
+  public String getCulture() {
+    return culture;
+  }
+
+  public void setCulture(String culture) {
+    this.culture = culture;
+  }
+
+  public boolean isEmpty() {
+    return StringUtils.isNullOrEmpty(this.culture);
+  }
 }

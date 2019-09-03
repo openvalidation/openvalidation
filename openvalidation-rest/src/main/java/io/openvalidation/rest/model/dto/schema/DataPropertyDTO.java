@@ -14,13 +14,33 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.rest.service;
+package io.openvalidation.rest.model.dto.schema;
 
-import io.openvalidation.common.model.OpenValidationResult;
+import io.openvalidation.common.data.DataPropertyType;
 
-public interface OpenValidationService {
-  OpenValidationResult generate(OVParams openValidationParameters) throws Exception;
+public class DataPropertyDTO {
 
-  OpenValidationResult generate(OVParams openValidationParameters, boolean withCode)
-      throws Exception;
+  private String name;
+  private DataPropertyType type;
+
+  public DataPropertyDTO(String name, DataPropertyType type) {
+    this.name = name;
+    this.type = type;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String fullname) {
+    this.name = fullname;
+  }
+
+  public DataPropertyType getType() {
+    return type;
+  }
+
+  public void setType(DataPropertyType type) {
+    this.type = type;
+  }
 }
