@@ -1,6 +1,8 @@
 [![Build Status](https://dev.azure.com/validaria/openvalidation/_apis/build/status/openVALIDATION/openVALIDATION%20master?branchName=master)](https://dev.azure.com/validaria/openvalidation/_build/latest?definitionId=1&branchName=master)
 ![Azure DevOps tests (compact)](https://img.shields.io/azure-devops/tests/validaria/openvalidation/1?compact_message)
 ![Maven Central](https://img.shields.io/maven-central/v/io.openvalidation/openvalidation)
+![Follow us on Twitter](https://img.shields.io/twitter/follow/Validaria_?style=social)
+
 
 OpenVALIDATION enables you to generate validation rules from natural language-like expressions in English and German without any knowledge in programming.
 The validation rules can be automatically translated by openVALIDATION into Java, JavaScript or C#, with more languages to come!
@@ -138,4 +140,4 @@ Please refer to our [contribution guidelines](CONTRIBUTING.md).
 
 ## Contact
 
-You can mention our twitter account [@Validaria_](https://twitter.com/validaria_)
+You can write an [E-Mail](mailto:todo) or mention our twitter account [@Validaria_](https://twitter.com/validaria_).
