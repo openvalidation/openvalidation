@@ -5,7 +5,7 @@ We use GitHub issues for both.
 First, use the [github search](https://github.com/openvalidation/openvalidation/search?q=is%3Aissue&unscoped_q=is%3Aissue) to check if your issue has been reported already.
 If you find that someone already reported your problem, feel free to share additional information to help us investigate the bug more quickly.
 
-If you could not find a matching issue and want to open a new ticket, please try to follow the issue template and provide all the necessary information. However, an incomplete issue that reports a critical bug is still better than no issue at all.
+If you could not find a matching issue and want to open a new ticket, please try to follow the issue template and provide all the necessary information. However, an incomplete ticket that reports a critical bug is still better than no ticket at all.
 
 ## Become a developer
 Please refer to the [developer readme](/docs/developer_readme.md) for build and test instructions, as well as our coding guidelines.
@@ -24,9 +24,9 @@ We want to get openVALIDATION to be [checkstyle](https://checkstyle.org/) clean.
 After having fixed all the warnings, submit a pull request.
 
 #### Fixing bugs
-Pick a ticket from the [bugtracker](https://github.com/openvalidation/openvalidation/issues) and let us know that you are working on a fix.  
+Pick a ticket from the [bugtracker](https://github.com/openvalidation/openvalidation/issues) and leave a comment letting us know that you are working on a fix.  
 If you have any questions, feel free to discuss it in the ticket.
-Make sure the fix adheres to the [codeing guidelines](docs/developer_readme.md) guidelines.
+Make sure the fix adheres to the [coding guidelines](docs/developer_readme.md).
 
 #### Implementing new features
 Before integrating a new feature, it's best to discuss it with the core developers first.  
