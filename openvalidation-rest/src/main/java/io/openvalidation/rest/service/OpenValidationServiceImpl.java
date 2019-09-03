@@ -27,7 +27,14 @@ import org.springframework.stereotype.Service;
 public class OpenValidationServiceImpl implements OpenValidationService {
 
   @Override
-  public OpenValidationResult generate(OVParams params) throws Exception {
+  public OpenValidationResult generate(OVParams params)
+      throws OpenValidationResponseStatusException {
+    return this.generate(params, true);
+  }
+
+  @Override
+  public OpenValidationResult generate(OVParams params, boolean withCode)
+      throws OpenValidationResponseStatusException {
     try {
       OpenValidation ov = OpenValidation.createDefault();
 
@@ -36,7 +43,7 @@ public class OpenValidationServiceImpl implements OpenValidationService {
           .setRule(params.getRule())
           .setSchema(params.getSchema());
 
-      return ov.generate();
+      return ov.generate(!withCode);
     } catch (OpenValidationException exp) {
       OpenValidationResult result = new OpenValidationResult();
       result.addError(exp);
@@ -51,47 +58,4 @@ public class OpenValidationServiceImpl implements OpenValidationService {
           e);
     }
   }
-
-  //    @Override
-  //    public CodeGenerationResult generateFramework(OpenValidationParameters
-  // openValidationParameters, ASTModel astModel) throws Exception {
-  //        return openValidationParameters.generateFramework(astModel);
-  //    }
-  //
-  //    @Override
-  //    public CodeGenerationResult generateFramework(Map<String, String> parameterMap, ASTModel
-  // astModel) throws Exception {
-  //        OpenValidationParameters openValidationParameters =
-  // OpenValidationParameters.of(parameterMap);
-  //        return generateFramework(openValidationParameters, astModel);
-  //    }
-  //
-  //    @Override
-  //    public OpenValidationResult generateCode(OpenValidationParameters openValidationParameters)
-  // throws Exception {
-  //        return openValidationParameters.generateCode();
-  //    }
-  //
-  //    //TODO verify with ilja
-  //    @Override
-  //    public OpenValidationResult generateCode(Map<String, String> parameterMap) throws Exception
-  // {
-  //        OpenValidationParameters openValidationParameters =
-  // OpenValidationParameters.of(parameterMap);
-  //        return generateCode(openValidationParameters);
-  //    }
-  //
-  //    @Override
-  //    public CodeGenerationResult generateValidatorFactory(OpenValidationParameters
-  // openValidationParameters, Map<String, Object> factoryParameters) throws Exception {
-  //        return openValidationParameters.generateValidatorFactory(factoryParameters);
-  //    }
-  //
-  //    @Override
-  //    public CodeGenerationResult generateValidatorFactory(Map<String, String> parameterMap,
-  // Map<String, Object> factoryParameters) throws Exception {
-  //        OpenValidationParameters openValidationParameters =
-  // OpenValidationParameters.of(parameterMap);
-  //        return generateValidatorFactory(openValidationParameters, factoryParameters);
-  //    }
 }

@@ -14,13 +14,14 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.rest.service;
+package io.openvalidation.rest.model.dto.astDTO.operation;
 
-import io.openvalidation.common.model.OpenValidationResult;
+import io.openvalidation.common.data.DataPropertyType;
+import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
+import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
-public interface OpenValidationService {
-  OpenValidationResult generate(OVParams openValidationParameters) throws Exception;
-
-  OpenValidationResult generate(OVParams openValidationParameters, boolean withCode)
-      throws Exception;
+public abstract class ConditionNode extends OperandNode {
+  public ConditionNode(DocumentSection section) {
+    super(section, null, DataPropertyType.Boolean);
+  }
 }

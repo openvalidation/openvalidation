@@ -14,13 +14,26 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.rest.service;
+package io.openvalidation.rest.model.dto.astDTO.element;
 
-import io.openvalidation.common.model.OpenValidationResult;
+import io.openvalidation.common.ast.ASTComment;
+import io.openvalidation.rest.model.dto.astDTO.GenericElement;
+import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
-public interface OpenValidationService {
-  OpenValidationResult generate(OVParams openValidationParameters) throws Exception;
+public class CommentNode extends GenericElement {
+  private String content;
 
-  OpenValidationResult generate(OVParams openValidationParameters, boolean withCode)
-      throws Exception;
+  public CommentNode(ASTComment comment, DocumentSection section) {
+    super.initializeElement(section);
+
+    this.content = String.join("\n", comment.getContent());
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
 }

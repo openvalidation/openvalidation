@@ -14,13 +14,14 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.rest.service;
+package io.openvalidation.rest.model.dto.astDTO;
 
-import io.openvalidation.common.model.OpenValidationResult;
+public class IndexHelper {
+  public static int GetStartIndex(String outerString, String subString) {
+    return IndexHelper.formatString(outerString).indexOf(IndexHelper.formatString(subString));
+  }
 
-public interface OpenValidationService {
-  OpenValidationResult generate(OVParams openValidationParameters) throws Exception;
-
-  OpenValidationResult generate(OVParams openValidationParameters, boolean withCode)
-      throws Exception;
+  public static String formatString(String stringToFormat) {
+    return stringToFormat.replace("\n", "");
+  }
 }

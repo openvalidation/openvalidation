@@ -16,13 +16,18 @@
 
 package io.openvalidation.antlr;
 
+import io.openvalidation.antlr.completion.AntlrAutoCompletionSuggester;
+import io.openvalidation.antlr.completion.EditorContext;
+import io.openvalidation.antlr.completion.EditorContextImpl;
 import io.openvalidation.antlr.generated.mainLexer;
 import io.openvalidation.antlr.generated.mainParser;
 import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.data.DataSchema;
 import io.openvalidation.common.unittesting.astassertion.ModelRootAssertion;
 import io.openvalidation.common.utils.ThrowingConsumer;
+import java.util.List;
 import java.util.logging.*;
+import java.util.stream.Collectors;
 import org.antlr.v4.runtime.*;
 
 public class ANTLRExecutor {
@@ -51,6 +56,18 @@ public class ANTLRExecutor {
 
       parser.main();
       ast = astBuildListener.getAST();
+
+      EditorContext context = new EditorContextImpl(input);
+      AntlrAutoCompletionSuggester suggester =
+          new AntlrAutoCompletionSuggester(
+              parser.getRuleNames(), parser.getVocabulary(), parser.getATN());
+
+      List<String> suggestions =
+          suggester.suggestions(context).stream()
+              .map(tokenType -> parser.getVocabulary().getDisplayName(tokenType))
+              .collect(Collectors.toList());
+
+      System.out.println(suggestions);
 
       if (function != null) function.accept(new ModelRootAssertion(ast));
 

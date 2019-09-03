@@ -19,11 +19,10 @@ package io.openvalidation.rest.controller;
 import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.model.OpenValidationResult;
-import io.openvalidation.rest.model.dto.GenerationResultDTO;
 import io.openvalidation.rest.model.dto.UnkownElementParser;
-import io.openvalidation.rest.service.OVParams;
-import io.openvalidation.rest.service.OpenValidationResponseStatusException;
-import io.openvalidation.rest.service.OpenValidationService;
+import io.openvalidation.rest.model.dto.astDTO.MainNode;
+import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
+import io.openvalidation.rest.service.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +33,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/")
-public class OpenValidationController {
+@RequestMapping("/linting")
+public class ContextParsingController {
 
   @Autowired private OpenValidationService ovService;
 
   @PostMapping
-  public ResponseEntity<GenerationResultDTO> generate(@RequestBody OVParams parameters) {
-    if (parameters == null || parameters.isEmpty()) {
+  public ResponseEntity<MainNode> generate(@RequestBody OVParams parameters) {
+    if (parameters == null) {
       throw new ResponseStatusException(
           HttpStatus.UNPROCESSABLE_ENTITY,
           "You did not provide any parameters for the generation request. You can browse the API on /swagger-ui.html");
@@ -51,7 +50,7 @@ public class OpenValidationController {
     List<ASTItem> astItemList = new ArrayList<>();
 
     try {
-      result = ovService.generate(parameters);
+      result = ovService.generate(parameters, false);
 
       ASTModel astModel = result.getASTModel();
       if (astModel != null) {
@@ -66,12 +65,9 @@ public class OpenValidationController {
           e);
     }
 
-    GenerationResultDTO generationResultDTO =
-        new GenerationResultDTO(result, parameters, astItemList);
-    if (result.hasErrors()) {
-      return new ResponseEntity<>(generationResultDTO, HttpStatus.I_AM_A_TEAPOT);
-    }
+    TreeTransformer transformer = new TreeTransformer(result, astItemList);
+    MainNode node = transformer.transform(parameters.getRule());
 
-    return new ResponseEntity<>(generationResultDTO, HttpStatus.OK);
+    return new ResponseEntity<>(node, HttpStatus.OK);
   }
 }
