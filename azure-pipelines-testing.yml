@@ -1,8 +1,6 @@
-
-trigger:
-  branches:
-    exclude:
-    - master
+trigger: none
+pr:
+  - master
 
 pool:
   vmImage: 'Ubuntu-16.04'
