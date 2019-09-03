@@ -19,14 +19,14 @@ When opening a new pull request, try to stick to the template as much as is reas
 Improving documentation (code comments, wikis, website) is an excellent way of familiarizing yourself with the project and improving the codebase at the same time!
 
 #### Fixing lint warnings
-We want to get openVALIDATION to be [checkstyle](https://checkstyle.org/) clean. In order to do this, open the [checkstyle configuration](url!) at 
+We want to get openVALIDATION to be [checkstyle](https://checkstyle.org/) clean. In order to do this, open the [checkstyle configuration](build-tools/src/main/resources/google_checks.xml) at 
 `build-tools/src/main/resources/google_checks.xml` and re-add one of the commented-out lints.  
 After having fixed all the warnings, submit a pull request.
 
 #### Fixing bugs
-Pick a ticket from the [bugtracker](url) and let us know that you are working on a fix.  
+Pick a ticket from the [bugtracker](https://github.com/openvalidation/openvalidation/issues) and let us know that you are working on a fix.  
 If you have any questions, feel free to discuss it in the ticket.
-Make sure the fix adheres to the [link](code) guidelines.
+Make sure the fix adheres to the [codeing guidelines](docs/developer_readme.md) guidelines.
 
 #### Implementing new features
 Before integrating a new feature, it's best to discuss it with the core developers first.  
