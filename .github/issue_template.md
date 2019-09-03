@@ -28,6 +28,6 @@
 ## Your Environment
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 * Version used:
-* Environment name and version (`mvn -v` and `java --version`):
+* Environment name and version (`mvn -v` and `java -version`):
 * Operating System and version:
 * Link to your project:
