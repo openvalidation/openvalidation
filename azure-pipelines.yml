@@ -30,4 +30,7 @@ steps:
 # Publish jars
 - script: |
     mv $(mavenSecurity.secureFilePath) ~/.m2
-    mvn clean deploy -Prelease -s $(mavenSettings.secureFilePath) -B -U -Dpgp.secretkey=keyfile:$(secretKey.secureFilePath) -DskipTests=true
+    mvn clean deploy -Prelease -s $(mavenSettings.secureFilePath) -B -U \
+      -Dpgp.secretkey=keyfile:$(secretKey.secureFilePath) \
+      -Dpgp.passphrase=literal:$(PGP_PASSPHRASE) \
+      -DskipTests=true
