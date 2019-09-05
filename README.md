@@ -11,7 +11,7 @@ The validation rules can be automatically translated by openVALIDATION into Java
 
 # Getting Started
 
-This readme provides a brief overview. For more details check out our [documentation and guides](https://docs.openvalidation.io), to try it out directly in the browser on the [playground](http://playground.openvalidation.io/#/).
+This readme provides a brief overview. For more details check out our [documentation and guides](https://docs.openvalidation.io), or try it out directly in the browser on the [playground](http://playground.openvalidation.io/#/).
 
 ### Download & Installation
 Download the [openVALIDATION CLI](https://repo1.maven.org/maven2/io/openvalidation/openvalidation-cli/0.0.1/openvalidation-cli-0.0.1.jar) (requires the Java SE 8 runtime environment).
@@ -40,7 +40,7 @@ The openVALIDATION Java API is also available via the Maven Central Repository. 
 For now openVALIDATION is developed and tested for `jdk 1.8.*` only.
 
 ### Using the CLI
-We will use the rule `your age HAS to be greater than 22` to validate the data `{ age: 21 }`. The rule will be translated into code that validates the data according to our defined rule.
+We will use the rule `your age HAS to be greater than 22` to validate data of the form `{ age: 21 }`. The rule will be translated into code that validates the data according to our defined rule.
 ```bash
 java -jar openvalidation-cli/target/openvalidation.jar --culture en --language javascript \
      --rule "your age HAS to be greater than 22" --schema "{ age: 21 }" --output age_check.js
@@ -60,7 +60,7 @@ var HUMLValidator = function() {
     }
 }
 ```
-As this is a validation rule, we will throw an error "`your age HAS to be greater than 22`" if the criteria specified in the rule is not met.
+As this is a validation rule, we will throw an error *"your age HAS to be greater than 22"* if the criteria specified in the rule are not met.
 
 Besides raw strings the `--rule` flag also accepts paths to files containing the rules.
 
@@ -68,11 +68,15 @@ The `--schema` flag also accepts paths to files containing the data (like YAML o
 
 # Features
 
-The construction of an openVALIDATION ruleset is fairly simple. Each ruleset makes use of 3 basic elements: validation rules, variables and alternatively comments. This set of elements allows you to construct complex rulesets you can use to customise the validation of data as you like. To get a better feeling for how these elements interact we listed a few examples below.
+The construction of an openVALIDATION ruleset is fairly simple. Each ruleset is made up of of 3 basic kinds of elements: *validation rules*, *variables* and alternatively *comments*. This set of elements allows you to construct complex rulesets which you can use to customise the validation of data as you like. To get a better feeling for how they interact, take a look at the examples below.
 
 ## Rules
 
-Rules are the heart of every ruleset and consist of two parts. An error message that is displayed if the data does not conform to the rule and a condition which contains the validation logic that will validate the data and thus triggers the error message in case the validation fails. There are two ways to define a rule. For the first, let\'s take a look at a simple example.
+Rules are the heart of every ruleset and consist of two parts:
+ - An error message that is displayed if the data does not conform to the rule
+ - and a condition containing the logic that will trigger the error message if the validation fails.
+
+There are two ways to define a rule. For the first, let\'s take a look at a simple example.
 
 The data to be validated is:
 ```json
@@ -82,7 +86,7 @@ The data to be validated is:
 ```
 And our rule is:
 ```
-If    the weather if rainy
+If    the weather is rainy
 then  Don't forget your umbrella!
 ```
 
@@ -94,20 +98,20 @@ if(model.getWeather() == "rainy")
 }
 ```
 
-There's also a second way to express rules in openVALIDATION. Let's have another look at an example:
+Additionally, there is a second way to express rules in openVALIDATION. Let's have another look at an example:
 ```
 The weather must be rainy.
 ```
-This kind of rule is special in the way that it contains the keyword `must` and lacks an error message. However, the whole rule itself can be seen as the error message. In fact an explicit error message initiated by a `then` is not allowed. The `must` operator implies an equality operator between `weather` and `sunny`. Another very important trait of this sort of rule is the way its logic is translated into code compared to the previous kind of rule.
+This kind of rule is special in the way that it contains the keyword `must` and lacks an error message. However, *the whole rule itself can be seen as the error message*. In fact, an explicit error message initiated by a `then` is not allowed in this case. The `must` operator implies an equality operator between `weather` and `sunny`. Another very important trait of this sort of rule is the way its logic translates into code compared to an `if-then-rule`:
 ```java
 if(model.getWeather() != "rainy")
 {
     throw new Exception("The weather must be rainy.");
 }
 ``` 
-You can see that a rule formulated in this way behaves a bit differently than an `if-then-rule`. The most important observation is, that the implied equality is negated when translated.
+The most important difference is, that the implied equality is negated when translated.
 
-Furthermore it is possible to construct complex condition groups (by using `and` and `or`) and build conditions from arithmetic expressions, lambdas, variable references and other property accessors (like `weather`).
+Furthermore, it is possible to construct complex condition groups (by using `and` and `or`) and build conditions from arithmetic expressions, lambdas, variable references and other property accessors (like `weather`).
 
 ## Variables
 
