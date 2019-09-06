@@ -106,7 +106,7 @@ public class OperationNode extends ConditionNode {
       }
     }
 
-    return new DocumentSection(new Range(start, end), returnList);
+    return new DocumentSection(new Range(start, end), returnList).trimLine();
   }
 
   public OperandNode getLeftOperand() {

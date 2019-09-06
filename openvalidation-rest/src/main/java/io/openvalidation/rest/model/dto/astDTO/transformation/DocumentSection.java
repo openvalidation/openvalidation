@@ -58,4 +58,22 @@ public class DocumentSection {
   public void setLines(List<String> lines) {
     this.lines = lines;
   }
+
+  public DocumentSection trimLine() {
+    if (lines.size() == 0) return this;
+
+    String firstLine = lines.get(0);
+    while (firstLine.startsWith(" ")) {
+      firstLine = firstLine.substring(1);
+      this.getRange().getStart().setColumn(this.getRange().getStart().getColumn() + 1);
+    }
+
+    String lastLine = lines.get(lines.size() - 1);
+    while (lastLine.endsWith(" ")) {
+      lastLine = lastLine.substring(0, lastLine.length() - 1);
+      this.getRange().getEnd().setColumn(this.getRange().getEnd().getColumn() - 1);
+    }
+
+    return this;
+  }
 }
