@@ -6,7 +6,7 @@ mergeable:
         changed:
           file: pom.xml
         message: 'Parent pom.xml has been changed.'
-    pass:
+    fail:
       - do: comment
         payload:
           body: >
@@ -24,7 +24,7 @@ mergeable:
         changed:
           file: azure-pipelines.yml
         message: 'Master CI pipeline has been changed.'
-    pass:
+    fail:
       - do: comment
         payload:
           body: >
