@@ -1,0 +1,37 @@
+version: 2
+mergeable:
+  - when: pull_request.opened, pull_request.edited
+    validate:
+      - do: dependent
+        changed:
+          file: pom.xml
+        message: 'Parent pom.xml has been changed.'
+    pass:
+      - do: comment
+        payload:
+          body: >
+            **Changes in `pom.xml`! Check `<version>` fields and `revision` property before rebasing and merging**,
+            as that will trigger an automatic deployment! All version entries should be `$(revision)`, and for non-release PRs
+            the revision property should be`{upcoming version}-SNAPSHOT`!
+    error:
+      - do: comment
+        payload:
+          body: >
+            Couldn't validate whether `pom.xml` has been changed. Someone should have a look.
+  - when: pull_request.opened, pull_request.edited
+    validate:
+      - do: dependent
+        changed:
+          file: azure-pipelines.yml
+        message: 'Master CI pipeline has been changed.'
+    pass:
+      - do: comment
+        payload:
+          body: >
+            **Changes in `azure-pipelines.yml`!** This build pipeline has access to sensitive keys and files,
+            please check for security issues before rebasing and merging.
+    error:
+      - do: comment
+        payload:
+          body: >
+            Couldn't validate whether `azure-pipelines.yml` has been changed. Someone should have a look.
