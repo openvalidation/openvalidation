@@ -101,16 +101,16 @@ public class Aliases {
         .anyMatch(k -> k.toLowerCase().equals(alias.toLowerCase()));
   }
 
-  public static String getSpecificAliasByToken(String token) {
-    Map<String, String> allAliases = Aliases.getAvailableAliases();
+  public static List<String> getSpecificAliasByToken(String locale, String... tokens) {
+    Map<String, String> allAliases = Aliases.getAvailableAliases(locale);
+    List<String> returnList = new ArrayList<>();
 
-    for (Map.Entry<String, String> entry : allAliases.entrySet()) {
-      if (entry.getValue().equals(token)) {
-        return entry.getKey();
-      }
+    for (String token: tokens) {
+      Map<String, String> tmpSet = allAliases.entrySet().stream().filter(tuple -> tuple.getValue().equals(token)).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+      returnList.addAll(tmpSet.keySet());
     }
 
-    return null;
+    return returnList;
   }
 
   public static String resolve(String plainText, Locale locale) {

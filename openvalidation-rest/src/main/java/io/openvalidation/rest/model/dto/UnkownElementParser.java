@@ -53,7 +53,8 @@ public class UnkownElementParser {
 
     if (unkownIdMap.size() == 0) return astItemList;
 
-    String asKeyword = Aliases.getSpecificAliasByToken(Constants.AS_TOKEN);
+    List<String> potentialKeywords = Aliases.getSpecificAliasByToken(this.parameter.getCulture(), Constants.AS_TOKEN);
+    String asKeyword = potentialKeywords.size() > 0 ? potentialKeywords.get(0) : null;
     if (asKeyword == null) {
       throw new Exception("No Alias for " + Constants.AS_TOKEN + " found!");
     }
