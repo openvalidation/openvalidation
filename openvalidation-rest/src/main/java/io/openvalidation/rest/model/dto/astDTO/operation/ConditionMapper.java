@@ -26,10 +26,23 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
 public class ConditionMapper {
   public static ConditionNode createConditionNode(
-      ASTConditionBase conditionBase, DocumentSection section) {
+          ASTConditionBase conditionBase, DocumentSection section) {
+    return ConditionMapper.createConditionNode(conditionBase, section, false);
+  }
+
+  public static ConditionNode createConditionNode(
+      ASTConditionBase conditionBase, DocumentSection section, boolean isConnectedOperation) {
     if (conditionBase instanceof ASTCondition) {
-      return new OperationNode((ASTCondition) conditionBase, section);
-    } else if (conditionBase instanceof ASTConditionGroup) {
+      ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section);
+
+      if (isConnectedOperation) {
+        returnNode = new ConnectedOperationNode(returnNode, section);
+      }
+
+      return returnNode;
+    }
+
+    if (conditionBase instanceof ASTConditionGroup) {
       return new ConnectedOperationNode((ASTConditionGroup) conditionBase, section);
     }
 

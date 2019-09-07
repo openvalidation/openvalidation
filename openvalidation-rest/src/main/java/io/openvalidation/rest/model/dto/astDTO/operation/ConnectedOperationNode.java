@@ -19,11 +19,19 @@ package io.openvalidation.rest.model.dto.astDTO.operation;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
+
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ConnectedOperationNode extends ConditionNode {
   private List<ConditionNode> conditions;
+
+  public ConnectedOperationNode(ConditionNode condition, DocumentSection section) {
+      super(section);
+      this.conditions = Collections.singletonList(condition);
+  }
 
   public ConnectedOperationNode(ASTConditionGroup conditionBase, DocumentSection section) {
     super(section);
