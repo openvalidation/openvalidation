@@ -18,17 +18,21 @@ package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.common.ast.ASTActionError;
 import io.openvalidation.common.ast.ASTRule;
+import io.openvalidation.common.utils.Constants;
+import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.GenericElement;
 import io.openvalidation.rest.model.dto.astDTO.operation.ConditionMapper;
 import io.openvalidation.rest.model.dto.astDTO.operation.ConditionNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 
+import java.util.List;
+
 public class RuleNode extends GenericElement {
   private String errorMessage;
   private ConditionNode condition;
 
-  public RuleNode(ASTRule rule, DocumentSection section) {
+  public RuleNode(ASTRule rule, DocumentSection section, String culture) {
     super.initializeElement(section);
 
     ASTActionError actionError = (ASTActionError) rule.getAction();
@@ -38,7 +42,9 @@ public class RuleNode extends GenericElement {
 
     if (rule.getCondition() != null) {
       DocumentSection newSection = new RangeGenerator(section).generate(rule.getCondition());
-      this.condition = ConditionMapper.createConditionNode(rule.getCondition(), newSection);
+      List<String> operators = Aliases.getSpecificAliasByToken(culture, Constants.OR_TOKEN, Constants.AND_TOKEN);
+      boolean isConnectedOperation = operators.stream().anyMatch(operator -> rule.getPreprocessedSource().toUpperCase().endsWith(operator));
+      this.condition = ConditionMapper.createConditionNode(rule.getCondition(), newSection, isConnectedOperation);
     }
   }
 
