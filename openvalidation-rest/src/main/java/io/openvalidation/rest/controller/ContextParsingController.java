@@ -65,7 +65,7 @@ public class ContextParsingController {
           e);
     }
 
-    TreeTransformer transformer = new TreeTransformer(result, astItemList);
+    TreeTransformer transformer = new TreeTransformer(result, astItemList, parameters);
     MainNode node = transformer.transform(parameters.getRule());
 
     return new ResponseEntity<>(node, HttpStatus.OK);

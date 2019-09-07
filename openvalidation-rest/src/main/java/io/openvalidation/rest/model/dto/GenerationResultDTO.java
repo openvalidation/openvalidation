@@ -85,7 +85,7 @@ public class GenerationResultDTO {
         frameworkGenerationResult == null ? "" : ovResult.getFrameworkResult().getCode());
     this.setImplementationResult(ovResult.getImplementationCodeContent());
 
-    TreeTransformer transformator = new TreeTransformer(ovResult, astItemList);
+    TreeTransformer transformator = new TreeTransformer(ovResult, astItemList, parameters);
     MainNode node = transformator.transform(parameters.getRule());
     this.setMainAstNode(node);
 
