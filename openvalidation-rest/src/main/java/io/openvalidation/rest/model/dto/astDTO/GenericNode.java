@@ -20,7 +20,7 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GenericElement {
+public abstract class GenericNode {
   private List<String> lines;
   private Range range;
   private int startNumber;
@@ -36,6 +36,10 @@ public abstract class GenericElement {
 
   public List<String> getLines() {
     return lines;
+  }
+
+  public void setLines(List<String> lines) {
+    this.lines = lines;
   }
 
   public Range getRange() {

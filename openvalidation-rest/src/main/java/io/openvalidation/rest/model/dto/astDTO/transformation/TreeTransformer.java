@@ -22,8 +22,9 @@ import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.rest.model.dto.astDTO.*;
 import io.openvalidation.rest.model.dto.astDTO.element.CommentNode;
 import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
+import io.openvalidation.rest.model.dto.astDTO.element.UnkownNode;
 import io.openvalidation.rest.model.dto.astDTO.element.VariableNode;
-import io.openvalidation.rest.model.dto.astDTO.operation.ConditionMapper;
+import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.service.OVParams;
 
 import java.util.ArrayList;
@@ -36,7 +37,9 @@ public class TreeTransformer {
   private OVParams parameters;
 
   public TreeTransformer(OpenValidationResult result, List<ASTItem> astItemList, OVParams parameters) {
-    if (result.getASTModel() != null) this.variables = result.getASTModel().getVariables();
+    this.variables = result.getASTModel() != null
+            ? result.getASTModel().getVariables()
+            : new ArrayList<>();
 
     this.astItems = astItemList;
     this.parameters = parameters;
@@ -48,17 +51,17 @@ public class TreeTransformer {
 
     ArrayList<DocumentSection> documentSections =
         new DocumentSplitter(documentText).splitDocument();
+    if (documentSections.size() != this.astItems.size()) return new MainNode();
 
     // Set variables as declarations
     mainNode.addDeclarations(
         this.variables.stream().map(Variable::new).collect(Collectors.toList()));
 
-    List<ASTItem> elements = this.astItems;
-    for (int index = 0; index < elements.size(); index++) {
-      ASTItem element = elements.get(index);
+    for (int index = 0; index < this.astItems.size(); index++) {
+      ASTItem element = this.astItems.get(index);
       DocumentSection section = documentSections.get(index);
 
-      GenericElement node = null;
+      GenericNode node = null;
 
       if (element instanceof ASTRule) {
         node = new RuleNode((ASTRule) element, section, this.parameters.getCulture());
@@ -67,7 +70,7 @@ public class TreeTransformer {
       } else if (element instanceof ASTComment) {
         node = new CommentNode((ASTComment) element, section);
       } else if (element instanceof ASTOperandBase) {
-        node = ConditionMapper.createOperand((ASTOperandBase) element, section);
+        node = new UnkownNode(NodeMapper.createOperand((ASTOperandBase) element, section));
       }
 
       if (node != null) {
