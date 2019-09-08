@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 public class ArrayOperandNode extends OperandNode {
     private List<OperandNode> items;
 
-    public ArrayOperandNode(ASTOperandArray operand, DocumentSection section) {
+    public ArrayOperandNode(ASTOperandArray operand, DocumentSection section, String culture) {
         super(operand, section);
 
         if (operand.getItems().size() > 0) {
             this.items = operand.getItems().stream().map(item -> {
                 DocumentSection newSection = new RangeGenerator(section).generate(item);
-                return NodeMapper.createOperand(item, newSection);
+                return NodeMapper.createOperand(item, newSection, culture);
             }).collect(Collectors.toList());
 
             this.setDataType(operand.getItems().get(0).getDataType());

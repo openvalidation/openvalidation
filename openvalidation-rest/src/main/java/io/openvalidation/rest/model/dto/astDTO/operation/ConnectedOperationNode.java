@@ -32,7 +32,7 @@ public class ConnectedOperationNode extends ConditionNode {
       this.conditions = Collections.singletonList(condition);
   }
 
-  public ConnectedOperationNode(ASTConditionGroup conditionBase, DocumentSection section) {
+  public ConnectedOperationNode(ASTConditionGroup conditionBase, DocumentSection section, String culture) {
     super(section);
 
     this.conditions =
@@ -40,7 +40,7 @@ public class ConnectedOperationNode extends ConditionNode {
             .map(
                 condition -> {
                   DocumentSection newSection = new RangeGenerator(section).generate(condition);
-                  return NodeMapper.createConditionNode(condition, newSection);
+                  return NodeMapper.createConditionNode(condition, newSection, culture);
                 })
             .collect(Collectors.toList());
   }

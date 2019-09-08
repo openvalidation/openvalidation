@@ -26,14 +26,14 @@ import java.util.stream.Collectors;
 public class FunctionOperandNode extends OperandNode {
   private List<OperandNode> parameters;
 
-  public FunctionOperandNode(ASTOperandFunction operator, DocumentSection section) {
+  public FunctionOperandNode(ASTOperandFunction operator, DocumentSection section, String culture) {
     super(operator, section);
     this.parameters =
         operator.getParameters().stream()
             .map(
                 condition -> {
                   DocumentSection newSection = new RangeGenerator(section).generate(condition);
-                  return NodeMapper.createOperand(condition, newSection);
+                  return NodeMapper.createOperand(condition, newSection, culture);
                 })
             .collect(Collectors.toList());
   }
