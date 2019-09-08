@@ -18,6 +18,7 @@ package io.openvalidation.rest.controller;
 
 import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.ASTModel;
+import io.openvalidation.common.ast.ASTUnknown;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.rest.model.dto.GenerationResultDTO;
 import io.openvalidation.rest.model.dto.UnkownElementParser;
@@ -48,15 +49,18 @@ public class OpenValidationController {
     }
 
     OpenValidationResult result;
-    List<ASTItem> astItemList = new ArrayList<>();
+    List<ASTItem> astItemList;
 
     try {
       result = ovService.generate(parameters);
 
       ASTModel astModel = result.getASTModel();
-      if (astModel != null) {
-        astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
-      }
+      if (astModel == null)
+        astModel = new ASTModel();
+      if (astModel.getElements().size() == 0)
+        astModel.add(new ASTUnknown(parameters.getRule()));
+
+      astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
 
     } catch (Exception e) {
       e.printStackTrace();

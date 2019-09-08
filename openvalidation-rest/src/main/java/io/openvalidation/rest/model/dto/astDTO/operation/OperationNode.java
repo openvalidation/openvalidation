@@ -17,13 +17,18 @@
 package io.openvalidation.rest.model.dto.astDTO.operation;
 
 import io.openvalidation.common.ast.condition.ASTCondition;
+import io.openvalidation.common.utils.Constants;
+import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.Position;
 import io.openvalidation.rest.model.dto.astDTO.Range;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.Operator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
+import org.apache.tomcat.util.bcel.classfile.Constant;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class OperationNode extends ConditionNode {
@@ -31,7 +36,7 @@ public class OperationNode extends ConditionNode {
   private OperandNode rightOperand;
   private Operator operator;
 
-  public OperationNode(ASTCondition conditionBase, DocumentSection section) {
+  public OperationNode(ASTCondition conditionBase, DocumentSection section, String culture) {
     super(section);
 
     List<String> leftLines = new ArrayList<>();
@@ -44,7 +49,7 @@ public class OperationNode extends ConditionNode {
         leftLines = leftSection.getLines();
       }
 
-      this.leftOperand = NodeMapper.createOperand(conditionBase.getLeftOperand(), leftSection);
+      this.leftOperand = NodeMapper.createOperand(conditionBase.getLeftOperand(), leftSection, culture);
     }
 
     if (conditionBase.getRightOperand() != null) {
@@ -54,21 +59,24 @@ public class OperationNode extends ConditionNode {
         rightLines = rightSection.getLines();
       }
 
-      this.rightOperand = NodeMapper.createOperand(conditionBase.getRightOperand(), rightSection);
+      this.rightOperand = NodeMapper.createOperand(conditionBase.getRightOperand(), rightSection, culture);
     }
 
     if (conditionBase.getOperator() != null) {
+      String keyword = Constants.COMPOPERATOR_TOKEN + conditionBase.getOperator().name().toLowerCase();
+      List<String> possibleAliases = Aliases.getSpecificAliasByToken(culture, keyword);
+      possibleAliases.sort(Comparator.comparingInt(String::length).reversed());
       List<String> operatorLines = section.getLines();
       DocumentSection operatorSection =
-          this.generateOperatorString(operatorLines, leftLines, rightLines, section.getRange());
+          this.generateOperatorString(operatorLines, leftLines, rightLines, section.getRange(), possibleAliases);
       if (operatorSection != null) {
         this.operator = new Operator(conditionBase, operatorSection);
       }
     }
   }
 
-  public DocumentSection generateOperatorString(
-      List<String> outerString, List<String> leftLines, List<String> rightLines, Range outerRange) {
+  private DocumentSection generateOperatorString(
+      List<String> outerString, List<String> leftLines, List<String> rightLines, Range outerRange, List<String> possibleAliases) {
     ArrayList<String> returnList = new ArrayList<>();
 
     Position start = new Position(outerRange.getStart());
@@ -90,7 +98,7 @@ public class OperationNode extends ConditionNode {
         if (!tmpString.contains(innerLine) || innerLine.isEmpty()) continue;
 
         int startIndex = tmpString.indexOf(innerLine);
-        String cuttedString = tmpString.substring(startIndex, tmpString.length());
+        String cuttedString = tmpString.substring(startIndex);
         tmpString = tmpString.substring(0, startIndex);
 
         end.setColumn(end.getColumn() - cuttedString.length());
@@ -100,14 +108,26 @@ public class OperationNode extends ConditionNode {
         returnList.add(tmpString);
       } else {
         end.setLine(end.getLine() - 1);
-
-        // TODO: Strange Position when Operator spans over multiple lines
-        //                String lastLine = returnList.get(returnList.size() - 1);
-        //                end.setColumn(lastLine.length() - 1);
       }
     }
 
-    return new DocumentSection(new Range(start, end), returnList).trimLine();
+    return this.generateValidOperator(new Range(start, end), returnList, possibleAliases);
+  }
+
+  private DocumentSection generateValidOperator(Range range, List<String> returnList, List<String> possibleAliases) {
+    String operator = String.join("", returnList);
+    for (String alias : possibleAliases) {
+      int index = operator.toLowerCase().indexOf(alias.toLowerCase());
+      if (index != -1) {
+        range.getStart().setColumn(range.getStart().getColumn() + index);
+        range.getEnd().setColumn(range.getStart().getColumn() + alias.length());
+        returnList.clear();
+        returnList.add(operator.substring(index, index + alias.length()));
+        break;
+      }
+    }
+
+    return new DocumentSection(range, returnList).trimLine();
   }
 
   public OperandNode getLeftOperand() {

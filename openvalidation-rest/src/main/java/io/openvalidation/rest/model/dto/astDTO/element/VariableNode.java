@@ -27,7 +27,7 @@ public class VariableNode extends GenericNode {
   private String name;
   private OperandNode value;
 
-  public VariableNode(ASTVariable variable, DocumentSection section) {
+  public VariableNode(ASTVariable variable, DocumentSection section, String culture) {
     super.initializeElement(section);
 
     this.name = variable.getName();
@@ -35,7 +35,7 @@ public class VariableNode extends GenericNode {
     DocumentSection newSection = new RangeGenerator(section).generate(variable.getValue());
 
     if (variable.getValue() != null) {
-      this.value = NodeMapper.createOperand(variable.getValue(), newSection);
+      this.value = NodeMapper.createOperand(variable.getValue(), newSection, culture);
     }
   }
 
