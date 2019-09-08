@@ -17,10 +17,10 @@
 package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.common.ast.ASTComment;
-import io.openvalidation.rest.model.dto.astDTO.GenericElement;
+import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
-public class CommentNode extends GenericElement {
+public class CommentNode extends GenericNode {
   private String content;
 
   public CommentNode(ASTComment comment, DocumentSection section) {

@@ -16,11 +16,12 @@
 
 package io.openvalidation.rest.controller;
 
-import io.openvalidation.common.ast.ASTItem;
-import io.openvalidation.common.ast.ASTModel;
+import io.openvalidation.common.ast.*;
 import io.openvalidation.common.model.OpenValidationResult;
+import io.openvalidation.common.utils.LINQ;
 import io.openvalidation.rest.model.dto.UnkownElementParser;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
+import io.openvalidation.rest.model.dto.astDTO.ScopesErrorDTO;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
 import io.openvalidation.rest.service.*;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class ContextParsingController {
   @Autowired private OpenValidationService ovService;
 
   @PostMapping
-  public ResponseEntity<MainNode> generate(@RequestBody OVParams parameters) {
+  public ResponseEntity<ScopesErrorDTO> generate(@RequestBody OVParams parameters) {
     if (parameters == null) {
       throw new ResponseStatusException(
           HttpStatus.UNPROCESSABLE_ENTITY,
@@ -47,15 +48,17 @@ public class ContextParsingController {
     }
 
     OpenValidationResult result;
-    List<ASTItem> astItemList = new ArrayList<>();
+    List<ASTItem> astItemList;
 
     try {
       result = ovService.generate(parameters, false);
 
       ASTModel astModel = result.getASTModel();
-      if (astModel != null) {
-        astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
+      if (astModel == null) {
+          astModel = new ASTModel();
+          astModel.add(new ASTUnknown(parameters.getRule()));
       }
+      astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -68,6 +71,7 @@ public class ContextParsingController {
     TreeTransformer transformer = new TreeTransformer(result, astItemList, parameters);
     MainNode node = transformer.transform(parameters.getRule());
 
-    return new ResponseEntity<>(node, HttpStatus.OK);
+    ScopesErrorDTO dto = new ScopesErrorDTO(node.getScopes(), result.getErrors());
+    return new ResponseEntity<>(dto, HttpStatus.OK);
   }
 }

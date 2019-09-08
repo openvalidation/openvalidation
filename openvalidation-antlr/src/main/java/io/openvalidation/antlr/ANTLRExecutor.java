@@ -57,18 +57,6 @@ public class ANTLRExecutor {
       parser.main();
       ast = astBuildListener.getAST();
 
-      EditorContext context = new EditorContextImpl(input);
-      AntlrAutoCompletionSuggester suggester =
-          new AntlrAutoCompletionSuggester(
-              parser.getRuleNames(), parser.getVocabulary(), parser.getATN());
-
-      List<String> suggestions =
-          suggester.suggestions(context).stream()
-              .map(tokenType -> parser.getVocabulary().getDisplayName(tokenType))
-              .collect(Collectors.toList());
-
-      System.out.println(suggestions);
-
       if (function != null) function.accept(new ModelRootAssertion(ast));
 
       return ast;

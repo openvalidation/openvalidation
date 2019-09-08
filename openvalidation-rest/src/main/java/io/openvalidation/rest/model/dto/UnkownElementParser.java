@@ -85,7 +85,6 @@ public class UnkownElementParser {
             parameter.getLanguage());
 
     OpenValidationResult tmpResult = ovService.generate(newParameter);
-
     List<ASTVariable> elementList = tmpResult.getASTModel().getVariables();
     List<ASTVariable> relevantList =
         elementList.subList(elementList.size() - unkownIdMap.size(), elementList.size());

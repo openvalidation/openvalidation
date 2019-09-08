@@ -14,26 +14,26 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.rest.model.dto.astDTO.operation;
+package io.openvalidation.rest.model.dto.astDTO.operation.operand;
 
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
-import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
+import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FunctionOperationNode extends OperandNode {
+public class FunctionOperandNode extends OperandNode {
   private List<OperandNode> parameters;
 
-  public FunctionOperationNode(ASTOperandFunction operator, DocumentSection section) {
+  public FunctionOperandNode(ASTOperandFunction operator, DocumentSection section) {
     super(operator, section);
     this.parameters =
         operator.getParameters().stream()
             .map(
                 condition -> {
                   DocumentSection newSection = new RangeGenerator(section).generate(condition);
-                  return ConditionMapper.createOperand(condition, newSection);
+                  return NodeMapper.createOperand(condition, newSection);
                 })
             .collect(Collectors.toList());
   }

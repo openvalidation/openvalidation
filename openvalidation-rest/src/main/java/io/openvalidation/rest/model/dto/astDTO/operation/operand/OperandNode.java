@@ -20,10 +20,10 @@ import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandStatic;
 import io.openvalidation.common.ast.operand.arithmetical.ASTOperandArithmetical;
 import io.openvalidation.common.data.DataPropertyType;
-import io.openvalidation.rest.model.dto.astDTO.GenericElement;
+import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
-public class OperandNode extends GenericElement {
+public class OperandNode extends GenericNode {
   private DataPropertyType dataType;
   private String name;
 

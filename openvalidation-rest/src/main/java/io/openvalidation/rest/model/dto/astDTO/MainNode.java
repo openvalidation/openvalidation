@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MainNode {
   private List<Variable> declarations;
-  private List<GenericElement> scopes;
+  private List<GenericNode> scopes;
 
   public MainNode() {
     this.declarations = new ArrayList<>();
@@ -36,15 +36,15 @@ public class MainNode {
     this.declarations.addAll(declarations);
   }
 
-  public List<GenericElement> getScopes() {
+  public List<GenericNode> getScopes() {
     return scopes;
   }
 
-  public void addScope(GenericElement scope) {
+  public void addScope(GenericNode scope) {
     this.scopes.add(scope);
   }
 
-  public void addScopes(List<GenericElement> scopes) {
+  public void addScopes(List<GenericNode> scopes) {
     this.scopes.addAll(scopes);
   }
 }
