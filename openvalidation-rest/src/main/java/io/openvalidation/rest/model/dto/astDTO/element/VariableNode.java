@@ -17,13 +17,13 @@
 package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.common.ast.ASTVariable;
-import io.openvalidation.rest.model.dto.astDTO.GenericElement;
-import io.openvalidation.rest.model.dto.astDTO.operation.ConditionMapper;
+import io.openvalidation.rest.model.dto.astDTO.GenericNode;
+import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 
-public class VariableNode extends GenericElement {
+public class VariableNode extends GenericNode {
   private String name;
   private OperandNode value;
 
@@ -35,7 +35,7 @@ public class VariableNode extends GenericElement {
     DocumentSection newSection = new RangeGenerator(section).generate(variable.getValue());
 
     if (variable.getValue() != null) {
-      this.value = ConditionMapper.createOperand(variable.getValue(), newSection);
+      this.value = NodeMapper.createOperand(variable.getValue(), newSection);
     }
   }
 

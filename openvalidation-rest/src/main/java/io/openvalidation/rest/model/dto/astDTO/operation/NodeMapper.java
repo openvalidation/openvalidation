@@ -19,15 +19,18 @@ package io.openvalidation.rest.model.dto.astDTO.operation;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
+import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
+import io.openvalidation.rest.model.dto.astDTO.operation.operand.ArrayOperandNode;
+import io.openvalidation.rest.model.dto.astDTO.operation.operand.FunctionOperandNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
-public class ConditionMapper {
+public class NodeMapper {
   public static ConditionNode createConditionNode(
           ASTConditionBase conditionBase, DocumentSection section) {
-    return ConditionMapper.createConditionNode(conditionBase, section, false);
+    return NodeMapper.createConditionNode(conditionBase, section, false);
   }
 
   public static ConditionNode createConditionNode(
@@ -51,9 +54,11 @@ public class ConditionMapper {
 
   public static OperandNode createOperand(ASTOperandBase operandBase, DocumentSection section) {
     if (operandBase instanceof ASTConditionBase) {
-      return ConditionMapper.createConditionNode((ASTConditionBase) operandBase, section);
+      return NodeMapper.createConditionNode((ASTConditionBase) operandBase, section);
     } else if (operandBase instanceof ASTOperandFunction) {
-      return new FunctionOperationNode((ASTOperandFunction) operandBase, section);
+      return new FunctionOperandNode((ASTOperandFunction) operandBase, section);
+    } else if (operandBase instanceof ASTOperandArray) {
+      return new ArrayOperandNode((ASTOperandArray) operandBase, section);
     }
 
     return new OperandNode(operandBase, section);
