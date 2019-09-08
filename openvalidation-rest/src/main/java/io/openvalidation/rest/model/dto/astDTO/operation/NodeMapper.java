@@ -29,14 +29,14 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
 public class NodeMapper {
   public static ConditionNode createConditionNode(
-          ASTConditionBase conditionBase, DocumentSection section) {
-    return NodeMapper.createConditionNode(conditionBase, section, false);
+          ASTConditionBase conditionBase, DocumentSection section, String culture) {
+    return NodeMapper.createConditionNode(conditionBase, section, false, culture);
   }
 
   public static ConditionNode createConditionNode(
-      ASTConditionBase conditionBase, DocumentSection section, boolean isConnectedOperation) {
+      ASTConditionBase conditionBase, DocumentSection section, boolean isConnectedOperation, String culture) {
     if (conditionBase instanceof ASTCondition) {
-      ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section);
+      ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section, culture);
 
       if (isConnectedOperation) {
         returnNode = new ConnectedOperationNode(returnNode, section);
@@ -46,19 +46,19 @@ public class NodeMapper {
     }
 
     if (conditionBase instanceof ASTConditionGroup) {
-      return new ConnectedOperationNode((ASTConditionGroup) conditionBase, section);
+      return new ConnectedOperationNode((ASTConditionGroup) conditionBase, section, culture);
     }
 
     return null;
   }
 
-  public static OperandNode createOperand(ASTOperandBase operandBase, DocumentSection section) {
+  public static OperandNode createOperand(ASTOperandBase operandBase, DocumentSection section, String culture) {
     if (operandBase instanceof ASTConditionBase) {
-      return NodeMapper.createConditionNode((ASTConditionBase) operandBase, section);
+      return NodeMapper.createConditionNode((ASTConditionBase) operandBase, section, culture);
     } else if (operandBase instanceof ASTOperandFunction) {
-      return new FunctionOperandNode((ASTOperandFunction) operandBase, section);
+      return new FunctionOperandNode((ASTOperandFunction) operandBase, section, culture);
     } else if (operandBase instanceof ASTOperandArray) {
-      return new ArrayOperandNode((ASTOperandArray) operandBase, section);
+      return new ArrayOperandNode((ASTOperandArray) operandBase, section, culture);
     }
 
     return new OperandNode(operandBase, section);

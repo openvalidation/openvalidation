@@ -48,7 +48,7 @@ public class RuleNode extends GenericNode {
       String compareString = rule.getOriginalSource()
               .substring(conditionIndex + rule.getCondition().getOriginalSource().length()).trim();
       boolean isConnectedOperation = operators.stream().anyMatch(operator -> compareString.toUpperCase().startsWith(operator));
-      this.condition = NodeMapper.createConditionNode(rule.getCondition(), newSection, isConnectedOperation);
+      this.condition = NodeMapper.createConditionNode(rule.getCondition(), newSection, isConnectedOperation, culture);
     }
   }
 

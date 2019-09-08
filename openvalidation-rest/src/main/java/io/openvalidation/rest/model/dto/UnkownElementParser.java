@@ -26,6 +26,8 @@ import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.service.OVParams;
 import io.openvalidation.rest.service.OpenValidationService;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,9 +88,10 @@ public class UnkownElementParser {
 
     OpenValidationResult tmpResult = ovService.generate(newParameter);
     List<ASTVariable> elementList = tmpResult.getASTModel().getVariables();
-    List<ASTVariable> relevantList =
-        elementList.subList(elementList.size() - unkownIdMap.size(), elementList.size());
+    if (elementList.size() == 0) return astItemList;
 
+    List<ASTVariable> relevantList =
+            elementList.subList(elementList.size() - unkownIdMap.size(), elementList.size());
     int index = 0;
 
     for (Map.Entry<Integer, ASTUnknown> entry : unkownIdMap.entrySet()) {

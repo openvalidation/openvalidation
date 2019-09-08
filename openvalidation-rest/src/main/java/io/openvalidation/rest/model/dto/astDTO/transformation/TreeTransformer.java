@@ -66,11 +66,11 @@ public class TreeTransformer {
       if (element instanceof ASTRule) {
         node = new RuleNode((ASTRule) element, section, this.parameters.getCulture());
       } else if (element instanceof ASTVariable) {
-        node = new VariableNode((ASTVariable) element, section);
+        node = new VariableNode((ASTVariable) element, section, this.parameters.getCulture());
       } else if (element instanceof ASTComment) {
         node = new CommentNode((ASTComment) element, section);
       } else if (element instanceof ASTOperandBase) {
-        node = new UnkownNode(NodeMapper.createOperand((ASTOperandBase) element, section));
+        node = new UnkownNode(NodeMapper.createOperand((ASTOperandBase) element, section, this.parameters.getCulture()));
       }
 
       if (node != null) {
