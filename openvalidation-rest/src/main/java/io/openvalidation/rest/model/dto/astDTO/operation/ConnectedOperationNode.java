@@ -20,7 +20,6 @@ import io.openvalidation.common.ast.condition.ASTConditionGroup;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,7 +40,7 @@ public class ConnectedOperationNode extends ConditionNode {
             .map(
                 condition -> {
                   DocumentSection newSection = new RangeGenerator(section).generate(condition);
-                  return ConditionMapper.createConditionNode(condition, newSection);
+                  return NodeMapper.createConditionNode(condition, newSection);
                 })
             .collect(Collectors.toList());
   }

@@ -20,6 +20,7 @@ import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.rest.model.dto.astDTO.Position;
 import io.openvalidation.rest.model.dto.astDTO.Range;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
+import io.openvalidation.rest.model.dto.astDTO.operation.operand.Operator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class OperationNode extends ConditionNode {
         leftLines = leftSection.getLines();
       }
 
-      this.leftOperand = new OperandNode(conditionBase.getLeftOperand(), leftSection);
+      this.leftOperand = NodeMapper.createOperand(conditionBase.getLeftOperand(), leftSection);
     }
 
     if (conditionBase.getRightOperand() != null) {
@@ -53,7 +54,7 @@ public class OperationNode extends ConditionNode {
         rightLines = rightSection.getLines();
       }
 
-      this.rightOperand = new OperandNode(conditionBase.getRightOperand(), rightSection);
+      this.rightOperand = NodeMapper.createOperand(conditionBase.getRightOperand(), rightSection);
     }
 
     if (conditionBase.getOperator() != null) {

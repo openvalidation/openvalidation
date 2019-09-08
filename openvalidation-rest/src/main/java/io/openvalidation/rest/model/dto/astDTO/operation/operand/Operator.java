@@ -14,15 +14,15 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.rest.model.dto.astDTO.operation;
+package io.openvalidation.rest.model.dto.astDTO.operation.operand;
 
 import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.data.DataPropertyType;
-import io.openvalidation.rest.model.dto.astDTO.GenericElement;
+import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
-public class Operator extends GenericElement {
+public class Operator extends GenericNode {
   private DataPropertyType dataType;
   private DataPropertyType validType;
   private ASTComparisonOperator operator;

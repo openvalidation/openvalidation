@@ -41,10 +41,11 @@ public class RangeGenerator {
 
     List<String> innerLines = new ArrayList<>(Arrays.asList(sourceText.split("\n")));
     innerLines = innerLines.stream().filter(l -> !l.isEmpty()).collect(Collectors.toList());
+
     if (innerLines.size() == 0) return null;
+    if (outerRange == null) return new DocumentSection(null, innerLines);
 
     Position outerStart = this.outerRange.getStart();
-
     String startLine = innerLines.get(0);
     String endLine = innerLines.get(innerLines.size() - 1);
     Position startPosition = null;
