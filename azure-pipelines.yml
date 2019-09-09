@@ -12,8 +12,25 @@ steps:
     publishJUnitResults: true
     goals: 'clean test'
     options: '-Pintegration'
+- task: DownloadSecureFile@1
+  displayName: 'Download Maven master password'
+  name: mavenSecurity
+  inputs:
+    secureFile: settings-security.xml
+- task: DownloadSecureFile@1
+  displayName: 'Download settings.xml'
+  name: mavenSettings
+  inputs:
+    secureFile: settings.xml
+- task: DownloadSecureFile@1
+  displayName: 'Download pgp key'
+  name: secretKey
+  inputs:
+    secureFile: secret_key.asc
+# Publish jars
 - script: |
-    mvn package -DskipTests=true
-
-# Publish jars as Snapshot
-# but check version elements in poms first
+    mv $(mavenSecurity.secureFilePath) ~/.m2
+    mvn clean deploy -Prelease -s $(mavenSettings.secureFilePath) -B -U \
+      -Dpgp.secretkey=keyfile:$(secretKey.secureFilePath) \
+      -Dpgp.passphrase=literal:$(PGP_PASSPHRASE) \
+      -DskipTests=true

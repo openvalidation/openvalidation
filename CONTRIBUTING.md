@@ -5,7 +5,7 @@ We use GitHub issues for both.
 First, use the [github search](https://github.com/openvalidation/openvalidation/search?q=is%3Aissue&unscoped_q=is%3Aissue) to check if your issue has been reported already.
 If you find that someone already reported your problem, feel free to share additional information to help us investigate the bug more quickly.
 
-If you could not find a matching issue and want to open a new ticket, please try to follow the issue template and provide all the necessary information. However, an incomplete issue that reports a critical bug is still better than no issue at all.
+If you could not find a matching issue and want to open a new ticket, please try to follow the issue template and provide all the necessary information. However, an incomplete ticket that reports a critical bug is still better than no ticket at all.
 
 ## Become a developer
 Please refer to the [developer readme](/docs/developer_readme.md) for build and test instructions, as well as our coding guidelines.
@@ -19,14 +19,14 @@ When opening a new pull request, try to stick to the template as much as is reas
 Improving documentation (code comments, wikis, website) is an excellent way of familiarizing yourself with the project and improving the codebase at the same time!
 
 #### Fixing lint warnings
-We want to get openVALIDATION to be [checkstyle](https://checkstyle.org/) clean. In order to do this, open the [checkstyle configuration](url!) at 
+We want to get openVALIDATION to be [checkstyle](https://checkstyle.org/) clean. In order to do this, open the [checkstyle configuration](build-tools/src/main/resources/google_checks.xml) at 
 `build-tools/src/main/resources/google_checks.xml` and re-add one of the commented-out lints.  
 After having fixed all the warnings, submit a pull request.
 
 #### Fixing bugs
-Pick a ticket from the [bugtracker](url) and let us know that you are working on a fix.  
+Pick a ticket from the [bugtracker](https://github.com/openvalidation/openvalidation/issues) and leave a comment letting us know that you are working on a fix.  
 If you have any questions, feel free to discuss it in the ticket.
-Make sure the fix adheres to the [link](code) guidelines.
+Make sure the fix adheres to the [coding guidelines](docs/developer_readme.md).
 
 #### Implementing new features
 Before integrating a new feature, it's best to discuss it with the core developers first.  
