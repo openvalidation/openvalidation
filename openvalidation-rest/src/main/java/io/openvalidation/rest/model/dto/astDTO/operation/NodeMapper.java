@@ -37,10 +37,8 @@ public class NodeMapper {
       ASTConditionBase conditionBase, DocumentSection section, boolean isConnectedOperation, String culture) {
     if (conditionBase instanceof ASTCondition) {
       ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section, culture);
-
-      if (isConnectedOperation) {
+      if (isConnectedOperation)
         returnNode = new ConnectedOperationNode(returnNode, section);
-      }
 
       return returnNode;
     }
