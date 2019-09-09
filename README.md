@@ -18,24 +18,11 @@ Download the [openVALIDATION CLI](https://repo1.maven.org/maven2/io/openvalidati
 
 The openVALIDATION Java API is also available via the Maven Central Repository. Add this to your `pom.xml`:
 ```xml
-<project>
-    [...]
-    <dependencies>
-        [...]
-        <dependency>
-            <groupId>io.openvalidation</groupId>
-            <artifactId>openvalidation-core</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.openvalidation</groupId>
-            <artifactId>openvalidation-common</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        [...]
-    </dependencies>
-    [...]
-</project>
+    <dependency>
+        <groupId>io.openvalidation</groupId>
+        <artifactId>openvalidation-core</artifactId>
+        <version>0.0.1</version>
+    </dependency>
 ```
 For now openVALIDATION is developed and tested for `jdk 1.8.*` only.
 
