@@ -30,8 +30,13 @@ public class RangeGenerator {
   private Range outerRange;
 
   public RangeGenerator(DocumentSection section) {
-    this.outerLines = section.getLines();
-    this.outerRange = section.getRange();
+    if (section != null) {
+      this.outerLines = section.getLines();
+      this.outerRange = section.getRange();
+    } else {
+      this.outerLines = null;
+      this.outerRange = null;
+    }
   }
 
   public DocumentSection generate(ASTItem innerElement) {
