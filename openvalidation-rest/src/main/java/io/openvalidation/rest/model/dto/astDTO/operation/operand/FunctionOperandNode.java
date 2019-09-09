@@ -16,10 +16,13 @@
 
 package io.openvalidation.rest.model.dto.astDTO.operation.operand;
 
+import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,14 +31,14 @@ public class FunctionOperandNode extends OperandNode {
 
   public FunctionOperandNode(ASTOperandFunction operator, DocumentSection section, String culture) {
     super(operator, section);
-    this.parameters =
-        operator.getParameters().stream()
-            .map(
-                condition -> {
-                  DocumentSection newSection = new RangeGenerator(section).generate(condition);
-                  return NodeMapper.createOperand(condition, newSection, culture);
-                })
-            .collect(Collectors.toList());
+    this.parameters = new ArrayList<>();
+
+      for (ASTOperandBase parameter: operator.getParameters()) {
+        if (parameter == null) continue;
+
+          DocumentSection newSection = new RangeGenerator(section).generate(parameter);
+          this.parameters.add(NodeMapper.createOperand(parameter, newSection, culture));
+      }
   }
 
   public List<OperandNode> getParameters() {
