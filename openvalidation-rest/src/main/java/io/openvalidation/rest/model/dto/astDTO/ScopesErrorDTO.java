@@ -5,11 +5,11 @@ import io.openvalidation.common.exceptions.OpenValidationException;
 import java.util.List;
 
 public class ScopesErrorDTO {
-    private List<GenericNode> scopes;
+    private GenericNode scope;
     private List<OpenValidationException> errors;
 
-    public ScopesErrorDTO(List<GenericNode> scopes, List<OpenValidationException> errors) {
-        this.scopes = scopes;
+    public ScopesErrorDTO(GenericNode scope, List<OpenValidationException> errors) {
+        this.scope = scope;
         this.errors = errors;
     }
 
@@ -21,12 +21,12 @@ public class ScopesErrorDTO {
         this.errors = errors;
     }
 
-    public List<GenericNode> getScopes() {
-        return scopes;
+    public GenericNode getScope() {
+        return scope;
     }
 
-    public void setScopes(List<GenericNode> scopes) {
-        this.scopes = scopes;
+    public void setScope(GenericNode scope) {
+        this.scope = scope;
     }
 
 }

@@ -16,7 +16,9 @@
 
 package io.openvalidation.rest.model.dto.astDTO.operation;
 
+import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
+import io.openvalidation.rest.model.dto.astDTO.TransformationHelper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 
@@ -43,6 +45,11 @@ public class ConnectedOperationNode extends ConditionNode {
                   return NodeMapper.createConditionNode(condition, newSection, culture);
                 })
             .collect(Collectors.toList());
+
+    ASTCondition lastCondition = conditionBase.getAllConditions().get(conditionBase.getAllConditions().size() - 1);
+    if (TransformationHelper.isConditionGroup(conditionBase.getOriginalSource(), lastCondition, culture)) {
+        this.conditions.add(NodeMapper.createConditionNode(new ASTCondition(), null, culture));
+    }
   }
 
   public List<ConditionNode> getConditions() {

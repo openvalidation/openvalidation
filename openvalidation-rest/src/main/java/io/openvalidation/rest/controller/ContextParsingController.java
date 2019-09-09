@@ -20,6 +20,7 @@ import io.openvalidation.common.ast.*;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.LINQ;
 import io.openvalidation.rest.model.dto.UnkownElementParser;
+import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
 import io.openvalidation.rest.model.dto.astDTO.ScopesErrorDTO;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
@@ -71,7 +72,8 @@ public class ContextParsingController {
     TreeTransformer transformer = new TreeTransformer(result, astItemList, parameters);
     MainNode node = transformer.transform(parameters.getRule());
 
-    ScopesErrorDTO dto = new ScopesErrorDTO(node.getScopes(), result.getErrors());
+    GenericNode relevantScope = node.getScopes().size() > 0 ? node.getScopes().get(0) : null;
+    ScopesErrorDTO dto = new ScopesErrorDTO(relevantScope, result.getErrors());
     return new ResponseEntity<>(dto, HttpStatus.OK);
   }
 }
