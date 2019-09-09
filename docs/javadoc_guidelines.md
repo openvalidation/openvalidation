@@ -1,4 +1,10 @@
-## JavaDoc Guidelines
+## Javadoc Guidelines
+
+Before we start the openVALIDATION team wants to thank [Stephen Colebourne](https://blog.joda.org/ "Stephen's blog") 
+whose awesome [blog post](https://blog.joda.org/2012/11/javadoc-coding-standards.html) about His thoughts on Javadoc 
+coding standards helped us a lot when creating the draft of our Javadoc guidelines (Follow Stephen on 
+[Twitter](https://twitter.com/jodastephen)).
+
 
 To ensure a homogeneous documentation and a high degree of readability and maintainability we want to
 establish a few rules when it comes to documenting your (or somebody else's) code. Those rules (or guidelines)
@@ -7,7 +13,7 @@ process of understanding the project as frictionless as we can. To achieve that 
 complete, consistent and readable.
 
 ### General
-Every part of a JavaDoc comment needs to follow these rules:
+Every part of a Javadoc comment needs to follow these rules:
 - Grammatical correctness (spelling and punctuation)
 - short but informative
 - repress any puns or jokes
@@ -82,7 +88,7 @@ behind the parameter explanation separated by a comma. The types of suffixes are
 | null returns [value] | parameter can be null. A custom [value] can be defined as a return value, e.g. "null returns -1". |
 
 The parameter descriptions themselves should be no more a short description. If there is too much context to a parameter
-it should be explained in the body of the JavaDoc comment. The general guidelines are:
+it should be explained in the body of the Javadoc comment. The general guidelines are:
 - every parameter needs an `@parameter` 
 - every parameter needs one type of suffix specified in the table above
 - the order of the `@params` is equivalent to the order they appear in the method header
