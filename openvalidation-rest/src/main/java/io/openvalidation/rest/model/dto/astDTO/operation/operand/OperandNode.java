@@ -21,23 +21,39 @@ import io.openvalidation.common.ast.operand.ASTOperandStatic;
 import io.openvalidation.common.ast.operand.arithmetical.ASTOperandArithmetical;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
+import io.openvalidation.rest.model.dto.astDTO.Range;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 
 public class OperandNode extends GenericNode {
   private DataPropertyType dataType;
   private String name;
 
-  public OperandNode(ASTOperandBase operator, DocumentSection section) {
+  public OperandNode(ASTOperandBase operand, DocumentSection section) {
     super.initializeElement(section);
 
-    if (operator != null) {
-      this.dataType = operator.getDataType();
-      this.name = operator.getName();
+    if (operand != null) {
+      this.dataType = operand.getDataType();
+      this.name = operand.getName();
 
-      if (operator instanceof ASTOperandStatic)
-        this.name = ((ASTOperandStatic) operator).getValue();
+      if (operand instanceof ASTOperandStatic)
+        this.name = ((ASTOperandStatic) operand).getValue();
 
-      if (operator instanceof ASTOperandArithmetical) this.name = operator.getOriginalSource();
+      if (operand instanceof ASTOperandArithmetical)
+        this.name = operand.getOriginalSource();
+
+      this.setRange(this.getRangeOnlyForOperand(section));
+    }
+  }
+
+  private Range getRangeOnlyForOperand(DocumentSection section) {
+    DocumentSection newSection = new RangeGenerator(section).generate(this.getName());
+    if (newSection != null && newSection.getRange() != null &&
+            newSection.getRange().getStart() != null &&
+            newSection.getRange().getEnd() != null) {
+      return newSection.getRange();
+    } else {
+      return this.getRange();
     }
   }
 
