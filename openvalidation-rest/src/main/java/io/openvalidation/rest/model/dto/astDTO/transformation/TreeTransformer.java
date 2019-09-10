@@ -73,6 +73,8 @@ public class TreeTransformer {
             new UnkownNode(
                 NodeMapper.createOperand(
                     (ASTOperandBase) element, section, this.parameters.getCulture()));
+      } else  if (element instanceof ASTUnknown) {
+        node = new UnkownNode(section);
       }
 
       if (node != null) {

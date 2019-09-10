@@ -41,14 +41,18 @@ public class RangeGenerator {
 
   public DocumentSection generate(ASTItem innerElement) {
     String sourceText = this.getOriginalSource(innerElement);
+    return this.generate(sourceText);
+  }
 
-    if (innerElement == null || sourceText == null) return null;
+  public DocumentSection generate(String sourceText) {
+    if (sourceText == null) return null;
 
     List<String> innerLines = new ArrayList<>(Arrays.asList(sourceText.split("\n")));
     innerLines = innerLines.stream().filter(l -> !l.isEmpty()).collect(Collectors.toList());
 
     if (innerLines.size() == 0) return null;
-    if (outerRange == null) return new DocumentSection(null, innerLines);
+    if (outerRange == null || this.outerRange.getStart() == null)
+      return new DocumentSection(null, innerLines);
 
     Position outerStart = this.outerRange.getStart();
     String startLine = innerLines.get(0);
