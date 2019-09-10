@@ -20,7 +20,6 @@ import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.AliasesWithOperatorsDTO;
 import io.openvalidation.rest.service.OVParamsCultureOnly;
 import io.openvalidation.rest.service.OpenValidationResponseStatusException;
-import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,9 +30,11 @@ import org.springframework.web.bind.annotation.*;
 public class OpenValidationAliasesController {
 
   @PostMapping
-  public ResponseEntity<AliasesWithOperatorsDTO> generate(@RequestBody OVParamsCultureOnly parameter) {
+  public ResponseEntity<AliasesWithOperatorsDTO> generate(
+      @RequestBody OVParamsCultureOnly parameter) {
     if (Aliases.availableCultures.contains(parameter.getCulture()))
-      return new ResponseEntity<>(new AliasesWithOperatorsDTO(parameter.getCulture()), HttpStatus.OK);
+      return new ResponseEntity<>(
+          new AliasesWithOperatorsDTO(parameter.getCulture()), HttpStatus.OK);
 
     throw new OpenValidationResponseStatusException(
         HttpStatus.BAD_REQUEST, "The given language is not supported");

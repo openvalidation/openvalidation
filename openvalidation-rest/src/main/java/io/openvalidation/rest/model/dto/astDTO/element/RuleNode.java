@@ -18,17 +18,12 @@ package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.common.ast.ASTActionError;
 import io.openvalidation.common.ast.ASTRule;
-import io.openvalidation.common.utils.Constants;
-import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.TransformationHelper;
-import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.operation.ConditionNode;
+import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
-import org.apache.commons.collections.bag.TransformedSortedBag;
-
-import java.util.List;
 
 public class RuleNode extends GenericNode {
   private String errorMessage;
@@ -44,8 +39,12 @@ public class RuleNode extends GenericNode {
 
     if (rule.getCondition() != null) {
       DocumentSection newSection = new RangeGenerator(section).generate(rule.getCondition());
-      boolean isConnectedOperation = TransformationHelper.isConditionGroup(rule.getOriginalSource(), rule.getCondition(), culture);
-      this.condition = NodeMapper.createConditionNode(rule.getCondition(), newSection, isConnectedOperation, culture);
+      boolean isConnectedOperation =
+          TransformationHelper.isConditionGroup(
+              rule.getOriginalSource(), rule.getCondition(), culture);
+      this.condition =
+          NodeMapper.createConditionNode(
+              rule.getCondition(), newSection, isConnectedOperation, culture);
     }
   }
 

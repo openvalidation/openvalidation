@@ -25,8 +25,6 @@ import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.Operator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
-import org.apache.tomcat.util.bcel.classfile.Constant;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -49,7 +47,8 @@ public class OperationNode extends ConditionNode {
         leftLines = leftSection.getLines();
       }
 
-      this.leftOperand = NodeMapper.createOperand(conditionBase.getLeftOperand(), leftSection, culture);
+      this.leftOperand =
+          NodeMapper.createOperand(conditionBase.getLeftOperand(), leftSection, culture);
     }
 
     if (conditionBase.getRightOperand() != null) {
@@ -59,16 +58,19 @@ public class OperationNode extends ConditionNode {
         rightLines = rightSection.getLines();
       }
 
-      this.rightOperand = NodeMapper.createOperand(conditionBase.getRightOperand(), rightSection, culture);
+      this.rightOperand =
+          NodeMapper.createOperand(conditionBase.getRightOperand(), rightSection, culture);
     }
 
     if (conditionBase.getOperator() != null) {
-      String keyword = Constants.COMPOPERATOR_TOKEN + conditionBase.getOperator().name().toLowerCase();
+      String keyword =
+          Constants.COMPOPERATOR_TOKEN + conditionBase.getOperator().name().toLowerCase();
       List<String> possibleAliases = Aliases.getSpecificAliasByToken(culture, keyword);
       possibleAliases.sort(Comparator.comparingInt(String::length).reversed());
       List<String> operatorLines = section.getLines();
       DocumentSection operatorSection =
-          this.generateOperatorString(operatorLines, leftLines, rightLines, section.getRange(), possibleAliases);
+          this.generateOperatorString(
+              operatorLines, leftLines, rightLines, section.getRange(), possibleAliases);
       if (operatorSection != null) {
         this.operator = new Operator(conditionBase, operatorSection);
       }
@@ -76,7 +78,11 @@ public class OperationNode extends ConditionNode {
   }
 
   private DocumentSection generateOperatorString(
-      List<String> outerString, List<String> leftLines, List<String> rightLines, Range outerRange, List<String> possibleAliases) {
+      List<String> outerString,
+      List<String> leftLines,
+      List<String> rightLines,
+      Range outerRange,
+      List<String> possibleAliases) {
     ArrayList<String> returnList = new ArrayList<>();
 
     Position start = new Position(outerRange.getStart());
@@ -114,7 +120,8 @@ public class OperationNode extends ConditionNode {
     return this.generateValidOperator(new Range(start, end), returnList, possibleAliases);
   }
 
-  private DocumentSection generateValidOperator(Range range, List<String> returnList, List<String> possibleAliases) {
+  private DocumentSection generateValidOperator(
+      Range range, List<String> returnList, List<String> possibleAliases) {
     String operator = String.join("", returnList);
     for (String alias : possibleAliases) {
       int index = operator.toLowerCase().indexOf(alias.toLowerCase());

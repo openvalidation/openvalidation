@@ -16,18 +16,13 @@
 
 package io.openvalidation.antlr;
 
-import io.openvalidation.antlr.completion.AntlrAutoCompletionSuggester;
-import io.openvalidation.antlr.completion.EditorContext;
-import io.openvalidation.antlr.completion.EditorContextImpl;
 import io.openvalidation.antlr.generated.mainLexer;
 import io.openvalidation.antlr.generated.mainParser;
 import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.data.DataSchema;
 import io.openvalidation.common.unittesting.astassertion.ModelRootAssertion;
 import io.openvalidation.common.utils.ThrowingConsumer;
-import java.util.List;
 import java.util.logging.*;
-import java.util.stream.Collectors;
 import org.antlr.v4.runtime.*;
 
 public class ANTLRExecutor {
