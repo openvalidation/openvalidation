@@ -25,7 +25,6 @@ import io.openvalidation.rest.model.dto.UnkownElementParser;
 import io.openvalidation.rest.service.OVParams;
 import io.openvalidation.rest.service.OpenValidationResponseStatusException;
 import io.openvalidation.rest.service.OpenValidationService;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,10 +54,8 @@ public class OpenValidationController {
       result = ovService.generate(parameters);
 
       ASTModel astModel = result.getASTModel();
-      if (astModel == null)
-        astModel = new ASTModel();
-      if (astModel.getElements().size() == 0)
-        astModel.add(new ASTUnknown(parameters.getRule()));
+      if (astModel == null) astModel = new ASTModel();
+      if (astModel.getElements().size() == 0) astModel.add(new ASTUnknown(parameters.getRule()));
 
       astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
 

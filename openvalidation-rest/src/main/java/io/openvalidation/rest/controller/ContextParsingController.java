@@ -18,14 +18,12 @@ package io.openvalidation.rest.controller;
 
 import io.openvalidation.common.ast.*;
 import io.openvalidation.common.model.OpenValidationResult;
-import io.openvalidation.common.utils.LINQ;
 import io.openvalidation.rest.model.dto.UnkownElementParser;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
 import io.openvalidation.rest.model.dto.astDTO.ScopesErrorDTO;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
 import io.openvalidation.rest.service.*;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,8 +54,8 @@ public class ContextParsingController {
 
       ASTModel astModel = result.getASTModel();
       if (astModel == null) {
-          astModel = new ASTModel();
-          astModel.add(new ASTUnknown(parameters.getRule()));
+        astModel = new ASTModel();
+        astModel.add(new ASTUnknown(parameters.getRule()));
       }
       astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
 
