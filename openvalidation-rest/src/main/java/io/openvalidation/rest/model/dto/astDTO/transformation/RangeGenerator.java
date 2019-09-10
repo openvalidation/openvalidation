@@ -88,14 +88,11 @@ public class RangeGenerator {
   }
 
   public String getOriginalSource(ASTItem element) {
-    if (element == null)
-      return "";
+    if (element == null) return "";
 
-    if (element.getOriginalSource() != null)
-      return element.getOriginalSource();
+    if (element.getOriginalSource() != null) return element.getOriginalSource();
 
-    if (element instanceof ASTOperandStatic)
-      return ((ASTOperandStatic) element).getValue();
+    if (element instanceof ASTOperandStatic) return ((ASTOperandStatic) element).getValue();
 
     return null;
   }

@@ -105,8 +105,11 @@ public class Aliases {
     Map<String, String> allAliases = Aliases.getAvailableAliases(locale);
     List<String> returnList = new ArrayList<>();
 
-    for (String token: tokens) {
-      Map<String, String> tmpSet = allAliases.entrySet().stream().filter(tuple -> tuple.getValue().equals(token)).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    for (String token : tokens) {
+      Map<String, String> tmpSet =
+          allAliases.entrySet().stream()
+              .filter(tuple -> tuple.getValue().equals(token))
+              .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
       returnList.addAll(tmpSet.keySet());
     }
 

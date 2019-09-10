@@ -4,27 +4,30 @@ import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArrayOperandNode extends OperandNode {
-    private List<OperandNode> items;
+  private List<OperandNode> items;
 
-    public ArrayOperandNode(ASTOperandArray operand, DocumentSection section, String culture) {
-        super(operand, section);
+  public ArrayOperandNode(ASTOperandArray operand, DocumentSection section, String culture) {
+    super(operand, section);
 
-        if (operand.getItems().size() > 0) {
-            this.items = operand.getItems().stream().map(item -> {
-                DocumentSection newSection = new RangeGenerator(section).generate(item);
-                return NodeMapper.createOperand(item, newSection, culture);
-            }).collect(Collectors.toList());
+    if (operand.getItems().size() > 0) {
+      this.items =
+          operand.getItems().stream()
+              .map(
+                  item -> {
+                    DocumentSection newSection = new RangeGenerator(section).generate(item);
+                    return NodeMapper.createOperand(item, newSection, culture);
+                  })
+              .collect(Collectors.toList());
 
-            this.setDataType(operand.getItems().get(0).getDataType());
-        }
+      this.setDataType(operand.getItems().get(0).getDataType());
     }
+  }
 
-    public List<OperandNode> getItems() {
-        return items;
-    }
+  public List<OperandNode> getItems() {
+    return items;
+  }
 }
