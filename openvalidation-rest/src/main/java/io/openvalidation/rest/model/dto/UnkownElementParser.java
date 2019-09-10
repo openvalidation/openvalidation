@@ -16,10 +16,7 @@
 
 package io.openvalidation.rest.model.dto;
 
-import io.openvalidation.common.ast.ASTItem;
-import io.openvalidation.common.ast.ASTModel;
-import io.openvalidation.common.ast.ASTUnknown;
-import io.openvalidation.common.ast.ASTVariable;
+import io.openvalidation.common.ast.*;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.Constants;
@@ -86,16 +83,18 @@ public class UnkownElementParser {
             parameter.getLanguage());
 
     OpenValidationResult tmpResult = ovService.generate(newParameter);
-    List<ASTVariable> elementList = tmpResult.getASTModel().getVariables();
+    if (tmpResult.getASTModel() == null) return astItemList;
 
+    List<ASTGlobalElement> elementList = tmpResult.getASTModel().getElements();
     if (elementList.size() == 0) return astItemList;
 
-    List<ASTVariable> relevantList =
-        elementList.subList(elementList.size() - unkownIdMap.size(), elementList.size());
+    List<ASTGlobalElement> relevantList = elementList.subList(elementList.size() - unkownIdMap.size(), elementList.size());
     int index = 0;
 
     for (Map.Entry<Integer, ASTUnknown> entry : unkownIdMap.entrySet()) {
-      ASTOperandBase relevantItem = relevantList.get(index).getValue();
+      ASTItem relevantItem = relevantList.get(index) instanceof ASTVariable
+              ? ((ASTVariable) relevantList.get(index)).getValue()
+              : relevantList.get(index);
       astItemList.set(entry.getKey(), relevantItem);
 
       index++;
