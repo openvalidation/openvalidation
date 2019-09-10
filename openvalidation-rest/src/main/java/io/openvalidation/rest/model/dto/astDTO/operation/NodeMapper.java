@@ -29,16 +29,18 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
 public class NodeMapper {
   public static ConditionNode createConditionNode(
-          ASTConditionBase conditionBase, DocumentSection section, String culture) {
+      ASTConditionBase conditionBase, DocumentSection section, String culture) {
     return NodeMapper.createConditionNode(conditionBase, section, false, culture);
   }
 
   public static ConditionNode createConditionNode(
-      ASTConditionBase conditionBase, DocumentSection section, boolean isConnectedOperation, String culture) {
+      ASTConditionBase conditionBase,
+      DocumentSection section,
+      boolean isConnectedOperation,
+      String culture) {
     if (conditionBase instanceof ASTCondition) {
       ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section, culture);
-      if (isConnectedOperation)
-        returnNode = new ConnectedOperationNode(returnNode, section);
+      if (isConnectedOperation) returnNode = new ConnectedOperationNode(returnNode, section);
 
       return returnNode;
     }
@@ -50,7 +52,8 @@ public class NodeMapper {
     return null;
   }
 
-  public static OperandNode createOperand(ASTOperandBase operandBase, DocumentSection section, String culture) {
+  public static OperandNode createOperand(
+      ASTOperandBase operandBase, DocumentSection section, String culture) {
     if (operandBase instanceof ASTConditionBase) {
       return NodeMapper.createConditionNode((ASTConditionBase) operandBase, section, culture);
     } else if (operandBase instanceof ASTOperandFunction) {

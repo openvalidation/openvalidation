@@ -26,7 +26,6 @@ import io.openvalidation.rest.model.dto.astDTO.element.UnkownNode;
 import io.openvalidation.rest.model.dto.astDTO.element.VariableNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.service.OVParams;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,10 +35,10 @@ public class TreeTransformer {
   private List<ASTItem> astItems;
   private OVParams parameters;
 
-  public TreeTransformer(OpenValidationResult result, List<ASTItem> astItemList, OVParams parameters) {
-    this.variables = result.getASTModel() != null
-            ? result.getASTModel().getVariables()
-            : new ArrayList<>();
+  public TreeTransformer(
+      OpenValidationResult result, List<ASTItem> astItemList, OVParams parameters) {
+    this.variables =
+        result.getASTModel() != null ? result.getASTModel().getVariables() : new ArrayList<>();
 
     this.astItems = astItemList;
     this.parameters = parameters;
@@ -70,7 +69,10 @@ public class TreeTransformer {
       } else if (element instanceof ASTComment) {
         node = new CommentNode((ASTComment) element, section);
       } else if (element instanceof ASTOperandBase) {
-        node = new UnkownNode(NodeMapper.createOperand((ASTOperandBase) element, section, this.parameters.getCulture()));
+        node =
+            new UnkownNode(
+                NodeMapper.createOperand(
+                    (ASTOperandBase) element, section, this.parameters.getCulture()));
       }
 
       if (node != null) {

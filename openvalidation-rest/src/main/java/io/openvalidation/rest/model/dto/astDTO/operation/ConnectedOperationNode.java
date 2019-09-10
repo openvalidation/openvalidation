@@ -21,7 +21,6 @@ import io.openvalidation.common.ast.condition.ASTConditionGroup;
 import io.openvalidation.rest.model.dto.astDTO.TransformationHelper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,11 +29,12 @@ public class ConnectedOperationNode extends ConditionNode {
   private List<ConditionNode> conditions;
 
   public ConnectedOperationNode(ConditionNode condition, DocumentSection section) {
-      super(section);
-      this.conditions = Collections.singletonList(condition);
+    super(section);
+    this.conditions = Collections.singletonList(condition);
   }
 
-  public ConnectedOperationNode(ASTConditionGroup conditionBase, DocumentSection section, String culture) {
+  public ConnectedOperationNode(
+      ASTConditionGroup conditionBase, DocumentSection section, String culture) {
     super(section);
 
     this.conditions =
@@ -46,9 +46,11 @@ public class ConnectedOperationNode extends ConditionNode {
                 })
             .collect(Collectors.toList());
 
-    ASTCondition lastCondition = conditionBase.getAllConditions().get(conditionBase.getAllConditions().size() - 1);
-    if (TransformationHelper.isConditionGroup(conditionBase.getOriginalSource(), lastCondition, culture)) {
-        this.conditions.add(NodeMapper.createConditionNode(new ASTCondition(), null, culture));
+    ASTCondition lastCondition =
+        conditionBase.getAllConditions().get(conditionBase.getAllConditions().size() - 1);
+    if (TransformationHelper.isConditionGroup(
+        conditionBase.getOriginalSource(), lastCondition, culture)) {
+      this.conditions.add(NodeMapper.createConditionNode(new ASTCondition(), null, culture));
     }
   }
 

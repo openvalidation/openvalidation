@@ -18,13 +18,11 @@ package io.openvalidation.common.ast;
 
 public class ASTUnknown extends ASTGlobalElement {
 
-  public ASTUnknown() {
-  }
+  public ASTUnknown() {}
 
   public ASTUnknown(String originalSource) {
     this.setSource(originalSource);
   }
-
 
   @Override
   public String print(int level) {

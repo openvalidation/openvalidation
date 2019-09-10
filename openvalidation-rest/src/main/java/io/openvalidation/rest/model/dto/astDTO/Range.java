@@ -48,12 +48,14 @@ public class Range {
   }
 
   public boolean includesPosition(Position position) {
-    boolean afterStart = (this.getStart().getLine() == position.getLine() &&
-            this.getStart().getColumn() <= position.getColumn()) ||
-            this.getStart().getLine() < position.getLine();
-    boolean beforeEnd = (this.getEnd().getLine() == position.getLine() &&
-            this.getEnd().getColumn() >= position.getColumn()) ||
-            this.getEnd().getLine() > position.getLine();
+    boolean afterStart =
+        (this.getStart().getLine() == position.getLine()
+                && this.getStart().getColumn() <= position.getColumn())
+            || this.getStart().getLine() < position.getLine();
+    boolean beforeEnd =
+        (this.getEnd().getLine() == position.getLine()
+                && this.getEnd().getColumn() >= position.getColumn())
+            || this.getEnd().getLine() > position.getLine();
     return afterStart && beforeEnd;
   }
 }
