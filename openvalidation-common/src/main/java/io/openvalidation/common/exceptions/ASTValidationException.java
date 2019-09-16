@@ -16,6 +16,7 @@
 
 package io.openvalidation.common.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.utils.ConsoleColors;
@@ -83,6 +84,11 @@ public class ASTValidationException extends OpenValidationException {
   @JsonProperty
   public int getGlobalElementPosition() {
     return (item != null) ? item.getGlobalPosition() : _position;
+  }
+
+  @JsonIgnore
+  public ASTItem getItem() {
+    return item;
   }
 
   public void setGlobalElementPosition(int position) {

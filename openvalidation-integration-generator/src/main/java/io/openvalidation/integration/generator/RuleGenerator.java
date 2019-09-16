@@ -29,7 +29,6 @@ public class RuleGenerator {
   public static List<OpenValidationResult> generate(List<IntegrationTest> tests, String outputDir)
       throws Exception {
     boolean freameworkGeneration = false;
-
     List<OpenValidationResult> allResults = new ArrayList<>();
 
     for (IntegrationTest test : tests) {
