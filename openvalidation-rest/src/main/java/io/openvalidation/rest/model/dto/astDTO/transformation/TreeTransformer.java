@@ -18,7 +18,11 @@ package io.openvalidation.rest.model.dto.astDTO.transformation;
 
 import io.openvalidation.common.ast.*;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
+import io.openvalidation.common.exceptions.ASTValidationException;
+import io.openvalidation.common.exceptions.ASTValidationSummaryException;
+import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.OpenValidationResult;
+import io.openvalidation.rest.model.dto.OpenValidationExceptionDTO;
 import io.openvalidation.rest.model.dto.astDTO.*;
 import io.openvalidation.rest.model.dto.astDTO.element.CommentNode;
 import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
@@ -34,6 +38,7 @@ public class TreeTransformer {
   private List<ASTVariable> variables;
   private List<ASTItem> astItems;
   private OVParams parameters;
+  private TransformationParameter treeParameter;
 
   public TreeTransformer(
       OpenValidationResult result, List<ASTItem> astItemList, OVParams parameters) {
@@ -42,19 +47,21 @@ public class TreeTransformer {
 
     this.astItems = astItemList;
     this.parameters = parameters;
+    this.treeParameter = new TransformationParameter(parameters.getCulture(), result.getErrors());
   }
 
   public MainNode transform(String documentText) {
     MainNode mainNode = new MainNode();
     if (this.astItems == null || this.astItems.size() == 0) return mainNode;
 
-    ArrayList<DocumentSection> documentSections =
-        new DocumentSplitter(documentText).splitDocument();
-    if (documentSections.size() != this.astItems.size()) return new MainNode();
-
     // Set variables as declarations
     mainNode.addDeclarations(
-        this.variables.stream().map(Variable::new).collect(Collectors.toList()));
+            this.variables.stream().map(Variable::new).collect(Collectors.toList()));
+
+    ArrayList<DocumentSection> documentSections =
+        new DocumentSplitter(documentText).splitDocument();
+    if (documentSections.size() != this.astItems.size()) return mainNode;
+
 
     for (int index = 0; index < this.astItems.size(); index++) {
       ASTItem element = this.astItems.get(index);
@@ -63,22 +70,40 @@ public class TreeTransformer {
       GenericNode node = null;
 
       if (element instanceof ASTRule) {
-        node = new RuleNode((ASTRule) element, section, this.parameters.getCulture());
+        node = new RuleNode((ASTRule) element, section, this.treeParameter.getCulture());
       } else if (element instanceof ASTVariable) {
-        node = new VariableNode((ASTVariable) element, section, this.parameters.getCulture());
+        node = new VariableNode((ASTVariable) element, section, this.treeParameter.getCulture());
       } else if (element instanceof ASTComment) {
         node = new CommentNode((ASTComment) element, section);
       } else if (element instanceof ASTOperandBase) {
         node =
             new UnkownNode(
                 NodeMapper.createOperand(
-                    (ASTOperandBase) element, section, this.parameters.getCulture()));
-      } else  if (element instanceof ASTUnknown) {
+                    (ASTOperandBase) element, section, this.treeParameter.getCulture()));
+      } else if (element instanceof ASTUnknown) {
         node = new UnkownNode(section);
       }
 
       if (node != null) {
         mainNode.addScope(node);
+      }
+    }
+
+    for (OpenValidationException error: this.treeParameter.getRemainingErrors()) {
+      if (error instanceof ASTValidationException) {
+        String sourceString = ((ASTValidationException) error).getItem().getOriginalSource();
+        if (!sourceString.isEmpty()) {
+          DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
+          mainNode.addError(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+        }
+      } else if (error instanceof ASTValidationSummaryException) {
+        String sourceString = ((ASTValidationSummaryException) error).getModel().getOriginalSource();
+        if (!sourceString.isEmpty()) {
+          DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
+          mainNode.addError(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+        }
+      } else {
+        mainNode.addError(new OpenValidationExceptionDTO(error.getMessage()));
       }
     }
 
