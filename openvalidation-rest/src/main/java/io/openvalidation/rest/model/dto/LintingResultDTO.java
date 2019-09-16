@@ -7,20 +7,23 @@ import io.openvalidation.common.ast.operand.ASTOperandStatic;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import io.openvalidation.common.converter.SchemaConverterFactory;
 import io.openvalidation.common.data.DataSchema;
+import io.openvalidation.common.exceptions.ASTValidationException;
+import io.openvalidation.common.exceptions.ASTValidationSummaryException;
+import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.CodeGenerationResult;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.LINQ;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
+import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
 import io.openvalidation.rest.model.dto.schema.SchemaDTO;
 import io.openvalidation.rest.service.OVParams;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LintingResultDTO {
-    @JsonAlias("variable_names")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<String> variableNames;
 
     @JsonAlias("static_strings")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -34,6 +37,8 @@ public class LintingResultDTO {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private SchemaDTO schema;
 
+    private List<OpenValidationExceptionDTO> errors;
+
     public LintingResultDTO() {
         // serializable
     }
@@ -42,8 +47,6 @@ public class LintingResultDTO {
             OpenValidationResult ovResult, OVParams parameters, List<ASTItem> astItemList) {
         if (ovResult == null)
             throw new IllegalArgumentException("OpenValidationResult should not be null");
-
-        CodeGenerationResult frameworkGenerationResult = ovResult.getFrameworkResult();
 
         TreeTransformer transformator = new TreeTransformer(ovResult, astItemList, parameters);
         MainNode node = transformator.transform(parameters.getRule());
@@ -56,10 +59,27 @@ public class LintingResultDTO {
             System.err.print("Schema could not be generated");
         }
 
-        ASTModel ast = ovResult.getASTModel();
+        this.errors = new ArrayList<>();
+        for (OpenValidationException error: ovResult.getErrors()) {
+            if (error instanceof ASTValidationException) {
+                String sourceString = ((ASTValidationException) error).getItem().getOriginalSource();
+                if (!sourceString.isEmpty()) {
+                    DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
+                    errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+                }
+            } else if (error instanceof ASTValidationSummaryException) {
+                String sourceString = ((ASTValidationSummaryException) error).getModel().getOriginalSource();
+                if (!sourceString.isEmpty()) {
+                    DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
+                    errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+                }
+            } else {
+                errors.add(new OpenValidationExceptionDTO(error.getMessage()));
+            }
+        }
 
+        ASTModel ast = ovResult.getASTModel();
         if (ast != null) {
-            this.setVariableNames(LINQ.select(ast.getVariables(), ASTGlobalNamedElement::getName));
             this.setStaticStrings(
                     LINQ.select(ast.collectItemsOfType(ASTOperandStaticString.class), ASTOperandStatic::getValue));
         }
@@ -71,14 +91,6 @@ public class LintingResultDTO {
 
     public void setSchema(SchemaDTO schema) {
         this.schema = schema;
-    }
-
-    public List<String> getVariableNames() {
-        return variableNames;
-    }
-
-    public void setVariableNames(List<String> variableNames) {
-        this.variableNames = variableNames;
     }
 
     public List<String> getStaticStrings() {
@@ -95,5 +107,13 @@ public class LintingResultDTO {
 
     public void setMainAstNode(MainNode mainAstNode) {
         this.mainAstNode = mainAstNode;
+    }
+
+    public List<OpenValidationExceptionDTO> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<OpenValidationExceptionDTO> errors) {
+        this.errors = errors;
     }
 }
