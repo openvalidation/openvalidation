@@ -17,9 +17,15 @@
 package io.openvalidation.rest.controller;
 
 import io.openvalidation.common.ast.*;
+import io.openvalidation.common.exceptions.ASTValidationException;
+import io.openvalidation.common.exceptions.ASTValidationSummaryException;
+import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.rest.model.dto.LintingResultDTO;
+import io.openvalidation.rest.model.dto.OpenValidationExceptionDTO;
 import io.openvalidation.rest.model.dto.UnkownElementParser;
+import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import io.openvalidation.rest.service.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

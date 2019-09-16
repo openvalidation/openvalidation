@@ -38,7 +38,6 @@ public class TreeTransformer {
   private List<ASTVariable> variables;
   private List<ASTItem> astItems;
   private OVParams parameters;
-  private TransformationParameter treeParameter;
 
   public TreeTransformer(
       OpenValidationResult result, List<ASTItem> astItemList, OVParams parameters) {
@@ -47,7 +46,6 @@ public class TreeTransformer {
 
     this.astItems = astItemList;
     this.parameters = parameters;
-    this.treeParameter = new TransformationParameter(parameters.getCulture(), result.getErrors());
   }
 
   public MainNode transform(String documentText) {
@@ -70,40 +68,22 @@ public class TreeTransformer {
       GenericNode node = null;
 
       if (element instanceof ASTRule) {
-        node = new RuleNode((ASTRule) element, section, this.treeParameter.getCulture());
+        node = new RuleNode((ASTRule) element, section, this.parameters.getCulture());
       } else if (element instanceof ASTVariable) {
-        node = new VariableNode((ASTVariable) element, section, this.treeParameter.getCulture());
+        node = new VariableNode((ASTVariable) element, section, this.parameters.getCulture());
       } else if (element instanceof ASTComment) {
         node = new CommentNode((ASTComment) element, section);
       } else if (element instanceof ASTOperandBase) {
         node =
             new UnkownNode(
                 NodeMapper.createOperand(
-                    (ASTOperandBase) element, section, this.treeParameter.getCulture()));
+                    (ASTOperandBase) element, section, this.parameters.getCulture()));
       } else if (element instanceof ASTUnknown) {
         node = new UnkownNode(section);
       }
 
       if (node != null) {
         mainNode.addScope(node);
-      }
-    }
-
-    for (OpenValidationException error: this.treeParameter.getRemainingErrors()) {
-      if (error instanceof ASTValidationException) {
-        String sourceString = ((ASTValidationException) error).getItem().getOriginalSource();
-        if (!sourceString.isEmpty()) {
-          DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
-          mainNode.addError(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
-        }
-      } else if (error instanceof ASTValidationSummaryException) {
-        String sourceString = ((ASTValidationSummaryException) error).getModel().getOriginalSource();
-        if (!sourceString.isEmpty()) {
-          DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
-          mainNode.addError(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
-        }
-      } else {
-        mainNode.addError(new OpenValidationExceptionDTO(error.getMessage()));
       }
     }
 
