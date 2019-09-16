@@ -36,11 +36,9 @@ public class OperandNode extends GenericNode {
       this.dataType = operand.getDataType();
       this.name = operand.getName();
 
-      if (operand instanceof ASTOperandStatic)
-        this.name = ((ASTOperandStatic) operand).getValue();
+      if (operand instanceof ASTOperandStatic) this.name = ((ASTOperandStatic) operand).getValue();
 
-      if (operand instanceof ASTOperandArithmetical)
-        this.name = operand.getOriginalSource();
+      if (operand instanceof ASTOperandArithmetical) this.name = operand.getOriginalSource();
 
       this.setRange(this.getRangeOnlyForOperand(section));
     }
@@ -48,9 +46,10 @@ public class OperandNode extends GenericNode {
 
   private Range getRangeOnlyForOperand(DocumentSection section) {
     DocumentSection newSection = new RangeGenerator(section).generate(this.getName());
-    if (newSection != null && newSection.getRange() != null &&
-            newSection.getRange().getStart() != null &&
-            newSection.getRange().getEnd() != null) {
+    if (newSection != null
+        && newSection.getRange() != null
+        && newSection.getRange().getStart() != null
+        && newSection.getRange().getEnd() != null) {
       return newSection.getRange();
     } else {
       return this.getRange();

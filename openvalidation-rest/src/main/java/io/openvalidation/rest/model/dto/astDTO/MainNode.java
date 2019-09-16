@@ -16,16 +16,20 @@
 
 package io.openvalidation.rest.model.dto.astDTO;
 
+import io.openvalidation.rest.model.dto.OpenValidationExceptionDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainNode {
   private List<Variable> declarations;
   private List<GenericNode> scopes;
+  private List<OpenValidationExceptionDTO> errors;
 
   public MainNode() {
     this.declarations = new ArrayList<>();
     this.scopes = new ArrayList<>();
+    this.errors = new ArrayList<>();
   }
 
   public List<Variable> getDeclarations() {
@@ -46,5 +50,13 @@ public class MainNode {
 
   public void addScopes(List<GenericNode> scopes) {
     this.scopes.addAll(scopes);
+  }
+
+  public List<OpenValidationExceptionDTO> getErrors() {
+    return errors;
+  }
+
+  public void addError(OpenValidationExceptionDTO error) {
+    this.errors.add(error);
   }
 }

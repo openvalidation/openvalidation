@@ -20,7 +20,6 @@ import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.operand.ASTOperandStatic;
 import io.openvalidation.rest.model.dto.astDTO.Position;
 import io.openvalidation.rest.model.dto.astDTO.Range;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +27,11 @@ import java.util.stream.Collectors;
 public class RangeGenerator {
   private List<String> outerLines;
   private Range outerRange;
+
+  public RangeGenerator(String text) {
+    this.outerLines = !text.isEmpty() ? Arrays.asList(text.split("\n")) : null;
+    this.outerRange = null;
+  }
 
   public RangeGenerator(DocumentSection section) {
     if (section != null) {
@@ -47,14 +51,20 @@ public class RangeGenerator {
   public DocumentSection generate(String sourceText) {
     if (sourceText == null) return null;
 
-    List<String> innerLines = new ArrayList<>(Arrays.asList(sourceText.split("\n")));
+    List<String> innerLines = Arrays.asList(sourceText.split("\n"));
     innerLines = innerLines.stream().filter(l -> !l.isEmpty()).collect(Collectors.toList());
 
-    if (innerLines.size() == 0) return null;
-    if (outerRange == null || this.outerRange.getStart() == null)
-      return new DocumentSection(null, innerLines);
+    if (innerLines.size() == 0 || this.outerLines == null || this.outerLines.size() == 0)
+      return null;
 
-    Position outerStart = this.outerRange.getStart();
+    int outerStartLine = 0;
+    int outerStartColumn = 0;
+    if (this.outerRange != null &&
+        this.outerRange.getStart() != null) {
+      outerStartLine = this.outerRange.getStart().getLine();
+      outerStartColumn = this.outerRange.getStart().getColumn();
+    }
+
     String startLine = innerLines.get(0);
     String endLine = innerLines.get(innerLines.size() - 1);
     Position startPosition = null;
@@ -65,10 +75,10 @@ public class RangeGenerator {
     for (String line : this.outerLines) {
       int startLineIndex = line.indexOf(startLine);
       if (startLineIndex != -1) {
-        int startLineNumber = outerStart.getLine() + lineNumber;
+        int startLineNumber = outerStartLine + lineNumber;
 
         int startColumnNumber = startLineIndex;
-        if (startLineNumber == outerStart.getLine()) startColumnNumber += outerStart.getColumn();
+        if (startLineNumber == outerStartLine) startColumnNumber += outerStartColumn;
 
         startPosition = new Position(startLineNumber, startColumnNumber);
       }
@@ -79,7 +89,7 @@ public class RangeGenerator {
             startLine.equals(endLine)
                 ? startPosition.getColumn() + endLine.length()
                 : endLineIndex + endLine.length();
-        endPosition = new Position(outerStart.getLine() + lineNumber, column);
+        endPosition = new Position(outerStartLine + lineNumber, column);
       }
 
       if (endPosition != null && startPosition != null) break;

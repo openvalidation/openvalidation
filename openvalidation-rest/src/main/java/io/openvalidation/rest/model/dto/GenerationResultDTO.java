@@ -35,6 +35,7 @@ import io.openvalidation.rest.model.dto.schema.SchemaDTO;
 import io.openvalidation.rest.service.OVParams;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GenerationResultDTO {
 
@@ -61,20 +62,11 @@ public class GenerationResultDTO {
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   private List<String> ruleErrors;
 
-  @JsonAlias("main_ast_node")
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  private MainNode mainAstNode;
-
-  @JsonAlias("schema_list")
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  private SchemaDTO schema;
-
   public GenerationResultDTO() {
     // serializable
   }
 
-  public GenerationResultDTO(
-      OpenValidationResult ovResult, OVParams parameters, List<ASTItem> astItemList) {
+  public GenerationResultDTO(OpenValidationResult ovResult) {
     if (ovResult == null)
       throw new IllegalArgumentException("OpenValidationResult should not be null");
     if (ovResult.hasErrors()) errors = ovResult.getErrors();
@@ -84,17 +76,6 @@ public class GenerationResultDTO {
     this.setFrameworkResult(
         frameworkGenerationResult == null ? "" : ovResult.getFrameworkResult().getCode());
     this.setImplementationResult(ovResult.getImplementationCodeContent());
-
-    TreeTransformer transformator = new TreeTransformer(ovResult, astItemList, parameters);
-    MainNode node = transformator.transform(parameters.getRule());
-    this.setMainAstNode(node);
-
-    try {
-      DataSchema schema = SchemaConverterFactory.convert(parameters.getSchema());
-      this.setSchema(new SchemaDTO(schema));
-    } catch (Exception ex) {
-      System.err.print("Schema could not be generated");
-    }
 
     ASTModel ast = ovResult.getASTModel();
 
@@ -121,14 +102,6 @@ public class GenerationResultDTO {
 
   public void setErrors(List<OpenValidationException> errors) {
     this.errors = errors;
-  }
-
-  public SchemaDTO getSchema() {
-    return schema;
-  }
-
-  public void setSchema(SchemaDTO schema) {
-    this.schema = schema;
   }
 
   public String getImplementationResult() {
@@ -169,13 +142,5 @@ public class GenerationResultDTO {
 
   public void setRuleErrors(List<String> ruleErrors) {
     this.ruleErrors = ruleErrors;
-  }
-
-  public MainNode getMainAstNode() {
-    return mainAstNode;
-  }
-
-  public void setMainAstNode(MainNode mainAstNode) {
-    this.mainAstNode = mainAstNode;
   }
 }

@@ -16,15 +16,11 @@
 
 package io.openvalidation.rest.controller;
 
-import io.openvalidation.common.ast.ASTItem;
-import io.openvalidation.common.ast.ASTModel;
-import io.openvalidation.common.ast.ASTUnknown;
+import io.openvalidation.common.ast.*;
 import io.openvalidation.common.model.OpenValidationResult;
-import io.openvalidation.rest.model.dto.GenerationResultDTO;
+import io.openvalidation.rest.model.dto.LintingResultDTO;
 import io.openvalidation.rest.model.dto.UnkownElementParser;
-import io.openvalidation.rest.service.OVParams;
-import io.openvalidation.rest.service.OpenValidationResponseStatusException;
-import io.openvalidation.rest.service.OpenValidationService;
+import io.openvalidation.rest.service.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,23 +30,31 @@ import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/")
-public class OpenValidationController {
+@RequestMapping("/linting")
+public class LintingController {
 
   @Autowired private OpenValidationService ovService;
 
   @PostMapping
-  public ResponseEntity<GenerationResultDTO> generate(@RequestBody OVParams parameters) {
-    if (parameters == null || parameters.isEmpty()) {
+  public ResponseEntity<LintingResultDTO> generate(@RequestBody OVParams parameters) {
+    if (parameters == null) {
       throw new ResponseStatusException(
           HttpStatus.UNPROCESSABLE_ENTITY,
           "You did not provide any parameters for the generation request. You can browse the API on /swagger-ui.html");
     }
 
     OpenValidationResult result;
+    List<ASTItem> astItemList;
 
     try {
-      result = ovService.generate(parameters);
+      result = ovService.generate(parameters, false);
+
+      ASTModel astModel = result.getASTModel();
+      if (astModel == null) astModel = new ASTModel();
+      if (astModel.getElements().size() == 0) astModel.add(new ASTUnknown(parameters.getRule()));
+
+      astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
+
     } catch (Exception e) {
       e.printStackTrace();
       throw new OpenValidationResponseStatusException(
@@ -59,11 +63,7 @@ public class OpenValidationController {
           e);
     }
 
-    GenerationResultDTO generationResultDTO = new GenerationResultDTO(result);
-    if (result.hasErrors()) {
-      return new ResponseEntity<>(generationResultDTO, HttpStatus.I_AM_A_TEAPOT);
-    }
-
-    return new ResponseEntity<>(generationResultDTO, HttpStatus.OK);
+    LintingResultDTO lintingResultDTO = new LintingResultDTO(result, parameters, astItemList);
+    return new ResponseEntity<>(lintingResultDTO, HttpStatus.OK);
   }
 }
