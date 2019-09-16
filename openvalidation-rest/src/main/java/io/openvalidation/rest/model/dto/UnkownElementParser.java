@@ -17,7 +17,6 @@
 package io.openvalidation.rest.model.dto;
 
 import io.openvalidation.common.ast.*;
-import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
@@ -88,11 +87,13 @@ public class UnkownElementParser {
     List<ASTGlobalElement> elementList = tmpResult.getASTModel().getElements();
     if (elementList.size() == 0) return astItemList;
 
-    List<ASTGlobalElement> relevantList = elementList.subList(elementList.size() - unkownIdMap.size(), elementList.size());
+    List<ASTGlobalElement> relevantList =
+        elementList.subList(elementList.size() - unkownIdMap.size(), elementList.size());
     int index = 0;
 
     for (Map.Entry<Integer, ASTUnknown> entry : unkownIdMap.entrySet()) {
-      ASTItem relevantItem = relevantList.get(index) instanceof ASTVariable
+      ASTItem relevantItem =
+          relevantList.get(index) instanceof ASTVariable
               ? ((ASTVariable) relevantList.get(index)).getValue()
               : relevantList.get(index);
       astItemList.set(entry.getKey(), relevantItem);

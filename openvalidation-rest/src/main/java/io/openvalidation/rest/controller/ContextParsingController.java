@@ -21,7 +21,7 @@ import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.rest.model.dto.UnkownElementParser;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
-import io.openvalidation.rest.model.dto.astDTO.ScopesErrorDTO;
+import io.openvalidation.rest.model.dto.astDTO.ScopeDTO;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
 import io.openvalidation.rest.service.*;
 import java.util.List;
@@ -33,45 +33,45 @@ import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/linting")
+@RequestMapping("/completion")
 public class ContextParsingController {
 
-  @Autowired private OpenValidationService ovService;
+    @Autowired private OpenValidationService ovService;
 
-  @PostMapping
-  public ResponseEntity<ScopesErrorDTO> generate(@RequestBody OVParams parameters) {
-    if (parameters == null) {
-      throw new ResponseStatusException(
-          HttpStatus.UNPROCESSABLE_ENTITY,
-          "You did not provide any parameters for the generation request. You can browse the API on /swagger-ui.html");
+    @PostMapping
+    public ResponseEntity<ScopeDTO> generate(@RequestBody OVParams parameters) {
+        if (parameters == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY,
+                    "You did not provide any parameters for the generation request. You can browse the API on /swagger-ui.html");
+        }
+
+        OpenValidationResult result;
+        List<ASTItem> astItemList;
+
+        try {
+            result = ovService.generate(parameters, false);
+
+            ASTModel astModel = result.getASTModel();
+            if (astModel == null) {
+                astModel = new ASTModel();
+                astModel.add(new ASTUnknown(parameters.getRule()));
+            }
+            astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new OpenValidationResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Sorry something went wrong. We are working hard to fix the Problem.",
+                    e);
+        }
+
+        TreeTransformer transformer = new TreeTransformer(result, astItemList, parameters);
+        MainNode node = transformer.transform(parameters.getRule());
+
+        GenericNode relevantScope = node.getScopes().size() > 0 ? node.getScopes().get(0) : null;
+        ScopeDTO dto = new ScopeDTO(relevantScope);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
-
-    OpenValidationResult result;
-    List<ASTItem> astItemList;
-
-    try {
-      result = ovService.generate(parameters, false);
-
-      ASTModel astModel = result.getASTModel();
-      if (astModel == null) {
-        astModel = new ASTModel();
-        astModel.add(new ASTUnknown(parameters.getRule()));
-      }
-      astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
-
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new OpenValidationResponseStatusException(
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          "Sorry something went wrong. We are working hard to fix the Problem.",
-          e);
-    }
-
-    TreeTransformer transformer = new TreeTransformer(result, astItemList, parameters);
-    MainNode node = transformer.transform(parameters.getRule());
-
-    GenericNode relevantScope = node.getScopes().size() > 0 ? node.getScopes().get(0) : null;
-    ScopesErrorDTO dto = new ScopesErrorDTO(relevantScope, result.getErrors());
-    return new ResponseEntity<>(dto, HttpStatus.OK);
-  }
 }
