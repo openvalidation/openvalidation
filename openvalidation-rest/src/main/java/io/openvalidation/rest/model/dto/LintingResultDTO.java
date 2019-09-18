@@ -13,6 +13,7 @@ import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.CodeGenerationResult;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.LINQ;
+import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
@@ -62,17 +63,33 @@ public class LintingResultDTO {
         this.errors = new ArrayList<>();
         for (OpenValidationException error: ovResult.getErrors()) {
             if (error instanceof ASTValidationException) {
-                String sourceString = ((ASTValidationException) error).getItem().getOriginalSource();
-                if (!sourceString.isEmpty()) {
+                if (((ASTValidationException) error).getItem() == null) continue;
+
+                ASTItem item = ((ASTValidationException) error).getItem();
+                String sourceString = item.getOriginalSource();
+                if (sourceString.isEmpty()) continue;
+
+                if (item instanceof ASTGlobalElement) {
+                    int position = item.getGlobalPosition();
+
+                    if (position > node.getScopes().size()) {
+                        DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
+                        errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+                    }
+
+                    GenericNode generatedNode = node.getScopes().get(position - 1);
+                    DocumentSection newSection = new RangeGenerator(generatedNode.getLines(), generatedNode.getRange()).generate(sourceString);
+                    errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+                } else {
                     DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
                     errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
                 }
             } else if (error instanceof ASTValidationSummaryException) {
                 String sourceString = ((ASTValidationSummaryException) error).getModel().getOriginalSource();
-                if (!sourceString.isEmpty()) {
-                    DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
-                    errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
-                }
+                if (sourceString.isEmpty()) continue;
+
+                DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
+                errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
             } else {
                 errors.add(new OpenValidationExceptionDTO(error.getMessage()));
             }
