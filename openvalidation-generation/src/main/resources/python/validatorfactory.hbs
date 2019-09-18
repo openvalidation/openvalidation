@@ -1,0 +1,8 @@
+
+_validators = {
+    {{#params.validators}}"{{id}}": {{name}}()
+    {{/params.validators}}
+}
+
+def create(validator_id):
+    return _validators[validator_id] if _validators else None
