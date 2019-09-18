@@ -53,12 +53,10 @@ public class ContextParsingController {
             result = ovService.generate(parameters, false);
 
             ASTModel astModel = result.getASTModel();
-            if (astModel == null) {
-                astModel = new ASTModel();
-                astModel.add(new ASTUnknown(parameters.getRule()));
-            }
-            astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
+            if (astModel == null) astModel = new ASTModel();
+            if (astModel.getElements().size() == 0) astModel.add(new ASTUnknown(parameters.getRule()));
 
+            astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
         } catch (Exception e) {
             e.printStackTrace();
             throw new OpenValidationResponseStatusException(
