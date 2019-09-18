@@ -43,6 +43,11 @@ public class RangeGenerator {
     }
   }
 
+  public RangeGenerator(List<String> lines, Range range) {
+    this.outerLines = lines;
+    this.outerRange = range;
+  }
+
   public DocumentSection generate(ASTItem innerElement) {
     String sourceText = this.getOriginalSource(innerElement);
     return this.generate(sourceText);
