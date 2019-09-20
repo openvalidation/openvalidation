@@ -16,9 +16,32 @@
 
 package io.openvalidation.common.model;
 
-public enum Language {
-  Java,
-  JavaScript,
-  CSharp,
-  Node
+import org.json.JSONObject;
+
+public class Language {
+  private String _name;
+  private String _extension;
+  private String _shortName;
+
+  public Language(String name, JSONObject languageInfo) {
+    this(name, languageInfo.getString("extension"), languageInfo.getString("short"));
+  }
+
+  public Language(String name, String extension, String shortName) {
+    _name = name;
+    _extension = extension;
+    _shortName = shortName;
+  }
+
+  public String getName() {
+    return _name;
+  }
+
+  public String getExtension() {
+    return _extension;
+  }
+
+  public String getShortName() {
+    return _shortName;
+  }
 }
