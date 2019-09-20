@@ -53,7 +53,16 @@ public class GeneratorRuleTest {
                 + "           \"Eigenkapital muss größer 10.000,00€ sein.\",\n"
                 + "           ( model) -> huml.GREATER_THAN(model.getEigenkapital(), 10000.0),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_condition_as_rule\",\n"
+                + "            [\"Eigenkapital\"],\n"
+                + "            \"Eigenkapital muss größer 10.000,00€ sein.\",\n"
+                + "            lambda model, cntx: huml.GREATER_THAN(model.Eigenkapital, 10000.0),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -100,7 +109,16 @@ public class GeneratorRuleTest {
                 + "           \"the investment of applicant HAS NOT EQUALS 20000 MOD 18200.\",\n"
                 + "           ( model) -> huml.EQUALS(model.getInvestment(), (20000.0%18200.0)),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_condition_as_arithmetic_rule\",\n"
+                + "            [\"investment\"],\n"
+                + "            \"the investment of applicant HAS NOT EQUALS 20000 MOD 18200.\",\n"
+                + "            lambda model, cntx: huml.EQUALS(model.investment, (20000.0%18200.0)),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -152,7 +170,16 @@ public class GeneratorRuleTest {
                 + "           \"the investment of applicant MUSTN&#x27;T be GREATER OR EQUALS 1001 + 2\",\n"
                 + "           ( model) -> huml.LESS_THAN(model.getInvestment(), (1001.0+2.0)),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_not_condition_as_arithmetic_rule\",\n"
+                + "            [\"investment\"],\n"
+                + "            \"the investment of applicant MUSTN&#x27;T be GREATER OR EQUALS 1001 + 2\",\n"
+                + "            lambda model, cntx: huml.LESS_THAN(model.investment, (1001.0+2.0)),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -204,7 +231,16 @@ public class GeneratorRuleTest {
                 + "           \"the investment of applicant SHOULDN&#x27;T be LESS OR EQUALS 1001 + 2\",\n"
                 + "           ( model) -> huml.GREATER_THAN(model.getInvestment(), (1001.0+2.0)),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_condition_as_arithemtic_rule\",\n"
+                + "            [\"investment\"],\n"
+                + "            \"the investment of applicant SHOULDN&#x27;T be LESS OR EQUALS 1001 + 2\",\n"
+                + "            lambda model, cntx: huml.GREATER_THAN(model.investment, (1001.0+2.0)),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -256,7 +292,16 @@ public class GeneratorRuleTest {
                 + "           \"the investment of applicant HASN&#x27;T be LESS 1001 + 2\",\n"
                 + "           ( model) -> huml.GREATER_OR_EQUALS(model.getInvestment(), (1001.0+2.0)),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_not_condition_as_arithmetic_rule_third\",\n"
+                + "            [\"investment\"],\n"
+                + "            \"the investment of applicant HASN&#x27;T be LESS 1001 + 2\",\n"
+                + "            lambda model, cntx: huml.GREATER_OR_EQUALS(model.investment, (1001.0+2.0)),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -308,7 +353,16 @@ public class GeneratorRuleTest {
                 + "           \"the investment of applicant HAVEN&#x27;T be GREATER 1001 + 2\",\n"
                 + "           ( model) -> huml.LESS_OR_EQUALS(model.getInvestment(), (1001.0+2.0)),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_not_condition_as_arithmetic_rule_fourth\",\n"
+                + "            [\"investment\"],\n"
+                + "            \"the investment of applicant HAVEN&#x27;T be GREATER 1001 + 2\",\n"
+                + "            lambda model, cntx: huml.LESS_OR_EQUALS(model.investment, (1001.0+2.0)),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -360,7 +414,16 @@ public class GeneratorRuleTest {
                 + "           \"Der Kunde muss mindestens 18 Jahre alt sein!\",\n"
                 + "           ( model) -> (huml.GREATER_OR_EQUALS(model.getAge(), 18.0)),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_condition_as_rule_group\",\n"
+                + "            [\"Age\"],\n"
+                + "            \"Der Kunde muss mindestens 18 Jahre alt sein!\",\n"
+                + "            lambda model, cntx: (huml.GREATER_OR_EQUALS(model.Age, 18.0)),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -409,7 +472,16 @@ public class GeneratorRuleTest {
                 + "           \"Der Kunde muss mindestens 18 Jahre alt sein!\",\n"
                 + "           ( model) -> (huml.GREATER_OR_EQUALS(model.getAge(), underage.GetValue(model))),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_condition_as_rule_group\",\n"
+                + "            [\"Age\"],\n"
+                + "            \"Der Kunde muss mindestens 18 Jahre alt sein!\",\n"
+                + "            lambda model, cntx: (huml.GREATER_OR_EQUALS(model.Age, self.underage.get_value(model))),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -462,7 +534,17 @@ public class GeneratorRuleTest {
                 + "           \"Der Kunde muss 18 Jahre alt sein und Lisa heißen.\",\n"
                 + "           ( model) -> (huml.EQUALS(model.getAge(), 18.0) && huml.IS(\"Lisa\", model.getName())),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_AND_condition_group_as_rule\",\n"
+                + "            [\"Age\", \"Name\"],\n"
+                + "            \"Der Kunde muss 18 Jahre alt sein und Lisa heißen.\",\n"
+                + "            lambda model, cntx: (huml.EQUALS(model.Age, 18.0) and \\\n"
+                + "                                 huml.IS(\"Lisa\", model.Name)),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -518,7 +600,17 @@ public class GeneratorRuleTest {
                 + "           \"Das Alter ist nicht erlaubt.\",\n"
                 + "           ( model) -> (huml.LESS_OR_EQUALS(model.getAge(), 50.0) || huml.IS_BETWEEN(18.0, 50.0)),\n"
                 + "           false\n"
-                + "        );"));
+                + "        );"),
+        Arguments.of(
+            "python",
+            "self.append_rule(\n"
+                + "            \"simple_OR_condition_group_as_rule\",\n"
+                + "            [\"Age\"],\n"
+                + "            \"Das Alter ist nicht erlaubt.\",\n"
+                + "            lambda model, cntx: (huml.LESS_OR_EQUALS(model.Age, 50.0) or \\\n"
+                + "                                 huml.IS_BETWEEN(18.0, 50.0)),\n"
+                + "            False\n"
+                + "        )"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
