@@ -114,7 +114,7 @@ public abstract class TransformerBase<
       //
       //            ASTOperandFunctionBuilder functionBuilder = new ASTOperandFunctionBuilder();
       //            functionBuilder.create()
-      //                           .withName("getArrayOf")
+      //                           .withName("GET_ARRAY_OF")
       //                           .addParameter(arrayProperty)
       //                           .addParameter(lambdaProperty);
       //

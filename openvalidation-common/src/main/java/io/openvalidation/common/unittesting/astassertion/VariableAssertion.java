@@ -117,7 +117,7 @@ public class VariableAssertion
   }
 
   public FunctionAssertion operandWhereFunction() throws Exception {
-    return this.operandFunction().hasName("where");
+    return this.operandFunction().hasName("WHERE");
   }
 
   public FunctionAssertion operandFunction() throws Exception {

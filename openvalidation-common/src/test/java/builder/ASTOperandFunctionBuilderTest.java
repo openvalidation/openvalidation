@@ -62,7 +62,7 @@ public class ASTOperandFunctionBuilderTest {
             .createRightOperandAsFunction()
             .withName("simple")
             .addParameterAsFunction()
-            .withName("getArrayOf")
+            .withName("GET_ARRAY_OF")
             .addParameter(new ASTOperandProperty("portfolio", "shares"))
             .addParameter(new ASTOperandStatic("s -> s.getPercentage()"))
             .getParentFuncBuilder()
@@ -81,7 +81,7 @@ public class ASTOperandFunctionBuilderTest {
 
     ASTOperandFunction arrayOfFunction = (ASTOperandFunction) simpleFunction.getParameters().get(0);
     assertThat(arrayOfFunction, is(notNullValue()));
-    assertThat(arrayOfFunction.getName(), is("getArrayOf"));
+    assertThat(arrayOfFunction.getName(), is("GET_ARRAY_OF"));
     assertThat(arrayOfFunction.getParameters(), is(notNullValue()));
     assertThat(arrayOfFunction.getParameters(), hasSize(2));
     assertThat(arrayOfFunction.getParameters().get(0), instanceOf(ASTOperandProperty.class));
