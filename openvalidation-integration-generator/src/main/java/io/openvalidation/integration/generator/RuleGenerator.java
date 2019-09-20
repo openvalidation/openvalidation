@@ -17,7 +17,7 @@
 package io.openvalidation.integration.generator;
 
 import io.openvalidation.common.model.CodeGenerationResult;
-import io.openvalidation.common.model.Language;
+import io.openvalidation.common.model.Languages;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.Console;
 import io.openvalidation.core.OpenValidation;
@@ -40,7 +40,7 @@ public class RuleGenerator {
 
       OpenValidation ov = OpenValidation.createDefault();
       ov.setLocale("en");
-      ov.setLanguage(Language.Java);
+      ov.setLanguage(Languages.getLanguage("Java"));
       ov.setRule(test.getRule());
       ov.setSchema(test.getSchema());
       ov.setOutput(outputDir + "io/openvalidation/integration/tests/");
@@ -79,7 +79,7 @@ public class RuleGenerator {
       if (!freameworkGeneration) {
         OpenValidation ov2 = OpenValidation.createDefault();
         ov2.setLocale("en");
-        ov2.setLanguage(Language.Java);
+        ov2.setLanguage(Languages.getLanguage("Java"));
         ov2.setParam("generated_class_namespace", packageName);
 
         CodeGenerationResult frameworkResult =

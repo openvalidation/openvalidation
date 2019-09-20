@@ -47,7 +47,7 @@ public class OpenValidationGenerator implements IOpenValidationGenerator {
   private String generate(ASTModel ast, Language language, String template) throws Exception {
 
     try {
-      String templateFile = "/" + language.name().toLowerCase() + "/" + template + ".hbs";
+      String templateFile = "/" + language.getName().toLowerCase() + "/" + template + ".hbs";
 
       if (!ResourceUtils.exists(templateFile)) {
         if (template.equalsIgnoreCase("main"))
@@ -67,7 +67,7 @@ public class OpenValidationGenerator implements IOpenValidationGenerator {
       // set default params
       ast.setDefault("generated_class_name", "HUMLValidator");
 
-      String code = CodeGenerator.generate(language.name().toLowerCase(), template, ast, false);
+      String code = CodeGenerator.generate(language.getName().toLowerCase(), template, ast, false);
 
       ProcessLogger.success(ProcessLogger.GENERATOR);
       return code;
