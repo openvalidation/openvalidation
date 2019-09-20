@@ -38,7 +38,10 @@ public class GeneratorVariableTest {
             "var Vollj_e4_hrig = huml.CreateVariable(\"Vollj_e4_hrig\", ( model) => huml.GREATER_OR_EQUALS(model.Alter, 18.0));"),
         Arguments.of(
             "java",
-            "HUMLFramework.Variable Vollj_e4_hrig = huml.CreateVariable(\"Vollj_e4_hrig\", ( model) -> huml.GREATER_OR_EQUALS(model.getAlter(), 18.0));"));
+            "HUMLFramework.Variable Vollj_e4_hrig = huml.CreateVariable(\"Vollj_e4_hrig\", ( model) -> huml.GREATER_OR_EQUALS(model.getAlter(), 18.0));"),
+        Arguments.of(
+            "python",
+            "self.Vollj_e4_hrig = huml.Variable(\"Vollj_e4_hrig\", lambda model: huml.GREATER_OR_EQUALS(model.Alter, 18.0))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -71,7 +74,10 @@ public class GeneratorVariableTest {
             "var Bundeskanzlerin = huml.CreateVariable(\"Bundeskanzlerin\", ( model) => \"Angela Merkel\");"),
         Arguments.of(
             "java",
-            "HUMLFramework.Variable Bundeskanzlerin = huml.CreateVariable(\"Bundeskanzlerin\", ( model) -> \"Angela Merkel\");"));
+            "HUMLFramework.Variable Bundeskanzlerin = huml.CreateVariable(\"Bundeskanzlerin\", ( model) -> \"Angela Merkel\");"),
+        Arguments.of(
+            "python",
+            "self.Bundeskanzlerin = huml.Variable(\"Bundeskanzlerin\", lambda model: \"Angela Merkel\")"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -99,7 +105,10 @@ public class GeneratorVariableTest {
             "var Adresse_20_von_20_BROCKHAUS_20_AG = huml.CreateVariable(\"Adresse_20_von_20_BROCKHAUS_20_AG\", ( model) => \"Pierbusch 17, 44536 Lünen\");"),
         Arguments.of(
             "java",
-            "HUMLFramework.Variable Adresse_20_von_20_BROCKHAUS_20_AG = huml.CreateVariable(\"Adresse_20_von_20_BROCKHAUS_20_AG\", ( model) -> \"Pierbusch 17, 44536 Lünen\");"));
+            "HUMLFramework.Variable Adresse_20_von_20_BROCKHAUS_20_AG = huml.CreateVariable(\"Adresse_20_von_20_BROCKHAUS_20_AG\", ( model) -> \"Pierbusch 17, 44536 Lünen\");"),
+        Arguments.of(
+            "python",
+            "self.Adresse_20_von_20_BROCKHAUS_20_AG = huml.Variable(\"Adresse_20_von_20_BROCKHAUS_20_AG\", lambda model: \"Pierbusch 17, 44536 Lünen\")"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -128,7 +137,9 @@ public class GeneratorVariableTest {
             "csharp", "var Einkommen = huml.CreateVariable(\"Einkommen\", ( model) => 10000.0);"),
         Arguments.of(
             "java",
-            "HUMLFramework.Variable Einkommen = huml.CreateVariable(\"Einkommen\", ( model) -> 10000.0);"));
+            "HUMLFramework.Variable Einkommen = huml.CreateVariable(\"Einkommen\", ( model) -> 10000.0);"),
+        Arguments.of(
+            "python", "self.Einkommen = huml.Variable(\"Einkommen\", lambda model: 10000.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -155,7 +166,9 @@ public class GeneratorVariableTest {
             "csharp", "var Einkommen = huml.CreateVariable(\"Einkommen\", ( model) => 123.89);"),
         Arguments.of(
             "java",
-            "HUMLFramework.Variable Einkommen = huml.CreateVariable(\"Einkommen\", ( model) -> 123.89);"));
+            "HUMLFramework.Variable Einkommen = huml.CreateVariable(\"Einkommen\", ( model) -> 123.89);"),
+        Arguments.of(
+            "python", "self.Einkommen = huml.Variable(\"Einkommen\", lambda model: 123.89)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -184,7 +197,10 @@ public class GeneratorVariableTest {
             "var Einkommen = huml.CreateVariable(\"Einkommen\", ( model) => 1.2345678989E8);"),
         Arguments.of(
             "java",
-            "HUMLFramework.Variable Einkommen = huml.CreateVariable(\"Einkommen\", ( model) -> 1.2345678989E8);"));
+            "HUMLFramework.Variable Einkommen = huml.CreateVariable(\"Einkommen\", ( model) -> 1.2345678989E8);"),
+        Arguments.of(
+            "python",
+            "self.Einkommen = huml.Variable(\"Einkommen\", lambda model: 1.2345678989E8)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -212,7 +228,10 @@ public class GeneratorVariableTest {
             "var Einkommen = huml.CreateVariable(\"Einkommen\", ( model) => huml.EQUALS((2.2*10.5)));"),
         Arguments.of(
             "java",
-            "HUMLFramework.Variable Einkommen = huml.CreateVariable(\"Einkommen\", ( model) -> huml.EQUALS((2.2*10.5)));"));
+            "HUMLFramework.Variable Einkommen = huml.CreateVariable(\"Einkommen\", ( model) -> huml.EQUALS((2.2*10.5)));"),
+        Arguments.of(
+            "python",
+            "self.Einkommen = huml.Variable(\"Einkommen\", lambda model: huml.EQUALS((2.2*10.5)))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -247,7 +266,10 @@ public class GeneratorVariableTest {
             "var Stra_df_e = huml.CreateVariable(\"Stra_df_e\", ( model) => model.Antrag.Person.Adresse.Strasse);"),
         Arguments.of(
             "java",
-            "HUMLFramework.Variable Stra_df_e = huml.CreateVariable(\"Stra_df_e\", ( model) -> model.getAntrag().getPerson().getAdresse().getStrasse());"));
+            "HUMLFramework.Variable Stra_df_e = huml.CreateVariable(\"Stra_df_e\", ( model) -> model.getAntrag().getPerson().getAdresse().getStrasse());"),
+        Arguments.of(
+            "python",
+            "self.Stra_df_e = huml.Variable(\"Stra_df_e\", lambda model: model.Antrag.Person.Adresse.Strasse)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)

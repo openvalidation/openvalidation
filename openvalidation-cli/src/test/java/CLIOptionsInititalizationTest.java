@@ -75,6 +75,12 @@ public class CLIOptionsInititalizationTest {
   }
 
   @Test
+  public void should_init_language_arguments_python() throws Exception {
+    OpenValidationOptions resultOptions = this.createOptions("-l", "python");
+    assertThat(resultOptions.getLanguage(), is(Languages.getLanguage("Python")));
+  }
+
+  @Test
   public void should_init_culture_arguments() throws Exception {
     OpenValidationOptions resultOptions = this.createOptions("-c", "de");
     assertThat(resultOptions.getLocale(), is(new Locale("de")));

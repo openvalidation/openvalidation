@@ -29,7 +29,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class GeneratorWhereArrayLambdasTest {
   private static Stream<Arguments> simple_map_array() {
     return ExpectationBuilder.newExpectation()
-        .javaResult("huml.where(model.getAddresses(), x -> huml.EQUALS(x.getCity(), \"Dortmund\"))")
+        .javaResult("huml.WHERE(model.getAddresses(), x -> huml.EQUALS(x.getCity(), \"Dortmund\"))")
         .toStream();
   }
 
@@ -42,7 +42,7 @@ public class GeneratorWhereArrayLambdasTest {
         p -> {
 
           // {addresses:[{city:''}]}
-          // addresses.where(a -> a.city == 'Dortmund')
+          // addresses.WHERE(a -> a.city == 'Dortmund')
 
           String lambdaToken = "x";
 

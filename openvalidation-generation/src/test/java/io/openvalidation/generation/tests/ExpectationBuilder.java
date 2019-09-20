@@ -43,8 +43,13 @@ public class ExpectationBuilder {
     return this;
   }
 
-  public ExpectationBuilder nodejsScript(String content) {
+  public ExpectationBuilder nodejsResult(String content) {
     this._arguments.add(getArgument(Languages.getLanguage("Node"), content));
+    return this;
+  }
+
+  public ExpectationBuilder pythonResult(String content) {
+    this._arguments.add(getArgument(Languages.getLanguage("Python"), content));
     return this;
   }
 
