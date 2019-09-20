@@ -111,7 +111,7 @@ class ASTModelTests {
         val innerArrFunction = function.parameters[0] as ASTOperandFunction
 
         assertThat(innerArrFunction, notNullValue())
-        assertThat(innerArrFunction.name, `is`("getArrayOf"))
+        assertThat(innerArrFunction.name, `is`("GET_ARRAY_OF"))
         assertThat<List<ASTOperandBase>>(innerArrFunction.parameters, notNullValue())
         assertThat<List<ASTOperandBase>>(innerArrFunction.parameters, hasSize<ASTOperandBase>(2))
         assertThat<ASTOperandBase>(innerArrFunction.parameters[0], instanceOf<ASTOperandBase>(ASTOperandProperty::class.java))
