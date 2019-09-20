@@ -114,3 +114,9 @@ def LAST(operand, property_selector = id, amount = 1):
         return map(property_selector, operand)[-amount:len(operand)]
     except TypeError:
         return operand
+
+def GET_ARRAY_OF(operand, property_selector):
+    try:
+        return list(map(property_selector, operand))
+    except TypeError:
+        return operand
