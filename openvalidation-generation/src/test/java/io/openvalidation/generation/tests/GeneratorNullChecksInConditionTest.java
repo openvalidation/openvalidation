@@ -30,6 +30,7 @@ public class GeneratorNullChecksInConditionTest {
         .javascriptResult("huml.EQUALS(model.name, \"Alex\")")
         .javaResult("huml.EQUALS(model.getName(), \"Alex\")")
         .csharpResult("huml.EQUALS(model.Name, \"Alex\")")
+        .pythonResult("huml.EQUALS(model.name, \"Alex\")")
         .toStream();
   }
 
@@ -60,6 +61,7 @@ public class GeneratorNullChecksInConditionTest {
         .javaResult(
             "((model.getAddress() != null) && (huml.EQUALS(model.getAddress().getName(), \"Alex\")))")
         .csharpResult("((model.Address != null) && (huml.EQUALS(model.Address.Name, \"Alex\")))")
+        .pythonResult("((model.address) and (huml.EQUALS(model.address.name, \"Alex\")))")
         .toStream();
   }
 
@@ -93,6 +95,8 @@ public class GeneratorNullChecksInConditionTest {
             "((model.getOrder() != null && model.getOrder().getAddress() != null) && (huml.EQUALS(model.getOrder().getAddress().getName(), \"Alex\")))")
         .csharpResult(
             "((model.Order != null && model.Order.Address != null) && (huml.EQUALS(model.Order.Address.Name, \"Alex\")))")
+        .pythonResult(
+            "((model.order and model.order.address) and (huml.EQUALS(model.order.address.name, \"Alex\")))")
         .toStream();
   }
 
