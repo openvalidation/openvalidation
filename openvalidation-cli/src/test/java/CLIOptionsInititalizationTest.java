@@ -26,7 +26,7 @@ import io.openvalidation.common.interfaces.IOpenValidationGenerator;
 import io.openvalidation.common.interfaces.IOpenValidationParser;
 import io.openvalidation.common.interfaces.IOpenValidationPreprocessor;
 import io.openvalidation.common.model.ContentOptionKind;
-import io.openvalidation.common.model.Language;
+import io.openvalidation.common.model.Languages;
 import io.openvalidation.common.utils.FileSystemUtils;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.core.OpenValidation;
@@ -59,19 +59,19 @@ public class CLIOptionsInititalizationTest {
   @Test
   public void should_init_language_arguments_java() throws Exception {
     OpenValidationOptions resultOptions = this.createOptions("-l", "java");
-    assertThat(resultOptions.getLanguage(), is(Language.Java));
+    assertThat(resultOptions.getLanguage(), is(Languages.getLanguage("Java")));
   }
 
   @Test
   public void should_init_language_arguments_csharp() throws Exception {
     OpenValidationOptions resultOptions = this.createOptions("-l", "csharp");
-    assertThat(resultOptions.getLanguage(), is(Language.CSharp));
+    assertThat(resultOptions.getLanguage(), is(Languages.getLanguage("CSharp")));
   }
 
   @Test
   public void should_init_language_arguments_javascript() throws Exception {
     OpenValidationOptions resultOptions = this.createOptions("-l", "javascript");
-    assertThat(resultOptions.getLanguage(), is(Language.JavaScript));
+    assertThat(resultOptions.getLanguage(), is(Languages.getLanguage("JavaScript")));
   }
 
   @Test
@@ -180,7 +180,7 @@ public class CLIOptionsInititalizationTest {
     assertThat(resultOptions.getOutputDirectory(), is(_workingDirectory));
     assertThat(resultOptions.getOutputCodeFileName(), is("OpenValidation"));
     assertThat(
-        resultOptions.resolveCodeFileName(Language.Java).toLowerCase(),
+        resultOptions.resolveCodeFileName(Languages.getLanguage("Java")).toLowerCase(),
         is((_workingDirectory + "OpenValidation.java").toLowerCase()));
   }
 
@@ -192,7 +192,7 @@ public class CLIOptionsInititalizationTest {
     assertThat(resultOptions.getOutputDirectory(), is(_workingDirectory));
     assertThat(resultOptions.getOutputCodeFileName(), is("rule"));
     assertThat(
-        resultOptions.resolveCodeFileName(Language.Java).toLowerCase(),
+        resultOptions.resolveCodeFileName(Languages.getLanguage("Java")).toLowerCase(),
         is((_workingDirectory + "rule.java").toLowerCase()));
   }
 
@@ -206,7 +206,7 @@ public class CLIOptionsInititalizationTest {
     assertThat(resultOptions.getOutputDirectory(), is(outDir));
     assertThat(resultOptions.getOutputCodeFileName(), is("test"));
     assertThat(
-        resultOptions.resolveCodeFileName(Language.Java),
+        resultOptions.resolveCodeFileName(Languages.getLanguage("Java")),
         is(FileSystemUtils.combinePath(outDir, "test.java")));
   }
 
@@ -219,7 +219,7 @@ public class CLIOptionsInititalizationTest {
     assertThat(resultOptions.getOutputDirectory(), is(outDir));
     assertThat(resultOptions.getOutputCodeFileName(), is("rule"));
     assertThat(
-        resultOptions.resolveCodeFileName(Language.Java),
+        resultOptions.resolveCodeFileName(Languages.getLanguage("Java")),
         is(FileSystemUtils.combinePath(outDir, "rule.java")));
   }
 
@@ -231,7 +231,7 @@ public class CLIOptionsInititalizationTest {
     assertThat(resultOptions.getOutputDirectory(), is(outDir));
     assertThat(resultOptions.getOutputCodeFileName(), is("OpenValidation"));
     assertThat(
-        resultOptions.resolveCodeFileName(Language.Java),
+        resultOptions.resolveCodeFileName(Languages.getLanguage("Java")),
         is(FileSystemUtils.combinePath(outDir, "OpenValidation.java")));
   }
 

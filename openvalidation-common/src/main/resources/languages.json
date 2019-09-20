@@ -1,0 +1,22 @@
+{
+  "Java": {
+    "extension": "java",
+    "short": "java"
+  },
+  "CSharp": {
+    "extension": "cs",
+    "short": "cs"
+  },
+  "JavaScript": {
+    "extension": "js",
+    "short": "js"
+  },
+  "Node": {
+    "extension": "js",
+    "short": "node"
+  },
+  "Python": {
+    "extension": "py",
+    "short": "python"
+  }
+}

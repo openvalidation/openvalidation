@@ -21,6 +21,7 @@ import io.openvalidation.common.data.DataSchema;
 import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.ContentOptionKind;
 import io.openvalidation.common.model.Language;
+import io.openvalidation.common.model.Languages;
 import io.openvalidation.common.utils.FileSystemUtils;
 import io.openvalidation.common.validation.Validator;
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class OpenValidationOptions {
     this._outputDirectory = FileSystemUtils.getExecutingDirectory();
     this._locale = Locale.getDefault();
     this._outCodeFileName = "OpenValidation";
-    this._language = Language.Java;
+    this._language = Languages.getLanguage("Java");
     this._workingDirectories = new ArrayList<>();
     this.addWorkingDirectory(FileSystemUtils.getWorkingDirectory());
   }
@@ -114,22 +115,22 @@ public class OpenValidationOptions {
     }
   }
 
-  public String resolveCodeFileName() throws Exception {
+  public String resolveCodeFileName() {
     return ((Paths.get(this._outputDirectory, this._outCodeFileName)).toString()
         + "."
-        + this.getOutCodeFileExtension(this.getLanguage()));
+        + this._language.getExtension());
   }
 
-  public String resolveCodeFileName(String name) throws Exception {
+  public String resolveCodeFileName(String name) {
     return ((Paths.get(this._outputDirectory, name)).toString()
         + "."
-        + this.getOutCodeFileExtension(this.getLanguage()));
+        + this._language.getExtension());
   }
 
-  public String resolveCodeFileName(Language language) throws Exception {
+  public String resolveCodeFileName(Language language) {
     return ((Paths.get(this._outputDirectory, this._outCodeFileName)).toString()
         + "."
-        + this.getOutCodeFileExtension(language));
+        + language.getExtension());
   }
 
   public Locale getLocale() {
@@ -159,20 +160,6 @@ public class OpenValidationOptions {
 
   public Language getLanguage() {
     return this._language;
-  }
-
-  public String getOutCodeFileExtension(Language framework) throws Exception {
-    switch (framework) {
-      case Java:
-        return "java";
-      case Node:
-      case JavaScript:
-        return "js";
-      case CSharp:
-        return "cs";
-    }
-
-    throw new OpenValidationException("Framework: " + framework + "could not be found");
   }
 
   public ContentOptionKind getRuleOptionKind() {
