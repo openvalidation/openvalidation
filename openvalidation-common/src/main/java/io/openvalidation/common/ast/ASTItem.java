@@ -27,7 +27,7 @@ import java.util.List;
 
 public abstract class ASTItem {
   protected String _preprocessedSource;
-  private String _originalSource;
+  protected String _originalSource;
   private String _untrimmedSource;
   private int position;
 
