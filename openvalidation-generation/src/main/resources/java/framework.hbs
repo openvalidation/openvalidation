@@ -496,7 +496,7 @@ public List<ValidationRule> Rules = new ArrayList<>();
     }
 
     public <T> T[] FIRST(T[] array, int amount){
-        if (array == null || array.length < 1) return  null;
+        if (array == null || array.length < 1 || amount < 0) return  null;
 
         List<T> out = Arrays.stream(array).limit(amount).collect(Collectors.toList());
         return listToArray(out);
@@ -535,8 +535,8 @@ public List<ValidationRule> Rules = new ArrayList<>();
     }
 
     public <T> T[] LAST(T[] array, int amount){
-        if (array == null || array.length < 1)
-        return null;
+        if (array == null || array.length < 1 || amount < 1)
+            return null;
 
         Deque<T> result = new ArrayDeque<>(amount);
         Arrays.stream(array).forEachOrdered(x -> {
