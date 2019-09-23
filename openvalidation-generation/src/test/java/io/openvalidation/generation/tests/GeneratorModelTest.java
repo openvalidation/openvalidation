@@ -28,7 +28,8 @@ public class GeneratorModelTest {
         //            language      expected
         Arguments.of("javascript", "// placeholder"),
         Arguments.of("java", "// placeholder"),
-        Arguments.of("csharp", "// placeholder"));
+        Arguments.of("csharp", "// placeholder"),
+        Arguments.of("python", "# placeholder"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
