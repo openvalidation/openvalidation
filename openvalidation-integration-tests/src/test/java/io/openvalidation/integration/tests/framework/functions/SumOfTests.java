@@ -19,7 +19,6 @@ package io.openvalidation.integration.tests.framework.functions;
 import io.openvalidation.integration.tests.HUMLFramework;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -56,10 +55,10 @@ public class SumOfTests {
   }
 
   @Test
-  @Disabled
   public void sum_of_fibonacci_numbers_should_be_54() {
     HUMLFramework huml = new HUMLFramework();
-    Assertions.assertEquals(huml.SUM_OF(1, 1, 2, 3, 5, 8, 13, 21), new BigDecimal(54));
+    System.out.println("asdfgh");
+    Assertions.assertTrue(huml.EQUALS(huml.SUM_OF(1, 1, 2, 3, 5, 8, 13, 21), new BigDecimal(54)));
   }
 
   @Test
