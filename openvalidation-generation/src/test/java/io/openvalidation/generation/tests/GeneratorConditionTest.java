@@ -384,7 +384,12 @@ public class GeneratorConditionTest {
             "((huml.GREATER_OR_EQUALS(model.Grade, 3.0) && huml.ALL_OF(model.Skills, model.Skills) || (huml.ONE_OF(model.Degree, 1.0,2.0,3.0))))"),
         Arguments.of(
             "java",
-            "((huml.GREATER_OR_EQUALS(model.getGrade(), 3.0) && huml.ALL_OF(model.getSkills(), model.getSkills()) || (huml.ONE_OF(model.getDegree(), 1.0,2.0,3.0))))"));
+            "((huml.GREATER_OR_EQUALS(model.getGrade(), 3.0) && huml.ALL_OF(model.getSkills(), model.getSkills()) || (huml.ONE_OF(model.getDegree(), 1.0,2.0,3.0))))"),
+        Arguments.of(
+            "python",
+            "((huml.GREATER_OR_EQUALS(model.Grade, 3.0) and \\\n"
+                + "                                 huml.ALL_OF(model.Skills, model.Skills) or \\\n"
+                + "                                 (huml.ONE_OF(model.Degree, [1.0,2.0,3.0]))))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -434,7 +439,13 @@ public class GeneratorConditionTest {
             "(huml.LESS_THAN(model.Age, 18.0) && huml.LESS_OR_EQUALS(model.Age, 18.0) || (huml.NOT_EQUALS(model.Age, 18.0) && huml.LESS_OR_EQUALS(model.Age, 18.0)))"),
         Arguments.of(
             "java",
-            "(huml.LESS_THAN(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0) || (huml.NOT_EQUALS(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"));
+            "(huml.LESS_THAN(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0) || (huml.NOT_EQUALS(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"),
+        Arguments.of(
+            "python",
+            "(huml.LESS_THAN(model.Age, 18.0) and \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0) or \\\n"
+                + "                                 (huml.NOT_EQUALS(model.Age, 18.0) and \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0)))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -486,7 +497,13 @@ public class GeneratorConditionTest {
             "(huml.LESS_THAN(model.Age, 18.0) && huml.LESS_OR_EQUALS(model.Age, 18.0) || (huml.NOT_EQUALS(model.Age, 18.0) || huml.LESS_OR_EQUALS(model.Age, 18.0)))"),
         Arguments.of(
             "java",
-            "(huml.LESS_THAN(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0) || (huml.NOT_EQUALS(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"));
+            "(huml.LESS_THAN(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0) || (huml.NOT_EQUALS(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"),
+        Arguments.of(
+            "python",
+            "(huml.LESS_THAN(model.Age, 18.0) and \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0) or \\\n"
+                + "                                 (huml.NOT_EQUALS(model.Age, 18.0) or \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0)))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -537,7 +554,13 @@ public class GeneratorConditionTest {
             "(huml.LESS_THAN(model.Age, 18.0) || huml.LESS_OR_EQUALS(model.Age, 18.0) && (huml.NOT_EQUALS(model.Age, 18.0) || huml.LESS_OR_EQUALS(model.Age, 18.0)))"),
         Arguments.of(
             "java",
-            "(huml.LESS_THAN(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0) && (huml.NOT_EQUALS(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"));
+            "(huml.LESS_THAN(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0) && (huml.NOT_EQUALS(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"),
+        Arguments.of(
+            "python",
+            "(huml.LESS_THAN(model.Age, 18.0) or \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0) and \\\n"
+                + "                                 (huml.NOT_EQUALS(model.Age, 18.0) or \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0)))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -588,7 +611,13 @@ public class GeneratorConditionTest {
             "(huml.LESS_THAN(model.Age, 18.0) || huml.LESS_OR_EQUALS(model.Age, 18.0) || (huml.NOT_EQUALS(model.Age, 18.0) && huml.LESS_OR_EQUALS(model.Age, 18.0)))"),
         Arguments.of(
             "java",
-            "(huml.LESS_THAN(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0) || (huml.NOT_EQUALS(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"));
+            "(huml.LESS_THAN(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0) || (huml.NOT_EQUALS(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"),
+        Arguments.of(
+            "python",
+            "(huml.LESS_THAN(model.Age, 18.0) or \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0) or \\\n"
+                + "                                 (huml.NOT_EQUALS(model.Age, 18.0) and \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0)))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -639,7 +668,13 @@ public class GeneratorConditionTest {
             "(huml.LESS_THAN(model.Age, 18.0) || huml.LESS_OR_EQUALS(model.Age, 18.0) || (huml.NOT_EQUALS(model.Age, 18.0) || huml.LESS_OR_EQUALS(model.Age, 18.0)))"),
         Arguments.of(
             "java",
-            "(huml.LESS_THAN(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0) || (huml.NOT_EQUALS(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"));
+            "(huml.LESS_THAN(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0) || (huml.NOT_EQUALS(model.getAge(), 18.0) || huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"),
+        Arguments.of(
+            "python",
+            "(huml.LESS_THAN(model.Age, 18.0) or \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0) or \\\n"
+                + "                                 (huml.NOT_EQUALS(model.Age, 18.0) or \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0)))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -690,7 +725,13 @@ public class GeneratorConditionTest {
             "(huml.LESS_THAN(model.Age, 18.0) && huml.LESS_OR_EQUALS(model.Age, 18.0) && (huml.NOT_EQUALS(model.Age, 18.0) && huml.LESS_OR_EQUALS(model.Age, 18.0)))"),
         Arguments.of(
             "java",
-            "(huml.LESS_THAN(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0) && (huml.NOT_EQUALS(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"));
+            "(huml.LESS_THAN(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0) && (huml.NOT_EQUALS(model.getAge(), 18.0) && huml.LESS_OR_EQUALS(model.getAge(), 18.0)))"),
+        Arguments.of(
+            "python",
+            "(huml.LESS_THAN(model.Age, 18.0) and \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0) and \\\n"
+                + "                                 (huml.NOT_EQUALS(model.Age, 18.0) and \\\n"
+                + "                                 huml.LESS_OR_EQUALS(model.Age, 18.0)))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -736,7 +777,8 @@ public class GeneratorConditionTest {
         //                            language      expected
         Arguments.of("javascript", "huml.AT_LEAST_ONE_OF(model.Name, [\"Boris\",\"Donald\"])"),
         Arguments.of("csharp", "huml.AT_LEAST_ONE_OF(model.Name, \"Boris\",\"Donald\")"),
-        Arguments.of("java", "huml.AT_LEAST_ONE_OF(model.getName(), \"Boris\",\"Donald\")"));
+        Arguments.of("java", "huml.AT_LEAST_ONE_OF(model.getName(), \"Boris\",\"Donald\")"),
+        Arguments.of("python", "huml.AT_LEAST_ONE_OF(model.Name, [\"Boris\",\"Donald\"])"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -762,7 +804,8 @@ public class GeneratorConditionTest {
         //                            language      expected
         Arguments.of("javascript", "huml.EXISTS(model.Name)"),
         Arguments.of("csharp", "huml.EXISTS(model.Name)"),
-        Arguments.of("java", "huml.EXISTS(model.getName())"));
+        Arguments.of("java", "huml.EXISTS(model.getName())"),
+        Arguments.of("python", "huml.EXISTS(model.Name)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -788,7 +831,8 @@ public class GeneratorConditionTest {
         //                            language      expected
         Arguments.of("javascript", "huml.NOT_EXISTS(model.Name)"),
         Arguments.of("csharp", "huml.NOT_EXISTS(model.Name)"),
-        Arguments.of("java", "huml.NOT_EXISTS(model.getName())"));
+        Arguments.of("java", "huml.NOT_EXISTS(model.getName())"),
+        Arguments.of("python", "huml.NOT_EXISTS(model.Name)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
