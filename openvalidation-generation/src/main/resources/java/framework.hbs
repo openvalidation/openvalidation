@@ -377,7 +377,7 @@ public List<ValidationRule> Rules = new ArrayList<>();
         else{
             value = false;
         }
-        
+
         return value;
     }
 
@@ -390,12 +390,16 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
     }
 
-    public <T extends Number> Double SUM_OF(T... items)
+    public <T extends Number> BigDecimal SUM_OF(T... items)
     {
         if (items == null || items.length < 1)
-            return 0.0;
+            return new BigDecimal(0);
 
-        return Arrays.stream(items).mapToDouble(i -> i.doubleValue()).sum();
+        BigDecimal value = new BigDecimal(0);
+        for(T item : items){
+            value = BigDecimal.valueOf(item.doubleValue()).add(value);
+        }
+        return value;
     }
 
     public <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
