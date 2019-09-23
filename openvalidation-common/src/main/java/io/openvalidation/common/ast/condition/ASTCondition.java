@@ -35,8 +35,16 @@ public class ASTCondition extends ASTConditionBase {
   private ASTComparisonOperator operator = null;
 
   private boolean isConstrainedCondition;
-
   private List<ASTConditionBase> unresolvedConditions = new ArrayList<>();
+
+  public ASTCondition() {
+  }
+
+  public ASTCondition(String originalSource) {
+    this._originalSource = originalSource;
+  }
+
+
 
   public List<ASTConditionBase> getUnresolvedConditions() {
     return unresolvedConditions;

@@ -39,12 +39,9 @@ public class RuleNode extends GenericNode {
 
     if (rule.getCondition() != null) {
       DocumentSection newSection = new RangeGenerator(section).generate(rule.getCondition());
-      boolean isConnectedOperation =
-          TransformationHelper.isConditionGroup(
-              rule.getOriginalSource(), rule.getCondition(), culture);
       this.condition =
           NodeMapper.createConditionNode(
-              rule.getCondition(), newSection, isConnectedOperation, culture);
+              rule.getCondition(), newSection, rule.getOriginalSource(), culture);
     }
   }
 
