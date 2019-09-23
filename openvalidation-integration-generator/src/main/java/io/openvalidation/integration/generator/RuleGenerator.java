@@ -43,7 +43,7 @@ public class RuleGenerator {
       ov.setLanguage(Language.Java);
       ov.setRule(test.getRule());
       ov.setSchema(test.getSchema());
-      ov.setOutput(outputDir + "io.openvalidation/integration/tests/");
+      ov.setOutput(outputDir + "io/openvalidation/integration/tests/");
       ov.setVerbose(true);
 
       String packageName = "io.openvalidation.integration.tests";
@@ -83,7 +83,7 @@ public class RuleGenerator {
         ov2.setParam("generated_class_namespace", packageName);
 
         CodeGenerationResult frameworkResult =
-            ov2.generateFrameworkFile(outputDir + "io.openvalidation/integration/tests/");
+            ov2.generateFrameworkFile(outputDir + "io/openvalidation/integration/tests/");
         result.addResult(frameworkResult);
 
         freameworkGeneration = true;
