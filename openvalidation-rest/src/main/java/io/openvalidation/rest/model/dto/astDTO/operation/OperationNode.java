@@ -28,14 +28,24 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OperationNode extends ConditionNode {
   private OperandNode leftOperand;
   private OperandNode rightOperand;
   private Operator operator;
+  private boolean constrained;
 
   public OperationNode(ASTCondition conditionBase, DocumentSection section, String culture) {
     super(section);
+
+    List<String> foundAliases = new ArrayList<>();
+    if (conditionBase.getOriginalSource() != null) {
+      String mustKeyword = Constants.MUST_TOKEN;
+      List<String> mustAliases = Aliases.getSpecificAliasByToken(culture, mustKeyword);
+      foundAliases = mustAliases.stream().filter(alias -> conditionBase.getOriginalSource().toLowerCase().contains(alias.toLowerCase())).collect(Collectors.toList());
+    }
+    this.constrained = conditionBase.isConstrainedCondition() || foundAliases.size() > 0;
 
     List<String> leftLines = new ArrayList<>();
     List<String> rightLines = new ArrayList<>();
@@ -160,4 +170,13 @@ public class OperationNode extends ConditionNode {
   public void setOperator(Operator operator) {
     this.operator = operator;
   }
+
+  public boolean isConstrained() {
+    return constrained;
+  }
+
+  public void setConstrained(boolean constrained) {
+    this.constrained = constrained;
+  }
+
 }

@@ -22,6 +22,7 @@ import io.openvalidation.common.ast.condition.ASTConditionGroup;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
+import io.openvalidation.rest.model.dto.astDTO.TransformationHelper;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.ArrayOperandNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.FunctionOperandNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
@@ -30,17 +31,22 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 public class NodeMapper {
   public static ConditionNode createConditionNode(
       ASTConditionBase conditionBase, DocumentSection section, String culture) {
-    return NodeMapper.createConditionNode(conditionBase, section, false, culture);
+    return NodeMapper.createConditionNode(conditionBase, section, null, culture);
   }
 
   public static ConditionNode createConditionNode(
       ASTConditionBase conditionBase,
       DocumentSection section,
-      boolean isConnectedOperation,
+      String outerSource,
       String culture) {
     if (conditionBase instanceof ASTCondition) {
       ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section, culture);
-      if (isConnectedOperation) returnNode = new ConnectedOperationNode(returnNode, section);
+
+      ConditionNode newNode =
+              TransformationHelper.getOwnConditionElement(outerSource, ((ASTCondition) conditionBase), culture);
+      if (newNode != null) {
+        returnNode = new ConnectedOperationNode(section, returnNode, newNode);
+      }
 
       return returnNode;
     }

@@ -15,6 +15,7 @@ import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.LINQ;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
+import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
@@ -23,6 +24,7 @@ import io.openvalidation.rest.service.OVParams;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LintingResultDTO {
 
@@ -60,12 +62,26 @@ public class LintingResultDTO {
             System.err.print("Schema could not be generated");
         }
 
+        int actionErrorIndex = 0;
         this.errors = new ArrayList<>();
         for (OpenValidationException error: ovResult.getErrors()) {
             if (error instanceof ASTValidationException) {
                 if (((ASTValidationException) error).getItem() == null) continue;
 
                 ASTItem item = ((ASTValidationException) error).getItem();
+                if (item instanceof ASTActionError) {
+                    List<GenericNode> fittingRules =
+                            node.getScopes().stream().filter(rule -> rule instanceof RuleNode
+                                    && ((RuleNode) rule).getErrorMessage() != null
+                                    && ((RuleNode) rule).getErrorMessage().equals(item.getOriginalSource()))
+                                    .collect(Collectors.toList());
+                    if (fittingRules.size() > actionErrorIndex) {
+                        errors.add(new OpenValidationExceptionDTO(error.getMessage(), fittingRules.get(actionErrorIndex).getRange()));
+                        actionErrorIndex++;
+                        continue;
+                    }
+                }
+
                 String sourceString = item.getOriginalSource();
                 if (sourceString.isEmpty()) continue;
 
@@ -75,6 +91,7 @@ public class LintingResultDTO {
                     if (position > node.getScopes().size()) {
                         DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
                         errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+                        continue;
                     }
 
                     GenericNode generatedNode = node.getScopes().get(position - 1);
