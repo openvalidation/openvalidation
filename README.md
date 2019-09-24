@@ -81,7 +81,7 @@ If    the weather is rainy
 then  Don't forget your umbrella!
 ```
 
-As you can see the first kind of rule starts with an `If` followed by its condition containing the validation logic `the weather is rainy` and is concluded by the keyword `then` followed by the error message, in our case `Don't forget your umbrella!`. Notice that the `is` acts as an operator and is only one of many ways to express equality in the openVALIDATION language. The error is triggered if the condition is true. This rule would roughly translate to:
+As you can see the first kind of rule starts with an `If` followed by its condition containing the validation logic `the weather is rainy` and is concluded by the keyword `then` followed by the error message, in our case `Don't forget your umbrella!`. Notice that the `is` acts as an operator and is only one of many ways to express equality in the openVALIDATION language. The way the words are aligned here only servers illustrative reasons and is by no means necessary, by the way. The error is triggered if the condition is true. This rule would roughly translate to:
 ```java
 if(model.getWeather() == "rainy")
 {
