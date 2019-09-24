@@ -28,7 +28,7 @@ public class GeneratorMapArrayLambdasTest {
 
   private static Stream<Arguments> simple_map_array() {
     return ExpectationBuilder.newExpectation()
-        .javaResult("huml.getArrayOf(model.getAddresses(), x -> x.getCity())")
+        .javaResult("huml.GET_ARRAY_OF(model.getAddresses(), x -> x.getCity())")
         .toStream();
   }
 
@@ -52,7 +52,7 @@ public class GeneratorMapArrayLambdasTest {
 
   private static Stream<Arguments> simple_map_array_with_nested_property_access() {
     return ExpectationBuilder.newExpectation()
-        .javaResult("huml.getArrayOf(model.getUser().getAddresses(), x -> x.getCity().getZip())")
+        .javaResult("huml.GET_ARRAY_OF(model.getUser().getAddresses(), x -> x.getCity().getZip())")
         .toStream();
   }
 

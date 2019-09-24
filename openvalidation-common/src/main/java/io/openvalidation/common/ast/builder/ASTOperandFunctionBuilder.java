@@ -122,17 +122,17 @@ public class ASTOperandFunctionBuilder
   }
 
   public ASTOperandFunctionBuilder createWhereFunction(String[] arrayProperty) {
-    return this.createFunction("where")
+    return this.createFunction("WHERE")
         .withDataType(DataPropertyType.Array)
         .addPropertyParameter(arrayProperty);
   }
 
   public ASTOperandFunctionBuilder createWhereFunction(ASTOperandBase operand) {
-    return this.createFunction("where").withDataType(DataPropertyType.Array).addParameter(operand);
+    return this.createFunction("WHERE").withDataType(DataPropertyType.Array).addParameter(operand);
   }
 
   public ASTOperandFunctionBuilder createMapFunction(ASTOperandBase operand) {
-    return this.createFunction("getArrayOf")
+    return this.createFunction("GET_ARRAY_OF")
         .withDataType(DataPropertyType.Array)
         .addParameter(operand);
   }
@@ -209,7 +209,7 @@ public class ASTOperandFunctionBuilder
     lambda.setLambdaToken(lambdaToken);
     lambda.setProperty(property);
 
-    return this.createFunction("getArrayOf")
+    return this.createFunction("GET_ARRAY_OF")
         .withDataType(DataPropertyType.Array)
         .addPropertyParameter(arrayProperty)
         .addParameter(lambda);

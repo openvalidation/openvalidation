@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import io.openvalidation.common.exceptions.OpenValidationException;
-import io.openvalidation.common.model.Language;
+import io.openvalidation.common.model.Languages;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.core.OpenValidation;
@@ -87,7 +87,7 @@ public class ParamValidationTest {
         OpenValidation.createDefault(); // new OpenValidation(null, null, null, null);
     openvalidation.createDefault();
     OpenValidationOptions options = new OpenValidationOptions();
-    options.setLanguage(Language.Java);
+    options.setLanguage(Languages.getLanguage("Java"));
     OpenValidationResult res;
 
     try {
@@ -114,7 +114,7 @@ public class ParamValidationTest {
     OpenValidationOptions options = new OpenValidationOptions();
     OpenValidationResult res;
 
-    options.setLanguage(Language.Java);
+    options.setLanguage(Languages.getLanguage("Java"));
     options.setLocale("de");
     options.setRuleOption("WENN die Nachricht IST GLEICH hallo DANN Hallo Welt");
     String schema = null;
@@ -145,7 +145,7 @@ public class ParamValidationTest {
     OpenValidationOptions options = new OpenValidationOptions();
     OpenValidationResult res;
 
-    options.setLanguage(Language.Java);
+    options.setLanguage(Languages.getLanguage("Java"));
     options.setRuleOption("WENN die Nachricht IST GLEICH hallo DANN Hallo Welt");
     options.setSchema("{Message : \"Text\"}");
     Locale locale = null;
@@ -175,7 +175,7 @@ public class ParamValidationTest {
     OpenValidationOptions options = new OpenValidationOptions();
     OpenValidationResult res = new OpenValidationResult();
 
-    options.setLanguage(Language.Java);
+    options.setLanguage(Languages.getLanguage("Java"));
     options.setRuleOption("WENN die Nachricht IST GLEICH hallo DANN Hallo Welt");
     options.setSchema("{Message : \"Text\"}");
 
@@ -199,7 +199,7 @@ public class ParamValidationTest {
         OpenValidation.createDefault(); // new OpenValidation(null, null, null, null);
     openvalidation.createDefault();
     OpenValidationOptions options = new OpenValidationOptions();
-    options.setLanguage(Language.Java);
+    options.setLanguage(Languages.getLanguage("Java"));
     OpenValidationResult res;
 
     try {
@@ -228,7 +228,7 @@ public class ParamValidationTest {
     openvalidation.createDefault();
     OpenValidationOptions options = new OpenValidationOptions();
 
-    options.setLanguage(Language.Java);
+    options.setLanguage(Languages.getLanguage("Java"));
     options.setRuleOption("WENN die Nachricht IST GLEICH hallo DANN Hallo Welt");
 
     try {
@@ -252,7 +252,7 @@ public class ParamValidationTest {
         OpenValidation.createDefault(); // new OpenValidation(null, null, null, null);
     openvalidation.createDefault();
     OpenValidationOptions options = new OpenValidationOptions();
-    options.setLanguage(Language.Java);
+    options.setLanguage(Languages.getLanguage("Java"));
 
     try {
       options.setLocale(" ");
@@ -404,7 +404,7 @@ public class ParamValidationTest {
     openvalidation.createDefault();
     OpenValidationOptions options = new OpenValidationOptions();
 
-    options.setLanguage(Language.Java);
+    options.setLanguage(Languages.getLanguage("Java"));
     options.setRuleOption("WENN die Nachricht IST GLEICH hallo DANN Hallo Welt");
 
     try {
@@ -433,7 +433,7 @@ public class ParamValidationTest {
     openvalidation.createDefault();
     OpenValidationOptions options = new OpenValidationOptions();
 
-    options.setLanguage(Language.Java);
+    options.setLanguage(Languages.getLanguage("Java"));
     options.setRuleOption("WENN die Nachricht IST GLEICH hallo DANN Hallo Welt");
 
     try {

@@ -1,0 +1,7 @@
+self.append_rule(
+            "{{name}}",
+            [{{tmpl "relatedfields"}}],
+            {{tmpl "action"}},
+            lambda model, cntx: {{#if allParentProperties}}(({{#allParentProperties}}{{tmpl "precondition"}}{{#unless @last}} and {{/unless}}{{/allParentProperties}}) and ({{/if}}{{#condition}}{{tmpl}}{{/condition}}{{#if allParentProperties}})){{/if}},
+            False
+        )

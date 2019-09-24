@@ -16,11 +16,23 @@
 
 package io.openvalidation.cli;
 
-import com.google.devtools.common.options.EnumConverter;
+import com.google.devtools.common.options.Converter;
+import com.google.devtools.common.options.OptionsParsingException;
 import io.openvalidation.common.model.Language;
+import io.openvalidation.common.model.Languages;
 
-public class LanguageConverter extends EnumConverter<Language> {
-  public LanguageConverter() {
-    super(Language.class, "programming language");
+public class LanguageConverter implements Converter<Language> {
+  @Override
+  public Language convert(String input) throws OptionsParsingException {
+    Language result = Languages.getLanguage(input);
+    if (result != null) {
+      return result;
+    }
+    throw new OptionsParsingException("Target language " + input + " not found.");
+  }
+
+  @Override
+  public String getTypeDescription() {
+    return "target programming language";
   }
 }
