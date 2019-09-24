@@ -149,11 +149,20 @@ var HUMLFramework = function() {
         return this.EMPTY(operand);
     }
 
-    this.SUM_OF = function(operand){
-        var value = 0;
-        for (let i=0; i<operand.length; i++) {
-            value += operand[i];
-          }
-        return value;
+    this.SUM_OF = function(...operand){
+        if(operand.length == 1 && operand[0].length > 0)
+        {
+            var value = 0;
+            for (let i=0; i<operand[0].length; i++) {
+                value += operand[0][i];
+            }
+            return value;
+        } else {
+            var value = 0;
+            for (let i=0; i<operand.length; i++) {
+                value += operand[i];
+            }
+            return value;
+        }
     }
 }
