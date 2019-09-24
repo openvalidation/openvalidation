@@ -67,7 +67,8 @@ public class StringUtils {
 
   public static String trimSpecialChars(String value) {
     Pattern pattern =
-        Pattern.compile("[" + Constants.TRIM_REGEX + "]*(\\b.+\\b)[" + Constants.TRIM_REGEX + "]*");
+        Pattern.compile(
+            "[" + Constants.TRIM_REGEX + "]*(-?(\\b.+\\b))[" + Constants.TRIM_REGEX + "]*");
     Matcher matcher = pattern.matcher(value);
     if (matcher.find()) {
       return matcher.group(1);

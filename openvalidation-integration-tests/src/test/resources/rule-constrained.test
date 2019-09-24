@@ -1,3 +1,16 @@
+################# rule constraint with negative number ########################
+
+The age must not be -4
+
+{age: 1}
+
+--------------  invalid  -------------------
+{age: -4}
+
+{age: -4.0}
+
+The age must not be -4
+
 ################# rule constrained implicid bool condition as variable ########################
 
 the age greater than 18 years as Adult 

@@ -49,4 +49,32 @@ public class NumberResolutionTest {
         .rightNumber()
         .hasValue(18.0);
   }
+
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "IF age IS -4 THEN a",
+        "IF age IS the number -4 THEN a",
+        "IF age IS -4.000 THEN a",
+        "IF the age -4 is THEN a",
+        "IF the age the number -4 is THEN a",
+        "IF the age -4.00 is THEN a",
+        "the age MUST NOT be -4",
+        "the age MUST NOT be the number -4"
+      })
+  public void number_resolution_negative(String rule) throws Exception {
+
+    assertResult(End2AstRunner.run(rule, "{age:0}"))
+        .rules()
+        .hasSizeOf(1)
+        .first()
+        .condition()
+        .hasOperator(ASTComparisonOperator.EQUALS)
+        .leftProperty()
+        .hasPath("age")
+        .hasType(DataPropertyType.Decimal)
+        .parentCondition()
+        .rightNumber()
+        .hasValue(-4.0);
+  }
 }

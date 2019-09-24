@@ -33,7 +33,7 @@ public class NumberParsingUtils {
 
   public static Double extractDouble(String value) {
 
-    Pattern regex = Pattern.compile("\\b[0-9]+(,[0-9]{3})*(\\.[0-9]+)?\\b|\\.[0-9]+\\b");
+    Pattern regex = Pattern.compile("-?(\\b[0-9]+(,[0-9]{3})*(\\.[0-9]+)?\\b|\\.\\b[0-9]+)\\b");
     Matcher matcher = regex.matcher(value);
 
     if (matcher.find()) {
