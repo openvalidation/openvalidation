@@ -27,11 +27,11 @@ import java.util.List;
 public class FunctionOperandNode extends OperandNode {
   private List<OperandNode> parameters;
 
-  public FunctionOperandNode(ASTOperandFunction operator, DocumentSection section, String culture) {
-    super(operator, section);
+  public FunctionOperandNode(ASTOperandFunction operand, DocumentSection section, String culture) {
+    super(operand, section);
     this.parameters = new ArrayList<>();
 
-    for (ASTOperandBase parameter : operator.getParameters()) {
+    for (ASTOperandBase parameter : operand.getParameters()) {
       if (parameter == null) continue;
 
       DocumentSection newSection = new RangeGenerator(section).generate(parameter);
