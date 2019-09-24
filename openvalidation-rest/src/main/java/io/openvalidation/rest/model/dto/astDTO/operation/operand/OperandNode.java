@@ -44,19 +44,7 @@ public class OperandNode extends GenericNode {
     }
   }
 
-  private Range getRangeOnlyForOperand(DocumentSection section) {
-    DocumentSection newSection = new RangeGenerator(section).generate(this.getName());
-    if (newSection != null
-        && newSection.getRange() != null
-        && newSection.getRange().getStart() != null
-        && newSection.getRange().getEnd() != null) {
-      return newSection.getRange();
-    } else {
-      return this.getRange();
-    }
-  }
-
-  public OperandNode(DocumentSection section, String name, DataPropertyType dataType) {
+  public OperandNode(DataPropertyType dataType, DocumentSection section) {
     super.initializeElement(section);
 
     this.dataType = dataType;
@@ -77,5 +65,17 @@ public class OperandNode extends GenericNode {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  private Range getRangeOnlyForOperand(DocumentSection section) {
+    DocumentSection newSection = new RangeGenerator(section).generate(this.getName());
+    if (newSection != null
+            && newSection.getRange() != null
+            && newSection.getRange().getStart() != null
+            && newSection.getRange().getEnd() != null) {
+      return newSection.getRange();
+    } else {
+      return this.getRange();
+    }
   }
 }
