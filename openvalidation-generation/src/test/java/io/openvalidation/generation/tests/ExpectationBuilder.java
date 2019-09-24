@@ -17,6 +17,7 @@
 package io.openvalidation.generation.tests;
 
 import io.openvalidation.common.model.Language;
+import io.openvalidation.common.model.Languages;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -26,29 +27,34 @@ public class ExpectationBuilder {
   List<Arguments> _arguments = new ArrayList<>();
 
   public ExpectationBuilder javaResult(String content) {
-    this._arguments.add(getArgument(Language.Java, content));
+    this._arguments.add(getArgument(Languages.getLanguage("Java"), content));
 
     return this;
   }
 
   public ExpectationBuilder javascriptResult(String content) {
-    this._arguments.add(getArgument(Language.JavaScript, content));
+    this._arguments.add(getArgument(Languages.getLanguage("JavaScript"), content));
 
     return this;
   }
 
   public ExpectationBuilder csharpResult(String content) {
-    this._arguments.add(getArgument(Language.CSharp, content));
+    this._arguments.add(getArgument(Languages.getLanguage("CSharp"), content));
     return this;
   }
 
-  public ExpectationBuilder nodejsScript(String content) {
-    this._arguments.add(getArgument(Language.Node, content));
+  public ExpectationBuilder nodejsResult(String content) {
+    this._arguments.add(getArgument(Languages.getLanguage("Node"), content));
+    return this;
+  }
+
+  public ExpectationBuilder pythonResult(String content) {
+    this._arguments.add(getArgument(Languages.getLanguage("Python"), content));
     return this;
   }
 
   public Arguments getArgument(Language language, String content) {
-    return Arguments.of(language.toString().toLowerCase(), content);
+    return Arguments.of(language.getName().toLowerCase(), content);
   }
 
   public Stream<Arguments> toStream() {

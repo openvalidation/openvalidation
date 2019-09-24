@@ -18,7 +18,7 @@ package io.openvalidation.cli;
 
 import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.log.ProcessLogger;
-import io.openvalidation.common.model.Language;
+import io.openvalidation.common.model.Languages;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.core.OpenValidation;
 import java.util.*;
@@ -50,7 +50,9 @@ public class CLIApplication {
               + System.lineSeparator()
               + String.join(
                   System.lineSeparator(),
-                  Arrays.stream(Language.values()).map(f -> f.name()).toArray(String[]::new)));
+                  Languages.getLanguageStream()
+                      .map(language -> language.getName())
+                      .toArray(String[]::new)));
 
       ProcessLogger.error(ProcessLogger.CLI_VALIDATE_ARGS);
       return false;

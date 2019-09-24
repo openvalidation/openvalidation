@@ -409,11 +409,11 @@ public List<ValidationRule> Rules = new ArrayList<>();
     }
 
     // Arrays...
-    public <T,R> R[] getArrayOf(T[] array, Function<? super T, ? extends R> propertySelector) {
-        return getArrayOf(Arrays.stream(array).collect(Collectors.toList()), propertySelector);
+    public <T,R> R[] GET_ARRAY_OF(T[] array, Function<? super T, ? extends R> propertySelector) {
+        return GET_ARRAY_OF(Arrays.stream(array).collect(Collectors.toList()), propertySelector);
     }
 
-    public <T,R> R[] getArrayOf(List<T> list, Function<? super T, ? extends R> propertySelector) {
+    public <T,R> R[] GET_ARRAY_OF(List<T> list, Function<? super T, ? extends R> propertySelector) {
         if (list == null || list.size() < 1)
             return null;
 
@@ -445,11 +445,11 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return arr;
     }
 
-    public <T> T[] where(T[] array, Predicate<? super T> condition) {
-        return where(toList(array), condition);
+    public <T> T[] WHERE(T[] array, Predicate<? super T> condition) {
+        return WHERE(toList(array), condition);
     }
 
-    public <T> T[] where(List<T> list, Predicate<? super T> condition) {
+    public <T> T[] WHERE(List<T> list, Predicate<? super T> condition) {
         if (list == null || list.size() < 1)
             return null;
 

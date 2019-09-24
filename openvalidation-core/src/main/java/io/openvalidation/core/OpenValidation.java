@@ -106,12 +106,12 @@ public class OpenValidation {
         } else
           result.addError(
               new OpenValidationException(
-                  "ERROR while compile language " + _options.getLanguage().name() + ":",
+                  "ERROR while compile language " + _options.getLanguage().getName() + ":",
                   (Exception) e));
       } else
         result.addError(
             new OpenValidationException(
-                "ERROR while compile language " + _options.getLanguage().name() + ":",
+                "ERROR while compile language " + _options.getLanguage().getName() + ":",
                 new Exception(e)));
 
     } finally {
@@ -186,7 +186,7 @@ public class OpenValidation {
     String outFileName =
         ((Paths.get(outputDir, result.getName())).toString()
             + "."
-            + _options.getOutCodeFileExtension(this._options.getLanguage()));
+            + this._options.getLanguage().getExtension());
     FileSystemUtils.writeFile(outFileName, result.getCode());
 
     return result;
@@ -198,7 +198,7 @@ public class OpenValidation {
     String outFileName =
         ((Paths.get(outputDir, result.getName())).toString()
             + "."
-            + _options.getOutCodeFileExtension(this._options.getLanguage()));
+            + this._options.getLanguage().getExtension());
     FileSystemUtils.writeFile(outFileName, result.getCode());
 
     return result;

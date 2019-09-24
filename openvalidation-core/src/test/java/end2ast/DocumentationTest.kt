@@ -653,7 +653,7 @@ IF  the age of the applicant is GREATER 18
                         .hasSizeOf(1)
                         .first()
                             .function()
-                                .hasName("getArrayOf")}
+                                .hasName("GET_ARRAY_OF")}
 
         End2AstRunner.run(input, schema) {
                 r -> r.rules()

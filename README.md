@@ -1,11 +1,11 @@
 [![Build Status](https://dev.azure.com/validaria/openvalidation/_apis/build/status/openVALIDATION/openVALIDATION%20master?branchName=master)](https://dev.azure.com/validaria/openvalidation/_build/latest?definitionId=1&branchName=master)
 ![Azure DevOps tests (compact)](https://img.shields.io/azure-devops/tests/validaria/openvalidation/1?compact_message)
 [![Maven Central](https://img.shields.io/maven-central/v/io.openvalidation/openvalidation)](https://search.maven.org/search?q=g:io.openvalidation)
-[![Follow us on Twitter](https://img.shields.io/twitter/follow/Validaria_?style=social)](https://twitter.com/validaria_)
+[![Follow us on Twitter](https://img.shields.io/twitter/follow/openVALIDATION?style=social)](https://twitter.com/openVALIDATION)
 
 
 OpenVALIDATION enables you to generate validation rules from natural language-like expressions in English and German without any knowledge in programming.
-The validation rules can be automatically translated by openVALIDATION into Java, JavaScript or C#, with more languages to come!
+The validation rules can be automatically translated by openVALIDATION into Java, JavaScript, C# or Python, with more languages to come!
 
 ![first screen](/docs/first-screen.png)
 
@@ -27,6 +27,8 @@ The openVALIDATION Java API is also available via the Maven Central Repository. 
     </dependency>
 ```
 For now openVALIDATION is developed and tested for `jdk 1.8.*` only.
+
+Via the [Sonatype snapshot repository](https://oss.sonatype.org/content/repositories/snapshots) you can download a snapshot of the current state of the upcoming version of openVALIDATION.
 
 ### Using the CLI
 We will use the rule `your age HAS to be greater than 22` to validate data of the form `{ age: 21 }`. The rule will be translated into code that validates the data according to our defined rule.
@@ -79,7 +81,7 @@ If    the weather is rainy
 then  Don't forget your umbrella!
 ```
 
-As you can see the first kind of rule starts with an `If` followed by its condition containing the validation logic `the weather is rainy` and is concluded by the keyword `then` followed by the error message, in our case `Don't forget your umbrella!`. Notice that the `is` acts as an operator and is only one of many ways to express equality in the openVALIDATION language. The error is triggered if the condition is true. This rule would roughly translate to:
+As you can see the first kind of rule starts with an `If` followed by its condition containing the validation logic `the weather is rainy` and is concluded by the keyword `then` followed by the error message, in our case `Don't forget your umbrella!`. Notice that the `is` acts as an operator and is only one of many ways to express equality in the openVALIDATION language. The way the words are aligned here only servers illustrative reasons and is by no means necessary, by the way. The error is triggered if the condition is true. This rule would roughly translate to:
 ```java
 if(model.getWeather() == "rainy")
 {
@@ -115,13 +117,15 @@ then  Sunscreen is important!
 ```
 
 # Code generation parameters
-Following ``-p``-Parameters are considered for code generation:
+For generation of Java and C# code, openVALIDATION needs type information about the data that is to be validated in order to create compilable source code.
+
+The CLI has the following ``-p``-Parameters to provide information about a Java or C# class that defines the data model:
 
 - model_type: Name of the Model class used in validation Rules
 - model_type_namespace: Namespace or package of model_type class. In Java, this must include the Name of model_type.
 - generated_class_namespace: defines the namespace or package of the generated Validator and Framework. if this is not set, a namespace or package called ``Validation`` will be created.
 
-Set name and value with ``name=value`` and concatinate multiple options with ``;``, 
+Set name and value with ``name=value`` and concatenate multiple options with ``;``, 
 like: 
 ```cmd
 -p "model_type=Model;generated_class_namespace=OpenValidationFramework_CSharp;model_type_namespace=OpenValidationFramework_CSharp.Data"

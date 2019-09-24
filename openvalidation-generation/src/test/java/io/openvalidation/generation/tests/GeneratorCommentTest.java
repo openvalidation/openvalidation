@@ -29,7 +29,8 @@ public class GeneratorCommentTest {
         //            language      expected
         Arguments.of("javascript", "// this is a comment value"),
         Arguments.of("java", "// this is a comment value"),
-        Arguments.of("csharp", "// this is a comment value"));
+        Arguments.of("csharp", "// this is a comment value"),
+        Arguments.of("python", "# this is a comment value"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -51,7 +52,8 @@ public class GeneratorCommentTest {
         //            language      expected
         Arguments.of("javascript", "// this is a comment value\n// with the second line."),
         Arguments.of("java", "// this is a comment value\n// with the second line."),
-        Arguments.of("csharp", "// this is a comment value\n// with the second line."));
+        Arguments.of("csharp", "// this is a comment value\n// with the second line."),
+        Arguments.of("python", "# this is a comment value\n# with the second line."));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -81,7 +83,10 @@ public class GeneratorCommentTest {
             "// this is a comment value\n// with the second line\n// with the third line\n// with the fourth line\n// with the fifth line."),
         Arguments.of(
             "csharp",
-            "// this is a comment value\n// with the second line\n// with the third line\n// with the fourth line\n// with the fifth line."));
+            "// this is a comment value\n// with the second line\n// with the third line\n// with the fourth line\n// with the fifth line."),
+        Arguments.of(
+            "python",
+            "# this is a comment value\n# with the second line\n# with the third line\n# with the fourth line\n# with the fifth line."));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -112,7 +117,8 @@ public class GeneratorCommentTest {
         //            language      expected
         Arguments.of("javascript", "// öäü//öäü"),
         Arguments.of("java", "// öäü//öäü"),
-        Arguments.of("csharp", "// öäü//öäü"));
+        Arguments.of("csharp", "// öäü//öäü"),
+        Arguments.of("python", "# öäü//öäü"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)

@@ -75,11 +75,11 @@ public class FunctionAssertion
   }
 
   public FunctionAssertion firstArrayOfFunction() throws Exception {
-    return firstFunction("getArrayOf");
+    return firstFunction("GET_ARRAY_OF");
   }
 
   public FunctionAssertion firstWhereFunction() throws Exception {
-    return firstFunction("where");
+    return firstFunction("WHERE");
   }
 
   public FunctionAssertion firstFunction(String name) throws Exception {

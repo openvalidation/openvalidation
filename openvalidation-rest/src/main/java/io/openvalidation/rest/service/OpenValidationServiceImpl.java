@@ -17,7 +17,7 @@
 package io.openvalidation.rest.service;
 
 import io.openvalidation.common.exceptions.OpenValidationException;
-import io.openvalidation.common.model.Language;
+import io.openvalidation.common.model.Languages;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.core.OpenValidation;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class OpenValidationServiceImpl implements OpenValidationService {
     try {
       OpenValidation ov = OpenValidation.createDefault();
 
-      ov.setLanguage(Language.valueOf(params.getLanguage()))
+      ov.setLanguage(Languages.getLanguage(params.getLanguage()))
           .setLocale(params.getCulture())
           .setRule(params.getRule())
           .setSchema(params.getSchema());
