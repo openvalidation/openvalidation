@@ -72,8 +72,9 @@ public class LintingResultDTO {
                 if (item instanceof ASTActionError) {
                     List<GenericNode> fittingRules =
                             node.getScopes().stream().filter(rule -> rule instanceof RuleNode
-                                    && ((RuleNode) rule).getErrorMessage() != null
-                                    && ((RuleNode) rule).getErrorMessage().equals(item.getOriginalSource()))
+                                    && ((RuleNode) rule).getErrorNode() != null
+                                    && ((RuleNode) rule).getErrorNode().getErrorMessage() != null
+                                    && ((RuleNode) rule).getErrorNode().getErrorMessage().equals(item.getOriginalSource()))
                                     .collect(Collectors.toList());
                     if (fittingRules.size() > actionErrorIndex) {
                         errors.add(new OpenValidationExceptionDTO(error.getMessage(), fittingRules.get(actionErrorIndex).getRange()));

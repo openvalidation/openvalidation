@@ -22,6 +22,6 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
 public abstract class ConditionNode extends OperandNode {
   public ConditionNode(DocumentSection section) {
-    super(section, null, DataPropertyType.Boolean);
+    super(DataPropertyType.Boolean, section);
   }
 }
