@@ -79,10 +79,6 @@ public class PropertyAssertion
     return parentOperand().parentCondition();
   }
 
-  public ConditionGroupAssertion parentConditionGroup() {
-    return parentCondition().parentConditionGroup();
-  }
-
   public ModelRootAssertion parentModel() {
     if (this.parent() instanceof VariableAssertion)
       return ((VariableAssertion) this.parent()).parentModel();
@@ -124,12 +120,7 @@ public class PropertyAssertion
   //parents
   public OperandListAssertion parentList()
   {
-    ASTAssertionBase p = parent;
-    if(p instanceof OperandAssertion)
-    {
-        p = ((OperandAssertion) parent).parentList();
-    }
-    shouldBeInstanceOf(p ,OperandListAssertion.class, "PARENT OPERAND LIST");
-    return (OperandListAssertion) p;
+    shouldBeInstanceOf(parent ,OperandListAssertion.class, "PARENT OPERAND LIST");
+    return (OperandListAssertion) parent;
   }
 }
