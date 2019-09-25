@@ -98,31 +98,4 @@ public class FirstFunctionsTests {
                                 .rightNumber(12345.0)
     );
   }
-
-  @Test
-  public void first_function_with_simple_condition() throws Exception {
-    String rule = "a first item from addresses with zip_code equals 12345 as a first address";
-    String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
-
-    End2AstRunner.run(
-        rule,
-        schema,
-        r ->
-            r.variables()
-                .hasSizeOf(1)
-                .first()
-                  .hasName("a first address")
-                  .operandFunction()
-                    .hasName("FIRST")
-                    .hasType(DataPropertyType.Object)
-                    .sizeOfParameters(1)
-                    .parameters()
-                      .first()
-                        .property("addresses")
-                          .hasType(DataPropertyType.Array)
-                    .parentList()
-                      .second()
-                       // .co
-    );
-  }
 }
