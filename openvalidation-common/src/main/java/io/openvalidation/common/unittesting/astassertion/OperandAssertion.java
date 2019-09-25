@@ -21,6 +21,7 @@ import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.*;
 import io.openvalidation.common.ast.operand.arithmetical.ASTOperandArithmetical;
+import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaCondition;
 import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaExpression;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.unittesting.astassertion.lists.OperandListAssertion;
@@ -135,10 +136,6 @@ public class OperandAssertion
 
   public ConditionAssertion lambdaCondition() throws Exception {
     return this.lambda().condition();
-  }
-
-  public ConditionGroupAssertion lambdaConditionGroup() throws Exception {
-    return this.lambda().conditionGroup();
   }
 
   public OperandListAssertion parentList() {
