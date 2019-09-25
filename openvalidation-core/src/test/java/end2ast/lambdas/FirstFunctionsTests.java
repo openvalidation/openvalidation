@@ -17,6 +17,7 @@
 package end2ast.lambdas;
 
 import end2ast.End2AstRunner;
+import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.data.DataPropertyType;
 import org.junit.jupiter.api.Test;
 
@@ -48,16 +49,16 @@ public class FirstFunctionsTests {
         r ->
             r.variables()
                 .hasSizeOf(1)
-                .first()
-                .hasName("a first address")
-                .operandFunction()
-                .hasName("FIRST")
-                .hasType(DataPropertyType.Object)
-                .sizeOfParameters(1)
-                .parameters()
-                .first()
-                .property("addresses")
-                .hasType(DataPropertyType.Array));
+                  .first()
+                    .hasName("a first address")
+                    .operandFunction()
+                      .hasName("FIRST")
+                      .hasType(DataPropertyType.Object)
+                      .sizeOfParameters(1)
+                      .parameters()
+                        .first()
+                          .property("addresses")
+                            .hasType(DataPropertyType.Array));
   }
 
   @Test
@@ -79,11 +80,22 @@ public class FirstFunctionsTests {
                     .sizeOfParameters(1)
                     .parameters()
                       .first()
-                        .property("addresses")
-                          .hasType(DataPropertyType.Array)
-                    .parentList()
-                      .second()
-                       // .co
+                        .function()
+                          .hasName("WHERE")
+                          .sizeOfParameters(2)
+                          .parameters()
+                            .first()
+                              .property("addresses")
+                                .hasType(DataPropertyType.Array)
+                          .parentList()
+                            .second()
+                              .lambdaCondition()
+                                .hasOperator(ASTComparisonOperator.EQUALS)
+                                .hasNoConnector()
+                                .leftProperty("zip_code")
+                                  .hasType(DataPropertyType.Decimal)
+                              .parentCondition()
+                                .rightNumber(12345.0)
     );
   }
 }
