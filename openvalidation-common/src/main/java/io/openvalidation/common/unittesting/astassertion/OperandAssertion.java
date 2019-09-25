@@ -105,20 +105,20 @@ public class OperandAssertion
         name + " OPERAND ARITHMETICAL");
   }
 
-  public ConditionAssertion subCondition() throws Exception {
-    return subCondition("");
+  public ConditionAssertion condition() throws Exception {
+    return condition("");
   }
 
-  public ConditionAssertion subCondition(String name) throws Exception {
+  public ConditionAssertion condition(String name) throws Exception {
     return this.getAssertion(
         ConditionAssertion.class, ASTCondition.class, name + " OPERAND CONDITION");
   }
 
-  public ConditionAssertion subConditionGroup() throws Exception {
-    return subConditionGroup("");
+  public ConditionAssertion conditionGroup() throws Exception {
+    return conditionGroup("");
   }
 
-  public ConditionAssertion subConditionGroup(String name) throws Exception {
+  public ConditionAssertion conditionGroup(String name) throws Exception {
     return this.getAssertion(
         ConditionAssertion.class, ASTCondition.class, name + " OPERAND CONDITION GROUP");
   }
