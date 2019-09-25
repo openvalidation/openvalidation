@@ -124,7 +124,12 @@ public class PropertyAssertion
   //parents
   public OperandListAssertion parentList()
   {
-    shouldBeInstanceOf(parent ,OperandListAssertion.class, "PARENT OPERAND LIST");
-    return (OperandListAssertion) parent;
+    ASTAssertionBase p = parent;
+    if(p instanceof OperandAssertion)
+    {
+        p = ((OperandAssertion) parent).parentList();
+    }
+    shouldBeInstanceOf(p ,OperandListAssertion.class, "PARENT OPERAND LIST");
+    return (OperandListAssertion) p;
   }
 }
