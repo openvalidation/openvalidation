@@ -69,13 +69,13 @@ var HUMLFramework = function() {
     this.WHERE = function(arr, clbk) {
         var out = [];
 
-        for(var x=0; x < arr; x++){
+        for(var x=0; x < arr.length; x++){
             if (clbk(arr[x])){
-                out.push(this[x]);
+                out.push(arr[x]);
             }
         }
 
-        return (out.length() == 1)? out[0] : out;
+        return (out.length == 1)? out[0] : out;
     }
 
     this.ONE_OF = function(value, ...params){
