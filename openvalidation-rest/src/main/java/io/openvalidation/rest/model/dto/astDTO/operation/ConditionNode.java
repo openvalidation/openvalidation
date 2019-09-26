@@ -16,12 +16,39 @@
 
 package io.openvalidation.rest.model.dto.astDTO.operation;
 
+import io.openvalidation.common.ast.condition.ASTConditionConnector;
 import io.openvalidation.common.data.DataPropertyType;
+import io.openvalidation.common.utils.Constants;
+import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
+import java.util.List;
+
 public abstract class ConditionNode extends OperandNode {
-  public ConditionNode(DocumentSection section) {
+  private String connector;
+
+  public ConditionNode(DocumentSection section, ASTConditionConnector connector, String culture) {
+    this(section, connector != null ? connector.name() : null, culture);
+  }
+
+  public ConditionNode(DocumentSection section, String connector, String culture) {
     super(DataPropertyType.Boolean, section);
+
+    if (connector != null) {
+      String connectorToken = Constants.KEYWORD_SYMBOL + connector.toLowerCase() + Constants.KEYWORD_SYMBOL;
+      List<String> connectorAlias = Aliases.getSpecificAliasByToken(culture, connectorToken);
+      this.connector = connectorAlias.size() > 0 ? connectorAlias.get(0) : connector;
+    } else {
+      this.connector = null;
+    }
+  }
+
+  public String getConnector() {
+    return connector;
+  }
+
+  public void setConnector(String connector) {
+    this.connector = connector;
   }
 }

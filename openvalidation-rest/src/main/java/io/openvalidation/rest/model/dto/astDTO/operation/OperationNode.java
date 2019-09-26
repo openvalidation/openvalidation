@@ -37,7 +37,7 @@ public class OperationNode extends ConditionNode {
   private boolean constrained;
 
   public OperationNode(ASTCondition conditionBase, DocumentSection section, String culture) {
-    super(section);
+    super(section, conditionBase.getConnector(), culture);
 
     List<String> foundAliases = new ArrayList<>();
     if (conditionBase.getOriginalSource() != null) {

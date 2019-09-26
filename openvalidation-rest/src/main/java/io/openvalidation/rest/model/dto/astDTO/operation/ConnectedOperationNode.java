@@ -29,17 +29,17 @@ import java.util.stream.Collectors;
 public class ConnectedOperationNode extends ConditionNode {
   private List<ConditionNode> conditions;
 
-  public ConnectedOperationNode(DocumentSection section, ConditionNode... condition) {
-    super(section);
+  public ConnectedOperationNode(DocumentSection section, String culture, ConditionNode... condition) {
+    super(section, condition.length > 0 ? condition[0].getConnector() : null, culture);
     this.conditions = Arrays.asList(condition);
   }
 
   public ConnectedOperationNode(
       ASTConditionGroup conditionBase, DocumentSection section, String culture) {
-    super(section);
+    super(section, conditionBase.getConnector(), culture);
 
     this.conditions =
-        conditionBase.getAllConditions().stream()
+        conditionBase.getConditions().stream()
             .map(
                 condition -> {
                   DocumentSection newSection = new RangeGenerator(section).generate(condition);
