@@ -1231,5 +1231,22 @@ then division by zero error
         }
     }
 
+    @Test
+    fun decimal_prop_with_and_operator_incomplete_rule(){
+        var input =
+"""
+If age smaller than another_int and year at least 1999
+then error
+"""
+        var schema = "{age: 20, another_int: 10, year: 2000}"
+
+        End2AstRunner.run(input, schema) {
+            r ->
+            r.rules()
+                    .hasSizeOf(1)
+                    .first()
+        }
+    }
+
 
 }

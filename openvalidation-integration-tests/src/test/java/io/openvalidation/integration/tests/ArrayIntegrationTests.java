@@ -43,8 +43,8 @@ public class ArrayIntegrationTests {
         (CustomModel model) ->
             huml.GREATER_THAN(
                 huml.SUM_OF(
-                    huml.getArrayOf(
-                        huml.where(model.getAddresses(), m -> huml.EQUALS(m.getCity(), "Dortmund")),
+                    huml.GET_ARRAY_OF(
+                        huml.WHERE(model.getAddresses(), m -> huml.EQUALS(m.getCity(), "Dortmund")),
                         a -> a.getSizeOfCity())),
                 5.0),
         false);
@@ -109,7 +109,7 @@ public class ArrayIntegrationTests {
             huml.EQUALS(
                 huml.sizeOf(
                     huml.FIRST(
-                        huml.where(
+                        huml.WHERE(
                             model.getAddresses(), whr -> huml.EQUALS(whr.getCity(), "Dortmund")),
                         frst -> frst.getCity(),
                         2)),
@@ -136,7 +136,7 @@ public class ArrayIntegrationTests {
             huml.EQUALS(
                 huml.sizeOf(
                     huml.LAST(
-                        huml.where(
+                        huml.WHERE(
                             model.getAddresses(), whr -> huml.EQUALS(whr.getCity(), "Dortmund")),
                         frst -> frst.getCity(),
                         2)),

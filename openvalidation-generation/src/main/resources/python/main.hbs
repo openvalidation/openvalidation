@@ -1,0 +1,17 @@
+import HUMLFramework as huml
+
+class {{params.generated_class_name}}(huml.HUMLFramework):
+    def __init__(self):
+        super().__init__()
+
+{{#if nullCheckRules}}
+    //pre validation null checks rules
+    {{#nullCheckRules}}        {{tmpl}}
+
+    {{/nullCheckRules}}
+    //++++++++++++++++++++++++++++++++
+{{/if}}
+
+{{#elements}}        {{tmpl}}
+
+{{/elements}}

@@ -273,7 +273,7 @@ public List<ValidationRule> Rules = new ArrayList<>();
         }
     }
 
-    private NumberComparator _numcomp = new NumberComparator();
+    private NumberComparator _numComp = new NumberComparator();
 
     public <T> Boolean EQUALS(T leftOperand, T rightOperand) {
         if (leftOperand instanceof Number && rightOperand instanceof Number)
@@ -299,7 +299,7 @@ public List<ValidationRule> Rules = new ArrayList<>();
 
     public  Boolean EQUALS(Number left, Number right) {
         if (left != null && right != null)
-            return _numcomp.compare(left, right) == 0;
+            return _numComp.compare(left, right) == 0;
 
         return false;
     }
@@ -334,14 +334,14 @@ public List<ValidationRule> Rules = new ArrayList<>();
     {
         Number left = (Number) leftOperand;
         Number right = (Number) rightOperand;
-        return _numcomp.compare(left, right) < 0;
+        return _numComp.compare(left, right) < 0;
     }
 
     public <T> Boolean GREATER_THAN( T leftOperand, T rightOperand)
     {
         Number left = (Number) leftOperand;
         Number right = (Number) rightOperand;
-        return _numcomp.compare(left, right) > 0;
+        return _numComp.compare(left, right) > 0;
     }
 
     public <T> Boolean LESS_OR_EQUALS( T leftOperand, T rightOperand)
@@ -377,7 +377,7 @@ public List<ValidationRule> Rules = new ArrayList<>();
         else{
             value = false;
         }
-        
+
         return value;
     }
 
@@ -390,12 +390,16 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
     }
 
-    public <T extends Number> Double SUM_OF(T... items)
+    public <T extends Number> BigDecimal SUM_OF(T... items)
     {
         if (items == null || items.length < 1)
-            return 0.0;
+            return new BigDecimal(0);
 
-        return Arrays.stream(items).mapToDouble(i -> i.doubleValue()).sum();
+        BigDecimal value = new BigDecimal(0);
+        for(T item : items){
+            value = BigDecimal.valueOf(item.doubleValue()).add(value);
+        }
+        return value;
     }
 
     public <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
@@ -405,15 +409,15 @@ public List<ValidationRule> Rules = new ArrayList<>();
     }
 
     // Arrays...
-    public <T,R> R[] getArrayOf(T[] array, Function<? super T, ? extends R> propertySelctor) {
-        return getArrayOf(Arrays.stream(array).collect(Collectors.toList()), propertySelctor);
+    public <T,R> R[] GET_ARRAY_OF(T[] array, Function<? super T, ? extends R> propertySelector) {
+        return GET_ARRAY_OF(Arrays.stream(array).collect(Collectors.toList()), propertySelector);
     }
 
-    public <T,R> R[] getArrayOf(List<T> list, Function<? super T, ? extends R> propertySelctor) {
+    public <T,R> R[] GET_ARRAY_OF(List<T> list, Function<? super T, ? extends R> propertySelector) {
         if (list == null || list.size() < 1)
             return null;
 
-        List<R> out = list.stream().map(propertySelctor).collect(Collectors.toList());
+        List<R> out = list.stream().map(propertySelector).collect(Collectors.toList());
         return listToArray(out);
     }
 
@@ -441,11 +445,11 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return arr;
     }
 
-    public <T> T[] where(T[] array, Predicate<? super T> condition) {
-        return where(toList(array), condition);
+    public <T> T[] WHERE(T[] array, Predicate<? super T> condition) {
+        return WHERE(toList(array), condition);
     }
 
-    public <T> T[] where(List<T> list, Predicate<? super T> condition) {
+    public <T> T[] WHERE(List<T> list, Predicate<? super T> condition) {
         if (list == null || list.size() < 1)
             return null;
 
@@ -463,38 +467,38 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return atPosition(array, 0);
     }
 
-    public <T,R> R FIRST(List<T> list, Function<? super T, ? extends R> propertySelctor) {
-        return FIRST(listToArray(list), propertySelctor);
+    public <T,R> R FIRST(List<T> list, Function<? super T, ? extends R> propertySelector) {
+        return FIRST(listToArray(list), propertySelector);
     }
 
-    public <T,R> R FIRST(T[] array, Function<? super T, ? extends R> propertySelctor) {
+    public <T,R> R FIRST(T[] array, Function<? super T, ? extends R> propertySelector) {
         if (array == null || array.length < 1)
             return null;
 
-        List<R> out = Arrays.stream(array).map(propertySelctor).collect(Collectors.toList());
+        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
         return FIRST(out);
     }
 
-    public <T,R> R[] FIRST(List<T> list, Function<? super T, ? extends R> propertySelctor, int amount) {
-        return FIRST(listToArray(list), propertySelctor, amount);
+    public <T,R> R[] FIRST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
+        return FIRST(listToArray(list), propertySelector, amount);
     }
 
-    public <T,R> R[] FIRST(T[] array, Function<? super T, ? extends R> propertySelctor, int amount) {
+    public <T,R> R[] FIRST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
         if (array == null || array.length < 1)
             return null;
 
-        List<R> out = Arrays.stream(array).map(propertySelctor).collect(Collectors.toList());
+        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
         return FIRST(out, amount);
     }
 
-    public <T> T[] FIRST(List<T> list, int amout){
-        return FIRST(listToArray(list), amout);
+    public <T> T[] FIRST(List<T> list, int amount){
+        return FIRST(listToArray(list), amount);
     }
 
-    public <T> T[] FIRST(T[] array, int amout){
-        if (array == null || array.length < 1) return  null;
+    public <T> T[] FIRST(T[] array, int amount){
+        if (array == null || array.length < 1 || amount < 0) return  null;
 
-        List<T> out = Arrays.stream(array).limit(amout).collect(Collectors.toList());
+        List<T> out = Arrays.stream(array).limit(amount).collect(Collectors.toList());
         return listToArray(out);
     }
 
@@ -514,29 +518,29 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return null;
     }
 
-    public <T,R> R LAST(List<T> list, Function<? super T, ? extends R> propertySelctor) {
-        return LAST(listToArray(list), propertySelctor);
+    public <T,R> R LAST(List<T> list, Function<? super T, ? extends R> propertySelector) {
+        return LAST(listToArray(list), propertySelector);
     }
 
-    public <T,R> R LAST(T[] array, Function<? super T, ? extends R> propertySelctor) {
+    public <T,R> R LAST(T[] array, Function<? super T, ? extends R> propertySelector) {
         if (array == null || array.length < 1)
             return null;
 
-        List<R> out = Arrays.stream(array).map(propertySelctor).collect(Collectors.toList());
+        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
         return LAST(out);
     }
 
-    public <T> T[] LAST(List<T> list, int amout){
-        return LAST(listToArray(list), amout);
+    public <T> T[] LAST(List<T> list, int amount){
+        return LAST(listToArray(list), amount);
     }
 
-    public <T> T[] LAST(T[] array, int amout){
-        if (array == null || array.length < 1)
-        return null;
+    public <T> T[] LAST(T[] array, int amount){
+        if (array == null || array.length < 1 || amount < 1)
+            return null;
 
-        Deque<T> result = new ArrayDeque<>(amout);
+        Deque<T> result = new ArrayDeque<>(amount);
         Arrays.stream(array).forEachOrdered(x -> {
-            if (result.size() == amout) {
+            if (result.size() == amount) {
                 result.pop();
             }
             result.add(x);
@@ -545,15 +549,15 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return listToArray(new ArrayList<>(result));
     }
 
-    public <T,R> R[] LAST(List<T> list, Function<? super T, ? extends R> propertySelctor, int amount) {
-        return LAST(listToArray(list), propertySelctor, amount);
+    public <T,R> R[] LAST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
+        return LAST(listToArray(list), propertySelector, amount);
     }
 
-    public <T,R> R[] LAST(T[] array, Function<? super T, ? extends R> propertySelctor, int amount) {
+    public <T,R> R[] LAST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
         if (array == null || array.length < 1)
         return null;
 
-        List<R> out = Arrays.stream(array).map(propertySelctor).collect(Collectors.toList());
+        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
         return LAST(out, amount);
     }
 

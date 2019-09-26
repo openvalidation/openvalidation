@@ -145,4 +145,12 @@ var HUMLFramework = function() {
     this.NOT_EXISTS = function(operand) {
         return this.EMPTY(operand);
     }
+
+    this.SUM_OF = function(operand){
+        var value = 0;
+        for (let i=0; i<operand.length; i++) {
+            value += operand[i];
+          }
+        return value;
+    }
 }

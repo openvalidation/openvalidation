@@ -37,7 +37,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS((2.0+2.0), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS((2.0+2.0), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS((2.0+2.0), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS((2.0+2.0), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS((2.0+2.0), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -67,7 +68,8 @@ public class GeneratorArithmeticalTest {
         Arguments.of("javascript", "huml.EQUALS((2.1-model.user.age), 18.0)"),
         Arguments.of(
             "java", "huml.EQUALS((2.1-((Number)model.getUser().getAge()).doubleValue()), 18.0)"),
-        Arguments.of("csharp", "huml.EQUALS((2.1-model.User.Age), 18.0)"));
+        Arguments.of("csharp", "huml.EQUALS((2.1-model.User.Age), 18.0)"),
+        Arguments.of("python", "huml.EQUALS((2.1-model.user.age), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -97,7 +99,8 @@ public class GeneratorArithmeticalTest {
         Arguments.of("javascript", "huml.LESS_THAN((model.user.age*2.1), 18.0)"),
         Arguments.of(
             "java", "huml.LESS_THAN((((Number)model.getUser().getAge()).doubleValue()*2.1), 18.0)"),
-        Arguments.of("csharp", "huml.LESS_THAN((model.User.Age*2.1), 18.0)"));
+        Arguments.of("csharp", "huml.LESS_THAN((model.User.Age*2.1), 18.0)"),
+        Arguments.of("python", "huml.LESS_THAN((model.user.age*2.1), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -129,7 +132,8 @@ public class GeneratorArithmeticalTest {
         Arguments.of(
             "java",
             "huml.LESS_OR_EQUALS((2.0/((Number)model.getUser().getAge()).doubleValue()), model.getUser().getInvestment())"),
-        Arguments.of("csharp", "huml.LESS_OR_EQUALS((2.0/model.User.Age), model.User.Investment)"));
+        Arguments.of("csharp", "huml.LESS_OR_EQUALS((2.0/model.User.Age), model.User.Investment)"),
+        Arguments.of("python", "huml.LESS_OR_EQUALS((2.0/model.user.age), model.user.investment)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -159,7 +163,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.GREATER_OR_EQUALS((2.0+2.0), model.user.age)"),
         Arguments.of("java", "huml.GREATER_OR_EQUALS((2.0+2.0), model.getUser().getAge())"),
-        Arguments.of("csharp", "huml.GREATER_OR_EQUALS((2.0+2.0), model.User.Age)"));
+        Arguments.of("csharp", "huml.GREATER_OR_EQUALS((2.0+2.0), model.User.Age)"),
+        Arguments.of("python", "huml.GREATER_OR_EQUALS((2.0+2.0), model.user.age)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -189,7 +194,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.GREATER_THAN((2.1+2.0), model.user.age)"),
         Arguments.of("java", "huml.GREATER_THAN((2.1+2.0), model.getUser().getAge())"),
-        Arguments.of("csharp", "huml.GREATER_THAN((2.1+2.0), model.User.Age)"));
+        Arguments.of("csharp", "huml.GREATER_THAN((2.1+2.0), model.User.Age)"),
+        Arguments.of("python", "huml.GREATER_THAN((2.1+2.0), model.user.age)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -219,7 +225,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.LESS_OR_EQUALS((2.0+2.0), model.user.age)"),
         Arguments.of("java", "huml.LESS_OR_EQUALS((2.0+2.0), model.getUser().getAge())"),
-        Arguments.of("csharp", "huml.LESS_OR_EQUALS((2.0+2.0), model.User.Age)"));
+        Arguments.of("csharp", "huml.LESS_OR_EQUALS((2.0+2.0), model.User.Age)"),
+        Arguments.of("python", "huml.LESS_OR_EQUALS((2.0+2.0), model.user.age)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -249,7 +256,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.IS((2.0+2.0), model.user.age)"),
         Arguments.of("java", "huml.IS((2.0+2.0), model.getUser().getAge())"),
-        Arguments.of("csharp", "huml.IS((2.0+2.0), model.User.Age)"));
+        Arguments.of("csharp", "huml.IS((2.0+2.0), model.User.Age)"),
+        Arguments.of("python", "huml.IS((2.0+2.0), model.user.age)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -279,7 +287,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -309,7 +318,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0+10.0%3.0), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0+10.0%3.0), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0+10.0%3.0), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0+10.0%3.0), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS((2.0+10.0-5.0/2.0+10.0%3.0), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -343,7 +353,8 @@ public class GeneratorArithmeticalTest {
         Arguments.of(
             "java",
             "huml.NOT_EQUALS((2.0+((Number)model.getUser().getAge()).doubleValue()-5.0/2.0), 18.1)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS((2.0+model.User.Age-5.0/2.0), 18.1)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS((2.0+model.User.Age-5.0/2.0), 18.1)"),
+        Arguments.of("python", "huml.NOT_EQUALS((2.0+model.user.age-5.0/2.0), 18.1)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -375,7 +386,8 @@ public class GeneratorArithmeticalTest {
         Arguments.of("csharp", "huml.EQUALS((2.0*(model.Benutzer.Alter-18.0)), 18.0)"),
         Arguments.of(
             "java",
-            "huml.EQUALS((2.0*(((Number)model.getBenutzer().getAlter()).doubleValue()-18.0)), 18.0)"));
+            "huml.EQUALS((2.0*(((Number)model.getBenutzer().getAlter()).doubleValue()-18.0)), 18.0)"),
+        Arguments.of("python", "huml.EQUALS((2.0*(model.Benutzer.Alter-18.0)), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -407,7 +419,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.EQUALS((2.0%5.0), 3.0)"),
         Arguments.of("csharp", "huml.EQUALS((2.0%5.0), 3.0)"),
-        Arguments.of("java", "huml.EQUALS((2.0%5.0), 3.0)"));
+        Arguments.of("java", "huml.EQUALS((2.0%5.0), 3.0)"),
+        Arguments.of("python", "huml.EQUALS((2.0%5.0), 3.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -435,8 +448,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.EQUALS((2.0%age.GetValue(model)), 3.0)"),
         Arguments.of("csharp", "huml.EQUALS((2.0%age.GetValue(model)), 3.0)"),
-        Arguments.of(
-            "java", "huml.EQUALS((2.0%((Number)age.GetValue(model)).doubleValue()), 3.0)"));
+        Arguments.of("java", "huml.EQUALS((2.0%((Number)age.GetValue(model)).doubleValue()), 3.0)"),
+        Arguments.of("python", "huml.EQUALS((2.0%self.age.get_value(model)), 3.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -469,7 +482,8 @@ public class GeneratorArithmeticalTest {
         Arguments.of("javascript", "huml.EQUALS((2.0%model.user.age), 3.0)"),
         Arguments.of("csharp", "huml.EQUALS((2.0%model.User.Age), 3.0)"),
         Arguments.of(
-            "java", "huml.EQUALS((2.0%((Number)model.getUser().getAge()).doubleValue()), 3.0)"));
+            "java", "huml.EQUALS((2.0%((Number)model.getUser().getAge()).doubleValue()), 3.0)"),
+        Arguments.of("python", "huml.EQUALS((2.0%model.user.age), 3.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -501,7 +515,9 @@ public class GeneratorArithmeticalTest {
         Arguments.of("csharp", "huml.EQUALS((model.User.Investment%age.GetValue(model)), 3.1)"),
         Arguments.of(
             "java",
-            "huml.EQUALS((((Number)model.getUser().getInvestment()).doubleValue()%((Number)age.GetValue(model)).doubleValue()), 3.1)"));
+            "huml.EQUALS((((Number)model.getUser().getInvestment()).doubleValue()%((Number)age.GetValue(model)).doubleValue()), 3.1)"),
+        Arguments.of(
+            "python", "huml.EQUALS((model.user.investment%self.age.get_value(model)), 3.1)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -535,7 +551,9 @@ public class GeneratorArithmeticalTest {
         Arguments.of("csharp", "huml.EQUALS((age.GetValue(model)%model.User.Investment), 3.0)"),
         Arguments.of(
             "java",
-            "huml.EQUALS((((Number)age.GetValue(model)).doubleValue()%((Number)model.getUser().getInvestment()).doubleValue()), 3.0)"));
+            "huml.EQUALS((((Number)age.GetValue(model)).doubleValue()%((Number)model.getUser().getInvestment()).doubleValue()), 3.0)"),
+        Arguments.of(
+            "python", "huml.EQUALS((self.age.get_value(model)%model.user.investment), 3.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -576,7 +594,10 @@ public class GeneratorArithmeticalTest {
             "huml.NOT_EMPTY((age.GetValue(model)%model.User.Investment), revenue.GetValue(model))"),
         Arguments.of(
             "java",
-            "huml.NOT_EMPTY((((Number)age.GetValue(model)).doubleValue()%((Number)model.getUser().getInvestment()).doubleValue()), revenue.GetValue(model))"));
+            "huml.NOT_EMPTY((((Number)age.GetValue(model)).doubleValue()%((Number)model.getUser().getInvestment()).doubleValue()), revenue.GetValue(model))"),
+        Arguments.of(
+            "python",
+            "huml.NOT_EMPTY((self.age.get_value(model)%model.user.investment), self.revenue.get_value(model))"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -620,7 +641,10 @@ public class GeneratorArithmeticalTest {
             "huml.EXISTS((age.GetValue(model)%model.User.Investment), model.User.Revenue)"),
         Arguments.of(
             "java",
-            "huml.EXISTS((((Number)age.GetValue(model)).doubleValue()%((Number)model.getUser().getInvestment()).doubleValue()), model.getUser().getRevenue())"));
+            "huml.EXISTS((((Number)age.GetValue(model)).doubleValue()%((Number)model.getUser().getInvestment()).doubleValue()), model.getUser().getRevenue())"),
+        Arguments.of(
+            "python",
+            "huml.EXISTS((self.age.get_value(model)%model.user.investment), model.user.revenue)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -655,7 +679,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS((1.0*(2.0+3.0)), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS((1.0*(2.0+3.0)), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS((1.0*(2.0+3.0)), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS((1.0*(2.0+3.0)), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS((1.0*(2.0+3.0)), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -689,7 +714,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS(((1.0+2.0)*3.0), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS(((1.0+2.0)*3.0), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS(((1.0+2.0)*3.0), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS(((1.0+2.0)*3.0), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS(((1.0+2.0)*3.0), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -723,7 +749,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS((1.0+(2.0*(3.0+4.0))), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS((1.0+(2.0*(3.0+4.0))), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS((1.0+(2.0*(3.0+4.0))), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS((1.0+(2.0*(3.0+4.0))), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS((1.0+(2.0*(3.0+4.0))), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -760,7 +787,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS((1.0+((2.0*3.0)+4.0)), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS((1.0+((2.0*3.0)+4.0)), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS((1.0+((2.0*3.0)+4.0)), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS((1.0+((2.0*3.0)+4.0)), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS((1.0+((2.0*3.0)+4.0)), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -798,7 +826,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS(((1.0+(2.0*3.0))+4.0), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS(((1.0+(2.0*3.0))+4.0), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS(((1.0+(2.0*3.0))+4.0), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS(((1.0+(2.0*3.0))+4.0), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS(((1.0+(2.0*3.0))+4.0), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -836,7 +865,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS((((1.0+2.0)*3.0)+4.0), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS((((1.0+2.0)*3.0)+4.0), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS((((1.0+2.0)*3.0)+4.0), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS((((1.0+2.0)*3.0)+4.0), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS((((1.0+2.0)*3.0)+4.0), 18.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -877,7 +907,10 @@ public class GeneratorArithmeticalTest {
             "csharp", "huml.EXISTS((10.0*(age.GetValue(model)+model.User.Investment)), 777.0)"),
         Arguments.of(
             "java",
-            "huml.EXISTS((10.0*(((Number)age.GetValue(model)).doubleValue()+((Number)model.getUser().getInvestment()).doubleValue())), 777.0)"));
+            "huml.EXISTS((10.0*(((Number)age.GetValue(model)).doubleValue()+((Number)model.getUser().getInvestment()).doubleValue())), 777.0)"),
+        Arguments.of(
+            "python",
+            "huml.EXISTS((10.0*(self.age.get_value(model)+model.user.investment)), 777.0)"));
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
@@ -914,7 +947,8 @@ public class GeneratorArithmeticalTest {
         //            language      expected
         Arguments.of("javascript", "huml.NOT_EQUALS(Math.pow(2.0,2.0), 18.0)"),
         Arguments.of("java", "huml.NOT_EQUALS(Math.pow(2.0, 2.0), 18.0)"),
-        Arguments.of("csharp", "huml.NOT_EQUALS(Math.Pow(2.0^2.0), 18.0)"));
+        Arguments.of("csharp", "huml.NOT_EQUALS(Math.Pow(2.0^2.0), 18.0)"),
+        Arguments.of("python", "huml.NOT_EQUALS((2.0^2.0), 18.0)"));
   }
 
   @Disabled
