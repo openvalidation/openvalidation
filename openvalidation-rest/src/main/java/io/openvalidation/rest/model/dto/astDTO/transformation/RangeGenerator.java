@@ -64,8 +64,7 @@ public class RangeGenerator {
 
     int outerStartLine = 0;
     int outerStartColumn = 0;
-    if (this.outerRange != null &&
-        this.outerRange.getStart() != null) {
+    if (this.outerRange != null && this.outerRange.getStart() != null) {
       outerStartLine = this.outerRange.getStart().getLine();
       outerStartColumn = this.outerRange.getStart().getColumn();
     }

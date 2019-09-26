@@ -30,7 +30,7 @@ public abstract class ValidatorBase {
     this.setContext(context, -1);
   }
 
-  public void setContext(ValidationContext context , int globalPosition) {
+  public void setContext(ValidationContext context, int globalPosition) {
     this.context = context;
     this.ast = context.getAst();
     this.globalPosition = globalPosition;
