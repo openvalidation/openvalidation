@@ -15,6 +15,7 @@ import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.LINQ;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
+import io.openvalidation.rest.model.dto.astDTO.Range;
 import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
@@ -66,7 +67,11 @@ public class LintingResultDTO {
         this.errors = new ArrayList<>();
         for (OpenValidationException error: ovResult.getErrors()) {
             if (error instanceof ASTValidationException) {
-                if (((ASTValidationException) error).getItem() == null) continue;
+                //default position for errors that can't be mapped to a specific element
+                if (((ASTValidationException) error).getItem() == null) {
+                    errors.add(new OpenValidationExceptionDTO(error.getMessage(), new Range(0,0,0,1)));
+                    continue;
+                }
 
                 ASTItem item = ((ASTValidationException) error).getItem();
                 if (item instanceof ASTActionError) {

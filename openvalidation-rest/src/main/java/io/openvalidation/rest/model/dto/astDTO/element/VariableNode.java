@@ -24,27 +24,31 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 
 public class VariableNode extends GenericNode {
-  private String name;
   private OperandNode value;
+  private VariableNameNode nameNode;
 
   public VariableNode(ASTVariable variable, DocumentSection section, String culture) {
     super.initializeElement(section);
 
-    this.name = variable.getName();
+    DocumentSection operandSection = new RangeGenerator(section).generate(variable.getValue());
 
-    DocumentSection newSection = new RangeGenerator(section).generate(variable.getValue());
-
+    String variableNameString = variable.getOriginalSource();
     if (variable.getValue() != null) {
-      this.value = NodeMapper.createOperand(variable.getValue(), newSection, culture);
+      this.value = NodeMapper.createOperand(variable.getValue(), operandSection, culture);
+      variableNameString = variableNameString.substring(variable.getValue().getOriginalSource().length()).replace("\n", "");
     }
+    variableNameString = variableNameString.trim();
+
+    DocumentSection variableSection = new RangeGenerator(section).generate(variableNameString);
+    this.nameNode = new VariableNameNode(variableSection, variable.getName());
   }
 
-  public String getName() {
-    return name;
+  public VariableNameNode getNameNode() {
+    return nameNode;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setNameNode(VariableNameNode nameNode) {
+    this.nameNode = nameNode;
   }
 
   public OperandNode getValue() {
