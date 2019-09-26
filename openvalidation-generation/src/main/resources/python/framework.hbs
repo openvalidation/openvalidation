@@ -50,7 +50,14 @@ class Variable:
         return self._value_function(model)
 
 def EQUALS(left_operand, right_operand):
-    return left_operand == right_operand
+    try:
+        if isinstance(left_operand, str) and not isinstance(right_operand, str):
+            return type(right_operand)(left_operand) == right_operand
+        elif not isinstance(left_operand, str) and isinstance(right_operand, str):
+            return left_operand == type(left_operand)(right_operand)
+        return left_operand == right_operand
+    except ValueError:
+        return False
 
 def NOT_EQUALS(left_operand, right_operand):
     return not EQUALS(left_operand, right_operand)
