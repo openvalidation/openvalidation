@@ -79,7 +79,17 @@ def GREATER_THAN(left_operand, right_operand):
 
 
 def LESS_OR_EQUALS(left_operand, right_operand):
-    return left_operand <= right_operand
+    try:
+        if isinstance(left_operand, str) and not isinstance(right_operand, str):
+            return type(right_operand)(left_operand) <= right_operand
+        elif not isinstance(left_operand, str) and isinstance(right_operand, str):
+            return left_operand <= type(left_operand)(right_operand)
+        elif right_operand is not None and left_operand is None:
+            return True
+        return left_operand <= right_operand
+    except (ValueError, TypeError):
+        return False
+
 
 def GREATER_OR_EQUALS(left_operand, right_operand):
     return left_operand >= right_operand
