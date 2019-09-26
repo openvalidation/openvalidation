@@ -91,22 +91,16 @@ public class LintingResultDTO {
                 String sourceString = item.getOriginalSource();
                 if (sourceString.isEmpty()) continue;
 
-                if (item instanceof ASTGlobalElement) {
-                    int position = item.getGlobalPosition();
-
-                    if (position > node.getScopes().size()) {
-                        DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
-                        errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
-                        continue;
-                    }
-
-                    GenericNode generatedNode = node.getScopes().get(position - 1);
-                    DocumentSection newSection = new RangeGenerator(generatedNode.getLines(), generatedNode.getRange()).generate(sourceString);
-                    errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
-                } else {
+                int position = item.getGlobalPosition();
+                if (position > node.getScopes().size()) {
                     DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
                     errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+                    continue;
                 }
+
+                GenericNode generatedNode = node.getScopes().get(position - 1);
+                DocumentSection newSection = new RangeGenerator(generatedNode.getLines(), generatedNode.getRange()).generate(sourceString);
+                errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
             } else if (error instanceof ASTValidationSummaryException) {
                 String sourceString = ((ASTValidationSummaryException) error).getModel().getOriginalSource();
                 if (sourceString.isEmpty()) continue;

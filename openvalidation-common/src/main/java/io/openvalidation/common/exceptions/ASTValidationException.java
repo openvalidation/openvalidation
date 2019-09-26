@@ -40,6 +40,13 @@ public class ASTValidationException extends OpenValidationException {
     this.setUserMessage(message);
   }
 
+  public ASTValidationException(String message, ASTItem item, int position) {
+    super(message);
+    this.item = item;
+    this.setUserMessage(message);
+    this.setGlobalElementPosition(position);
+  }
+
   public ASTValidationException(String message, ASTItem item, int startError, int lengthError) {
     this(message, item);
 

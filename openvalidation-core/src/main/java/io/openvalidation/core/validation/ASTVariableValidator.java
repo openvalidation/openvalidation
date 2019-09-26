@@ -36,6 +36,6 @@ public class ASTVariableValidator extends ValidatorBase {
     shouldNotBeEmpty(name, "the name of Variable", _variable);
     shouldNotBeEmpty(value, "the value of Variable", _variable);
 
-    validate(value);
+    validate(value, this._variable.getGlobalPosition());
   }
 }
