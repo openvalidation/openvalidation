@@ -1,3 +1,4 @@
+import math
 
 class HUMLFramework:
     def __init__(self):
@@ -111,7 +112,10 @@ def NONE_OF(left_operand, right_operand):
     return not AT_LEAST_ONE_OF(left_operand, right_operand)
 
 def EMPTY(operand):
-    return not operand
+    try:
+        return math.isnan(operand)
+    except TypeError:
+        return not operand
 
 def NOT_EMPTY(operand):
     return not EMPTY(operand)
