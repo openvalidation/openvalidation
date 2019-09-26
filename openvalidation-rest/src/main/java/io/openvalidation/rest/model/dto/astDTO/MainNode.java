@@ -16,7 +16,6 @@
 
 package io.openvalidation.rest.model.dto.astDTO;
 
-import io.openvalidation.rest.model.dto.OpenValidationExceptionDTO;
 
 import java.util.ArrayList;
 import java.util.List;

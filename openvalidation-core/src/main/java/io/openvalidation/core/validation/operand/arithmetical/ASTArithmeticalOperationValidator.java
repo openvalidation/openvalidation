@@ -45,7 +45,9 @@ public class ASTArithmeticalOperationValidator extends ValidatorBase {
 
     if (itemsWithValues.size() < 1)
       throw new ASTValidationException(
-          "missing all values in arithmetical operation", _arithmeticalOperation, this.globalPosition);
+          "missing all values in arithmetical operation",
+          _arithmeticalOperation,
+          this.globalPosition);
 
     if (items.size() < 2 || itemsWithValues.size() < items.size())
       throw new ASTValidationException(
@@ -53,7 +55,9 @@ public class ASTArithmeticalOperationValidator extends ValidatorBase {
 
     if (LINQ.count(itemsWithValues, i -> i.isNumber()) < items.size())
       throw new ASTValidationException(
-          "all values of an arithmetical operation should be numbers", _arithmeticalOperation, this.globalPosition);
+          "all values of an arithmetical operation should be numbers",
+          _arithmeticalOperation,
+          this.globalPosition);
 
     boolean first = true;
     for (ASTOperandArithmeticalItemBase i : items) {
@@ -63,7 +67,8 @@ public class ASTArithmeticalOperationValidator extends ValidatorBase {
         first = false;
       } else {
         if (i.getOperator() == null)
-          throw new ASTValidationException("missing arithmetical operator.", i, this.globalPosition);
+          throw new ASTValidationException(
+              "missing arithmetical operator.", i, this.globalPosition);
       }
 
       ValidatorBase validator = ValidatorFactory.Create(i);

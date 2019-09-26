@@ -70,9 +70,9 @@ public class OperandNode extends GenericNode {
   private Range getRangeOnlyForOperand(DocumentSection section) {
     DocumentSection newSection = new RangeGenerator(section).generate(this.getName());
     if (newSection != null
-            && newSection.getRange() != null
-            && newSection.getRange().getStart() != null
-            && newSection.getRange().getEnd() != null) {
+        && newSection.getRange() != null
+        && newSection.getRange().getStart() != null
+        && newSection.getRange().getEnd() != null) {
       return newSection.getRange();
     } else {
       return this.getRange();

@@ -16,16 +16,11 @@
 
 package io.openvalidation.rest.controller;
 
-import io.openvalidation.common.ast.ASTItem;
-import io.openvalidation.common.ast.ASTModel;
-import io.openvalidation.common.ast.ASTUnknown;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.rest.model.dto.GenerationResultDTO;
-import io.openvalidation.rest.model.dto.UnkownElementParser;
 import io.openvalidation.rest.service.OVParams;
 import io.openvalidation.rest.service.OpenValidationResponseStatusException;
 import io.openvalidation.rest.service.OpenValidationService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

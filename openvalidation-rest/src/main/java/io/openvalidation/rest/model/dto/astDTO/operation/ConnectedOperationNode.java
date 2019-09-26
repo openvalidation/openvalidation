@@ -21,7 +21,6 @@ import io.openvalidation.common.ast.condition.ASTConditionGroup;
 import io.openvalidation.rest.model.dto.astDTO.TransformationHelper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +28,8 @@ import java.util.stream.Collectors;
 public class ConnectedOperationNode extends ConditionNode {
   private List<ConditionNode> conditions;
 
-  public ConnectedOperationNode(DocumentSection section, String culture, ConditionNode... condition) {
+  public ConnectedOperationNode(
+      DocumentSection section, String culture, ConditionNode... condition) {
     super(section, condition.length > 0 ? condition[0].getConnector() : null, culture);
     this.conditions = Arrays.asList(condition);
   }
@@ -50,7 +50,8 @@ public class ConnectedOperationNode extends ConditionNode {
     ASTCondition lastCondition =
         conditionBase.getAllConditions().get(conditionBase.getAllConditions().size() - 1);
 
-    ConditionNode newCondition = TransformationHelper.getOwnConditionElement(
+    ConditionNode newCondition =
+        TransformationHelper.getOwnConditionElement(
             conditionBase.getOriginalSource(), lastCondition, culture);
     if (newCondition != null) {
       this.conditions.add(newCondition);

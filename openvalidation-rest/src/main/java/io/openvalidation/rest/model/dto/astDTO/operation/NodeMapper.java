@@ -35,15 +35,13 @@ public class NodeMapper {
   }
 
   public static ConditionNode createConditionNode(
-      ASTConditionBase conditionBase,
-      DocumentSection section,
-      String outerSource,
-      String culture) {
+      ASTConditionBase conditionBase, DocumentSection section, String outerSource, String culture) {
     if (conditionBase instanceof ASTCondition) {
       ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section, culture);
 
       ConditionNode newNode =
-              TransformationHelper.getOwnConditionElement(outerSource, ((ASTCondition) conditionBase), culture);
+          TransformationHelper.getOwnConditionElement(
+              outerSource, ((ASTCondition) conditionBase), culture);
       if (newNode != null) {
         returnNode = new ConnectedOperationNode(section, culture, returnNode, newNode);
       }
