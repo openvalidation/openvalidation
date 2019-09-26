@@ -57,7 +57,7 @@ def EQUALS(left_operand, right_operand):
         elif not isinstance(left_operand, str) and isinstance(right_operand, str):
             return left_operand == type(left_operand)(right_operand)
         return left_operand == right_operand
-    except ValueError:
+    except (ValueError, TypeError):
         return False
 
 def NOT_EQUALS(left_operand, right_operand):
