@@ -22,23 +22,29 @@ import io.openvalidation.common.ast.ASTModel;
 public abstract class ValidatorBase {
   protected ASTModel ast;
   protected ValidationContext context;
+  protected int globalPosition;
 
   public ValidatorBase() {}
 
   public ValidatorBase(ValidationContext context) {
-    this.setContext(context);
+    this.setContext(context, -1);
   }
 
-  public void setContext(ValidationContext context) {
+  public void setContext(ValidationContext context , int globalPosition) {
     this.context = context;
     this.ast = context.getAst();
+    this.globalPosition = globalPosition;
   }
 
   public abstract void validate() throws Exception;
 
   protected void validate(ASTItem item) throws Exception {
+    this.validate(item, -1);
+  }
+
+  protected void validate(ASTItem item, int position) throws Exception {
     ValidatorBase validator = ValidatorFactory.Create(item);
-    validator.setContext(context);
+    validator.setContext(context, position);
     validator.validate();
   }
 }

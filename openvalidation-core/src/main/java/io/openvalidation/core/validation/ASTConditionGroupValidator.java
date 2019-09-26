@@ -37,16 +37,16 @@ public class ASTConditionGroupValidator extends ValidatorBase {
 
     if (_level > 0 && this._conditionGroup.getConnector() == null)
       throw new ASTValidationException(
-          "missing AND/OR connector in combined condition.", _conditionGroup);
+          "missing AND/OR connector in combined condition.", _conditionGroup, this.globalPosition);
 
     if (this._conditionGroup.getConditions().size() == 1
         && this._conditionGroup.getConditions().get(0) instanceof ASTConditionGroup)
       throw new ASTValidationException(
           "condition group size is 1 and contains a single condition group. Unnecessary wrapping.",
-          _conditionGroup);
+          _conditionGroup, this.globalPosition);
 
     for (ASTConditionBase cond : this._conditionGroup.getConditions()) {
-      validate(cond);
+      validate(cond, this.globalPosition);
     }
   }
 }
