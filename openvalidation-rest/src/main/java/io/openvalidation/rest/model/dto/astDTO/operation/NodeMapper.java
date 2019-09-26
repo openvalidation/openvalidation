@@ -45,7 +45,7 @@ public class NodeMapper {
       ConditionNode newNode =
               TransformationHelper.getOwnConditionElement(outerSource, ((ASTCondition) conditionBase), culture);
       if (newNode != null) {
-        returnNode = new ConnectedOperationNode(section, returnNode, newNode);
+        returnNode = new ConnectedOperationNode(section, culture, returnNode, newNode);
       }
 
       return returnNode;
