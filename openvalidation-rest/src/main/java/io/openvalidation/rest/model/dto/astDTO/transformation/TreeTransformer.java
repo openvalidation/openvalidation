@@ -18,11 +18,7 @@ package io.openvalidation.rest.model.dto.astDTO.transformation;
 
 import io.openvalidation.common.ast.*;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.exceptions.ASTValidationException;
-import io.openvalidation.common.exceptions.ASTValidationSummaryException;
-import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.OpenValidationResult;
-import io.openvalidation.rest.model.dto.OpenValidationExceptionDTO;
 import io.openvalidation.rest.model.dto.astDTO.*;
 import io.openvalidation.rest.model.dto.astDTO.element.CommentNode;
 import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
@@ -54,12 +50,11 @@ public class TreeTransformer {
 
     // Set variables as declarations
     mainNode.addDeclarations(
-            this.variables.stream().map(Variable::new).collect(Collectors.toList()));
+        this.variables.stream().map(Variable::new).collect(Collectors.toList()));
 
     ArrayList<DocumentSection> documentSections =
         new DocumentSplitter(documentText).splitDocument();
     if (documentSections.size() != this.astItems.size()) return mainNode;
-
 
     for (int index = 0; index < this.astItems.size(); index++) {
       ASTItem element = this.astItems.get(index);

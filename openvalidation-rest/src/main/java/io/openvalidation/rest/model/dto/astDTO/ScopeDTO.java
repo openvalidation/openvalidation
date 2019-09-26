@@ -1,7 +1,5 @@
 package io.openvalidation.rest.model.dto.astDTO;
 
-import io.openvalidation.common.exceptions.OpenValidationException;
-import java.util.List;
 
 public class ScopeDTO {
   private GenericNode scope;

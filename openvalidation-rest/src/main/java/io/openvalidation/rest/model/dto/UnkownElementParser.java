@@ -22,8 +22,6 @@ import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
-import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
-import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import io.openvalidation.rest.service.OVParams;
 import io.openvalidation.rest.service.OpenValidationService;
 import java.util.HashMap;

@@ -4,19 +4,19 @@ import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
 public class VariableNameNode extends GenericNode {
-    private String name;
+  private String name;
 
-    public VariableNameNode(DocumentSection section, String name) {
-        super.initializeElement(section);
+  public VariableNameNode(DocumentSection section, String name) {
+    super.initializeElement(section);
 
-        this.name = name;
-    }
+    this.name = name;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 }

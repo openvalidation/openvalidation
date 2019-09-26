@@ -35,7 +35,10 @@ public class VariableNode extends GenericNode {
     String variableNameString = variable.getOriginalSource();
     if (variable.getValue() != null) {
       this.value = NodeMapper.createOperand(variable.getValue(), operandSection, culture);
-      variableNameString = variableNameString.substring(variable.getValue().getOriginalSource().length()).replace("\n", "");
+      variableNameString =
+          variableNameString
+              .substring(variable.getValue().getOriginalSource().length())
+              .replace("\n", "");
     }
     variableNameString = variableNameString.trim();
 
