@@ -42,19 +42,24 @@ public class ASTConditionValidator extends ValidatorBase {
     ASTComparisonOperator operator = _condition.getOperator();
 
     if (_level > 0 && this._condition.getConnector() == null)
-      throw new ASTValidationException("missing Connector in combined condition.", this._condition, this.globalPosition);
+      throw new ASTValidationException(
+          "missing Connector in combined condition.", this._condition, this.globalPosition);
 
     if (this._condition.getOperator() == null)
       throw new ASTValidationException(
-          "invalid condition. missing comparison operator and operand.", this._condition, this.globalPosition);
+          "invalid condition. missing comparison operator and operand.",
+          this._condition,
+          this.globalPosition);
 
     if (leftOperand == null && rightOperand == null)
-      throw new ASTValidationException("at least one operand should be present.", this._condition, this.globalPosition);
+      throw new ASTValidationException(
+          "at least one operand should be present.", this._condition, this.globalPosition);
 
     if (operator.equals(ASTComparisonOperator.EXISTS)
         || operator.equals(ASTComparisonOperator.NOT_EXISTS)) {
       if (leftOperand == null || !leftOperand.hasValue())
-        throw new ASTValidationException("missing left operand in EXISTS expression", _condition, this.globalPosition);
+        throw new ASTValidationException(
+            "missing left operand in EXISTS expression", _condition, this.globalPosition);
       else if (leftOperand.hasValue() && leftOperand instanceof ASTOperandStatic) {
         if (leftOperand instanceof ASTOperandStaticString)
           throw new ASTValidationException(
@@ -62,7 +67,9 @@ public class ASTConditionValidator extends ValidatorBase {
               _condition);
         else
           throw new ASTValidationException(
-              "Exists-operator cannot be used on numbers. Property required instead.", _condition, this.globalPosition);
+              "Exists-operator cannot be used on numbers. Property required instead.",
+              _condition,
+              this.globalPosition);
       }
       // conditions with the (NOT)EXISTS operator must not have a right operand
       if (rightOperand != null)
@@ -70,9 +77,11 @@ public class ASTConditionValidator extends ValidatorBase {
             "right operand in EXISTS expression is not allowed", _condition, this.globalPosition);
     } else {
       if (leftOperand == null || !leftOperand.hasValue())
-        throw new ASTValidationException("missing left operand in condition.", _condition, this.globalPosition);
+        throw new ASTValidationException(
+            "missing left operand in condition.", _condition, this.globalPosition);
       if (rightOperand == null || !rightOperand.hasValue())
-        throw new ASTValidationException("missing right operand in condition.", _condition, this.globalPosition);
+        throw new ASTValidationException(
+            "missing right operand in condition.", _condition, this.globalPosition);
     }
 
     if (leftOperand != null) validate(leftOperand, this.globalPosition);
@@ -96,7 +105,8 @@ public class ASTConditionValidator extends ValidatorBase {
                 + "right operand is of type: '"
                 + rightOperand.getDataType()
                 + "'",
-            _condition, this.globalPosition);
+            _condition,
+            this.globalPosition);
       }
     }
 

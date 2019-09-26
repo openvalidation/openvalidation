@@ -19,23 +19,15 @@ package io.openvalidation.rest.model.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.openvalidation.common.ast.ASTActionError;
-import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.ASTRule;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
-import io.openvalidation.common.converter.SchemaConverterFactory;
-import io.openvalidation.common.data.DataSchema;
 import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.CodeGenerationResult;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.utils.LINQ;
-import io.openvalidation.rest.model.dto.astDTO.MainNode;
-import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
-import io.openvalidation.rest.model.dto.schema.SchemaDTO;
-import io.openvalidation.rest.service.OVParams;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GenerationResultDTO {
 

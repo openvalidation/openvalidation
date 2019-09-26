@@ -32,7 +32,7 @@ public class FunctionOperandNode extends OperandNode {
   public FunctionOperandNode(ASTOperandFunction operand, DocumentSection section, String culture) {
     super(operand, section);
     this.parameters = new ArrayList<>();
-    //this.returnType = operand.
+    // this.returnType = operand.
 
     for (ASTOperandBase parameter : operand.getParameters()) {
       if (parameter == null) continue;
@@ -41,9 +41,8 @@ public class FunctionOperandNode extends OperandNode {
       this.parameters.add(NodeMapper.createOperand(parameter, newSection, culture));
     }
 
-    this.acceptedType = this.parameters.size() > 0
-            ? this.parameters.get(0).getDataType()
-            : DataPropertyType.Object;
+    this.acceptedType =
+        this.parameters.size() > 0 ? this.parameters.get(0).getDataType() : DataPropertyType.Object;
   }
 
   public List<OperandNode> getParameters() {

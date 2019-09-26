@@ -36,40 +36,40 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/completion")
 public class ContextParsingController {
 
-    @Autowired private OpenValidationService ovService;
+  @Autowired private OpenValidationService ovService;
 
-    @PostMapping
-    public ResponseEntity<ScopeDTO> generate(@RequestBody OVParams parameters) {
-        if (parameters == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.UNPROCESSABLE_ENTITY,
-                    "You did not provide any parameters for the generation request. You can browse the API on /swagger-ui.html");
-        }
-
-        OpenValidationResult result;
-        List<ASTItem> astItemList;
-
-        try {
-            result = ovService.generate(parameters, false);
-
-            ASTModel astModel = result.getASTModel();
-            if (astModel == null) astModel = new ASTModel();
-            if (astModel.getElements().size() == 0) astModel.add(new ASTUnknown(parameters.getRule()));
-
-            astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new OpenValidationResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Sorry something went wrong. We are working hard to fix the Problem.",
-                    e);
-        }
-
-        TreeTransformer transformer = new TreeTransformer(result, astItemList, parameters);
-        MainNode node = transformer.transform(parameters.getRule());
-
-        GenericNode relevantScope = node.getScopes().size() > 0 ? node.getScopes().get(0) : null;
-        ScopeDTO dto = new ScopeDTO(relevantScope);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+  @PostMapping
+  public ResponseEntity<ScopeDTO> generate(@RequestBody OVParams parameters) {
+    if (parameters == null) {
+      throw new ResponseStatusException(
+          HttpStatus.UNPROCESSABLE_ENTITY,
+          "You did not provide any parameters for the generation request. You can browse the API on /swagger-ui.html");
     }
+
+    OpenValidationResult result;
+    List<ASTItem> astItemList;
+
+    try {
+      result = ovService.generate(parameters, false);
+
+      ASTModel astModel = result.getASTModel();
+      if (astModel == null) astModel = new ASTModel();
+      if (astModel.getElements().size() == 0) astModel.add(new ASTUnknown(parameters.getRule()));
+
+      astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new OpenValidationResponseStatusException(
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          "Sorry something went wrong. We are working hard to fix the Problem.",
+          e);
+    }
+
+    TreeTransformer transformer = new TreeTransformer(result, astItemList, parameters);
+    MainNode node = transformer.transform(parameters.getRule());
+
+    GenericNode relevantScope = node.getScopes().size() > 0 ? node.getScopes().get(0) : null;
+    ScopeDTO dto = new ScopeDTO(relevantScope);
+    return new ResponseEntity<>(dto, HttpStatus.OK);
+  }
 }

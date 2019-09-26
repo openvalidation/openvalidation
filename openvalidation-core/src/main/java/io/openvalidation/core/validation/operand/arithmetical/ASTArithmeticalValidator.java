@@ -33,7 +33,9 @@ public class ASTArithmeticalValidator extends ValidatorBase {
   public void validate() throws Exception {
     if (this._arithmeticalOperand == null || this._arithmeticalOperand.getOperation() == null) {
       throw new ASTValidationException(
-          "an arithmetical operand should not be null or empty.", this._arithmeticalOperand, this.globalPosition);
+          "an arithmetical operand should not be null or empty.",
+          this._arithmeticalOperand,
+          this.globalPosition);
     }
 
     ValidatorBase validator = ValidatorFactory.Create(this._arithmeticalOperand.getOperation());

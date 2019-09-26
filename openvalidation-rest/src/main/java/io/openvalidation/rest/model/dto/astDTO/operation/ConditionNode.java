@@ -22,7 +22,6 @@ import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
-
 import java.util.List;
 
 public abstract class ConditionNode extends OperandNode {
@@ -36,7 +35,8 @@ public abstract class ConditionNode extends OperandNode {
     super(DataPropertyType.Boolean, section);
 
     if (connector != null) {
-      String connectorToken = Constants.KEYWORD_SYMBOL + connector.toLowerCase() + Constants.KEYWORD_SYMBOL;
+      String connectorToken =
+          Constants.KEYWORD_SYMBOL + connector.toLowerCase() + Constants.KEYWORD_SYMBOL;
       List<String> connectorAlias = Aliases.getSpecificAliasByToken(culture, connectorToken);
       this.connector = connectorAlias.size() > 0 ? connectorAlias.get(0) : connector;
     } else {

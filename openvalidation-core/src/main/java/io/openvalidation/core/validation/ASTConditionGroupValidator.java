@@ -43,7 +43,8 @@ public class ASTConditionGroupValidator extends ValidatorBase {
         && this._conditionGroup.getConditions().get(0) instanceof ASTConditionGroup)
       throw new ASTValidationException(
           "condition group size is 1 and contains a single condition group. Unnecessary wrapping.",
-          _conditionGroup, this.globalPosition);
+          _conditionGroup,
+          this.globalPosition);
 
     for (ASTConditionBase cond : this._conditionGroup.getConditions()) {
       validate(cond, this.globalPosition);

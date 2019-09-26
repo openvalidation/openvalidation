@@ -43,7 +43,12 @@ public class OperationNode extends ConditionNode {
     if (conditionBase.getOriginalSource() != null) {
       String mustKeyword = Constants.MUST_TOKEN;
       List<String> mustAliases = Aliases.getSpecificAliasByToken(culture, mustKeyword);
-      foundAliases = mustAliases.stream().filter(alias -> conditionBase.getOriginalSource().toLowerCase().contains(alias.toLowerCase())).collect(Collectors.toList());
+      foundAliases =
+          mustAliases.stream()
+              .filter(
+                  alias ->
+                      conditionBase.getOriginalSource().toLowerCase().contains(alias.toLowerCase()))
+              .collect(Collectors.toList());
     }
     this.constrained = conditionBase.isConstrainedCondition() || foundAliases.size() > 0;
 
@@ -178,5 +183,4 @@ public class OperationNode extends ConditionNode {
   public void setConstrained(boolean constrained) {
     this.constrained = constrained;
   }
-
 }

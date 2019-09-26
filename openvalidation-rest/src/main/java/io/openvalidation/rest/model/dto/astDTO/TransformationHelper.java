@@ -1,14 +1,12 @@
 package io.openvalidation.rest.model.dto.astDTO;
 
 import io.openvalidation.common.ast.condition.ASTCondition;
-import io.openvalidation.common.ast.condition.ASTConditionBase;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.operation.ConditionNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.OperationNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
-
 import java.util.List;
 
 public class TransformationHelper {

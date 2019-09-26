@@ -32,9 +32,11 @@ public class ASTErrorValidator extends ValidatorBase {
     String errorMessage = this._error.getErrorMessage();
 
     if (StringUtils.isNullOrEmpty(errorMessage))
-      throw new ASTValidationException("a Rule should contains an error message", _error, this.globalPosition);
+      throw new ASTValidationException(
+          "a Rule should contains an error message", _error, this.globalPosition);
 
     if (this._error.getErrorCode() != null && this._error.getErrorCode() == -1)
-      throw new ASTValidationException("error code should not be empty", _error, this.globalPosition);
+      throw new ASTValidationException(
+          "error code should not be empty", _error, this.globalPosition);
   }
 }
