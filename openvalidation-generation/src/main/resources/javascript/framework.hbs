@@ -167,11 +167,22 @@ var HUMLFramework = function() {
     }
 
     this.sizeOf = function(operand){
-        if(operand != null){ 
-            if(operand.length)
+        if(operand != null && operand.length)
                 return operand.length;
-            return 1;
-        }
         return 0;
+    }
+
+    this.FIRST = function(operand, amount){
+        if(operand != null){
+            if(operand.length && operand.length > amount){
+                var out = [];
+                for(var x=0; x < amount && x < operand.length; x++){
+                    out.push(operand[x]);
+                }
+                return out.length == 1 ? out[0] : out;
+            }
+            return operand;
+        }
+        return null;
     }
 }
