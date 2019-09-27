@@ -165,4 +165,13 @@ var HUMLFramework = function() {
             return value;
         }
     }
+
+    this.sizeOf = function(operand){
+        if(operand != null){ 
+            if(operand.length)
+                return operand.length;
+            return 1;
+        }
+        return 0;
+    }
 }
