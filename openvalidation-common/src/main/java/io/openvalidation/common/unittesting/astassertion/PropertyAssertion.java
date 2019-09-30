@@ -21,7 +21,6 @@ import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.ast.operand.property.ASTPropertyStaticPart;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.unittesting.astassertion.lists.OperandListAssertion;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -116,16 +115,13 @@ public class PropertyAssertion
     return (this.model != null) ? this.model.getPathAsString() : null;
   }
 
-
-  //parents
-  public OperandListAssertion parentList()
-  {
+  // parents
+  public OperandListAssertion parentList() {
     ASTAssertionBase p = parent;
-    if(p instanceof OperandAssertion)
-    {
-        p = ((OperandAssertion) parent).parentList();
+    if (p instanceof OperandAssertion) {
+      p = ((OperandAssertion) parent).parentList();
     }
-    shouldBeInstanceOf(p ,OperandListAssertion.class, "PARENT OPERAND LIST");
+    shouldBeInstanceOf(p, OperandListAssertion.class, "PARENT OPERAND LIST");
     return (OperandListAssertion) p;
   }
 }
