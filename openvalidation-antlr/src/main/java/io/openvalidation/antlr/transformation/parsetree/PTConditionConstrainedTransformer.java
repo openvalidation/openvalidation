@@ -121,6 +121,7 @@ public class PTConditionConstrainedTransformer
       }
     }
 
+    //todo remove this validation and adjust tests accordingly in RuleTest
     if (!hasLeft && !hasRight)
       throw new ASTValidationException(
           "a Rule should not be empty before and after '"
