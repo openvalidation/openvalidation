@@ -24,11 +24,11 @@ import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.builder.ASTOperandFunctionBuilder;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
-import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.ast.operand.ASTOperandFunction;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
-import io.openvalidation.common.ast.operand.ASTOperandVariable;
+import io.openvalidation.common.ast.operand.*;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
+import io.openvalidation.common.data.DataArrayProperty;
+import io.openvalidation.common.data.DataProperty;
+import io.openvalidation.common.data.DataPropertyBase;
 import io.openvalidation.common.utils.StringUtils;
 import java.util.List;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -46,7 +46,7 @@ public class PTLambdaTransformer
     ASTOperandFunction mapFunction = null;
     ASTOperandFunction whereFunction = null;
 
-    ASTConditionBase condition = createLambdaCondition(antlrTreeCntx.accessor_with());
+    ASTConditionBase condition = null;
 
     if (antlrTreeCntx.content() != null) {
       String outerFunctionCnt = null;
@@ -78,6 +78,9 @@ public class PTLambdaTransformer
       }
     }
 
+    condition =
+        createLambdaCondition(antlrTreeCntx.accessor_with(),  arrayItem);
+
     whereFunction = this.createWhereFunction(arrayItem, condition);
     ASTOperandFunction out =
         this.createResultFunction(outerFunction, mapFunction, whereFunction, arrayItem);
@@ -85,29 +88,55 @@ public class PTLambdaTransformer
     return (out != null) ? out : arrayItem;
   }
 
-  private ASTOperandProperty resolveLambdaProperty(ASTOperandStaticString staticOperand) {
-    if (staticOperand != null) {
+  private ASTOperandProperty resolveLambdaProperty(
+      ASTOperandStaticString staticOperand, ASTOperandBase arrayScope) {
+    if (staticOperand != null && arrayScope != null) {
+
+      String arrayPath = null;
+      DataPropertyBase property = null;
+      if (arrayScope instanceof ASTOperandProperty) {
+        arrayPath = ((ASTOperandProperty) arrayScope).getPathAsString() + "." + staticOperand.getValue();
+        property = factoryCntx.getSchema().resolve(arrayPath);
+      }
+
 
       if (this.factoryCntx.getSchema().isLambdaPropertyOfArray(staticOperand.getValue())) {
-        ASTOperandProperty property = new ASTOperandProperty(staticOperand.getValue());
-        property.setSource(staticOperand.getPreprocessedSource());
+         ASTOperandProperty operand = new ASTOperandProperty(staticOperand.getValue());
 
-        return property;
+         if (property != null)
+            operand.setDataType(property.getType());
+
+         operand.setSource(staticOperand.getValue());
+         return operand;
       }
+
+
+
+//            //if (this.factoryCntx.getSchema().isLambdaPropertyOfArray(staticOperand.getValue())) {
+//              ASTOperandProperty property = new ASTOperandProperty(staticOperand.getValue());
+//              property.setSource(staticOperand.getPreprocessedSource());
+//      //        property.setDataType(this.fa);
+//
+//              return property;
+//            //}
     }
 
     return null;
   }
 
-  private ASTConditionBase createLambdaCondition(mainParser.Accessor_withContext withContext)
-      throws Exception {
+  private ASTConditionBase createLambdaCondition(
+      mainParser.Accessor_withContext withContext, ASTOperandBase arrayScope) throws Exception {
     ASTConditionBase condition = null;
+    ASTOperandProperty scope =
+        arrayScope instanceof ASTOperandProperty ? (ASTOperandProperty) arrayScope : null;
 
     if (withContext != null) {
-      ASTItem lambda = this.createASTItem(antlrTreeCntx.accessor_with());
+      PTAccessorWithTransformer accessorWithTransformer =
+          new PTAccessorWithTransformer(withContext, this.factoryCntx);
+      ASTConditionBase lambda = accessorWithTransformer.transform(scope);
 
-      if (lambda != null && lambda instanceof ASTConditionBase) {
-        condition = (ASTConditionBase) lambda;
+      if (lambda != null) {
+        condition = lambda;
 
         // transform static properties
 
@@ -115,7 +144,8 @@ public class PTLambdaTransformer
             w -> {
               if (w.getParent() instanceof ASTCondition) {
                 ASTOperandProperty property =
-                    this.resolveLambdaProperty(w.getCurrentAs(ASTOperandStaticString.class));
+                    this.resolveLambdaProperty(
+                        w.getCurrentAs(ASTOperandStaticString.class), arrayScope);
 
                 if (property != null) {
                   ASTCondition cnd = w.getParentAs(ASTCondition.class);
