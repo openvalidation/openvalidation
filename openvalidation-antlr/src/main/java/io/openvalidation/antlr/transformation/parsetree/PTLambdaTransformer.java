@@ -96,7 +96,8 @@ public class PTLambdaTransformer
       DataPropertyBase property = null;
       if (arrayScope instanceof ASTOperandProperty) {
         arrayPath = ((ASTOperandProperty) arrayScope).getPathAsString() + "." + staticOperand.getValue();
-        property = factoryCntx.getSchema().resolve(arrayPath);
+        property = factoryCntx.getSchema().resolve(staticOperand.getValue(), ((ASTOperandProperty) arrayScope).getPathAsString());
+        //property = factoryCntx.getSchema().resolve(arrayPath);
       }
 
 
@@ -109,16 +110,6 @@ public class PTLambdaTransformer
          operand.setSource(staticOperand.getValue());
          return operand;
       }
-
-
-
-//            //if (this.factoryCntx.getSchema().isLambdaPropertyOfArray(staticOperand.getValue())) {
-//              ASTOperandProperty property = new ASTOperandProperty(staticOperand.getValue());
-//              property.setSource(staticOperand.getPreprocessedSource());
-//      //        property.setDataType(this.fa);
-//
-//              return property;
-//            //}
     }
 
     return null;

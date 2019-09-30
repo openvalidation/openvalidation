@@ -238,8 +238,27 @@ public class DataSchema {
     }
   }
 
-  public DataPropertyBase resolve(String... content) {
-    return resolve(StringUtils.join(content, "."));
+  public DataPropertyBase resolve(String content, String scope) {
+
+    //todo lazevedo 30.9.18
+    // filter all properties in scope
+    // then resolve and possibly check for uniques
+    List<DataPropertyBase> list = this._properties.stream().filter(p -> {
+            String[] parts = p.getFullNameLowerCase().split("\\.");
+            for(String part : parts)
+            {
+              if(content.contains(part) && p.getFullNameLowerCase().startsWith(scope.toLowerCase() + "." + part))
+              {
+                return true;
+              }
+            }
+            return false;}).collect(Collectors.toList());
+
+    if(!list.isEmpty())
+      return list.get(0);
+
+    String resolveString = (scope != null && !scope.isEmpty())? scope + "." + content : content;
+    return resolve(resolveString);
   }
 
   public DataPropertyBase resolve(String content) {
