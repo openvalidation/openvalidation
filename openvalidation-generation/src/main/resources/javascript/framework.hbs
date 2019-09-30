@@ -172,6 +172,12 @@ var HUMLFramework = function() {
         return 0;
     }
 
+    this.atPosition = function(arr, pos){
+        if(arr != null && arr.length && pos > 0 && pos <= arr.length)
+                return arr[pos-1];
+        return null;
+    }
+
     this.FIRST = function(operand, amount){
         if(operand != null){
             if(operand.length && operand.length > amount){
