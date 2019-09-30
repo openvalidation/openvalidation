@@ -16,6 +16,7 @@
 
 package io.openvalidation.common.data;
 
+import io.openvalidation.common.utils.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -237,78 +238,21 @@ public class DataSchema {
     }
   }
 
-  public List<DataPropertyBase> filterInScope(DataProperty property) {
-    return filterInScope(property.getFullNameLowerCase());
-  }
-
-  public List<DataPropertyBase> filterInScope(DataArrayProperty property) {
-    return filterInScope(property.getFullNameLowerCase());
-  }
-
-  public List<DataPropertyBase> filterInScope(String propertyPath) {
-    return this._properties.stream()
-        .filter(
-            p ->
-                (p instanceof DataVariableReference)
-                    || (p.getFullNameLowerCase().startsWith(propertyPath.toLowerCase())
-                        && !p.getFullNameLowerCase().equals(propertyPath.toLowerCase())))
-        .collect(Collectors.toList());
-  }
-
-  public DataPropertyBase resolve(String content, String scopePropertyPath) {
-    DataPropertyBase resolvedProperty = null;
-
-    if (scopePropertyPath != null) {
-      if (!scopePropertyPath.isEmpty()) {
-        resolvedProperty = resolve(content, scopePropertyPath, filterInScope(scopePropertyPath));
-      } else {
-        resolvedProperty = resolve(content);
-      }
-    }
-
-    return resolvedProperty;
-  }
-
-  public DataPropertyBase resolve(String content, DataProperty scopeProperty) {
-    return resolve(content, scopeProperty.getFullNameLowerCase());
-  }
-
-  public DataPropertyBase resolve(String content, DataArrayProperty scopeProperty) {
-    return resolve(content, scopeProperty.getFullNameLowerCase());
+  public DataPropertyBase resolve(String... content) {
+    return resolve(StringUtils.join(content, "."));
   }
 
   public DataPropertyBase resolve(String content) {
-    return resolve(content, null, this._properties);
-  }
-
-  public DataPropertyBase resolve(
-      String content, String scopePropertyPath, List<DataPropertyBase> properties) {
     if (content != null) {
       DataPropertyBase property;
-      String scopePrefix =
-          scopePropertyPath != null && !scopePropertyPath.isEmpty()
-              ? scopePropertyPath.toLowerCase() + "."
-              : "";
 
       String cnt = maskInput(content);
       Optional<DataPropertyBase> prop =
-          properties.stream()
+          this._properties.stream()
               .filter(
                   p -> {
-                    if (p instanceof DataVariableReference) {
-                      return cnt.contains(
-                          marker + p.getFullNameLowerCase().replace(" ", marker) + marker);
-                    } else {
-                      if (p.getFullNameLowerCase().startsWith(scopePrefix)) {
-                        return cnt.contains(
-                            marker
-                                + p.getFullNameLowerCase()
-                                    .replaceFirst(scopePrefix, "")
-                                    .replace(" ", marker)
-                                + marker);
-                      }
-                      return false;
-                    }
+                    return cnt.contains(
+                        marker + p.getFullNameLowerCase().replace(" ", marker) + marker);
                   })
               .findFirst();
       property = prop.isPresent() ? prop.get() : null;

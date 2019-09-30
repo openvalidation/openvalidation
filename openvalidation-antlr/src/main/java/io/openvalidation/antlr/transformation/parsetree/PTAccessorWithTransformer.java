@@ -21,6 +21,7 @@ import io.openvalidation.antlr.transformation.TransformerBase;
 import io.openvalidation.antlr.transformation.TransformerContext;
 import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
+import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 
 public class PTAccessorWithTransformer
     extends TransformerBase<
@@ -32,6 +33,18 @@ public class PTAccessorWithTransformer
   }
 
   public ASTConditionBase transform() throws Exception {
+    return transform("");
+  }
+
+  public ASTConditionBase transform(ASTOperandProperty arrayScopeProperty) throws Exception {
+    ASTConditionBase condition;
+    if (arrayScopeProperty == null) condition = transform();
+    else condition = transform(arrayScopeProperty.getPathAsString());
+
+    return condition;
+  }
+
+  public ASTConditionBase transform(String scope) throws Exception {
     ASTItem item = null;
 
     if (antlrTreeCntx.condition() != null) {
