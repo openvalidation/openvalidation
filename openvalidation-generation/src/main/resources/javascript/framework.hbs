@@ -185,4 +185,20 @@ var HUMLFramework = function() {
         }
         return null;
     }
+
+    this.LAST = function(operand, amount){
+        if(operand != null){
+            if(operand.length && operand.length > amount){
+                var out = [];
+                var len = operand.length - amount;
+                len = len < 0 ? 0 : len;
+                for(var x=len; x < operand.length; x++){
+                    out.push(operand[x]);
+                }
+                return out.length == 1 ? out[0] : out;
+            }
+            return operand;
+        }
+        return null;
+    }
 }
