@@ -27,9 +27,8 @@ import io.openvalidation.common.ast.condition.ASTConditionBase;
 import io.openvalidation.common.ast.operand.*;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataArrayProperty;
+import io.openvalidation.common.data.DataProperty;
 import io.openvalidation.common.data.DataPropertyBase;
-import io.openvalidation.common.utils.Constants;
-import io.openvalidation.common.utils.NumberParsingUtils;
 import io.openvalidation.common.utils.StringUtils;
 import java.util.List;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -46,18 +45,13 @@ public class PTLambdaTransformer
     ASTOperandBase arrayItem = null;
     ASTOperandFunction mapFunction = null;
     ASTOperandFunction whereFunction = null;
-    ASTOperandStaticNumber amountParameter = null;
 
     ASTConditionBase condition = null;
 
     if (antlrTreeCntx.content() != null) {
       String outerFunctionCnt = null;
       outerFunction = createOuterFunction(antlrTreeCntx.content().FUNCTION());
-
       arrayItem = createFromArray(antlrTreeCntx.lambda_from());
-      amountParameter =
-          extractAmountParameter(
-              antlrTreeCntx.content().getText().replaceAll(Constants.FUNCTION_TOKEN_REGEX, ""));
 
       if (outerFunction != null)
         outerFunctionCnt =
@@ -84,60 +78,50 @@ public class PTLambdaTransformer
       }
     }
 
-    condition = createLambdaCondition(antlrTreeCntx.accessor_with(), arrayItem);
+    condition =
+        createLambdaCondition(antlrTreeCntx.accessor_with(),  arrayItem);
 
     whereFunction = this.createWhereFunction(arrayItem, condition);
     ASTOperandFunction out =
-        this.createResultFunction(
-            outerFunction, amountParameter, mapFunction, whereFunction, arrayItem);
+        this.createResultFunction(outerFunction, mapFunction, whereFunction, arrayItem);
 
     return (out != null) ? out : arrayItem;
   }
 
-  private ASTOperandStaticNumber extractAmountParameter(String content) {
-    ASTOperandStaticNumber number = null;
-    if (NumberParsingUtils.containsNumber(content)) {
-      number = new ASTOperandStaticNumber(NumberParsingUtils.extractNumber(content));
-      number.setSource(content);
-    }
-    return number;
-  }
-
   private ASTOperandProperty resolveLambdaProperty(
       ASTOperandStaticString staticOperand, ASTOperandBase arrayScope) {
-    ASTOperandProperty operand = null;
-
     if (staticOperand != null && arrayScope != null) {
-      DataPropertyBase property;
 
+      String arrayPath = null;
+      DataPropertyBase property = null;
       if (arrayScope instanceof ASTOperandProperty) {
-        property =
-            factoryCntx
-                .getSchema()
-                .resolve(
-                    staticOperand.getValue(), ((ASTOperandProperty) arrayScope).getPathAsString());
-
-        if (property instanceof DataArrayProperty) {
-          operand =
-              new ASTOperandProperty(
-                  ((DataArrayProperty) property).getFullPathExceptArrayPathAsArray());
-          operand.setDataType(property.getType());
-          operand.setSource(staticOperand.getValue());
-          return operand;
-        }
-      } else if (arrayScope instanceof ASTOperandVariable) {
-        // Because the ASTOperandVariable is not yet resolved we assume the property
-        // is a property of the array hidden behind the ASTOperandVariable. If that's not the
-        // case it will be caught later in the validation layer.
-        if (this.factoryCntx.getSchema().isLambdaPropertyOfArray(staticOperand.getValue())) {
-          operand = new ASTOperandProperty(staticOperand.getValue());
-          operand.setSource(staticOperand.getValue());
-          return operand;
-        }
+        arrayPath = ((ASTOperandProperty) arrayScope).getPathAsString() + "." + staticOperand.getValue();
+        property = factoryCntx.getSchema().resolve(arrayPath);
       }
+
+
+      if (this.factoryCntx.getSchema().isLambdaPropertyOfArray(staticOperand.getValue())) {
+         ASTOperandProperty operand = new ASTOperandProperty(staticOperand.getValue());
+
+         if (property != null)
+            operand.setDataType(property.getType());
+
+         operand.setSource(staticOperand.getValue());
+         return operand;
+      }
+
+
+
+//            //if (this.factoryCntx.getSchema().isLambdaPropertyOfArray(staticOperand.getValue())) {
+//              ASTOperandProperty property = new ASTOperandProperty(staticOperand.getValue());
+//              property.setSource(staticOperand.getPreprocessedSource());
+//      //        property.setDataType(this.fa);
+//
+//              return property;
+//            //}
     }
 
-    return operand;
+    return null;
   }
 
   private ASTConditionBase createLambdaCondition(
@@ -147,10 +131,12 @@ public class PTLambdaTransformer
         arrayScope instanceof ASTOperandProperty ? (ASTOperandProperty) arrayScope : null;
 
     if (withContext != null) {
-      ASTItem lambda = createASTItem(antlrTreeCntx.accessor_with());
+      PTAccessorWithTransformer accessorWithTransformer =
+          new PTAccessorWithTransformer(withContext, this.factoryCntx);
+      ASTConditionBase lambda = accessorWithTransformer.transform(scope);
 
-      if (lambda instanceof ASTConditionBase) {
-        condition = (ASTConditionBase) lambda;
+      if (lambda != null) {
+        condition = lambda;
 
         // transform static properties
 
@@ -163,10 +149,9 @@ public class PTLambdaTransformer
 
                 if (property != null) {
                   ASTCondition cnd = w.getParentAs(ASTCondition.class);
-                  if (cnd.hasLeftOperand() && cnd.getLeftOperand().equals(w.getCurrent())) {
+                  if (cnd.getLeftOperand().equals(w.getCurrent())) {
                     cnd.setLeftOperand(property);
-                  } else if (cnd.hasRightOperand()
-                      && cnd.getRightOperand().equals(w.getCurrent())) {
+                  } else if (cnd.getRightOperand().equals(w.getCurrent())) {
                     cnd.setRightOperand(property);
                   }
                 }
@@ -272,7 +257,6 @@ public class PTLambdaTransformer
 
   protected ASTOperandFunction createResultFunction(
       ASTOperandFunction outerFunction,
-      ASTOperandStaticNumber amount,
       ASTOperandFunction mapFunction,
       ASTOperandFunction whereFunction,
       ASTOperandBase arrayItem) {
@@ -288,10 +272,6 @@ public class PTLambdaTransformer
       } else if (whereFunction != null) resultFunction.replaceFirstParameter(whereFunction);
       else if (arrayItem != null) {
         resultFunction.addParameter(arrayItem);
-      }
-
-      if (amount != null) {
-        outerFunction.addParameter(amount);
       }
     } else if (mapFunction != null) {
       if (whereFunction != null) mapFunction.replaceFirstParameter(whereFunction);
