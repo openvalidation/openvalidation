@@ -16,6 +16,7 @@
 
 package io.openvalidation.common.data;
 
+import io.openvalidation.common.utils.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -235,6 +236,10 @@ public class DataSchema {
         uniqueProperties.put(propertyName, property);
       }
     }
+  }
+
+  public DataPropertyBase resolve(String... content) {
+    return resolve(StringUtils.join(content, "."));
   }
 
   public DataPropertyBase resolve(String content) {
