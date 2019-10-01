@@ -32,20 +32,7 @@ public class PTAccessorWithTransformer
     super(treeCntx, fctx);
   }
 
-  @Override
   public ASTConditionBase transform() throws Exception {
-    return transform("");
-  }
-
-  public ASTConditionBase transform(ASTOperandProperty arrayScopeProperty) throws Exception {
-    ASTConditionBase condition;
-    if (arrayScopeProperty == null) condition = transform();
-    else condition = transform(arrayScopeProperty.getPathAsString());
-
-    return condition;
-  }
-
-  public ASTConditionBase transform(String scope) throws Exception {
     ASTItem item = null;
 
     if (antlrTreeCntx.condition() != null) {
