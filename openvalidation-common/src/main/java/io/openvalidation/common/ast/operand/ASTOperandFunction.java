@@ -94,7 +94,7 @@ public class ASTOperandFunction extends ASTOperandBase {
   public <T extends ASTItem> List<T> collectItemsOfType(Class<T> cls) {
     List<T> lst = super.collectItemsOfType(cls);
 
-    if (this.parameters != null && this.parameters.size() > 1) {
+    if (this.parameters != null && this.parameters.size() > 0) {
 
       lst.addAll(
           this.parameters.stream()

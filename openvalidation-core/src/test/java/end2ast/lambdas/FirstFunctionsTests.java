@@ -49,16 +49,16 @@ public class FirstFunctionsTests {
         r ->
             r.variables()
                 .hasSizeOf(1)
-                  .first()
-                    .hasName("a first address")
-                    .operandFunction()
-                      .hasName("FIRST")
-                      .hasType(DataPropertyType.Object)
-                      .sizeOfParameters(1)
-                      .parameters()
-                        .first()
-                          .property("addresses")
-                            .hasType(DataPropertyType.Array));
+                .first()
+                .hasName("a first address")
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Object)
+                .sizeOfParameters(1)
+                .parameters()
+                .first()
+                .property("addresses")
+                .hasType(DataPropertyType.Array));
   }
 
   @Test
@@ -73,35 +73,36 @@ public class FirstFunctionsTests {
             r.variables()
                 .hasSizeOf(1)
                 .first()
-                  .hasName("a first address")
-                  .operandFunction()
-                    .hasName("FIRST")
-                    .hasType(DataPropertyType.Object)
-                    .sizeOfParameters(1)
-                    .parameters()
-                      .first()
-                        .function()
-                          .hasName("WHERE")
-                          .sizeOfParameters(2)
-                          .parameters()
-                            .first()
-                              .property("addresses")
-                                .hasType(DataPropertyType.Array)
-                          .parentList()
-                            .second()
-                              .lambdaCondition()
-                                .hasOperator(ASTComparisonOperator.EQUALS)
-                                .hasNoConnector()
-                                .leftProperty("zip_code")
-                                  .hasType(DataPropertyType.Decimal)
-                              .parentCondition()
-                                .rightNumber(12345.0)
-    );
+                .hasName("a first address")
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Object)
+                .sizeOfParameters(1)
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .sizeOfParameters(2)
+                .parameters()
+                .first()
+                .property("addresses")
+                .hasType(DataPropertyType.Array)
+                .parentList()
+                .second()
+                .lambdaCondition()
+                .hasOperator(ASTComparisonOperator.EQUALS)
+                .hasNoConnector()
+                .leftProperty("zip_code")
+                .hasType(DataPropertyType.Decimal)
+                .parentCondition()
+                .rightNumber(12345.0));
   }
 
-   @Test
-  public void first_function_with_simple_condition_and_sugar() throws Exception {
-    String rule = "The first item from the addresses given with a zip_code number equal to 12345 as a first address";
+  @Test
+  public void first_function_with_simple_condition_and_sugar_around_array_and_property()
+      throws Exception {
+    String rule =
+        "The first item from the addresses given with a zip_code number greater than 12345 as a first address";
     String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
 
     End2AstRunner.run(
@@ -111,30 +112,68 @@ public class FirstFunctionsTests {
             r.variables()
                 .hasSizeOf(1)
                 .first()
-                  .hasName("a first address")
-                  .operandFunction()
-                    .hasName("FIRST")
-                    .hasType(DataPropertyType.Object)
-                    .sizeOfParameters(1)
-                    .parameters()
-                      .first()
-                        .function()
-                          .hasName("WHERE")
-                          .sizeOfParameters(2)
-                          .parameters()
-                            .first()
-                              .property("addresses")
-                                .hasType(DataPropertyType.Array)
-                          .parentList()
-                            .second()
-                              .lambdaCondition()
-                                .hasOperator(ASTComparisonOperator.EQUALS)
-                                .hasNoConnector()
-                                .leftProperty("zip_code")
-                                  .hasType(DataPropertyType.Decimal)
-                              .parentCondition()
-                                .rightNumber(12345.0)
-    );
+                .hasName("a first address")
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Object)
+                .sizeOfParameters(1)
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .sizeOfParameters(2)
+                .parameters()
+                .first()
+                .property("addresses")
+                .hasType(DataPropertyType.Array)
+                .parentList()
+                .second()
+                .lambdaCondition()
+                .hasOperator(ASTComparisonOperator.GREATER_THAN)
+                .hasNoConnector()
+                .leftProperty("zip_code")
+                .hasType(DataPropertyType.Decimal)
+                .parentCondition()
+                .rightNumber(12345.0));
+  }
+
+  @Test
+  public void first_function_with_simple_condition_and_sugar_around_number_in_condition()
+      throws Exception {
+    String rule =
+        "The first item from addresses with zip_code equal to the number 12345 as a first address";
+    String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .hasSizeOf(1)
+                .first()
+                .hasName("a first address")
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Object)
+                .sizeOfParameters(1)
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .sizeOfParameters(2)
+                .parameters()
+                .first()
+                .property("addresses")
+                .hasType(DataPropertyType.Array)
+                .parentList()
+                .second()
+                .lambdaCondition()
+                .hasOperator(ASTComparisonOperator.EQUALS)
+                .hasNoConnector()
+                .leftProperty("zip_code")
+                .hasType(DataPropertyType.Decimal)
+                .parentCondition()
+                .rightNumber(12345.0));
   }
 
   @Test
@@ -149,52 +188,51 @@ public class FirstFunctionsTests {
             r.variables()
                 .hasSizeOf(1)
                 .first()
-                  .hasName("a first address")
-                  .operandFunction()
-                    .hasName("FIRST")
-                    .hasType(DataPropertyType.Object)
-                    .sizeOfParameters(1)
-                    .parameters()
-                      .first()
-                        .function()
-                          .hasName("WHERE")
-                          .sizeOfParameters(2)
-                          .parameters()
-                            .first()
-                              .property("addresses")
-                                .hasType(DataPropertyType.Array)
-                          .parentList()
-                            .second()
-                              .lambdaCondition()
-                                .hasOperator(ASTComparisonOperator.EQUALS)
-                                .hasNoConnector()
-                                .leftProperty("zip_code")
-                                  .hasType(DataPropertyType.Decimal)
-                              .parentCondition()
-                                .rightNumber(12345.0)
-    );
+                .hasName("a first address")
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Object)
+                .sizeOfParameters(1)
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .sizeOfParameters(2)
+                .parameters()
+                .first()
+                .property("addresses")
+                .hasType(DataPropertyType.Array)
+                .parentList()
+                .second()
+                .lambdaCondition()
+                .hasOperator(ASTComparisonOperator.EQUALS)
+                .hasNoConnector()
+                .leftProperty("zip_code")
+                .hasType(DataPropertyType.Decimal)
+                .parentCondition()
+                .rightNumber(12345.0));
   }
 
-//  @Test
-//  public void take_function_simple() throws Exception {
-//    String rule = "take 10 items from addresses as a first address";
-//    String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
-//
-//    End2AstRunner.run(
-//        rule,
-//        schema,
-//        r ->
-//            r.variables()
-//                .hasSizeOf(1)
-//                .first()
-//                  .hasName("a first address")
-//                  .operandFunction()
-//                    .hasName("TAKE")
-//                    .hasType(DataPropertyType.Array)
-//                    .sizeOfParameters(1)
-//                    .parameters()
-//                      .first()
-//
-//    );
-//  }
+  //  @Test
+  //  public void take_function_simple() throws Exception {
+  //    String rule = "take 10 items from addresses as a first address";
+  //    String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
+  //
+  //    End2AstRunner.run(
+  //        rule,
+  //        schema,
+  //        r ->
+  //            r.variables()
+  //                .hasSizeOf(1)
+  //                .first()
+  //                  .hasName("a first address")
+  //                  .operandFunction()
+  //                    .hasName("TAKE")
+  //                    .hasType(DataPropertyType.Array)
+  //                    .sizeOfParameters(1)
+  //                    .parameters()
+  //                      .first()
+  //
+  //    );
+  //  }
 }
