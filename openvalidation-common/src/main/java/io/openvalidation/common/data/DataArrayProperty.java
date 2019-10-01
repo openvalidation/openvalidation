@@ -64,10 +64,12 @@ public class DataArrayProperty extends DataPropertyBase {
     else return LINQ.array(this.getArrayPath());
   }
 
-  public String[] getFullPathAsArray() {
+  public String[] getFullPathAsArray()
+  {
     StringBuilder fullPath = new StringBuilder();
-    if (_arrayPath != null && !_arrayPath.isEmpty()) fullPath.append(_arrayPath).append(".");
-    if (_propertyPath != null && !_propertyPath.isEmpty())
+    if(_arrayPath != null && !_arrayPath.isEmpty())
+      fullPath.append(_arrayPath).append(".");
+    if(_propertyPath != null && !_propertyPath.isEmpty())
       fullPath.append(_propertyPath).append(".");
     fullPath.append(this.getName());
 
