@@ -24,14 +24,19 @@ import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.builder.ASTOperandFunctionBuilder;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
-import io.openvalidation.common.ast.operand.*;
+import io.openvalidation.common.ast.operand.ASTOperandBase;
+import io.openvalidation.common.ast.operand.ASTOperandFunction;
+import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataArrayProperty;
 import io.openvalidation.common.data.DataProperty;
 import io.openvalidation.common.data.DataPropertyBase;
+import io.openvalidation.common.data.DataVariableReference;
 import io.openvalidation.common.utils.StringUtils;
-import java.util.List;
 import org.antlr.v4.runtime.tree.TerminalNode;
+
+import java.util.List;
 
 public class PTLambdaTransformer
     extends TransformerBase<PTLambdaTransformer, ASTOperandBase, mainParser.LambdaContext> {
@@ -90,29 +95,45 @@ public class PTLambdaTransformer
 
   private ASTOperandProperty resolveLambdaProperty(
       ASTOperandStaticString staticOperand, ASTOperandBase arrayScope) {
+    ASTOperandProperty operand = null;
+
     if (staticOperand != null && arrayScope != null) {
+      DataPropertyBase property;
 
-      String arrayPath = null;
-      DataPropertyBase property = null;
       if (arrayScope instanceof ASTOperandProperty) {
-        arrayPath = ((ASTOperandProperty) arrayScope).getPathAsString() + "." + staticOperand.getValue();
         property = factoryCntx.getSchema().resolve(staticOperand.getValue(), ((ASTOperandProperty) arrayScope).getPathAsString());
-        //property = factoryCntx.getSchema().resolve(arrayPath);
+        System.out.println();
+
+        if (property instanceof DataArrayProperty) {
+          operand = new ASTOperandProperty(((DataArrayProperty) property).getFullPathExceptArrayPathAsArray());
+          operand.setDataType(property.getType());
+          operand.setSource(staticOperand.getValue());
+          return operand;
+        }
       }
-
-
+      else if(arrayScope instanceof ASTOperandVariable) {
+        //Because the ASTOperandVariable is not yet resolved we assume the property
+        //is a property of the array hidden behind the ASTOperandVariable. If that's not the
+        //case it will be caught later in the validation layer.
+        if(this.factoryCntx.getSchema().isLambdaPropertyOfArray(staticOperand.getValue())) {
+          operand = new ASTOperandProperty(staticOperand.getValue());
+          operand.setSource(staticOperand.getValue());
+          return operand;
+        }
+      }
+/*
       if (this.factoryCntx.getSchema().isLambdaPropertyOfArray(staticOperand.getValue())) {
-         ASTOperandProperty operand = new ASTOperandProperty(staticOperand.getValue());
+         ASTOperandProperty operand = new ASTOperandProperty();
 
          if (property != null)
             operand.setDataType(property.getType());
 
          operand.setSource(staticOperand.getValue());
          return operand;
-      }
+      }*/
     }
 
-    return null;
+    return operand;
   }
 
   private ASTConditionBase createLambdaCondition(
@@ -122,12 +143,10 @@ public class PTLambdaTransformer
         arrayScope instanceof ASTOperandProperty ? (ASTOperandProperty) arrayScope : null;
 
     if (withContext != null) {
-      PTAccessorWithTransformer accessorWithTransformer =
-          new PTAccessorWithTransformer(withContext, this.factoryCntx);
-      ASTConditionBase lambda = accessorWithTransformer.transform(scope);
+      ASTItem lambda = createASTItem(antlrTreeCntx.accessor_with());
 
-      if (lambda != null) {
-        condition = lambda;
+      if (lambda instanceof ASTCondition) {
+        condition = (ASTCondition)lambda;
 
         // transform static properties
 
