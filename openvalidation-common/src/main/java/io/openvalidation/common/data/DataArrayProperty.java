@@ -47,6 +47,10 @@ public class DataArrayProperty extends DataPropertyBase {
         : this.getName();
   }
 
+  public String[] getFullPathExceptArrayPathAsArray() {
+    return getFullPathExceptArrayPath().split("\\.");
+  }
+
   public String[] getPropertyPathAsList() {
     if (this.getPropertyPath() != null) return this.getPropertyPath().split("\\.");
 
@@ -58,5 +62,17 @@ public class DataArrayProperty extends DataPropertyBase {
 
     if (this.getArrayPath().contains(".")) return this.getArrayPath().split("\\.");
     else return LINQ.array(this.getArrayPath());
+  }
+
+  public String[] getFullPathAsArray()
+  {
+    StringBuilder fullPath = new StringBuilder();
+    if(_arrayPath != null && !_arrayPath.isEmpty())
+      fullPath.append(_arrayPath).append(".");
+    if(_propertyPath != null && !_propertyPath.isEmpty())
+      fullPath.append(_propertyPath).append(".");
+    fullPath.append(this.getName());
+
+    return fullPath.toString().split("\\.");
   }
 }

@@ -238,40 +238,74 @@ public class DataSchema {
     }
   }
 
-  public DataPropertyBase resolve(String content, String scope) {
+  public List<DataPropertyBase> filterInScope(DataProperty property) {
+    return filterInScope(property.getFullNameLowerCase());
+  }
 
-    //todo lazevedo 30.9.18
-    // filter all properties in scope
-    // then resolve and possibly check for uniques
-    List<DataPropertyBase> list = this._properties.stream().filter(p -> {
-            String[] parts = p.getFullNameLowerCase().split("\\.");
-            for(String part : parts)
-            {
-              if(content.contains(part) && p.getFullNameLowerCase().startsWith(scope.toLowerCase() + "." + part))
-              {
-                return true;
-              }
-            }
-            return false;}).collect(Collectors.toList());
+  public List<DataPropertyBase> filterInScope(DataArrayProperty property) {
+    return filterInScope(property.getFullNameLowerCase());
+  }
 
-    if(!list.isEmpty())
-      return list.get(0);
+  public List<DataPropertyBase> filterInScope(String propertyPath) {
+    return this._properties.stream()
+            .filter(p ->
+                    (p instanceof DataVariableReference)
+                    || (p.getFullNameLowerCase().startsWith(propertyPath.toLowerCase())
+                        && !p.getFullNameLowerCase().equals(propertyPath.toLowerCase()))
+            ).collect(Collectors.toList());
+  }
 
-    String resolveString = (scope != null && !scope.isEmpty())? scope + "." + content : content;
-    return resolve(resolveString);
+  public DataPropertyBase resolve(String content, String scopePropertyPath) {
+    DataPropertyBase resolvedProperty = null;
+
+    if (scopePropertyPath != null) {
+      if (!scopePropertyPath.isEmpty()) {
+        resolvedProperty = resolve(content, scopePropertyPath, filterInScope(scopePropertyPath));
+      } else {
+        resolvedProperty = resolve(content);
+      }
+    }
+
+    return resolvedProperty;
+  }
+
+  public DataPropertyBase resolve(String content, DataProperty scopeProperty){
+    return resolve(content, scopeProperty.getFullNameLowerCase());
+  }
+
+  public DataPropertyBase resolve(String content, DataArrayProperty scopeProperty){
+    return resolve(content, scopeProperty.getFullNameLowerCase());
   }
 
   public DataPropertyBase resolve(String content) {
+    return resolve(content, null, this._properties);
+  }
+
+  public DataPropertyBase resolve(String content, String scopePropertyPath, List<DataPropertyBase> properties) {
     if (content != null) {
       DataPropertyBase property;
+      String scopePrefix= scopePropertyPath != null && !scopePropertyPath.isEmpty()?
+              scopePropertyPath.toLowerCase() + ".": "";
 
       String cnt = maskInput(content);
       Optional<DataPropertyBase> prop =
-          this._properties.stream()
+          properties.stream()
               .filter(
                   p -> {
-                    return cnt.contains(
-                        marker + p.getFullNameLowerCase().replace(" ", marker) + marker);
+                    if(p instanceof DataVariableReference) {
+                      return cnt.contains(
+                                marker + p.getFullNameLowerCase()
+                                        .replace(" ", marker) + marker);
+                    }
+                    else{
+                      if (p.getFullNameLowerCase().startsWith(scopePrefix)) {
+                        return cnt.contains(
+                                marker + p.getFullNameLowerCase()
+                                        .replaceFirst(scopePrefix, "")
+                                        .replace(" ", marker) + marker);
+                      }
+                      return false;
+                    }
                   })
               .findFirst();
       property = prop.isPresent() ? prop.get() : null;
