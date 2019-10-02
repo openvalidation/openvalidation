@@ -1,5 +1,4 @@
-trigger:
-- master
+trigger: none
 pr: none
 
 pool:
@@ -28,13 +27,11 @@ steps:
   inputs:
     secureFile: secret_key.asc
 
-# Fail pipeline if version is not set to snapshot
+# Set version to non-snapshot
 - powershell: |
-    if (-Not (invoke-expression -Command "./scripts/isSnapshot.ps1")) {
-      exit 1
-    }
+    & "./scripts/unsetSnapshot.ps1"
 
-# Publish jars to Maven snapshot repository
+# Publish jars
 - script: |
     mv $(mavenSecurity.secureFilePath) ~/.m2
     mvn clean deploy -Prelease -s $(mavenSettings.secureFilePath) -B -U \
@@ -48,5 +45,7 @@ steps:
 
 # Upload to Azure downloadarchive
 - powershell: |
+    $version = invoke-expression -Command "./scripts/getRevision.ps1"
     az login --service-principal -u http://OpenValidationServicePrincipal -p $(AZURE_SP_KEY) --tenant brockhausag.onmicrosoft.com
-    az storage blob upload --acount-name downloadarchive -c openvalidation-generator -f "./target/openvalidation.jar" -n "openvalidation-dev.jar"
+    az storage blob upload --acount-name downloadarchive -c openvalidation-generator -f "./target/openvalidation.jar" -n "openvalidation.jar"
+    az storage blob upload --acount-name downloadarchive -c openvalidation-generator -f "./target/openvalidation.jar" -n "$($version)/openvalidation.jar"
