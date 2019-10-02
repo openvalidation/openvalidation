@@ -216,4 +216,14 @@ public class RuleTest {
           r.containsValidationMessage("missing right operand in condition.");
         });
   }
+
+  @Test
+  public void condition_group_with_incomplete_condition_and_decimal_property() throws Exception {
+    runner.run(
+        "IF year SMALLER THAN another_int AND age THEN error",
+        "{year: 1234, another_int: 1234, age: 12}",
+        r -> {
+          r.containsValidationMessage("invalid condition. missing comparison operator and operand.");
+        });
+  }
 }
