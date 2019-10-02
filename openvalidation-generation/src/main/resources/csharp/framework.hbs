@@ -131,6 +131,11 @@ namespace {{params.generated_class_namespace}}
         {
             return rightOperand.Any(i => i.Equals(leftOperand));
         }
+        
+        public bool AT_LEAST_ONE_OF<T>(T leftOperand, params T[] rightOperand)
+        {
+            return ONE_OF(leftOperand, rightOperand);
+        }
 
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
