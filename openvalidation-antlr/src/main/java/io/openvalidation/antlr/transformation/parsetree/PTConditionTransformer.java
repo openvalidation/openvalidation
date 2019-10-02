@@ -116,13 +116,9 @@ public class PTConditionTransformer
     builder.withSource(source.getText());
 
     if (item != null && item instanceof ASTOperandBase) {
-      if (((ASTOperandBase) item).getDataType() != DataPropertyType.Boolean) {
-        builder.withLeftOperand(new ASTOperandStaticString(item.getPreprocessedSource()));
-      } else {
-        builder
-            .withLeftOperand((ASTOperandBase) item)
-            .withOperator(ASTComparisonOperator.EQUALS)
-            .withRightOperandAsBoolean(true);
+      builder.withLeftOperand((ASTOperandBase) item);
+      if (((ASTOperandBase) item).getDataType() == DataPropertyType.Boolean) {
+        builder.withOperator(ASTComparisonOperator.EQUALS);
       }
     }
 

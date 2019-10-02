@@ -42,6 +42,12 @@ public class ConditionAssertion extends ConditionAssertionBase<ASTCondition, Con
     return this;
   }
 
+  public ConditionAssertion hasNoOperator() {
+    shouldBeNull(this.model.getOperator(), "OPERATOR");
+
+    return this;
+  }
+
   public ConditionAssertion hasIndentationLevel(int indentationLevel) {
     shouldNotBeEmpty(this.model.getIndentationLevel(), "INDENTATION LEVEL");
     shouldEquals(this.model.getIndentationLevel(), indentationLevel, "INDENTATION LEVEL");

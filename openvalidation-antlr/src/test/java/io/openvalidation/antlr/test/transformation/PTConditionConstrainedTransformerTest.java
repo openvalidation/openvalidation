@@ -195,4 +195,44 @@ class PTConditionConstrainedTransformerTest {
               .hasValue(500.0);
         });
   }
+
+  @Test
+  void condition_group_with_incomplete_condition_and_decimal_property() throws Exception {
+    // assemble
+    //IF year SMALLER THAN another_int AND age THEN error
+    String input =
+        GrammarBuilder.createRule()
+            .with("year")
+            .LESS_THAN()
+            .with("another_int")
+            .AND()
+            .with("age")
+            .THEN("error")
+            .getText();
+
+    String schema = "{year: 1234, another_int: 1234, age: 12}";
+
+    // assert
+    ANTLRRunner.run(
+        input,
+        schema,
+            r -> {
+                r.rules()
+                    .hasSizeOf(1)
+                    .first()
+                        .conditionGroup()
+                            .hasSize(2)
+                            .first()
+                                .hasOperator(ASTComparisonOperator.LESS_THAN)
+                                .leftProperty()
+                            .parentCondition()
+                                .rightProperty()
+                        .parentConditionGroup()
+                            .second()
+                                .hasNoOperator()
+                                .hasNoRightOperand()
+                                .leftProperty("age")
+                                    .hasType(DataPropertyType.Decimal);
+        });
+  }
 }
