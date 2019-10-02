@@ -137,6 +137,11 @@ namespace {{params.generated_class_namespace}}
             return ONE_OF(leftOperand, rightOperand);
         }
 
+        public bool NONE_OF<T>(T leftOperand, params T[] rightOperand)
+        {
+            return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
+        }
+
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             HashSet<TKey> seenKeys = new HashSet<TKey>();
