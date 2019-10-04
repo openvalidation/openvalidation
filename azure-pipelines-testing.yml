@@ -12,4 +12,10 @@ steps:
       publishJUnitResults: true
       goals: 'clean test'
       options: '-Pintegration'
+
+# Fail pipeline if version is not set to snapshot
+  - powershell: |
+      if (-Not (invoke-expression -Command "./scripts/isSnapshot.ps1")) { exit 1
+      }
+
 # Add linting and other quality checks here.
