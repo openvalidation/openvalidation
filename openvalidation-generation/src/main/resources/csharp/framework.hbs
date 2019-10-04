@@ -141,6 +141,13 @@ namespace {{params.generated_class_namespace}}
         {
             return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
         }
+                                                                                    
+        public Decimal SUM_OF<T>(params T[] operand)
+        {
+            List<Decimal> dec = new List<decimal>();
+            operand.ToList().ForEach(x => dec.Add(Convert.ToDecimal(x)));
+            return dec.Sum();
+        }
 
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
