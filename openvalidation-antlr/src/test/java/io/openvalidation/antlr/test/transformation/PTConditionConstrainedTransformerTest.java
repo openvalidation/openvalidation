@@ -199,7 +199,7 @@ class PTConditionConstrainedTransformerTest {
   @Test
   void condition_group_with_incomplete_condition_and_decimal_property() throws Exception {
     // assemble
-    //IF year SMALLER THAN another_int AND age THEN error
+    // IF year SMALLER THAN another_int AND age THEN error
     String input =
         GrammarBuilder.createRule()
             .with("year")
@@ -216,23 +216,23 @@ class PTConditionConstrainedTransformerTest {
     ANTLRRunner.run(
         input,
         schema,
-            r -> {
-                r.rules()
-                    .hasSizeOf(1)
-                    .first()
-                        .conditionGroup()
-                            .hasSize(2)
-                            .first()
-                                .hasOperator(ASTComparisonOperator.LESS_THAN)
-                                .leftProperty()
-                            .parentCondition()
-                                .rightProperty()
-                        .parentConditionGroup()
-                            .second()
-                                .hasNoOperator()
-                                .hasNoRightOperand()
-                                .leftProperty("age")
-                                    .hasType(DataPropertyType.Decimal);
+        r -> {
+          r.rules()
+              .hasSizeOf(1)
+              .first()
+              .conditionGroup()
+              .hasSize(2)
+              .first()
+              .hasOperator(ASTComparisonOperator.LESS_THAN)
+              .leftProperty()
+              .parentCondition()
+              .rightProperty()
+              .parentConditionGroup()
+              .second()
+              .hasNoOperator()
+              .hasNoRightOperand()
+              .leftProperty("age")
+              .hasType(DataPropertyType.Decimal);
         });
   }
 }

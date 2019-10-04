@@ -25,7 +25,6 @@ import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.builder.ASTConditionBuilder;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.StringUtils;
 import java.util.List;

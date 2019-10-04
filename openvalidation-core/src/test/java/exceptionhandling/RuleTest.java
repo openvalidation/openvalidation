@@ -223,7 +223,8 @@ public class RuleTest {
         "IF year SMALLER THAN another_int AND age THEN error",
         "{year: 1234, another_int: 1234, age: 12}",
         r -> {
-          r.containsValidationMessage("invalid condition. missing comparison operator and operand.");
+          r.containsValidationMessage(
+              "invalid condition. missing comparison operator and operand.");
         });
   }
 }

@@ -77,7 +77,9 @@ public class PropertyAssertion
     return parentOperand().parentCondition();
   }
 
-  public ConditionGroupAssertion parentConditionGroup() {return parentCondition().parentConditionGroup();}
+  public ConditionGroupAssertion parentConditionGroup() {
+    return parentCondition().parentConditionGroup();
+  }
 
   public ModelRootAssertion parentModel() {
     if (this.parent() instanceof VariableAssertion)
