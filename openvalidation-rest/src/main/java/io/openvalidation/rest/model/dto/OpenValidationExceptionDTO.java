@@ -8,11 +8,6 @@ public class OpenValidationExceptionDTO {
 
   public OpenValidationExceptionDTO() {}
 
-  public OpenValidationExceptionDTO(String message) {
-    this.message = message;
-    this.range = new Range(0, 0, 0, 1);
-  }
-
   public OpenValidationExceptionDTO(String message, Range range) {
     this.message = message;
     this.range = range;

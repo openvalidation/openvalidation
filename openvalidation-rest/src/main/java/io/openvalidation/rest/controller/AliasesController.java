@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/aliases")
-public class OpenValidationAliasesController {
+public class AliasesController {
 
   @PostMapping
   public ResponseEntity<AliasesWithOperatorsDTO> generate(

@@ -121,25 +121,6 @@ public class PTConditionConstrainedTransformer
       }
     }
 
-    if (!hasLeft && !hasRight)
-      throw new ASTValidationException(
-          "a Rule should not be empty before and after '"
-              + this.antlrTreeCntx.CONSTRAINT()
-              + "' keyword",
-          builder.getModel());
-    if (!hasLeft)
-      throw new ASTValidationException(
-          "a Rule should not be empty before '" + this.antlrTreeCntx.CONSTRAINT() + "' keyword",
-          builder.getModel(),
-          -1,
-          3);
-    if (!hasRight)
-      throw new ASTValidationException(
-          "a Rule should not be empty after '" + this.antlrTreeCntx.CONSTRAINT() + "' keyword",
-          builder.getModel(),
-          9999,
-          3);
-
     // boolean hasImplicitOperator = false;
     ASTComparisonOperator operator = builder.getModel().getOperator();
 
