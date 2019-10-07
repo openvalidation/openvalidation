@@ -69,18 +69,19 @@ var HUMLFramework = function() {
     this.WHERE = function(arr, clbk) {
         var out = [];
 
-        for(var x=0; x < arr; x++){
+        for(var x=0; x < arr.length; x++){
             if (clbk(arr[x])){
-                out.push(this[x]);
+                out.push(arr[x]);
             }
         }
 
-        return (out.length() == 1)? out[0] : out;
+        return (out.length == 1)? out[0] : out;
     }
 
-    this.ONE_OF = function(value, parameters){
-        throw "NOT Implemented!!!";
-        //return true/false;
+    this.ONE_OF = function(value, ...params){
+        if(params.length == 1 && params[0].length > 0)
+            return params[0].includes(value);
+        return params.includes(value);
     }
 
     this.EQUALS = function(leftOperand, rightOperand)
@@ -113,10 +114,12 @@ var HUMLFramework = function() {
         return leftOperand >= rightOperand;
     }
 
-    this.AT_LEAST_ONE_OF = function(leftOperand, rightOperand)
+    this.AT_LEAST_ONE_OF = function(leftOperand, ...rightOperand)
     {
-        return (rightOperand && rightOperand.length > 0)?
-                    rightOperand.includes(leftOperand) : false;
+        if(rightOperand.length == 1 && rightOperand[0].length > 0)
+            return rightOperand[0].includes(leftOperand);
+        else
+            return rightOperand.includes(leftOperand);
     }
 
     this.NONE_OF = function(leftOperand, rightOperand)
@@ -146,11 +149,20 @@ var HUMLFramework = function() {
         return this.EMPTY(operand);
     }
 
-    this.SUM_OF = function(operand){
-        var value = 0;
-        for (let i=0; i<operand.length; i++) {
-            value += operand[i];
-          }
-        return value;
+    this.SUM_OF = function(...operand){
+        if(operand.length == 1 && operand[0].length > 0)
+        {
+            var value = 0;
+            for (let i=0; i<operand[0].length; i++) {
+                value += operand[0][i];
+            }
+            return value;
+        } else {
+            var value = 0;
+            for (let i=0; i<operand.length; i++) {
+                value += operand[i];
+            }
+            return value;
+        }
     }
 }

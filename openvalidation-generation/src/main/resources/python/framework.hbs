@@ -1,3 +1,4 @@
+import math
 
 class HUMLFramework:
     def __init__(self):
@@ -50,22 +51,47 @@ class Variable:
         return self._value_function(model)
 
 def EQUALS(left_operand, right_operand):
-    return left_operand == right_operand
+    try:
+        if isinstance(left_operand, str) and not isinstance(right_operand, str):
+            return type(right_operand)(left_operand) == right_operand
+        elif not isinstance(left_operand, str) and isinstance(right_operand, str):
+            return left_operand == type(left_operand)(right_operand)
+        return left_operand == right_operand
+    except (ValueError, TypeError):
+        return False
 
 def NOT_EQUALS(left_operand, right_operand):
     return not EQUALS(left_operand, right_operand)
 
 def LESS_THAN(left_operand, right_operand):
-    return left_operand < right_operand
+    try:
+        if isinstance(left_operand, str) and not isinstance(right_operand, str):
+            return type(right_operand)(left_operand) < right_operand
+        elif not isinstance(left_operand, str) and isinstance(right_operand, str):
+            return left_operand < type(left_operand)(right_operand)
+        elif right_operand is not None and left_operand is None:
+            return True
+        return left_operand < right_operand
+    except (ValueError, TypeError):
+        return False
 
 def GREATER_THAN(left_operand, right_operand):
-    return left_operand > right_operand
+    try:
+        if isinstance(left_operand, str) and not isinstance(right_operand, str):
+            return type(right_operand)(left_operand) > right_operand
+        elif not isinstance(left_operand, str) and isinstance(right_operand, str):
+            return left_operand > type(left_operand)(right_operand)
+        elif right_operand is None and not left_operand is None:
+            return True
+        return left_operand > right_operand
+    except (ValueError, TypeError):
+        return False
 
 def LESS_OR_EQUALS(left_operand, right_operand):
-    return left_operand <= right_operand
+    return LESS_THAN(left_operand, right_operand) or EQUALS(left_operand, right_operand)
 
 def GREATER_OR_EQUALS(left_operand, right_operand):
-    return left_operand >= right_operand
+    return GREATER_THAN(left_operand, right_operand) or EQUALS(left_operand, right_operand)
 
 def WHERE(array, condition_function):
     return [el for el in array if condition_function(el)]
@@ -86,7 +112,10 @@ def NONE_OF(left_operand, right_operand):
     return not AT_LEAST_ONE_OF(left_operand, right_operand)
 
 def EMPTY(operand):
-    return not operand
+    try:
+        return math.isnan(operand)
+    except TypeError:
+        return not operand
 
 def NOT_EMPTY(operand):
     return not EMPTY(operand)
