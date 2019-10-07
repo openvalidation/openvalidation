@@ -69,6 +69,34 @@ class FirstFunctionsTests {
   }
 
   @Test
+    void first_function_simple_with_specific_amount() throws Exception {
+        String rule = "the first 5 items from addresses as the first few addresses";
+        String schema = "{addresses:[]}";
+
+        End2AstRunner.run(
+                rule,
+                schema,
+                r ->
+                        r.variables()
+                                .hasSizeOf(1)
+                                .first()
+                                .hasName("the first few addresses")
+                                .operandFunction()
+                                .hasName("FIRST")
+                                .hasType(DataPropertyType.Object)
+                                .sizeOfParameters(2)
+                                .parameters()
+                                .first()
+                                .property("addresses")
+                                .hasType(DataPropertyType.Array)
+                                .parentList()
+                                .second()
+                                .number()
+                                .hasValue(5.0)
+        );
+    }
+
+  @Test
   void first_function_with_simple_condition() throws Exception {
     String rule = "a first item from addresses with zip_code equals 12345 as a first address";
     String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
