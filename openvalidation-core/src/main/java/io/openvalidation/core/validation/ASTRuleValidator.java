@@ -38,7 +38,8 @@ public class ASTRuleValidator extends ValidatorBase {
     if (this._rule.getAction() == null)
       throw new ASTValidationException("a Rule should contains an error message.", this._rule);
 
-    if (this._rule.getAction() != null) validate(this._rule.getAction(), this._rule.getGlobalPosition());
+    if (this._rule.getAction() != null)
+      validate(this._rule.getAction(), this._rule.getGlobalPosition());
 
     validate(condition, this._rule.getGlobalPosition());
 

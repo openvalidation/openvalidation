@@ -3,151 +3,130 @@ package io.openvalidation.rest.model.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.openvalidation.common.ast.*;
-import io.openvalidation.common.ast.operand.ASTOperandStatic;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import io.openvalidation.common.converter.SchemaConverterFactory;
 import io.openvalidation.common.data.DataSchema;
 import io.openvalidation.common.exceptions.ASTValidationException;
 import io.openvalidation.common.exceptions.ASTValidationSummaryException;
 import io.openvalidation.common.exceptions.OpenValidationException;
-import io.openvalidation.common.model.CodeGenerationResult;
 import io.openvalidation.common.model.OpenValidationResult;
-import io.openvalidation.common.utils.LINQ;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
 import io.openvalidation.rest.model.dto.astDTO.Range;
-import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
 import io.openvalidation.rest.model.dto.schema.SchemaDTO;
 import io.openvalidation.rest.service.OVParams;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class LintingResultDTO {
 
-    @JsonAlias("static_strings")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<String> staticStrings;
+  @JsonAlias("main_ast_node")
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private MainNode mainAstNode;
 
-    @JsonAlias("main_ast_node")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private MainNode mainAstNode;
+  @JsonAlias("schema_list")
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private SchemaDTO schema;
 
-    @JsonAlias("schema_list")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private SchemaDTO schema;
+  private List<OpenValidationExceptionDTO> errors;
 
-    private List<OpenValidationExceptionDTO> errors;
+  public LintingResultDTO() {
+    // serializable
+  }
 
-    public LintingResultDTO() {
-        // serializable
+  public LintingResultDTO(
+      OpenValidationResult ovResult, OVParams parameters, List<ASTItem> astItemList) {
+    if (ovResult == null)
+      throw new IllegalArgumentException("OpenValidationResult should not be null");
+
+    TreeTransformer transformator = new TreeTransformer(ovResult, astItemList, parameters);
+    MainNode node = transformator.transform(parameters.getRule());
+    this.setMainAstNode(node);
+
+    try {
+      DataSchema schema = SchemaConverterFactory.convert(parameters.getSchema());
+      this.setSchema(new SchemaDTO(schema));
+    } catch (Exception ex) {
+      System.err.print("Schema could not be generated");
     }
 
-    public LintingResultDTO(
-            OpenValidationResult ovResult, OVParams parameters, List<ASTItem> astItemList) {
-        if (ovResult == null)
-            throw new IllegalArgumentException("OpenValidationResult should not be null");
+    this.errors = new ArrayList<>();
+    for (OpenValidationException error : ovResult.getErrors()) {
+      this.generateAndAddErrorDto(error, node, parameters.getRule());
+    }
+  }
 
-        TreeTransformer transformator = new TreeTransformer(ovResult, astItemList, parameters);
-        MainNode node = transformator.transform(parameters.getRule());
-        this.setMainAstNode(node);
+  private void generateAndAddErrorDto(
+      OpenValidationException error, MainNode node, String ruleParameter) {
+    if (error instanceof ASTValidationSummaryException) {
+      this.generateAndAddErrorDto((ASTValidationSummaryException) error, ruleParameter);
+    } else if (error instanceof ASTValidationException) {
+      this.generateAndAddErrorDto((ASTValidationException) error, node, ruleParameter);
+    } else {
+      errors.add(new OpenValidationExceptionDTO(error.getMessage(), node.getRange()));
+    }
+  }
 
-        try {
-            DataSchema schema = SchemaConverterFactory.convert(parameters.getSchema());
-            this.setSchema(new SchemaDTO(schema));
-        } catch (Exception ex) {
-            System.err.print("Schema could not be generated");
-        }
-
-        int actionErrorIndex = 0;
-        this.errors = new ArrayList<>();
-        for (OpenValidationException error: ovResult.getErrors()) {
-            if (error instanceof ASTValidationException) {
-                //default position for errors that can't be mapped to a specific element
-                if (((ASTValidationException) error).getItem() == null) {
-                    errors.add(new OpenValidationExceptionDTO(error.getMessage(), new Range(0,0,0,1)));
-                    continue;
-                }
-
-                ASTItem item = ((ASTValidationException) error).getItem();
-                if (item instanceof ASTActionError) {
-                    List<GenericNode> fittingRules =
-                            node.getScopes().stream().filter(rule -> rule instanceof RuleNode
-                                    && ((RuleNode) rule).getErrorNode() != null
-                                    && ((RuleNode) rule).getErrorNode().getErrorMessage() != null
-                                    && ((RuleNode) rule).getErrorNode().getErrorMessage().equals(item.getOriginalSource()))
-                                    .collect(Collectors.toList());
-                    if (fittingRules.size() > actionErrorIndex) {
-                        errors.add(new OpenValidationExceptionDTO(error.getMessage(), fittingRules.get(actionErrorIndex).getRange()));
-                        actionErrorIndex++;
-                        continue;
-                    }
-                }
-
-                String sourceString = item.getOriginalSource();
-                if (sourceString.isEmpty()) continue;
-
-                int position = item.getGlobalPosition();
-                if (position > node.getScopes().size()) {
-                    DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
-                    errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
-                    continue;
-                }
-
-                GenericNode generatedNode = node.getScopes().get(position - 1);
-                DocumentSection newSection = new RangeGenerator(generatedNode.getLines(), generatedNode.getRange()).generate(sourceString);
-                errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
-            } else if (error instanceof ASTValidationSummaryException) {
-                String sourceString = ((ASTValidationSummaryException) error).getModel().getOriginalSource();
-                if (sourceString.isEmpty()) continue;
-
-                DocumentSection newSection = new RangeGenerator(parameters.getRule()).generate(sourceString);
-                errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
-            } else {
-                errors.add(new OpenValidationExceptionDTO(error.getMessage()));
-            }
-        }
-
-        ASTModel ast = ovResult.getASTModel();
-        if (ast != null) {
-            this.setStaticStrings(
-                    LINQ.select(ast.collectItemsOfType(ASTOperandStaticString.class), ASTOperandStatic::getValue));
-        }
+  private void generateAndAddErrorDto(
+      ASTValidationException error, MainNode node, String ruleParameter) {
+    // default position for errors that can't be mapped to a specific element
+    ASTItem item = error.getItem();
+    if (item == null) {
+      errors.add(new OpenValidationExceptionDTO(error.getMessage(), node.getRange()));
+      return;
     }
 
-    public SchemaDTO getSchema() {
-        return schema;
+    String sourceString = item.getOriginalSource();
+
+    // Sometimes the position is not zero-based
+    int position = item.getGlobalPosition() == 0 ? 1 : item.getGlobalPosition();
+    if (position > node.getScopes().size() || node.getScopes().size() == 0) {
+      if (sourceString.isEmpty()) return;
+      DocumentSection newSection = new RangeGenerator(ruleParameter).generate(sourceString);
+      errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+      return;
     }
 
-    public void setSchema(SchemaDTO schema) {
-        this.schema = schema;
-    }
+    GenericNode generatedNode = node.getScopes().get(position - 1);
+    sourceString =
+        sourceString.isEmpty() ? String.join("\n", generatedNode.getLines()) : sourceString;
+    DocumentSection newSection =
+        new RangeGenerator(generatedNode.getLines(), generatedNode.getRange())
+            .generate(sourceString);
+    errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+  }
 
-    public List<String> getStaticStrings() {
-        return staticStrings;
-    }
+  private void generateAndAddErrorDto(ASTValidationSummaryException error, String ruleParameter) {
+    String sourceString = error.getModel().getOriginalSource();
+    if (sourceString.isEmpty()) return;
 
-    public void setStaticStrings(List<String> staticStrings) {
-        this.staticStrings = staticStrings;
-    }
+    DocumentSection newSection = new RangeGenerator(ruleParameter).generate(sourceString);
+    errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
+  }
 
-    public MainNode getMainAstNode() {
-        return mainAstNode;
-    }
+  public SchemaDTO getSchema() {
+    return schema;
+  }
 
-    public void setMainAstNode(MainNode mainAstNode) {
-        this.mainAstNode = mainAstNode;
-    }
+  public void setSchema(SchemaDTO schema) {
+    this.schema = schema;
+  }
 
-    public List<OpenValidationExceptionDTO> getErrors() {
-        return errors;
-    }
+  public MainNode getMainAstNode() {
+    return mainAstNode;
+  }
 
-    public void setErrors(List<OpenValidationExceptionDTO> errors) {
-        this.errors = errors;
-    }
+  public void setMainAstNode(MainNode mainAstNode) {
+    this.mainAstNode = mainAstNode;
+  }
+
+  public List<OpenValidationExceptionDTO> getErrors() {
+    return errors;
+  }
+
+  public void setErrors(List<OpenValidationExceptionDTO> errors) {
+    this.errors = errors;
+  }
 }

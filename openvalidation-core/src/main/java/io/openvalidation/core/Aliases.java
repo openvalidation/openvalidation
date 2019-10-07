@@ -101,7 +101,7 @@ public class Aliases {
         .anyMatch(k -> k.toLowerCase().equals(alias.toLowerCase()));
   }
 
-  public static List<String> getSpecificAliasByToken(String locale, String... tokens) {
+  public static List<String> getAliasByToken(String locale, String... tokens) {
     Map<String, String> allAliases = Aliases.getAvailableAliases(locale);
     List<String> returnList = new ArrayList<>();
 

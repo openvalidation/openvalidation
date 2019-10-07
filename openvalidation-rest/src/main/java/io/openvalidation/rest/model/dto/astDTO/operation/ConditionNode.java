@@ -37,7 +37,7 @@ public abstract class ConditionNode extends OperandNode {
     if (connector != null) {
       String connectorToken =
           Constants.KEYWORD_SYMBOL + connector.toLowerCase() + Constants.KEYWORD_SYMBOL;
-      List<String> connectorAlias = Aliases.getSpecificAliasByToken(culture, connectorToken);
+      List<String> connectorAlias = Aliases.getAliasByToken(culture, connectorToken);
       this.connector = connectorAlias.size() > 0 ? connectorAlias.get(0) : connector;
     } else {
       this.connector = null;

@@ -24,6 +24,7 @@ import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.service.OVParams;
 import io.openvalidation.rest.service.OpenValidationService;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,8 @@ public class UnkownElementParser {
   }
 
   public List<ASTItem> generate(OpenValidationService ovService) throws Exception {
+    if (astModel == null) return new ArrayList<>();
+
     List<ASTItem> astItemList =
         astModel.getElements().stream()
             .map(element -> (ASTItem) element)
@@ -52,7 +55,7 @@ public class UnkownElementParser {
     if (unkownIdMap.size() == 0) return astItemList;
 
     List<String> potentialKeywords =
-        Aliases.getSpecificAliasByToken(this.parameter.getCulture(), Constants.AS_TOKEN);
+        Aliases.getAliasByToken(this.parameter.getCulture(), Constants.AS_TOKEN);
     String asKeyword = potentialKeywords.size() > 0 ? potentialKeywords.get(0) : null;
     if (asKeyword == null) {
       throw new Exception("No Alias for " + Constants.AS_TOKEN + " found!");

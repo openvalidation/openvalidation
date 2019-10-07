@@ -16,13 +16,13 @@
 
 package io.openvalidation.rest.model.dto.astDTO;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainNode {
   private List<Variable> declarations;
   private List<GenericNode> scopes;
+  private Range range;
 
   public MainNode() {
     this.declarations = new ArrayList<>();
@@ -47,5 +47,13 @@ public class MainNode {
 
   public void addScopes(List<GenericNode> scopes) {
     this.scopes.addAll(scopes);
+  }
+
+  public Range getRange() {
+    return range;
+  }
+
+  public void setRange(Range range) {
+    this.range = range;
   }
 }

@@ -16,6 +16,7 @@
 
 package io.openvalidation.rest.model.dto.astDTO.operation;
 
+import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
@@ -31,17 +32,22 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 public class NodeMapper {
   public static ConditionNode createConditionNode(
       ASTConditionBase conditionBase, DocumentSection section, String culture) {
-    return NodeMapper.createConditionNode(conditionBase, section, null, culture);
+    return NodeMapper.createConditionNode(conditionBase, section, culture, null);
   }
 
   public static ConditionNode createConditionNode(
-      ASTConditionBase conditionBase, DocumentSection section, String outerSource, String culture) {
+      ASTConditionBase conditionBase,
+      DocumentSection section,
+      String culture,
+      ASTItem outerSource) {
     if (conditionBase instanceof ASTCondition) {
       ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section, culture);
 
       ConditionNode newNode =
           TransformationHelper.getOwnConditionElement(
-              outerSource, ((ASTCondition) conditionBase), culture);
+              outerSource == null ? "" : outerSource.getOriginalSource(),
+              ((ASTCondition) conditionBase),
+              culture);
       if (newNode != null) {
         returnNode = new ConnectedOperationNode(section, culture, returnNode, newNode);
       }
