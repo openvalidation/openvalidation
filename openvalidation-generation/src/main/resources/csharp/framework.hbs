@@ -154,6 +154,11 @@ namespace {{params.generated_class_namespace}}
             return operand.ToArray();
         }
 
+        public T[] WHERE<T>(T[] operand, Func<T,bool> function)
+        {
+            return operand.Where(function).ToArray();
+        }
+
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             HashSet<TKey> seenKeys = new HashSet<TKey>();
