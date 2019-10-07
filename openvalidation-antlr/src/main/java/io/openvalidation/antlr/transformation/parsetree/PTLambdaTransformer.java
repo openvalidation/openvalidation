@@ -135,8 +135,8 @@ public class PTLambdaTransformer
     if (withContext != null) {
       ASTItem lambda = createASTItem(antlrTreeCntx.accessor_with());
 
-      if (lambda instanceof ASTCondition) {
-        condition = (ASTCondition) lambda;
+      if (lambda instanceof ASTConditionBase) {
+        condition = (ASTConditionBase) lambda;
 
         // transform static properties
 

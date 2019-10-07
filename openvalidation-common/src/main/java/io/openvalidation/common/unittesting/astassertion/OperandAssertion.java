@@ -137,6 +137,10 @@ public class OperandAssertion
     return this.lambda().condition();
   }
 
+  public ConditionGroupAssertion lambdaConditionGroup() throws Exception {
+    return this.lambda().conditionGroup();
+  }
+
   public OperandListAssertion parentList() {
     shouldBeInstanceOf(this.parent(), OperandListAssertion.class, "PARENT LIST");
 
