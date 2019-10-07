@@ -28,6 +28,7 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 public class OperandNode extends GenericNode {
   private DataPropertyType dataType;
   private String name;
+  private boolean isStatic;
 
   public OperandNode(ASTOperandBase operand, DocumentSection section) {
     super.initializeElement(section);
@@ -36,7 +37,22 @@ public class OperandNode extends GenericNode {
       this.dataType = operand.getDataType();
       this.name = operand.getName();
 
-      if (operand instanceof ASTOperandStatic) this.name = ((ASTOperandStatic) operand).getValue();
+      this.isStatic =
+          operand instanceof ASTOperandStatic || operand instanceof ASTOperandArithmetical;
+      if (operand instanceof ASTOperandStatic) {
+        ASTOperandStatic operandStatic = (ASTOperandStatic) operand;
+        if (operandStatic.isNumber()) {
+          String tmpValue = ((ASTOperandStatic) operand).getValue();
+          if (tmpValue.contains(".0") && !operandStatic.getOriginalSource().contains(".0")) {
+            String[] splittedValue = tmpValue.split("\\.");
+            this.name = splittedValue.length > 1 ? splittedValue[0] : tmpValue;
+          } else {
+            this.name = tmpValue;
+          }
+        } else {
+          this.name = ((ASTOperandStatic) operand).getValue();
+        }
+      }
 
       if (operand instanceof ASTOperandArithmetical) this.name = operand.getOriginalSource();
 
@@ -65,6 +81,14 @@ public class OperandNode extends GenericNode {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public boolean getIsStatic() {
+    return isStatic;
+  }
+
+  public void setIsStatic(boolean aStatic) {
+    isStatic = aStatic;
   }
 
   private Range getRangeOnlyForOperand(DocumentSection section) {

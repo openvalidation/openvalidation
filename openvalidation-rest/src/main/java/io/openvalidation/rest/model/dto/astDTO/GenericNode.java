@@ -17,6 +17,7 @@
 package io.openvalidation.rest.model.dto.astDTO;
 
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public abstract class GenericNode {
   private List<String> lines;
   private Range range;
   private int startNumber;
+  private List<KeywordNode> keywords;
 
   public void initializeElement(DocumentSection section) {
     if (section == null) {
@@ -32,6 +34,12 @@ public abstract class GenericNode {
       this.lines = section.getLines();
       this.range = section.getRange();
     }
+    this.keywords = new ArrayList<>();
+  }
+
+  public void initializeElement(DocumentSection section, List<String> keywordTokens) {
+    this.initializeElement(section);
+    this.tokenizeKeywords(keywordTokens);
   }
 
   public List<String> getLines() {
@@ -52,5 +60,23 @@ public abstract class GenericNode {
 
   public String getType() {
     return this.getClass().getSimpleName();
+  }
+
+  public List<KeywordNode> getKeywords() {
+    return keywords;
+  }
+
+  public void setKeywords(List<KeywordNode> keywords) {
+    this.keywords = keywords;
+  }
+
+  private void tokenizeKeywords(List<String> tokens) {
+    for (String token : tokens) {
+      DocumentSection section = new RangeGenerator(this.lines, this.range).generate(token);
+      if (section.getRange() == null) continue;
+
+      KeywordNode node = new KeywordNode(section);
+      this.keywords.add(node);
+    }
   }
 }

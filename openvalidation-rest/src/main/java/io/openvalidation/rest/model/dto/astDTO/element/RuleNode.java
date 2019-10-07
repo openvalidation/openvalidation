@@ -25,6 +25,7 @@ import io.openvalidation.rest.model.dto.astDTO.operation.ConditionNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
+import java.util.Arrays;
 import java.util.List;
 
 public class RuleNode extends GenericNode {
@@ -32,32 +33,30 @@ public class RuleNode extends GenericNode {
   private ConditionNode condition;
 
   public RuleNode(ASTRule rule, DocumentSection section, String culture) {
-    super.initializeElement(section);
+    List<String> relevantKeywords =
+        Aliases.getAliasByToken(culture, Constants.IF_TOKEN, Constants.THEN_TOKEN);
+    super.initializeElement(section, relevantKeywords);
 
     ASTActionError actionError = (ASTActionError) rule.getAction();
     if (actionError != null) {
-      this.errorNode = this.generateErrorNode(actionError, culture);
+      this.errorNode = this.generateErrorNode(actionError);
     }
 
     if (rule.getCondition() != null) {
       DocumentSection newSection = new RangeGenerator(section).generate(rule.getCondition());
       this.condition =
-          NodeMapper.createConditionNode(
-              rule.getCondition(), newSection, rule.getOriginalSource(), culture);
+          NodeMapper.createConditionNode(rule.getCondition(), newSection, culture, rule);
     }
   }
 
-  public ActionErrorNode generateErrorNode(ASTActionError actionError, String culture) {
-    List<String> thenKeywordList = Aliases.getSpecificAliasByToken(culture, Constants.THEN_TOKEN);
-    if (thenKeywordList.size() == 0) return new ActionErrorNode(null, actionError);
-
-    String thenKeyword = thenKeywordList.get(0);
-    String ruleLine = String.join("\n", this.getLines());
-    String[] splittedRule = ruleLine.split("(?=(?i)" + thenKeyword + ")");
-    if (splittedRule.length <= 1) return new ActionErrorNode(null, actionError);
-
+  private ActionErrorNode generateErrorNode(ASTActionError actionError) {
     DocumentSection section =
-        new RangeGenerator(this.getLines(), this.getRange()).generate(splittedRule[1]);
+        new RangeGenerator(this.getLines(), this.getRange()).generate(actionError);
+    if (section == null) {
+      section =
+          new DocumentSection(
+              this.getRange(), Arrays.asList(actionError.getErrorMessage().split("\n")));
+    }
     return new ActionErrorNode(section, actionError);
   }
 

@@ -47,6 +47,14 @@ public class Range {
     return end;
   }
 
+  public void setStart(Position start) {
+    this.start = start;
+  }
+
+  public void setEnd(Position end) {
+    this.end = end;
+  }
+
   public boolean includesPosition(Position position) {
     boolean afterStart =
         (this.getStart().getLine() == position.getLine()
