@@ -32,6 +32,34 @@ public class LastFunctionTests {
     }
 
     @Test
+    void last_function_simple_with_specific_amount() throws Exception {
+        String rule = "the last 5 items from addresses as the last few addresses";
+        String schema = "{addresses:[]}";
+
+        End2AstRunner.run(
+                rule,
+                schema,
+                r ->
+                        r.variables()
+                                .hasSizeOf(1)
+                                .first()
+                                .hasName("the last few addresses")
+                                .operandFunction()
+                                .hasName("LAST")
+                                .hasType(DataPropertyType.Object)
+                                .sizeOfParameters(2)
+                                .parameters()
+                                .first()
+                                .property("addresses")
+                                .hasType(DataPropertyType.Array)
+                                .parentList()
+                                .second()
+                                .number()
+                                .hasValue(5.0)
+        );
+    }
+
+    @Test
     void last_function_with_simple_condition() throws Exception {
         String rule = "a last item from addresses with zip_code equals 12345 as a last address";
         String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
