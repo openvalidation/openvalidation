@@ -24,13 +24,12 @@ import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.builder.ASTOperandFunctionBuilder;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
-import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.ast.operand.ASTOperandFunction;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
-import io.openvalidation.common.ast.operand.ASTOperandVariable;
+import io.openvalidation.common.ast.operand.*;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataArrayProperty;
 import io.openvalidation.common.data.DataPropertyBase;
+import io.openvalidation.common.utils.Constants;
+import io.openvalidation.common.utils.NumberParsingUtils;
 import io.openvalidation.common.utils.StringUtils;
 import java.util.List;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -47,13 +46,16 @@ public class PTLambdaTransformer
     ASTOperandBase arrayItem = null;
     ASTOperandFunction mapFunction = null;
     ASTOperandFunction whereFunction = null;
+    ASTOperandStaticNumber amountParameter = null;
 
     ASTConditionBase condition = null;
 
     if (antlrTreeCntx.content() != null) {
       String outerFunctionCnt = null;
       outerFunction = createOuterFunction(antlrTreeCntx.content().FUNCTION());
+
       arrayItem = createFromArray(antlrTreeCntx.lambda_from());
+      amountParameter = extractAmountParameter(antlrTreeCntx.content().getText().replaceAll(Constants.FUNCTION_TOKEN_REGEX, ""));
 
       if (outerFunction != null)
         outerFunctionCnt =
@@ -84,9 +86,19 @@ public class PTLambdaTransformer
 
     whereFunction = this.createWhereFunction(arrayItem, condition);
     ASTOperandFunction out =
-        this.createResultFunction(outerFunction, mapFunction, whereFunction, arrayItem);
+        this.createResultFunction(outerFunction, amountParameter, mapFunction, whereFunction, arrayItem);
 
     return (out != null) ? out : arrayItem;
+  }
+
+  private ASTOperandStaticNumber extractAmountParameter(String content) {
+    ASTOperandStaticNumber number = null;
+    if(NumberParsingUtils.containsNumber(content))
+    {
+      number = new ASTOperandStaticNumber(NumberParsingUtils.extractNumber(content));
+      number.setSource(content);
+    }
+    return number;
   }
 
   private ASTOperandProperty resolveLambdaProperty(
@@ -257,6 +269,7 @@ public class PTLambdaTransformer
 
   protected ASTOperandFunction createResultFunction(
       ASTOperandFunction outerFunction,
+      ASTOperandStaticNumber amount,
       ASTOperandFunction mapFunction,
       ASTOperandFunction whereFunction,
       ASTOperandBase arrayItem) {
@@ -272,6 +285,10 @@ public class PTLambdaTransformer
       } else if (whereFunction != null) resultFunction.replaceFirstParameter(whereFunction);
       else if (arrayItem != null) {
         resultFunction.addParameter(arrayItem);
+      }
+
+      if (amount != null) {
+        outerFunction.addParameter(amount);
       }
     } else if (mapFunction != null) {
       if (whereFunction != null) mapFunction.replaceFirstParameter(whereFunction);
