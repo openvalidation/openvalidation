@@ -18,6 +18,7 @@ package io.openvalidation.common.unittesting.astassertion;
 
 import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
+import io.openvalidation.common.unittesting.astassertion.lists.OperandListAssertion;
 
 public class StaticNumberAssertion extends StaticAssertion<ASTOperandStaticNumber> {
 
@@ -52,5 +53,14 @@ public class StaticNumberAssertion extends StaticAssertion<ASTOperandStaticNumbe
 
   public RuleAssertion parentRule() {
     return parentCondition().parentRule();
+  }
+
+  public OperandListAssertion parentList() {
+    ASTAssertionBase p = parent;
+    if (p instanceof OperandAssertion) {
+      p = ((OperandAssertion) parent).parentList();
+    }
+    shouldBeInstanceOf(p, OperandListAssertion.class, "PARENT OPERAND LIST");
+    return (OperandListAssertion) p;
   }
 }
