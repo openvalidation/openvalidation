@@ -25,6 +25,7 @@ import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
 import io.openvalidation.rest.model.dto.astDTO.element.UnkownNode;
 import io.openvalidation.rest.model.dto.astDTO.element.VariableNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
+import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.service.OVParams;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,10 +70,10 @@ public class TreeTransformer {
       } else if (element instanceof ASTComment) {
         node = new CommentNode((ASTComment) element, section);
       } else if (element instanceof ASTOperandBase) {
-        node =
-            new UnkownNode(
-                NodeMapper.createOperand(
-                    (ASTOperandBase) element, section, this.parameters.getCulture()));
+        OperandNode tmpOperand =
+            NodeMapper.createOperand(
+                (ASTOperandBase) element, section, this.parameters.getCulture());
+        node = new UnkownNode(tmpOperand, section);
       } else if (element instanceof ASTUnknown) {
         node = new UnkownNode(section);
       }
@@ -80,6 +81,14 @@ public class TreeTransformer {
       if (node != null) {
         mainNode.addScope(node);
       }
+    }
+
+    Range mainNodeRange = new Range();
+    if (mainNode.getScopes().size() > 0) {
+      mainNodeRange.setStart(mainNode.getScopes().get(0).getRange().getStart());
+      mainNodeRange.setEnd(
+          mainNode.getScopes().get(mainNode.getScopes().size() - 1).getRange().getEnd());
+      mainNode.setRange(mainNodeRange);
     }
 
     return mainNode;

@@ -17,7 +17,7 @@ public class TransformationHelper {
     String[] splittedRule = originalSource.split(condition.getOriginalSource());
     if (splittedRule.length < 2) return null;
 
-    List<String> thenKeyword = Aliases.getSpecificAliasByToken(culture, Constants.THEN_TOKEN);
+    List<String> thenKeyword = Aliases.getAliasByToken(culture, Constants.THEN_TOKEN);
     if (thenKeyword.size() == 0) return null;
 
     String[] newOperandString = splittedRule[1].split("(?i)" + thenKeyword.get(0));

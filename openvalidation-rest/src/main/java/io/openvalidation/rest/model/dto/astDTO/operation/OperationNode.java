@@ -16,7 +16,9 @@
 
 package io.openvalidation.rest.model.dto.astDTO.operation;
 
+import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.condition.ASTCondition;
+import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.Position;
@@ -42,7 +44,7 @@ public class OperationNode extends ConditionNode {
     List<String> foundAliases = new ArrayList<>();
     if (conditionBase.getOriginalSource() != null) {
       String mustKeyword = Constants.MUST_TOKEN;
-      List<String> mustAliases = Aliases.getSpecificAliasByToken(culture, mustKeyword);
+      List<String> mustAliases = Aliases.getAliasByToken(culture, mustKeyword);
       foundAliases =
           mustAliases.stream()
               .filter(
@@ -78,16 +80,23 @@ public class OperationNode extends ConditionNode {
     }
 
     if (conditionBase.getOperator() != null) {
-      String keyword =
-          Constants.COMPOPERATOR_TOKEN + conditionBase.getOperator().name().toLowerCase();
-      List<String> possibleAliases = Aliases.getSpecificAliasByToken(culture, keyword);
-      possibleAliases.sort(Comparator.comparingInt(String::length).reversed());
-      List<String> operatorLines = section.getLines();
-      DocumentSection operatorSection =
-          this.generateOperatorString(
-              operatorLines, leftLines, rightLines, section.getRange(), possibleAliases);
-      if (operatorSection != null) {
-        this.operator = new Operator(conditionBase, operatorSection);
+      if (this.rightOperand != null
+          && this.rightOperand.getDataType() == DataPropertyType.Boolean
+          && this.rightOperand.getName().equals("true")
+          && conditionBase.getOperator() == ASTComparisonOperator.EQUALS) {
+        this.operator = new Operator(conditionBase, null);
+      } else {
+        String keyword =
+            Constants.COMPOPERATOR_TOKEN + conditionBase.getOperator().name().toLowerCase();
+        List<String> possibleAliases = Aliases.getAliasByToken(culture, keyword);
+        possibleAliases.sort(Comparator.comparingInt(String::length).reversed());
+        List<String> operatorLines = section.getLines();
+        DocumentSection operatorSection =
+            this.generateOperatorString(
+                operatorLines, leftLines, rightLines, section.getRange(), possibleAliases);
+        if (operatorSection != null) {
+          this.operator = new Operator(conditionBase, operatorSection);
+        }
       }
     }
   }
@@ -132,7 +141,11 @@ public class OperationNode extends ConditionNode {
       }
     }
 
-    return this.generateValidOperator(new Range(start, end), returnList, possibleAliases);
+    Range range = new Range(start, end);
+    if (this.isConstrained()) {
+      return new DocumentSection(range, returnList);
+    }
+    return this.generateValidOperator(range, returnList, possibleAliases);
   }
 
   private DocumentSection generateValidOperator(

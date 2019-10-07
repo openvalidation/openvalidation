@@ -20,6 +20,7 @@ import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.operand.ASTOperandStatic;
 import io.openvalidation.rest.model.dto.astDTO.Position;
 import io.openvalidation.rest.model.dto.astDTO.Range;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,7 +78,7 @@ public class RangeGenerator {
     int lineNumber = 0;
 
     for (String line : this.outerLines) {
-      int startLineIndex = line.indexOf(startLine);
+      int startLineIndex = line.toLowerCase().indexOf(startLine.toLowerCase());
       if (startLineIndex != -1) {
         int startLineNumber = outerStartLine + lineNumber;
 
@@ -87,7 +88,7 @@ public class RangeGenerator {
         startPosition = new Position(startLineNumber, startColumnNumber);
       }
 
-      int endLineIndex = line.indexOf(endLine);
+      int endLineIndex = line.toLowerCase().indexOf(endLine.toLowerCase());
       if (endLineIndex != -1) {
         int column =
             startLine.equals(endLine)
@@ -101,7 +102,10 @@ public class RangeGenerator {
       lineNumber++;
     }
 
-    Range range = new Range(startPosition, endPosition);
+    Range range =
+        startPosition == null || endPosition == null ? null : new Range(startPosition, endPosition);
+    if (range == null) return new DocumentSection(range, new ArrayList<>());
+
     return new DocumentSection(range, innerLines);
   }
 
@@ -109,8 +113,9 @@ public class RangeGenerator {
     if (element == null) return "";
 
     if (element.getOriginalSource() != null) return element.getOriginalSource();
-
     if (element instanceof ASTOperandStatic) return ((ASTOperandStatic) element).getValue();
+    //    if (element instanceof ASTActionError) return ((ASTActionError)
+    // element).getErrorMessage();
 
     return null;
   }

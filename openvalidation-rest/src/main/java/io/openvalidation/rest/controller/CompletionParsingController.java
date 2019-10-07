@@ -34,7 +34,7 @@ import org.springframework.web.server.ResponseStatusException;
 @CrossOrigin
 @RestController
 @RequestMapping("/completion")
-public class ContextParsingController {
+public class CompletionParsingController {
 
   @Autowired private OpenValidationService ovService;
 
@@ -57,6 +57,7 @@ public class ContextParsingController {
       if (astModel.getElements().size() == 0) astModel.add(new ASTUnknown(parameters.getRule()));
 
       astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
+
     } catch (Exception e) {
       e.printStackTrace();
       throw new OpenValidationResponseStatusException(

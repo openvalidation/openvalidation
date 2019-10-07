@@ -17,18 +17,22 @@
 package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.common.ast.ASTVariable;
+import io.openvalidation.common.utils.Constants;
+import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
+import java.util.List;
 
 public class VariableNode extends GenericNode {
   private OperandNode value;
   private VariableNameNode nameNode;
 
   public VariableNode(ASTVariable variable, DocumentSection section, String culture) {
-    super.initializeElement(section);
+    List<String> relevantKeywords = Aliases.getAliasByToken(culture, Constants.AS_TOKEN);
+    super.initializeElement(section, relevantKeywords);
 
     DocumentSection operandSection = new RangeGenerator(section).generate(variable.getValue());
 

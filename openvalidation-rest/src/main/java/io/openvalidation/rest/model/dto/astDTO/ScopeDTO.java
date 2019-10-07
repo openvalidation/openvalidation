@@ -1,6 +1,5 @@
 package io.openvalidation.rest.model.dto.astDTO;
 
-
 public class ScopeDTO {
   private GenericNode scope;
 
