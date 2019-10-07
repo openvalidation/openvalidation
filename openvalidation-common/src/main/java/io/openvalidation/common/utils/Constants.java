@@ -91,4 +91,5 @@ public class Constants {
   public static final String[] ARRAY_DELIMITER_ALIASES = {"or", "oder", "und", "and"};
 
   public static final String TRIM_REGEX = String.join("", TRIM_CHARS);
+  public static final String FUNCTION_TOKEN_REGEX = FUNCTION_TOKEN + "[a-zA-Z0-9_]+" + KEYWORD_SYMBOL + "[a-zA-Z0-9_]+";
 }
