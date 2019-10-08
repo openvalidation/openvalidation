@@ -11,6 +11,7 @@ import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
+import io.openvalidation.rest.model.dto.astDTO.Position;
 import io.openvalidation.rest.model.dto.astDTO.Range;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
@@ -50,6 +51,13 @@ public class LintingResultDTO {
       this.setSchema(new SchemaDTO(schema));
     } catch (Exception ex) {
       System.err.print("Schema could not be generated");
+    }
+
+    if (node.getRange() == null) {
+      String[] splittedDocument = parameters.getRule().split("\n");
+      Position startPosition = new Position(0,0);
+      Position endPosition = new Position(splittedDocument.length - 1, splittedDocument[splittedDocument.length - 1].length());
+      node.setRange(new Range(startPosition, endPosition));
     }
 
     this.errors = new ArrayList<>();
@@ -110,7 +118,7 @@ public class LintingResultDTO {
     return schema;
   }
 
-  public void setSchema(SchemaDTO schema) {
+  private void setSchema(SchemaDTO schema) {
     this.schema = schema;
   }
 
@@ -118,7 +126,7 @@ public class LintingResultDTO {
     return mainAstNode;
   }
 
-  public void setMainAstNode(MainNode mainAstNode) {
+  private void setMainAstNode(MainNode mainAstNode) {
     this.mainAstNode = mainAstNode;
   }
 
