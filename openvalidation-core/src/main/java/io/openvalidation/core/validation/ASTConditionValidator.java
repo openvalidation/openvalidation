@@ -120,7 +120,7 @@ public class ASTConditionValidator extends ValidatorBase {
               + rightOperand.getType()
               + "'",
           _condition,
-      this.globalPosition);
+          this.globalPosition);
     }
 
     if (this._condition.getUnresolvedConditions() != null
@@ -128,7 +128,7 @@ public class ASTConditionValidator extends ValidatorBase {
       throw new ASTValidationException(
           "missing AND/OR connector in combined condition.",
           this._condition.getUnresolvedConditions().get(0),
-      this.globalPosition);
+          this.globalPosition);
     }
   }
 }
