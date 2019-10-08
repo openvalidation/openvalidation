@@ -28,7 +28,6 @@ import io.openvalidation.common.ast.condition.ASTConditionBase;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import io.openvalidation.common.data.DataPropertyType;
-import io.openvalidation.common.exceptions.ASTValidationException;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.common.utils.LINQ;
 import io.openvalidation.common.utils.StringUtils;
