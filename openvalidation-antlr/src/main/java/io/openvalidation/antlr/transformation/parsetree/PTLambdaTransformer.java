@@ -55,7 +55,9 @@ public class PTLambdaTransformer
       outerFunction = createOuterFunction(antlrTreeCntx.content().FUNCTION());
 
       arrayItem = createFromArray(antlrTreeCntx.lambda_from());
-      amountParameter = extractAmountParameter(antlrTreeCntx.content().getText().replaceAll(Constants.FUNCTION_TOKEN_REGEX, ""));
+      amountParameter =
+          extractAmountParameter(
+              antlrTreeCntx.content().getText().replaceAll(Constants.FUNCTION_TOKEN_REGEX, ""));
 
       if (outerFunction != null)
         outerFunctionCnt =
@@ -86,15 +88,15 @@ public class PTLambdaTransformer
 
     whereFunction = this.createWhereFunction(arrayItem, condition);
     ASTOperandFunction out =
-        this.createResultFunction(outerFunction, amountParameter, mapFunction, whereFunction, arrayItem);
+        this.createResultFunction(
+            outerFunction, amountParameter, mapFunction, whereFunction, arrayItem);
 
     return (out != null) ? out : arrayItem;
   }
 
   private ASTOperandStaticNumber extractAmountParameter(String content) {
     ASTOperandStaticNumber number = null;
-    if(NumberParsingUtils.containsNumber(content))
-    {
+    if (NumberParsingUtils.containsNumber(content)) {
       number = new ASTOperandStaticNumber(NumberParsingUtils.extractNumber(content));
       number.setSource(content);
     }

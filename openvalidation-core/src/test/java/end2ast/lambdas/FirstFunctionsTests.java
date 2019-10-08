@@ -69,32 +69,31 @@ class FirstFunctionsTests {
   }
 
   @Test
-    void first_function_simple_with_specific_amount() throws Exception {
-        String rule = "the first 5 items from addresses as the first few addresses";
-        String schema = "{addresses:[]}";
+  void first_function_simple_with_specific_amount() throws Exception {
+    String rule = "the first 5 items from addresses as the first few addresses";
+    String schema = "{addresses:[]}";
 
-        End2AstRunner.run(
-                rule,
-                schema,
-                r ->
-                        r.variables()
-                                .hasSizeOf(1)
-                                .first()
-                                .hasName("the first few addresses")
-                                .operandFunction()
-                                .hasName("FIRST")
-                                .hasType(DataPropertyType.Object)
-                                .sizeOfParameters(2)
-                                .parameters()
-                                .first()
-                                .property("addresses")
-                                .hasType(DataPropertyType.Array)
-                                .parentList()
-                                .second()
-                                .number()
-                                .hasValue(5.0)
-        );
-    }
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .hasSizeOf(1)
+                .first()
+                .hasName("the first few addresses")
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Object)
+                .sizeOfParameters(2)
+                .parameters()
+                .first()
+                .property("addresses")
+                .hasType(DataPropertyType.Array)
+                .parentList()
+                .second()
+                .number()
+                .hasValue(5.0));
+  }
 
   @Test
   void first_function_with_simple_condition() throws Exception {
@@ -249,7 +248,8 @@ class FirstFunctionsTests {
 
   @Test
   void first_function_with_condition_group_with_explicit_array_path() throws Exception {
-    String rule = "a first item from info.addresses with zip_code equals 12345 and city equals Berlin as a first address";
+    String rule =
+        "a first item from info.addresses with zip_code equals 12345 and city equals Berlin as a first address";
     String schema = "{info: {addresses:[{zip_code: 1, city: Berlin}]}}";
 
     End2AstRunner.run(
@@ -276,36 +276,32 @@ class FirstFunctionsTests {
                 .parentList()
                 .second()
                 .lambdaConditionGroup()
-                    .hasSize(2)
-                    .first()
-                      .hasOperator(ASTComparisonOperator.EQUALS)
-                      .hasNoConnector()
-                      .leftProperty("zip_code")
-                      .hasType(DataPropertyType.Decimal)
-                      .parentCondition()
-                      .rightNumber(12345.0)
+                .hasSize(2)
+                .first()
+                .hasOperator(ASTComparisonOperator.EQUALS)
+                .hasNoConnector()
+                .leftProperty("zip_code")
+                .hasType(DataPropertyType.Decimal)
+                .parentCondition()
+                .rightNumber(12345.0)
                 .parentConditionGroup()
-                    .second()
-                      .hasOperator(ASTComparisonOperator.EQUALS)
-                      .hasConnector(ASTConditionConnector.AND)
-                      .leftProperty("city")
-                      .hasType(DataPropertyType.String)
-                      .parentCondition()
-                      .rightString("Berlin")
-    );
+                .second()
+                .hasOperator(ASTComparisonOperator.EQUALS)
+                .hasConnector(ASTConditionConnector.AND)
+                .leftProperty("city")
+                .hasType(DataPropertyType.String)
+                .parentCondition()
+                .rightString("Berlin"));
   }
 
-  //todo lionelpa 7.10.19 simple array access with FIRST may need changes in grammar
+  // todo lionelpa 7.10.19 simple array access with FIRST may need changes in grammar
   @Disabled
   @Test
-  void abcdef() throws Exception{
+  void abcdef() throws Exception {
     String rule = "FIRST item FROM numbers IS 1 as sadfasdf";
     String schema = "{numbers: [1,2,3,4]}";
 
-    End2AstRunner.run(
-        rule,
-        schema,
-        r -> r.variables());
+    End2AstRunner.run(rule, schema, r -> r.variables());
   }
 
   //  @Test
