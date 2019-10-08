@@ -119,14 +119,16 @@ public class ASTConditionValidator extends ValidatorBase {
               + "right operand is of type: '"
               + rightOperand.getType()
               + "'",
-          _condition);
+          _condition,
+      this.globalPosition);
     }
 
     if (this._condition.getUnresolvedConditions() != null
         && this._condition.getUnresolvedConditions().size() > 0) {
       throw new ASTValidationException(
           "missing AND/OR connector in combined condition.",
-          this._condition.getUnresolvedConditions().get(0));
+          this._condition.getUnresolvedConditions().get(0),
+      this.globalPosition);
     }
   }
 }
