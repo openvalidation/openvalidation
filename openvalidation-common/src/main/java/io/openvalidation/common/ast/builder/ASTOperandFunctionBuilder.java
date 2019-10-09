@@ -221,11 +221,25 @@ public class ASTOperandFunctionBuilder
         .addParameter(lambda);
   }
 
+  public ASTOperandFunctionBuilder createFirstFunction(String[] arrayProperty)
+  {
+    return createFirstFunction(arrayProperty, 1);
+  }
+
   public ASTOperandFunctionBuilder createFirstFunction(String[] arrayProperty, int amount)
   {
     return this.createFunction("FIRST")
             .addPropertyParameter(arrayProperty)
-            .addNumberParameter(amount)
-            ;
+            .addNumberParameter(amount);
+  }
+
+    public ASTOperandFunctionBuilder createLastFunction(String[] arrayProperty) {
+      return createLastFunction(arrayProperty, 1);
+    }
+
+  public ASTOperandFunctionBuilder createLastFunction(String[] arrayProperty, int amount) {
+    return this.createFunction("LAST")
+            .addPropertyParameter(arrayProperty)
+            .addNumberParameter(amount);
   }
 }
