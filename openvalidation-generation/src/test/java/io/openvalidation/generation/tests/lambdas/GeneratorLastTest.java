@@ -5,7 +5,6 @@ import io.openvalidation.common.ast.builder.ASTConditionBuilder;
 import io.openvalidation.common.ast.builder.ASTConditionGroupBuilder;
 import io.openvalidation.common.ast.builder.ASTOperandFunctionBuilder;
 import io.openvalidation.common.ast.condition.ASTConditionConnector;
-import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.generation.tests.ExpectationBuilder;
 import io.openvalidation.generation.tests.GTE;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,16 +13,16 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-public class GeneratorFirstTest {
-    private static Stream<Arguments> first_test_with_specific_amount() {
+public class GeneratorLastTest {
+        private static Stream<Arguments> last_test_with_specific_amount() {
     return ExpectationBuilder.newExpectation()
-        .javaResult("huml.FIRST(model.getAddresses(), 1.0)")
+        .javaResult("huml.LAST(model.getAddresses(), 1.0)")
         .toStream();
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
   @MethodSource()
-  public void first_test_with_specific_amount(String language, String expected)
+  public void last_test_with_specific_amount(String language, String expected)
       throws Exception {
     GTE.execute(
         expected,
@@ -33,21 +32,21 @@ public class GeneratorFirstTest {
           String[] addressPath = {"addresses"};
 
           ASTOperandFunctionBuilder builder = new ASTOperandFunctionBuilder();
-          builder.createFirstFunction(addressPath);
+          builder.createLastFunction(addressPath);
 
           return builder.getModel();
         });
   }
 
-  private static Stream<Arguments> first_test_with_condition() {
+  private static Stream<Arguments> last_test_with_condition() {
     return ExpectationBuilder.newExpectation()
-        .javaResult("huml.FIRST(huml.WHERE(model.getAddresses(), x -> huml.EQUALS(x.getCity(), \"Berlin\")))")
+        .javaResult("huml.LAST(huml.WHERE(model.getAddresses(), x -> huml.EQUALS(x.getCity(), \"Berlin\")))")
         .toStream();
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
   @MethodSource()
-  public void first_test_with_condition(String language, String expected)
+  public void last_test_with_condition(String language, String expected)
       throws Exception {
     GTE.execute(
         expected,
@@ -59,7 +58,7 @@ public class GeneratorFirstTest {
                 .withOperator(ASTComparisonOperator.EQUALS);
 
           ASTOperandFunctionBuilder builder = new ASTOperandFunctionBuilder();
-          builder.createFunction("FIRST")
+          builder.createFunction("LAST")
             .addParameterAsFunction("WHERE")
                 .addPropertyParameter("addresses")
                 .addLambdaConditionParameter(conditionBuilder.getModel(), "x");
@@ -69,15 +68,15 @@ public class GeneratorFirstTest {
         });
   }
 
-  private static Stream<Arguments> first_test_with_condition_and_amount() {
+  private static Stream<Arguments> last_test_with_condition_and_amount() {
     return ExpectationBuilder.newExpectation()
-        .javaResult("huml.FIRST(huml.WHERE(model.getAddresses(), x -> huml.EQUALS(x.getCity(), \"Berlin\")), 1.0)")
+        .javaResult("huml.LAST(huml.WHERE(model.getAddresses(), x -> huml.EQUALS(x.getCity(), \"Berlin\")), 1.0)")
         .toStream();
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
   @MethodSource()
-  public void first_test_with_condition_and_amount(String language, String expected)
+  public void last_test_with_condition_and_amount(String language, String expected)
       throws Exception {
     GTE.execute(
         expected,
@@ -89,7 +88,7 @@ public class GeneratorFirstTest {
                 .withOperator(ASTComparisonOperator.EQUALS);
 
           ASTOperandFunctionBuilder builder = new ASTOperandFunctionBuilder();
-          builder.createFunction("FIRST")
+          builder.createFunction("LAST")
             .addParameterAsFunction("WHERE")
                 .addPropertyParameter("addresses")
                 .addLambdaConditionParameter(conditionBuilder.getModel(), "x")
@@ -101,15 +100,15 @@ public class GeneratorFirstTest {
         });
   }
 
-  private static Stream<Arguments> first_test_with_condition_group_and_amount() {
+  private static Stream<Arguments> last_test_with_condition_group_and_amount() {
     return ExpectationBuilder.newExpectation()
-        .javaResult("huml.FIRST(huml.WHERE(model.getAddresses(), x -> (huml.EQUALS(x.getCity(), \"Berlin\") && huml.NOT_EQUALS(x.getCity(), x.getBirthplace()))), 1.0)")
+        .javaResult("huml.LAST(huml.WHERE(model.getAddresses(), x -> (huml.EQUALS(x.getCity(), \"Berlin\") && huml.NOT_EQUALS(x.getCity(), x.getBirthplace()))), 1.0)")
         .toStream();
   }
 
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
   @MethodSource()
-  public void first_test_with_condition_group_and_amount(String language, String expected)
+  public void last_test_with_condition_group_and_amount(String language, String expected)
       throws Exception {
     GTE.execute(
         expected,
@@ -129,7 +128,7 @@ public class GeneratorFirstTest {
 
 
           ASTOperandFunctionBuilder builder = new ASTOperandFunctionBuilder();
-          builder.createFunction("FIRST")
+          builder.createFunction("LAST")
             .addParameterAsFunction("WHERE")
                 .addPropertyParameter("addresses")
                 .addLambdaConditionParameter(groupBuilder.getModel(), "x")
