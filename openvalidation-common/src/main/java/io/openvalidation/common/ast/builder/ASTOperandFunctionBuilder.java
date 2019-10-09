@@ -63,11 +63,13 @@ public class ASTOperandFunctionBuilder
     return this.addParameter(new ASTOperandStaticNumber(number));
   }
 
-  public ASTOperandFunctionBuilder addLambdaConditionParameter(ASTOperandLambdaCondition condition) {
+  public ASTOperandFunctionBuilder addLambdaConditionParameter(
+      ASTOperandLambdaCondition condition) {
     return this.addParameter(condition);
   }
 
-  public ASTOperandFunctionBuilder addLambdaConditionParameter(ASTConditionBase condition, String lambdaToken) {
+  public ASTOperandFunctionBuilder addLambdaConditionParameter(
+      ASTConditionBase condition, String lambdaToken) {
     ASTOperandLambdaCondition lambdaCondition = new ASTOperandLambdaCondition(condition);
     lambdaCondition.setLambdaToken(lambdaToken);
     return addLambdaConditionParameter(lambdaCondition);
@@ -221,25 +223,23 @@ public class ASTOperandFunctionBuilder
         .addParameter(lambda);
   }
 
-  public ASTOperandFunctionBuilder createFirstFunction(String[] arrayProperty)
-  {
+  public ASTOperandFunctionBuilder createFirstFunction(String[] arrayProperty) {
     return createFirstFunction(arrayProperty, 1);
   }
 
-  public ASTOperandFunctionBuilder createFirstFunction(String[] arrayProperty, int amount)
-  {
+  public ASTOperandFunctionBuilder createFirstFunction(String[] arrayProperty, int amount) {
     return this.createFunction("FIRST")
-            .addPropertyParameter(arrayProperty)
-            .addNumberParameter(amount);
+        .addPropertyParameter(arrayProperty)
+        .addNumberParameter(amount);
   }
 
-    public ASTOperandFunctionBuilder createLastFunction(String[] arrayProperty) {
-      return createLastFunction(arrayProperty, 1);
-    }
+  public ASTOperandFunctionBuilder createLastFunction(String[] arrayProperty) {
+    return createLastFunction(arrayProperty, 1);
+  }
 
   public ASTOperandFunctionBuilder createLastFunction(String[] arrayProperty, int amount) {
     return this.createFunction("LAST")
-            .addPropertyParameter(arrayProperty)
-            .addNumberParameter(amount);
+        .addPropertyParameter(arrayProperty)
+        .addNumberParameter(amount);
   }
 }
