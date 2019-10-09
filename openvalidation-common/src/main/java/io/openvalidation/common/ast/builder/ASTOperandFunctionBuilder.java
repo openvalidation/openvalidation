@@ -63,8 +63,14 @@ public class ASTOperandFunctionBuilder
     return this.addParameter(new ASTOperandStaticNumber(number));
   }
 
-  public ASTOperandFunctionBuilder addConditionParameter(ASTConditionBase condition) {
+  public ASTOperandFunctionBuilder addLambdaConditionParameter(ASTOperandLambdaCondition condition) {
     return this.addParameter(condition);
+  }
+
+  public ASTOperandFunctionBuilder addLambdaConditionParameter(ASTConditionBase condition, String lambdaToken) {
+    ASTOperandLambdaCondition lambdaCondition = new ASTOperandLambdaCondition(condition);
+    lambdaCondition.setLambdaToken(lambdaToken);
+    return addLambdaConditionParameter(lambdaCondition);
   }
 
   public ASTOperandFunctionBuilder addLambdaParameter(String labdaToken, String... propertyPath) {
@@ -213,5 +219,13 @@ public class ASTOperandFunctionBuilder
         .withDataType(DataPropertyType.Array)
         .addPropertyParameter(arrayProperty)
         .addParameter(lambda);
+  }
+
+  public ASTOperandFunctionBuilder createFirstFunction(String[] arrayProperty, int amount)
+  {
+    return this.createFunction("FIRST")
+            .addPropertyParameter(arrayProperty)
+            .addNumberParameter(amount)
+            ;
   }
 }
