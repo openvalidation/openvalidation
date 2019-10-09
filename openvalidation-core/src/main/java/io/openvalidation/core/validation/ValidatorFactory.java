@@ -20,6 +20,7 @@ import io.openvalidation.common.ast.*;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
+import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.arithmetical.ASTOperandArithmetical;
 import io.openvalidation.common.ast.operand.arithmetical.ASTOperandArithmeticalItemBase;
@@ -45,6 +46,9 @@ public class ValidatorFactory {
 
     if (item instanceof ASTOperandVariable)
       return new ASTOperandVariableValidator((ASTOperandVariable) item);
+
+    if (item instanceof ASTOperandFunction)
+      return new ASTOperandFunctionValidator((ASTOperandFunction) item);
 
     if (item instanceof ASTUnknown) return new ASTUnknownValidator((ASTUnknown) item);
 
