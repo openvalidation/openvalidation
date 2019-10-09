@@ -33,8 +33,7 @@ public class GeneratorFirstTest {
           String[] addressPath = {"addresses"};
 
           ASTOperandFunctionBuilder builder = new ASTOperandFunctionBuilder();
-          builder.createFirstFunction(addressPath, 1);
-
+          builder.createFirstFunction(addressPath);
 
           return builder.getModel();
         });
