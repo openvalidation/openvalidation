@@ -159,6 +159,11 @@ namespace {{params.generated_class_namespace}}
             return operand.Count();
         }
 
+        public T atPosition<T>(IEnumerable<T> operand, int position)
+        {
+            return operand.ElementAt(position);
+        }
+
         public T[] WHERE<T>(T[] operand, Func<T,bool> function)
         {
             return operand.Where(function).ToArray();
