@@ -8,12 +8,12 @@ public class UnkownNode extends GenericNode {
   private OperandNode content;
 
   public UnkownNode(OperandNode content, DocumentSection section) {
-    super.initializeElement(section);
+    super(section);
     this.content = content;
   }
 
   public UnkownNode(DocumentSection section) {
-    super.initializeElement(section);
+    super(section);
   }
 
   public OperandNode getContent() {

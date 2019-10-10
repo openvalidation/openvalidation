@@ -33,9 +33,7 @@ public class RuleNode extends GenericNode {
   private ConditionNode condition;
 
   public RuleNode(ASTRule rule, DocumentSection section, String culture) {
-    List<String> relevantKeywords =
-        Aliases.getAliasByToken(culture, Constants.IF_TOKEN, Constants.THEN_TOKEN);
-    super.initializeElement(section, relevantKeywords);
+    super(section);
 
     ASTActionError actionError = (ASTActionError) rule.getAction();
     if (actionError != null) {
