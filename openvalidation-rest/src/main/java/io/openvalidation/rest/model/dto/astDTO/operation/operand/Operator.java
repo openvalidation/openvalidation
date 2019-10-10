@@ -28,7 +28,7 @@ public class Operator extends GenericNode {
   private ASTComparisonOperator operator;
 
   public Operator(ASTCondition astCondition, DocumentSection section) {
-    super.initializeElement(section);
+    super(section);
 
     this.operator = astCondition.getOperator();
     this.validType = astCondition.getOperator().validDataType();

@@ -8,7 +8,7 @@ public class ActionErrorNode extends GenericNode {
   private String errorMessage;
 
   public ActionErrorNode(DocumentSection section, ASTActionError error) {
-    super.initializeElement(section);
+    super(section);
     this.errorMessage = error.getErrorMessage();
   }
 
