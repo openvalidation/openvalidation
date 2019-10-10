@@ -31,7 +31,7 @@ public class OperandNode extends GenericNode {
   private boolean isStatic;
 
   public OperandNode(ASTOperandBase operand, DocumentSection section) {
-    super.initializeElement(section);
+    super(section);
 
     if (operand != null) {
       this.dataType = operand.getDataType();
@@ -61,7 +61,7 @@ public class OperandNode extends GenericNode {
   }
 
   public OperandNode(DataPropertyType dataType, DocumentSection section) {
-    super.initializeElement(section);
+    super(section);
 
     this.dataType = dataType;
     this.name = name;

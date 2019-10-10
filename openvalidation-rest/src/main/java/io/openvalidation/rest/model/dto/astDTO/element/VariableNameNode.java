@@ -7,7 +7,7 @@ public class VariableNameNode extends GenericNode {
   private String name;
 
   public VariableNameNode(DocumentSection section, String name) {
-    super.initializeElement(section);
+    super(section);
 
     this.name = name;
   }

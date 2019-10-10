@@ -24,7 +24,7 @@ public class CommentNode extends GenericNode {
   private String content;
 
   public CommentNode(ASTComment comment, DocumentSection section) {
-    super.initializeElement(section);
+    super(section);
 
     this.content = String.join("\n", comment.getContent());
   }
