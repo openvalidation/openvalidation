@@ -31,8 +31,7 @@ public class VariableNode extends GenericNode {
   private VariableNameNode nameNode;
 
   public VariableNode(ASTVariable variable, DocumentSection section, String culture) {
-    List<String> relevantKeywords = Aliases.getAliasByToken(culture, Constants.AS_TOKEN);
-    super.initializeElement(section, relevantKeywords);
+    super(section);
 
     DocumentSection operandSection = new RangeGenerator(section).generate(variable.getValue());
 
