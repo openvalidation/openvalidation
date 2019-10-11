@@ -18,5 +18,9 @@
   "Python": {
     "extension": "py",
     "short": "python"
+  },
+  "Rust": {
+    "extension": "rs",
+    "short": "rust"
   }
 }
