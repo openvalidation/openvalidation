@@ -27,7 +27,7 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
     if (function.getName().equals("FIRST") || function.getName().equals("LAST")) {
       if (parameters.isEmpty())
         throw new ASTValidationException(
-            "The function " + function.getName() + " requires at least one operator", function);
+            "The function " + function.getName() + " requires at least one parameter", function);
       else {
         if (parameters.size() <= 3) {
           // validate first parameter
@@ -37,14 +37,14 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
             throw new ASTValidationException(
                 "The function "
                     + function.getName()
-                    + " has to be applied on an array or a nested function. Currently applied on "
+                    + " has to be applied on an array property or a nested function. Currently applied on "
                     + firstParam.getClass().getSimpleName(),
                 function);
           } else if (firstParam.getDataType() != DataPropertyType.Array) {
             throw new ASTValidationException(
                 "The function "
                     + function.getName()
-                    + " has to be applied on a property of type 'Array'. But is applied on property fo type '"
+                    + " has to be applied on a property of type 'Array'. But is applied on property of type '"
                     + firstParam.getDataType()
                     + "'",
                 function);
