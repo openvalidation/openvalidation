@@ -164,6 +164,36 @@ namespace {{params.generated_class_namespace}}
             return operand.ElementAt(position);
         }
 
+        public T[] FIRST<T>(IEnumerable<T> operand, int amount)
+        {
+            return operand.Take(amount).ToArray();
+        }
+        
+        public T[] FIRST<T>(IEnumerable<T> operand)
+        {
+            return FIRST(operand, 1);
+        }
+        
+        public T[] FIRST<T>(IEnumerable<T> operand, Func<T,T> selector, int amount)
+        {
+            return operand.Select(selector).Take(amount).ToArray();
+        }
+        
+        public T[] LAST<T>(IEnumerable<T> operand, Func<T,T> selector, int amount)
+        {
+            return FIRST(operand.Reverse(), selector, amount).Reverse().ToArray();
+        }
+        
+        public T[] LAST<T>(IEnumerable<T> operand, int amount)
+        {
+            return FIRST(operand.Reverse(), amount).Reverse().ToArray();
+        }
+        
+        public T[] LAST<T>(IEnumerable<T> operand)
+        {
+            return FIRST(operand.Reverse()).Reverse().ToArray();
+        }
+
         public T[] WHERE<T>(T[] operand, Func<T,bool> function)
         {
             return operand.Where(function).ToArray();
