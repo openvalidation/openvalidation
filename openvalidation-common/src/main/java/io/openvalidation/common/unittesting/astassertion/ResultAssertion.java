@@ -48,8 +48,7 @@ public class ResultAssertion extends ASTAssertionBase<ModelRootAssertion> {
 
       writeExpectedAndActual(
           "VALIDATION MESSAGE  : " + error,
-          "VALIDATION MESSAGES : "
-              + StringUtils.join(result.getAllErrorMessages(), "\n                      "));
+          "VALIDATION MESSAGES : " + StringUtils.join(result.getAllErrorMessages(), "\n                      "));
     }
 
     return new ASTValidationAssertion("VALIDATION EXCEPTION", exception, this);
