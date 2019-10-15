@@ -89,5 +89,9 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
         }
       }
     }
+
+    for (ASTOperandBase operandBase : parameters) {
+      validate(operandBase);
+    }
   }
 }
