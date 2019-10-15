@@ -123,7 +123,8 @@ public class OpenValidationResult {
 
   public List<CodeGenerationResult> getImplementationResults() {
     return this.getResults().stream()
-        .filter(r -> r.getCodeKind() == CodeKind.Implementation)
+        .filter(
+            r -> r.getCodeKind() == CodeKind.Implementation || r.getCodeKind() == CodeKind.Combined)
         .collect(Collectors.toList());
   }
 
