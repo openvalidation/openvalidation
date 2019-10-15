@@ -52,4 +52,22 @@ public class LastTest {
             r.containsValidationMessage(
                 "The function LAST has to be applied on an array property or a nested function. Currently applied on ASTOperandStaticString"));
   }
+  
+  @Test
+  void lambda_condition_with_missing_right_operand() throws Exception {
+    // check if validation of parameters is triggered
+    runner.run(
+        "LAST from numbers with val greater than AS var",
+        "{numbers: [{val: 12}]}",
+        r -> r.containsValidationMessage("missing right operand in condition"));
+  }
+
+  @Test
+  void lambda_condition_with_missing_left_operand() throws Exception {
+    // check if validation of parameters is triggered
+    runner.run(
+        "LAST from numbers with greater than val AS var",
+        "{numbers: [{val: 12}]}",
+        r -> r.containsValidationMessage("missing left operand in condition"));
+  }
 }
