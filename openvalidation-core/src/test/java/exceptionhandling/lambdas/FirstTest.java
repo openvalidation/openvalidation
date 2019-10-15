@@ -62,4 +62,13 @@ public class FirstTest {
         "{numbers: [{val: 12}]}",
         r -> r.containsValidationMessage("missing right operand in condition"));
   }
+
+  @Test
+  void lambda_condition_with_missing_left_operand() throws Exception {
+    // check if validation of parameters is triggered
+    runner.run(
+        "FIRST from numbers with greater than val AS var",
+        "{numbers: [{val: 12}]}",
+        r -> r.containsValidationMessage("missing left operand in condition"));
+  }
 }

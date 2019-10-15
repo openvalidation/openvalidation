@@ -163,9 +163,10 @@ public class PTLambdaTransformer
 
                 if (property != null) {
                   ASTCondition cnd = w.getParentAs(ASTCondition.class);
-                  if (cnd.getLeftOperand().equals(w.getCurrent())) {
+                  if (cnd.hasLeftOperand() && cnd.getLeftOperand().equals(w.getCurrent())) {
                     cnd.setLeftOperand(property);
-                  } else if (cnd.getRightOperand().equals(w.getCurrent())) {
+                  } else if (cnd.hasRightOperand()
+                      && cnd.getRightOperand().equals(w.getCurrent())) {
                     cnd.setRightOperand(property);
                   }
                 }
