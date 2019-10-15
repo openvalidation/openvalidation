@@ -49,7 +49,7 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
                     + "'",
                 function);
           }
-          // validate second parameter if present
+          // FIRST [array/function] [amount/condition]
           if (parameters.size() == 2) {
             ASTOperandBase secondParam = parameters.get(1);
             if (!(secondParam instanceof ASTOperandStaticNumber
@@ -61,6 +61,7 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
                       + secondParam.getClass().getSimpleName(),
                   function);
             }
+            // FIRST [array/function] [condition] [amount]
           } else if (parameters.size() == 3) {
             ASTOperandBase secondParam = parameters.get(1);
             if (!(secondParam instanceof ASTOperandLambdaCondition)) {
@@ -86,6 +87,70 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
         } else {
           throw new ASTValidationException(
               "Invalid number of parameters (" + parameters.size() + ")", function);
+        }
+      }
+    }
+    else if(function.getName().equals("TAKE"))
+    {
+      if (parameters.isEmpty() || parameters.size() == 1)
+        throw new ASTValidationException(
+            "The function " + function.getName() + " requires at least two parameters", function);
+      else {
+        ASTOperandBase firstParam = parameters.get(0);
+
+        if(parameters.size() <= 3){
+          //assert first parameter (the array/function)
+          if (!(firstParam instanceof ASTOperandProperty)
+              && !(firstParam instanceof ASTOperandFunction)) {
+            throw new ASTValidationException(
+                "The function "
+                    + function.getName()
+                    + " has to be applied on an array property or a nested function. Currently applied on "
+                    + firstParam.getClass().getSimpleName(),
+                function);
+          } else if (firstParam.getDataType() != DataPropertyType.Array) {
+            throw new ASTValidationException(
+                "The function "
+                    + function.getName()
+                    + " has to be applied on a property of type 'Array'. But is applied on property of type '"
+                    + firstParam.getDataType()
+                    + "'",
+                function);
+          }
+          // TAKE [array/function] [amount]
+          if(parameters.size() == 2){
+            ASTOperandBase secondParam = parameters.get(1);
+            if(!(secondParam instanceof ASTOperandStaticNumber)){
+              throw new ASTValidationException(
+                  "The function "
+                      + function.getName()
+                      + " takes an integer as the second parameter. Current second parameter is "
+                      + secondParam.getClass().getSimpleName(),
+                  function);
+            }
+          }
+          // TAKE [array/function] [condition] [amount]
+          else{
+            ASTOperandBase secondParam = parameters.get(1);
+            if(!(secondParam instanceof ASTOperandLambdaCondition)) {
+              throw new ASTValidationException(
+                  "The function "
+                          + function.getName()
+                          + " takes a lambda condition as the second parameter. Current second parameter is "
+                          + secondParam.getClass().getSimpleName(),
+                  function);
+            }
+
+            ASTOperandBase thirdParam = parameters.get(2);
+            if(!(thirdParam instanceof ASTOperandStaticNumber)) {
+              throw new ASTValidationException(
+                  "The function "
+                          + function.getName()
+                          + " takes an integer as the third parameter. Current third parameter is "
+                          + thirdParam.getClass().getSimpleName(),
+                  function);
+            }
+          }
         }
       }
     }
