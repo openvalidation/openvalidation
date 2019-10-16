@@ -131,6 +131,73 @@ namespace {{params.generated_class_namespace}}
         {
             return rightOperand.Any(i => i.Equals(leftOperand));
         }
+        
+        public bool AT_LEAST_ONE_OF<T>(T leftOperand, params T[] rightOperand)
+        {
+            return ONE_OF(leftOperand, rightOperand);
+        }
+
+        public bool NONE_OF<T>(T leftOperand, params T[] rightOperand)
+        {
+            return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
+        }
+                                                                                    
+        public Decimal SUM_OF<T>(params T[] operand)
+        {
+            List<Decimal> dec = new List<decimal>();
+            operand.ToList().ForEach(x => dec.Add(Convert.ToDecimal(x)));
+            return dec.Sum();
+        }
+
+        public T[] getArrayOf<T>(IEnumerable<T> operand)
+        {
+            return operand.ToArray();
+        }
+
+        public int sizeOf<T>(IEnumerable<T> operand)
+        {
+            return operand.Count();
+        }
+
+        public T atPosition<T>(IEnumerable<T> operand, int position)
+        {
+            return operand.ElementAt(position);
+        }
+
+        public T[] FIRST<T>(IEnumerable<T> operand, int amount)
+        {
+            return operand.Take(amount).ToArray();
+        }
+        
+        public T[] FIRST<T>(IEnumerable<T> operand)
+        {
+            return FIRST(operand, 1);
+        }
+        
+        public T[] FIRST<T>(IEnumerable<T> operand, Func<T,T> selector, int amount)
+        {
+            return operand.Select(selector).Take(amount).ToArray();
+        }
+        
+        public T[] LAST<T>(IEnumerable<T> operand, Func<T,T> selector, int amount)
+        {
+            return FIRST(operand.Reverse(), selector, amount).Reverse().ToArray();
+        }
+        
+        public T[] LAST<T>(IEnumerable<T> operand, int amount)
+        {
+            return FIRST(operand.Reverse(), amount).Reverse().ToArray();
+        }
+        
+        public T[] LAST<T>(IEnumerable<T> operand)
+        {
+            return FIRST(operand.Reverse()).Reverse().ToArray();
+        }
+
+        public T[] WHERE<T>(T[] operand, Func<T,bool> function)
+        {
+            return operand.Where(function).ToArray();
+        }
 
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {

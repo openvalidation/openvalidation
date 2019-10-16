@@ -53,12 +53,12 @@ public class OpenValidationGenerator implements IOpenValidationGenerator {
         if (template.equalsIgnoreCase("main"))
           throw new OpenValidationException(
               "Generation of '"
-                  + language
+                  + language.getName()
                   + "' Language is not implemented. Missing main.hbs template.");
         else
           throw new OpenValidationException(
               "Generation of '"
-                  + language
+                  + language.getName()
                   + "' Language failed. Missing '"
                   + templateFile
                   + "' template.");
