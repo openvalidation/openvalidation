@@ -1,6 +1,10 @@
 var HUMLFramework = function() {
     this.rules = [];
 
+    this.CLEAN = function(){
+        this.rules = [];
+    }
+
     this.appendRule = function(name, fields, error, condition, disabled) {
             this.rules.push( {
                 name : name,
