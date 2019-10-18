@@ -18,6 +18,7 @@ package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.common.ast.ASTActionError;
 import io.openvalidation.common.ast.ASTRule;
+import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
@@ -37,7 +38,7 @@ public class RuleNode extends GenericNode {
 
     ASTActionError actionError = (ASTActionError) rule.getAction();
     if (actionError != null) {
-      this.errorNode = this.generateErrorNode(actionError);
+      this.errorNode = this.generateErrorNode(rule, actionError, culture);
     }
 
     if (rule.getCondition() != null) {
@@ -47,10 +48,24 @@ public class RuleNode extends GenericNode {
     }
   }
 
-  private ActionErrorNode generateErrorNode(ASTActionError actionError) {
+  private ActionErrorNode generateErrorNode(
+      ASTRule rule, ASTActionError actionError, String culture) {
+
+    // Look for the "THEN"-Keyword
+    List<String> thenKeyword = Aliases.getAliasByToken(culture, Constants.THEN_TOKEN);
+    String actionErrorString;
+
+    actionErrorString = actionError.getErrorMessage();
+    if (thenKeyword.size() > 0) {
+      actionErrorString = thenKeyword.get(0) + " " + actionErrorString;
+    }
+
     DocumentSection section =
-        new RangeGenerator(this.getLines(), this.getRange()).generate(actionError);
-    if (section == null) {
+        new RangeGenerator(this.getLines(), this.getRange()).generate(actionErrorString);
+
+    // In a constrained rule, the whole rule is the action error
+    if (section == null
+        && rule.getAllConditions().stream().anyMatch(ASTCondition::isConstrainedCondition)) {
       section =
           new DocumentSection(
               this.getRange(), Arrays.asList(actionError.getErrorMessage().split("\n")));
