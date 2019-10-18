@@ -35,6 +35,11 @@ public class UnkownElementParser {
   private OVParams parameter;
 
   public UnkownElementParser(ASTModel astModel, OVParams parameter) {
+    if (astModel == null)
+      astModel = new ASTModel();
+    if (astModel.getElements().size() == 0 && parameter != null)
+      astModel.add(new ASTUnknown(parameter.getRule()));
+
     this.astModel = astModel;
     this.parameter = parameter;
   }
