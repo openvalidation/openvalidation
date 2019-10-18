@@ -42,7 +42,7 @@ public class OperationNode extends ConditionNode {
     super(section, conditionBase.getConnector(), culture);
 
     List<String> foundAliases = new ArrayList<>();
-    if (conditionBase.getOriginalSource() != null) {
+    if (!conditionBase.isConstrainedCondition() && conditionBase.getOriginalSource() != null) {
       String mustKeyword = Constants.MUST_TOKEN;
       List<String> mustAliases = Aliases.getAliasByToken(culture, mustKeyword);
       foundAliases =
@@ -53,6 +53,9 @@ public class OperationNode extends ConditionNode {
               .collect(Collectors.toList());
     }
     this.constrained = conditionBase.isConstrainedCondition() || foundAliases.size() > 0;
+
+    if (section == null || section.isEmpty())
+      return;
 
     List<String> leftLines = new ArrayList<>();
     List<String> rightLines = new ArrayList<>();

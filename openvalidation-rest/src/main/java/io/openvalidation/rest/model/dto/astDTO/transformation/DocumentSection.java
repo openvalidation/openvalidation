@@ -76,4 +76,8 @@ public class DocumentSection {
 
     return this;
   }
+
+  public boolean isEmpty() {
+    return this.range == null && this.lines.size() == 0;
+  }
 }

@@ -51,12 +51,7 @@ public class CompletionParsingController {
 
     try {
       result = ovService.generate(parameters, false);
-
-      ASTModel astModel = result.getASTModel();
-      if (astModel == null) astModel = new ASTModel();
-      if (astModel.getElements().size() == 0) astModel.add(new ASTUnknown(parameters.getRule()));
-
-      astItemList = new UnkownElementParser(astModel, parameters).generate(ovService);
+      astItemList = new UnkownElementParser(result.getASTModel(), parameters).generate(ovService);
 
     } catch (Exception e) {
       e.printStackTrace();

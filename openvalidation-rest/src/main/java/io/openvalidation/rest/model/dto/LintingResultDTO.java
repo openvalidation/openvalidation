@@ -42,8 +42,8 @@ public class LintingResultDTO {
     if (ovResult == null)
       throw new IllegalArgumentException("OpenValidationResult should not be null");
 
-    TreeTransformer transformator = new TreeTransformer(ovResult, astItemList, parameters);
-    MainNode node = transformator.transform(parameters.getRule());
+    TreeTransformer transformer = new TreeTransformer(ovResult, astItemList, parameters);
+    MainNode node = transformer.transform(parameters.getRule());
     this.setMainAstNode(node);
 
     try {
@@ -55,8 +55,10 @@ public class LintingResultDTO {
 
     if (node.getRange() == null) {
       String[] splittedDocument = parameters.getRule().split("\n");
-      Position startPosition = new Position(0,0);
-      Position endPosition = new Position(splittedDocument.length - 1, splittedDocument[splittedDocument.length - 1].length());
+      Position startPosition = new Position(0, 0);
+      Position endPosition =
+          new Position(
+              splittedDocument.length - 1, splittedDocument[splittedDocument.length - 1].length());
       node.setRange(new Range(startPosition, endPosition));
     }
 

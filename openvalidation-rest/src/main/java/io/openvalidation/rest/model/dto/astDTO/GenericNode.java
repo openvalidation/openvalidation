@@ -17,7 +17,6 @@
 package io.openvalidation.rest.model.dto.astDTO;
 
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
-import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
