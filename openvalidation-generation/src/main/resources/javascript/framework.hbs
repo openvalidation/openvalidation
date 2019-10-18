@@ -165,4 +165,46 @@ var HUMLFramework = function() {
             return value;
         }
     }
+
+    this.sizeOf = function(operand){
+        if(operand != null && operand.length)
+                return operand.length;
+        return 0;
+    }
+
+    this.atPosition = function(arr, pos){
+        if(arr != null && arr.length && pos > 0 && pos <= arr.length)
+                return arr[pos-1];
+        return null;
+    }
+
+    this.FIRST = function(operand, amount){
+        if(operand != null){
+            if(operand.length && operand.length > amount){
+                var out = [];
+                for(var x=0; x < amount && x < operand.length; x++){
+                    out.push(operand[x]);
+                }
+                return out.length == 1 ? out[0] : out;
+            }
+            return operand;
+        }
+        return null;
+    }
+
+    this.LAST = function(operand, amount){
+        if(operand != null){
+            if(operand.length && operand.length > amount){
+                var out = [];
+                var len = operand.length - amount;
+                len = len < 0 ? 0 : len;
+                for(var x=len; x < operand.length; x++){
+                    out.push(operand[x]);
+                }
+                return out.length == 1 ? out[0] : out;
+            }
+            return operand;
+        }
+        return null;
+    }
 }

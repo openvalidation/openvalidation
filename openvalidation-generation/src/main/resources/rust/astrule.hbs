@@ -1,0 +1,9 @@
+
+    huml.append_rule(
+        "{{name}}",
+        {{tmpl "action"}},
+        huml::RuleToggle::Enabled,
+        vec![{{tmpl "relatedfields"}}],
+        {{#if allParentProperties}}(({{#allParentProperties}}{{tmpl "precondition"}}{{#unless @last}}and{{/unless}}{{/allParentProperties}})and{{/if}}{{#condition}}{{tmpl}}{{/condition}}{{#if allParentProperties}})){{/if}},
+    );
+}
