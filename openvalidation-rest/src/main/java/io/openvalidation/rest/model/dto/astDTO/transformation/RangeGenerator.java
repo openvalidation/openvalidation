@@ -117,16 +117,23 @@ public class RangeGenerator {
       int outerStartLine,
       int outerStartColumn,
       int lineNumber) {
+    int startColumnNumber = -1;
     Matcher startPattern =
         Pattern.compile("(?i)\\b" + startLine.trim() + "\\b").matcher(currentLine);
     if (startPattern.find()) {
+      startColumnNumber = startPattern.start();
+    } else {
+      startColumnNumber = currentLine.toLowerCase().indexOf(startLine.toLowerCase());
+    }
+
+    if (startColumnNumber != -1) {
       int startLineNumber = outerStartLine + lineNumber;
 
-      int startColumnNumber = startPattern.start();
-      if (startLineNumber == outerStartLine) startColumnNumber += outerStartColumn;
-
+      if (startLineNumber == outerStartLine)
+        startColumnNumber += outerStartColumn;
       return new Position(startLineNumber, startColumnNumber);
     }
+
     return null;
   }
 
@@ -137,14 +144,22 @@ public class RangeGenerator {
       String startLine,
       int outerStartLine,
       int lineNumber) {
+    int startIndex = -1;
     Matcher endPattern = Pattern.compile("(?i)\\b" + endLine.trim() + "\\b").matcher(currentLine);
     if (endPattern.find()) {
+      startIndex = endPattern.start();
+    } else {
+      startIndex = currentLine.toLowerCase().indexOf(endLine.toLowerCase());
+    }
+
+    if (startIndex != -1) {
       int column =
-          startLine.equals(endLine) && startPosition != null
-              ? startPosition.getColumn() + endLine.length()
-              : endPattern.start() + endLine.length();
+              startLine.equals(endLine) && startPosition != null
+                      ? startPosition.getColumn() + endLine.length()
+                      : endPattern.start() + endLine.length();
       return new Position(outerStartLine + lineNumber, column);
     }
+
     return null;
   }
 }
