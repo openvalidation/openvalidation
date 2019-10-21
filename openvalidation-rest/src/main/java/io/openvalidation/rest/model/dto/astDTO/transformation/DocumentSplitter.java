@@ -27,6 +27,7 @@ public class DocumentSplitter {
 
   public ArrayList<DocumentSection> splitDocument() {
     ArrayList<DocumentSection> sections = new ArrayList<>();
+    if (this.wholeDocument == null) return sections;
 
     String[] splittedDocument = this.wholeDocument.split("\n");
 

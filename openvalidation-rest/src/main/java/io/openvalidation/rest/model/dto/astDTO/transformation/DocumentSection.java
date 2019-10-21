@@ -80,4 +80,13 @@ public class DocumentSection {
   public boolean isEmpty() {
     return this.range == null && this.lines.size() == 0;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof DocumentSection) {
+      return ((DocumentSection) obj).lines.equals(this.lines) &&
+              ((DocumentSection) obj).range.equals(this.range);
+    }
+    return false;
+  }
 }

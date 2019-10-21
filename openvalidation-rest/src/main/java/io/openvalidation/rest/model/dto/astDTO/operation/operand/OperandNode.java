@@ -25,6 +25,9 @@ import io.openvalidation.rest.model.dto.astDTO.Range;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class OperandNode extends GenericNode {
   private DataPropertyType dataType;
   private String name;
@@ -92,7 +95,12 @@ public class OperandNode extends GenericNode {
   }
 
   private Range getRangeOnlyForOperand(DocumentSection section) {
-    DocumentSection newSection = new RangeGenerator(section).generate(this.getName());
+    if (section == null) return null;
+
+      List<String> lowerCaseLines = section.getLines().stream().map(String::toLowerCase).collect(Collectors.toList());
+      DocumentSection lowerCaseSection = new DocumentSection(section.getRange(), lowerCaseLines);
+      DocumentSection newSection = new RangeGenerator(lowerCaseSection).generate(this.getName().toLowerCase());
+
     if (newSection != null
         && newSection.getRange() != null
         && newSection.getRange().getStart() != null
