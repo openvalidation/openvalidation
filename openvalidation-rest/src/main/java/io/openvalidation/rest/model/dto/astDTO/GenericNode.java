@@ -19,6 +19,7 @@ package io.openvalidation.rest.model.dto.astDTO;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class GenericNode {
   private List<String> lines;
@@ -28,7 +29,7 @@ public abstract class GenericNode {
     if (section == null) {
       this.lines = new ArrayList<>();
     } else {
-      this.lines = section.getLines();
+      this.lines = section.getLines().stream().map(line -> line.replace("\r", "")).collect(Collectors.toList());
       this.range = section.getRange();
     }
   }
@@ -38,7 +39,7 @@ public abstract class GenericNode {
   }
 
   public void setLines(List<String> lines) {
-    this.lines = lines;
+    this.lines = lines.stream().map(line -> line.replace("\r", "")).collect(Collectors.toList());
   }
 
   public Range getRange() {
