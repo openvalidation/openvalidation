@@ -28,9 +28,6 @@ public class UnkownElementParserTest {
 
   @InjectMocks private OpenValidationServiceImpl ovService;
 
-  @BeforeEach
-  private void setUpMocks() throws Exception {}
-
   @Test
   public void generate_with_null_arguments_expected_no_error() throws Exception {
     UnkownElementParser parser = new UnkownElementParser(null, null);

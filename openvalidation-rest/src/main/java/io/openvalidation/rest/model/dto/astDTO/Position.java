@@ -45,4 +45,12 @@ public class Position {
   public void setColumn(int column) {
     this.column = column;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof Position) {
+      return ((Position) obj).column == this.column && ((Position) obj).line == this.line;
+    }
+    return false;
+  }
 }
