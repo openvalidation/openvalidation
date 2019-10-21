@@ -23,17 +23,15 @@ import io.openvalidation.rest.model.dto.astDTO.Range;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.regex.*;
+import java.util.stream.Collectors;
 
 public class RangeGenerator {
   private List<String> outerLines;
   private Range outerRange;
 
   public RangeGenerator(String text) {
-    this.outerLines = text != null && !text.isEmpty()
-            ? Arrays.asList(text.split("\n"))
-            : null;
+    this.outerLines = text != null && !text.isEmpty() ? Arrays.asList(text.split("\n")) : null;
     this.outerRange = null;
   }
 
@@ -82,10 +80,12 @@ public class RangeGenerator {
 
     for (String line : this.outerLines) {
       if (startPosition == null) {
-        startPosition = getStartPosition(startLine, line, outerStartLine, outerStartColumn, lineNumber);
+        startPosition =
+            getStartPosition(startLine, line, outerStartLine, outerStartColumn, lineNumber);
       }
       if (endPosition == null) {
-        endPosition = getEndPosition(endLine, line, startPosition, startLine, outerStartLine, lineNumber);
+        endPosition =
+            getEndPosition(endLine, line, startPosition, startLine, outerStartLine, lineNumber);
       }
 
       if (endPosition != null && startPosition != null) {
@@ -111,8 +111,14 @@ public class RangeGenerator {
     return null;
   }
 
-  private Position getStartPosition(String startLine, String currentLine, int outerStartLine, int outerStartColumn, int lineNumber) {
-    Matcher startPattern = Pattern.compile("(?i)\\b" + startLine.trim() + "\\b").matcher(currentLine);
+  private Position getStartPosition(
+      String startLine,
+      String currentLine,
+      int outerStartLine,
+      int outerStartColumn,
+      int lineNumber) {
+    Matcher startPattern =
+        Pattern.compile("(?i)\\b" + startLine.trim() + "\\b").matcher(currentLine);
     if (startPattern.find()) {
       int startLineNumber = outerStartLine + lineNumber;
 
@@ -124,16 +130,21 @@ public class RangeGenerator {
     return null;
   }
 
-  private Position getEndPosition(String endLine, String currentLine, Position startPosition, String startLine, int outerStartLine, int lineNumber) {
-    Matcher endPattern =  Pattern.compile("(?i)\\b" + endLine.trim() + "\\b").matcher(currentLine);
+  private Position getEndPosition(
+      String endLine,
+      String currentLine,
+      Position startPosition,
+      String startLine,
+      int outerStartLine,
+      int lineNumber) {
+    Matcher endPattern = Pattern.compile("(?i)\\b" + endLine.trim() + "\\b").matcher(currentLine);
     if (endPattern.find()) {
       int column =
-              startLine.equals(endLine) && startPosition != null
-                      ? startPosition.getColumn() + endLine.length()
-                      : endPattern.start() + endLine.length();
+          startLine.equals(endLine) && startPosition != null
+              ? startPosition.getColumn() + endLine.length()
+              : endPattern.start() + endLine.length();
       return new Position(outerStartLine + lineNumber, column);
     }
     return null;
   }
-
 }

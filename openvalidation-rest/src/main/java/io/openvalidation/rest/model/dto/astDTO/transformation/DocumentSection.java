@@ -84,8 +84,8 @@ public class DocumentSection {
   @Override
   public boolean equals(Object obj) {
     if (obj instanceof DocumentSection) {
-      return ((DocumentSection) obj).lines.equals(this.lines) &&
-              ((DocumentSection) obj).range.equals(this.range);
+      return ((DocumentSection) obj).lines.equals(this.lines)
+          && ((DocumentSection) obj).range.equals(this.range);
     }
     return false;
   }

@@ -54,8 +54,7 @@ public class OperationNode extends ConditionNode {
     }
     this.constrained = conditionBase.isConstrainedCondition() || foundAliases.size() > 0;
 
-    if (section == null || section.isEmpty())
-      return;
+    if (section == null || section.isEmpty()) return;
 
     List<String> leftLines = new ArrayList<>();
     List<String> rightLines = new ArrayList<>();

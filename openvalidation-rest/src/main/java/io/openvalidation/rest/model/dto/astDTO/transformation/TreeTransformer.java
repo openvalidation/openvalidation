@@ -39,7 +39,9 @@ public class TreeTransformer {
   public TreeTransformer(
       OpenValidationResult result, List<ASTItem> astItemList, OVParams parameters) {
     this.variables =
-        result.getASTModel() != null ? result.getASTModel().getVariables() : new ArrayList<>();
+        result != null && result.getASTModel() != null
+            ? result.getASTModel().getVariables()
+            : new ArrayList<>();
 
     this.astItems = astItemList;
     this.parameters = parameters;
