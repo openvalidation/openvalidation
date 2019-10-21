@@ -56,4 +56,15 @@ public class MainNode {
   public void setRange(Range range) {
     this.range = range;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof MainNode) {
+      return (((MainNode) obj).range == null && this.range == null
+              || ((MainNode) obj).range.equals(this.range))
+          && ((MainNode) obj).declarations.equals(this.declarations)
+          && ((MainNode) obj).scopes.equals(this.scopes);
+    }
+    return false;
+  }
 }
