@@ -52,4 +52,14 @@ public abstract class GenericNode {
   public String getType() {
     return this.getClass().getSimpleName();
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof GenericNode) {
+      return obj.getClass().equals(this.getClass())
+          && ((GenericNode) obj).range.equals(this.range)
+          && ((GenericNode) obj).lines.equals(this.lines);
+    }
+    return false;
+  }
 }

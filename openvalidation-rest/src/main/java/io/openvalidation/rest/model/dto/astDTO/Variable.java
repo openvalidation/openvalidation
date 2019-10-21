@@ -43,4 +43,13 @@ public class Variable {
   public void setDataType(DataPropertyType dataType) {
     this.dataType = dataType;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof Variable) {
+      return ((Variable) obj).name.equals(this.name)
+          && ((Variable) obj).dataType.equals(this.dataType);
+    }
+    return false;
+  }
 }
