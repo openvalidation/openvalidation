@@ -104,7 +104,7 @@ public class LintingResultDTO {
         sourceString.isEmpty() ? String.join("\n", generatedNode.getLines()) : sourceString;
     DocumentSection newSection =
         new RangeGenerator(generatedNode.getLines(), generatedNode.getRange())
-            .generate(sourceString);
+            .generate(sourceString + "\r");
     errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
   }
 
