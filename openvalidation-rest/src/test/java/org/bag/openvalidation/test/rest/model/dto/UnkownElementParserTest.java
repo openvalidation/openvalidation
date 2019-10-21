@@ -16,12 +16,10 @@ import io.openvalidation.rest.service.OVParams;
 import io.openvalidation.rest.service.OpenValidationServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 
 @ExtendWith(MockitoExtension.class)
 public class UnkownElementParserTest {
@@ -40,14 +38,14 @@ public class UnkownElementParserTest {
 
   @Test
   public void generate_with_string_expect_static_string_operand() throws Exception {
-      OVParams parameter = new OVParams("Test", "{ Alter: 30 }", "en", "Java");
-      OpenValidationResult result = ovService.generate(parameter);
-      ASTModel astModel = result.getASTModel();
+    OVParams parameter = new OVParams("Test", "{ Alter: 30 }", "en", "Java");
+    OpenValidationResult result = ovService.generate(parameter);
+    ASTModel astModel = result.getASTModel();
 
-      UnkownElementParser parser = new UnkownElementParser(astModel, parameter);
+    UnkownElementParser parser = new UnkownElementParser(astModel, parameter);
 
-      List<ASTItem> expected = new ArrayList<>();
-      List<ASTItem> actual = parser.generate(ovService);
+    List<ASTItem> expected = new ArrayList<>();
+    List<ASTItem> actual = parser.generate(ovService);
 
     assertThat(actual.get(0), instanceOf(ASTOperandStaticString.class));
   }
@@ -89,7 +87,8 @@ public class UnkownElementParserTest {
     List<ASTItem> actual = parser.generate(ovService);
 
     assertThat(actual.get(0), instanceOf(ASTCondition.class));
-    assertThat(((ASTCondition) actual.get(0)).getLeftOperand(), instanceOf(ASTOperandProperty.class));
+    assertThat(
+        ((ASTCondition) actual.get(0)).getLeftOperand(), instanceOf(ASTOperandProperty.class));
     assertThat(((ASTCondition) actual.get(0)).getOperator(), is(ASTComparisonOperator.LESS_THAN));
   }
 
@@ -104,9 +103,11 @@ public class UnkownElementParserTest {
     List<ASTItem> actual = parser.generate(ovService);
 
     assertThat(actual.get(0), instanceOf(ASTCondition.class));
-    assertThat(((ASTCondition) actual.get(0)).getLeftOperand(), instanceOf(ASTOperandProperty.class));
+    assertThat(
+        ((ASTCondition) actual.get(0)).getLeftOperand(), instanceOf(ASTOperandProperty.class));
     assertThat(((ASTCondition) actual.get(0)).getOperator(), is(ASTComparisonOperator.LESS_THAN));
-    assertThat(((ASTCondition) actual.get(0)).getRightOperand(), instanceOf(ASTOperandStaticNumber.class));
+    assertThat(
+        ((ASTCondition) actual.get(0)).getRightOperand(), instanceOf(ASTOperandStaticNumber.class));
   }
 
   @Test
