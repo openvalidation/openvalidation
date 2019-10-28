@@ -2,6 +2,7 @@ package io.openvalidation.core.validation.functions;
 
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
+import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaProperty;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
@@ -25,7 +26,7 @@ public class FunctionSumOfValidator extends FunctionValidatorBase {
         else {
             //SUM OF [array property]
             ASTOperandBase firstParam = parameters.get(0);
-            if (!(firstParam instanceof ASTOperandProperty || firstParam instanceof ASTOperandFunction))
+            if (!(firstParam instanceof ASTOperandProperty || firstParam instanceof ASTOperandFunction || firstParam instanceof ASTOperandVariable))
                 throw new ASTValidationException("The first parameter of the function "
                         + function.getName()
                         + " has to be an array property or a nested function. Currently applied on "
