@@ -71,4 +71,13 @@ public class FirstTest {
         "{numbers: [{val: 12}]}",
         r -> r.containsValidationMessage("missing left operand in condition"));
   }
+
+  @Test
+  void one_parameter_applied_on_array_behind_variable_with_missing_left_operand() throws Exception {
+    runner.run(
+            "numbers AS var\n\n" +
+                    "FIRST from var with greater than val AS var",
+            "{numbers: [{val: 12}]}",
+            r -> r.containsValidationMessage("missing left operand in condition"));
+  }
 }
