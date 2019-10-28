@@ -3,6 +3,7 @@ package io.openvalidation.core.validation.functions;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
+import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaCondition;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
@@ -29,7 +30,8 @@ public class FunctionTakeValidator extends FunctionValidatorBase {
             if (parameters.size() <= 3) {
                 //assert first parameter (the array/function)
                 if (!(firstParam instanceof ASTOperandProperty)
-                        && !(firstParam instanceof ASTOperandFunction)) {
+                        && !(firstParam instanceof ASTOperandFunction)
+                        && !(firstParam instanceof ASTOperandVariable)) {
                     throw new ASTValidationException(
                             "The function "
                                     + function.getName()
