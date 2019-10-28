@@ -10,9 +10,9 @@ import io.openvalidation.common.exceptions.ASTValidationException;
 
 import java.util.List;
 
-public class FunctionFirstValidatorBase extends FunctionValidatorBase {
+public class FunctionFirstValidator extends FunctionValidatorBase {
 
-    public FunctionFirstValidatorBase(ASTOperandFunction function) {
+    public FunctionFirstValidator(ASTOperandFunction function) {
         this.function = function;
     }
 
