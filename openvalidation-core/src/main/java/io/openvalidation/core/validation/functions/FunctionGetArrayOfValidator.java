@@ -2,6 +2,7 @@ package io.openvalidation.core.validation.functions;
 
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
+import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaProperty;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
@@ -26,7 +27,7 @@ public class FunctionGetArrayOfValidator extends FunctionValidatorBase {
                             "\n<TECHNICAL ERROR> ARGUMENTS REQUIRED: 2, FOUND: " + parameters.size(), function);
         } else {
             ASTOperandBase firstParam = parameters.get(0);
-            if (!(firstParam instanceof ASTOperandProperty || firstParam instanceof ASTOperandFunction)) {
+            if (!(firstParam instanceof ASTOperandProperty || firstParam instanceof ASTOperandFunction || firstParam instanceof ASTOperandVariable)) {
                 throw new ASTValidationException("The first parameter of the function "
                         + function.getName()
                         + " has to be an array property or a nested function. Currently applied on "
@@ -53,7 +54,8 @@ public class FunctionGetArrayOfValidator extends FunctionValidatorBase {
                             + function.getName()
                             + " has to be of type 'Decimal'. Type found: " + firstParam.getDataType(), function);
             }
-
         }
+
+        validateParameters();
     }
 }
