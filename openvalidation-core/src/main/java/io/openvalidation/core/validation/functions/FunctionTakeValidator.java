@@ -10,9 +10,9 @@ import io.openvalidation.common.exceptions.ASTValidationException;
 
 import java.util.List;
 
-public class FunctionLastValidatorBase extends FunctionValidatorBase {
+public class FunctionTakeValidator extends FunctionValidatorBase {
 
-    public FunctionLastValidatorBase(ASTOperandFunction function) {
+    public FunctionTakeValidator(ASTOperandFunction function) {
         this.function = function;
     }
 
@@ -20,13 +20,14 @@ public class FunctionLastValidatorBase extends FunctionValidatorBase {
     public void validate() throws Exception {
         List<ASTOperandBase> parameters = function.getParameters();
 
-        if (parameters.isEmpty())
+        if (parameters.isEmpty() || parameters.size() == 1)
             throw new ASTValidationException(
-                    "The function " + function.getName() + " requires at least one parameter", function);
+                    "The function " + function.getName() + " requires at least two parameters", function);
         else {
+            ASTOperandBase firstParam = parameters.get(0);
+
             if (parameters.size() <= 3) {
-                // validate first parameter
-                ASTOperandBase firstParam = parameters.get(0);
+                //assert first parameter (the array/function)
                 if (!(firstParam instanceof ASTOperandProperty)
                         && !(firstParam instanceof ASTOperandFunction)) {
                     throw new ASTValidationException(
@@ -44,20 +45,20 @@ public class FunctionLastValidatorBase extends FunctionValidatorBase {
                                     + "'",
                             function);
                 }
-                // FIRST [array/function] [amount/condition]
+                // TAKE [array/function] [amount]
                 if (parameters.size() == 2) {
                     ASTOperandBase secondParam = parameters.get(1);
-                    if (!(secondParam instanceof ASTOperandStaticNumber
-                            || secondParam instanceof ASTOperandLambdaCondition)) {
+                    if (!(secondParam instanceof ASTOperandStaticNumber)) {
                         throw new ASTValidationException(
                                 "The function "
                                         + function.getName()
-                                        + " either takes a number or a lambda condition as the second parameter. Current second parameter is "
+                                        + " takes an integer as the second parameter. Current second parameter is "
                                         + secondParam.getClass().getSimpleName(),
                                 function);
                     }
-                    // FIRST [array/function] [condition] [amount]
-                } else if (parameters.size() == 3) {
+                }
+                // TAKE [array/function] [condition] [amount]
+                else {
                     ASTOperandBase secondParam = parameters.get(1);
                     if (!(secondParam instanceof ASTOperandLambdaCondition)) {
                         throw new ASTValidationException(
@@ -69,19 +70,15 @@ public class FunctionLastValidatorBase extends FunctionValidatorBase {
                     }
 
                     ASTOperandBase thirdParam = parameters.get(2);
-                    if (!(thirdParam instanceof ASTOperandStaticNumber
-                            || thirdParam instanceof ASTOperandLambdaCondition)) {
+                    if (!(thirdParam instanceof ASTOperandStaticNumber)) {
                         throw new ASTValidationException(
                                 "The function "
                                         + function.getName()
-                                        + " takes a number or a lambda condition as the third parameter. Current third parameter is "
+                                        + " takes an integer as the third parameter. Current third parameter is "
                                         + thirdParam.getClass().getSimpleName(),
                                 function);
                     }
                 }
-            } else {
-                throw new ASTValidationException(
-                        "Invalid number of parameters (" + parameters.size() + ")", function);
             }
         }
 

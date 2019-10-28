@@ -2,10 +2,7 @@ package io.openvalidation.core.validation;
 
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.common.exceptions.ASTValidationException;
-import io.openvalidation.core.validation.functions.FunctionFirstValidatorBase;
-import io.openvalidation.core.validation.functions.FunctionLastValidatorBase;
-import io.openvalidation.core.validation.functions.FunctionValidatorBase;
-import io.openvalidation.core.validation.functions.FunctionTakeValidatorBase;
+import io.openvalidation.core.validation.functions.*;
 
 public class ASTOperandFunctionValidator extends ValidatorBase {
   private ASTOperandFunction function;
@@ -20,19 +17,27 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
       throw new ASTValidationException("The function must have a name", function);
 
     //validate the specific function
-    FunctionValidatorBase subFunctionValidator = createFunctionSubValidator();
+//    FunctionValidatorBase subFunctionValidator = createFunctionSubValidator();
+    ValidatorBase subFunctionValidator = createFunctionSubValidator();
     subFunctionValidator.setContext(this.context);
     subFunctionValidator.validate();
   }
 
-  private FunctionValidatorBase createFunctionSubValidator() throws Exception
+//  private FunctionValidatorBase createFunctionSubValidator() throws Exception
+  private ValidatorBase createFunctionSubValidator() throws Exception
   {
     switch (function.getName())
     {
-      case "FIRST": return new FunctionFirstValidatorBase(function);
-      case "LAST": return new FunctionLastValidatorBase(function);
-      case "TAKE": return new FunctionTakeValidatorBase(function);
-      default: throw new ASTValidationException("Function with name '"+ function.getName() +"' is not known", function);
+      case "FIRST": return new FunctionFirstValidator(function);
+      case "LAST": return new FunctionLastValidator(function);
+      case "TAKE": return new FunctionTakeValidator(function);
+      //todo add possibility of where function in sum_of to validator (third arg)
+      case "SUM_OF": return new FunctionSumOfValidator(function);
+      case "GET_ARRAY_OF": return new FunctionGetArrayOfValidator(function);
+      default:
+        throw new ASTValidationException("Function with name '"+ function.getName() +"' is not known", function);
+//        System.out.println("Nich jefundn");
+//        return new EmptyValidator();
     }
   }
 }
