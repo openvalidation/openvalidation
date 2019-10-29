@@ -21,8 +21,8 @@ import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
-import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class FunctionOperandNode extends OperandNode {
       if (parameter == null) continue;
 
       DocumentSection newSection = new RangeGenerator(section).generate(parameter);
-      this.parameters.add(NodeMapper.createOperand(parameter, newSection, culture));
+      this.parameters.add(NodeGenerator.createOperand(parameter, newSection, culture));
     }
 
     this.acceptedType =
