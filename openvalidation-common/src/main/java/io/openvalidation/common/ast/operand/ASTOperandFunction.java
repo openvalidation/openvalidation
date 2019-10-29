@@ -32,6 +32,7 @@ public class ASTOperandFunction extends ASTOperandBase {
   public ASTOperandFunction() {
     super();
     _returnTypes.put("SUM_OF", DataPropertyType.Decimal);
+    _returnTypes.put("GET_ARRAY_OF", DataPropertyType.Array);
   }
 
   public ASTOperandFunction(String name, ASTOperandBase... parameters) {
