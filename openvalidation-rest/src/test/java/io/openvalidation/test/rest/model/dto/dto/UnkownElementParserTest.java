@@ -1,4 +1,4 @@
-package org.bag.openvalidation.test.rest.model.dto;
+package io.openvalidation.test.rest.model.dto.dto;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

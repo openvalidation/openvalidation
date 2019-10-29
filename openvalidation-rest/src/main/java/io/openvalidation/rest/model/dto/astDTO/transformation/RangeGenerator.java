@@ -129,8 +129,7 @@ public class RangeGenerator {
     if (startColumnNumber != -1) {
       int startLineNumber = outerStartLine + lineNumber;
 
-      if (startLineNumber == outerStartLine)
-        startColumnNumber += outerStartColumn;
+      if (startLineNumber == outerStartLine) startColumnNumber += outerStartColumn;
       return new Position(startLineNumber, startColumnNumber);
     }
 
@@ -154,9 +153,9 @@ public class RangeGenerator {
 
     if (startIndex != -1) {
       int column =
-              startLine.equals(endLine) && startPosition != null
-                      ? startPosition.getColumn() + endLine.length()
-                      : endPattern.start() + endLine.length();
+          startLine.equals(endLine) && startPosition != null
+              ? startPosition.getColumn() + endLine.length()
+              : endPattern.start() + endLine.length();
       return new Position(outerStartLine + lineNumber, column);
     }
 
