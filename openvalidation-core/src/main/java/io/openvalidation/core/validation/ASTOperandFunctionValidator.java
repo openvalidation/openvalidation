@@ -34,6 +34,7 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
       //todo add possibility of where function in sum_of to validator (third arg)
       case "SUM_OF": return new FunctionSumOfValidator(function);
       case "GET_ARRAY_OF": return new FunctionGetArrayOfValidator(function);
+      case "WHERE" : return new FunctionWhereValidator(function);
       default:
         throw new ASTValidationException("Function with name '"+ function.getName() +"' is not known", function);
 //        System.out.println("Nich jefundn");
