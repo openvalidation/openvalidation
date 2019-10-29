@@ -17,15 +17,8 @@
 package io.openvalidation.rest.model.dto.astDTO.transformation;
 
 import io.openvalidation.common.ast.*;
-import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.rest.model.dto.astDTO.*;
-import io.openvalidation.rest.model.dto.astDTO.element.CommentNode;
-import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
-import io.openvalidation.rest.model.dto.astDTO.element.UnkownNode;
-import io.openvalidation.rest.model.dto.astDTO.element.VariableNode;
-import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
-import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.service.OVParams;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,23 +55,7 @@ public class TreeTransformer {
     for (int index = 0; index < this.astItems.size(); index++) {
       ASTItem element = this.astItems.get(index);
       DocumentSection section = documentSections.get(index);
-
-      GenericNode node = null;
-
-      if (element instanceof ASTRule) {
-        node = new RuleNode((ASTRule) element, section, this.parameters.getCulture());
-      } else if (element instanceof ASTVariable) {
-        node = new VariableNode((ASTVariable) element, section, this.parameters.getCulture());
-      } else if (element instanceof ASTComment) {
-        node = new CommentNode((ASTComment) element, section);
-      } else if (element instanceof ASTOperandBase) {
-        OperandNode tmpOperand =
-            NodeMapper.createOperand(
-                (ASTOperandBase) element, section, this.parameters.getCulture());
-        node = new UnkownNode(tmpOperand, section);
-      } else if (element instanceof ASTUnknown) {
-        node = new UnkownNode(section);
-      }
+      GenericNode node = NodeGenerator.generateNode(element, section, this.parameters.getCulture());
 
       if (node != null) {
         mainNode.addScope(node);

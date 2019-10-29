@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.test.rest;
+package io.openvalidation.test.rest.model.dto.dto;
 
 import io.openvalidation.core.OpenValidation;
 import java.util.HashMap;

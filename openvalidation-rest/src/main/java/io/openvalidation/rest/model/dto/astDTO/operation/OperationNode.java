@@ -21,7 +21,6 @@ import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
-import io.openvalidation.rest.model.dto.astDTO.Position;
 import io.openvalidation.rest.model.dto.astDTO.Range;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.Operator;
@@ -56,15 +55,9 @@ public class OperationNode extends ConditionNode {
 
     if (section == null || section.isEmpty()) return;
 
-    List<String> leftLines = new ArrayList<>();
-    List<String> rightLines = new ArrayList<>();
-
     if (conditionBase.getLeftOperand() != null) {
       DocumentSection leftSection =
           new RangeGenerator(section).generate(conditionBase.getLeftOperand());
-      if (leftSection != null) {
-        leftLines = leftSection.getLines();
-      }
 
       this.leftOperand =
           NodeMapper.createOperand(conditionBase.getLeftOperand(), leftSection, culture);
@@ -73,9 +66,6 @@ public class OperationNode extends ConditionNode {
     if (conditionBase.getRightOperand() != null) {
       DocumentSection rightSection =
           new RangeGenerator(section).generate(conditionBase.getRightOperand());
-      if (rightSection != null) {
-        rightLines = rightSection.getLines();
-      }
 
       this.rightOperand =
           NodeMapper.createOperand(conditionBase.getRightOperand(), rightSection, culture);
@@ -94,8 +84,8 @@ public class OperationNode extends ConditionNode {
         possibleAliases.sort(Comparator.comparingInt(String::length).reversed());
         List<String> operatorLines = section.getLines();
         DocumentSection operatorSection =
-            this.generateOperatorString(
-                operatorLines, leftLines, rightLines, section.getRange(), possibleAliases);
+            this.generateValidOperator(
+                new Range(section.getRange()), operatorLines, foundAliases, possibleAliases);
         if (operatorSection != null) {
           this.operator = new Operator(conditionBase, operatorSection);
         }
@@ -103,55 +93,11 @@ public class OperationNode extends ConditionNode {
     }
   }
 
-  private DocumentSection generateOperatorString(
-      List<String> outerString,
-      List<String> leftLines,
-      List<String> rightLines,
-      Range outerRange,
-      List<String> possibleAliases) {
-    ArrayList<String> returnList = new ArrayList<>();
-
-    Position start = new Position(outerRange.getStart());
-    Position end = new Position(outerRange.getEnd());
-
-    for (String outerLine : outerString) {
-      String tmpString = outerLine;
-
-      for (String innerLine : leftLines) {
-        if (!tmpString.contains(innerLine)) continue;
-
-        int startIndex = tmpString.indexOf(innerLine);
-        tmpString = tmpString.substring(startIndex + innerLine.length());
-
-        start.setColumn(start.getColumn() + startIndex + innerLine.length());
-      }
-
-      for (String innerLine : rightLines) {
-        if (!tmpString.contains(innerLine) || innerLine.isEmpty()) continue;
-
-        int startIndex = tmpString.indexOf(innerLine);
-        String cuttedString = tmpString.substring(startIndex);
-        tmpString = tmpString.substring(0, startIndex);
-
-        end.setColumn(end.getColumn() - cuttedString.length());
-      }
-
-      if (!tmpString.trim().isEmpty()) {
-        returnList.add(tmpString);
-      } else {
-        end.setLine(end.getLine() - 1);
-      }
-    }
-
-    Range range = new Range(start, end);
-    if (this.isConstrained()) {
-      return new DocumentSection(range, returnList);
-    }
-    return this.generateValidOperator(range, returnList, possibleAliases);
-  }
-
   private DocumentSection generateValidOperator(
-      Range range, List<String> returnList, List<String> possibleAliases) {
+      Range range,
+      List<String> returnList,
+      List<String> constrainedKeywords,
+      List<String> possibleAliases) {
     String operator = String.join("", returnList);
     for (String alias : possibleAliases) {
       int index = operator.toLowerCase().indexOf(alias.toLowerCase());
