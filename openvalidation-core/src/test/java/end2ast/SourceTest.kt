@@ -598,10 +598,10 @@ THEN error
 
         var schema = """
             {
-                customer: {
+                customer: [{
                     price: number,
                     name: string
-                }
+                }]
             }
         """
 //        PreProcessorUtils.preProcStr2Sysout(input, Locale("en"));

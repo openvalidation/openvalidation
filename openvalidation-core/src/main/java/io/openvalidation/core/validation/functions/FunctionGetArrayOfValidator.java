@@ -23,7 +23,9 @@ public class FunctionGetArrayOfValidator extends FunctionValidatorBase {
 
         if (parameters.size() != 2) {
             throw new ASTValidationException(
-                    "Incorrect parameter. The function " + function.getName() + " requires a property parameter formatted like this: '[array property containing objects].[attribute]' (where attribute is a property of each object contained in the array)" +
+                    "Incorrect parameter. The function "
+                            + function.getName()
+                            + " requires a property parameter formatted like this: '[array property containing objects].[attribute]' (where attribute is a property of each object contained in the array)" +
                             "\n<TECHNICAL ERROR> ARGUMENTS REQUIRED: 2, FOUND: " + parameters.size(), function);
         } else {
             ASTOperandBase firstParam = parameters.get(0);
@@ -48,12 +50,12 @@ public class FunctionGetArrayOfValidator extends FunctionValidatorBase {
                 throw new ASTValidationException("The second parameter of the function "
                         + function.getName()
                         + " has to be a subproperty of the objects contained in the first parameter", function);
-            else {
+            /*else {
                 if (((ASTOperandLambdaProperty) secondParam).getProperty().getDataType() != DataPropertyType.Decimal)
                     throw new ASTValidationException("The second parameter of the function "
                             + function.getName()
                             + " has to be of type 'Decimal'. Type found: " + firstParam.getDataType(), function);
-            }
+            }*/
         }
 
         validateParameters();
