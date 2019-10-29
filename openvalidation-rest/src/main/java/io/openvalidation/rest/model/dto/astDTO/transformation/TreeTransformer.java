@@ -40,7 +40,7 @@ public class TreeTransformer {
     this.parameters = parameters;
   }
 
-  public MainNode transform(String documentText) {
+  public MainNode transform() {
     MainNode mainNode = new MainNode();
     if (this.astItems == null || this.astItems.size() == 0) return mainNode;
 
@@ -49,7 +49,7 @@ public class TreeTransformer {
         this.variables.stream().map(Variable::new).collect(Collectors.toList()));
 
     ArrayList<DocumentSection> documentSections =
-        new DocumentSplitter(documentText).splitDocument();
+        new DocumentSplitter(parameters.getRule()).splitDocument();
     if (documentSections.size() != this.astItems.size()) return mainNode;
 
     for (int index = 0; index < this.astItems.size(); index++) {

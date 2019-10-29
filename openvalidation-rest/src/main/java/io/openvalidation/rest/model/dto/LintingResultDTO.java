@@ -43,7 +43,7 @@ public class LintingResultDTO {
       throw new IllegalArgumentException("OpenValidationResult should not be null");
 
     TreeTransformer transformer = new TreeTransformer(ovResult, astItemList, parameters);
-    MainNode node = transformer.transform(parameters.getRule());
+    MainNode node = transformer.transform();
     this.setMainAstNode(node);
 
     try {

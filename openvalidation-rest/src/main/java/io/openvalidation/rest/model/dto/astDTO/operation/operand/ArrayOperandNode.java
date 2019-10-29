@@ -1,8 +1,8 @@
 package io.openvalidation.rest.model.dto.astDTO.operation.operand;
 
 import io.openvalidation.common.ast.operand.ASTOperandArray;
-import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +19,7 @@ public class ArrayOperandNode extends OperandNode {
               .map(
                   item -> {
                     DocumentSection newSection = new RangeGenerator(section).generate(item);
-                    return NodeMapper.createOperand(item, newSection, culture);
+                    return NodeGenerator.createOperand(item, newSection, culture);
                   })
               .collect(Collectors.toList());
 

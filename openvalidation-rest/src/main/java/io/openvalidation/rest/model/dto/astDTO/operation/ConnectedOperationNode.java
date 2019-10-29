@@ -18,9 +18,10 @@ package io.openvalidation.rest.model.dto.astDTO.operation;
 
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
-import io.openvalidation.rest.model.dto.astDTO.TransformationHelper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
+import io.openvalidation.rest.model.dto.astDTO.transformation.TransformationHelper;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,7 +44,7 @@ public class ConnectedOperationNode extends ConditionNode {
             .map(
                 condition -> {
                   DocumentSection newSection = new RangeGenerator(section).generate(condition);
-                  return NodeMapper.createConditionNode(condition, newSection, culture);
+                  return NodeGenerator.createConditionNode(condition, newSection, culture);
                 })
             .collect(Collectors.toList());
 

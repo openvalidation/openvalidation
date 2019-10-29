@@ -23,8 +23,8 @@ import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.ConditionNode;
-import io.openvalidation.rest.model.dto.astDTO.operation.NodeMapper;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +44,7 @@ public class RuleNode extends GenericNode {
     if (rule.getCondition() != null) {
       DocumentSection newSection = new RangeGenerator(section).generate(rule.getCondition());
       this.condition =
-          NodeMapper.createConditionNode(rule.getCondition(), newSection, culture, rule);
+          NodeGenerator.createConditionNode(rule.getCondition(), newSection, culture, rule);
     }
   }
 

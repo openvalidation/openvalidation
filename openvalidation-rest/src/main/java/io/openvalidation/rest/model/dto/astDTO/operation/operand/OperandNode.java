@@ -111,4 +111,14 @@ public class OperandNode extends GenericNode {
       return this.getRange();
     }
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof OperandNode) {
+      return this.dataType.equals(((OperandNode) obj).dataType)
+          && this.name.equals(((OperandNode) obj).name)
+          && this.isStatic == ((OperandNode) obj).isStatic;
+    }
+    return false;
+  }
 }
