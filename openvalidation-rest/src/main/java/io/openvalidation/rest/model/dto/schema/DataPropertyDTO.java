@@ -43,4 +43,13 @@ public class DataPropertyDTO {
   public void setType(DataPropertyType type) {
     this.type = type;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof DataPropertyDTO) {
+      return this.name.equals(((DataPropertyDTO) obj).name)
+          && this.type.equals(((DataPropertyDTO) obj).type);
+    }
+    return false;
+  }
 }
