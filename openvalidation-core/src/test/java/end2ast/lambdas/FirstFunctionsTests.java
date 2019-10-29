@@ -304,6 +304,42 @@ class FirstFunctionsTests {
     End2AstRunner.run(rule, schema, r -> r.variables());
   }
 
+  @Test
+  void first_function_with_get_array_of() throws Exception {
+    String rule = "FIRST item FROM numbers.value as var";
+    String schema = "{numbers: [{value: 1}]}";
+
+    End2AstRunner.run(rule, schema,
+      r -> r.variables()
+            .first()
+            .operandFunction()
+            .hasName("FIRST")
+            .sizeOfParameters(1)
+            .parameters()
+            .first()
+            .function("GET_ARRAY_OF")
+            .sizeOfParameters(2)
+              .parameters()
+            .first()
+              .property()
+            .parentList()
+            .second()
+            .lambda()
+            .property()
+    );
+  }
+
+  @Test
+  void first_function_with_last() throws Exception {
+    String rule = "LAST 10 FROM numbers.value as X \n\nFIRST item FROM X as var";
+    String schema = "{numbers: [{value: 1}]}";
+
+    End2AstRunner.run(rule, schema,
+      r -> r.variables()
+
+    );
+  }
+
   //  @Test
   //  void take_function_simple() throws Exception {
   //    String rule = "take 10 items from addresses as a first address";
