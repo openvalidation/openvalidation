@@ -88,7 +88,7 @@ public class RuleTest {
     runner.run(
         rule,
         r -> {
-          r.containsValidationMessage("a Rule should not be empty before");
+          r.containsValidationMessage("missing left operand in condition");
         });
   }
 
@@ -105,7 +105,7 @@ public class RuleTest {
     runner.run(
         rule,
         r -> {
-          r.containsValidationMessage("a Rule should not be empty after");
+          r.containsValidationMessage("missing right operand in condition.");
         });
   }
 
@@ -122,7 +122,7 @@ public class RuleTest {
     runner.run(
         rule,
         r -> {
-          r.containsValidationMessage("a Rule should not be empty before and after");
+          r.containsValidationMessage("at least one operand should be present");
         });
   }
 
@@ -133,11 +133,11 @@ public class RuleTest {
     runner.run(
         input,
         r -> {
-          r.containsValidationMessage("a Rule should not be empty before")
-              .atPosition(0)
+          r.containsValidationMessage("missing left operand in condition.")
+              .atPosition(1)
               .parent()
-              .containsValidationMessage("a Rule should not be empty after")
-              .atPosition(1);
+              .containsValidationMessage("missing right operand in condition.")
+              .atPosition(2);
         });
   }
 
@@ -148,11 +148,11 @@ public class RuleTest {
     runner.run(
         input,
         r -> {
-          r.containsValidationMessage("a Rule should not be empty after")
-              .atPosition(0)
+          r.containsValidationMessage("missing right operand in condition")
+              .atPosition(1)
               .parent()
-              .containsValidationMessage("a Rule should not be empty befor")
-              .atPosition(1);
+              .containsValidationMessage("missing left operand in condition")
+              .atPosition(2);
         });
   }
 
