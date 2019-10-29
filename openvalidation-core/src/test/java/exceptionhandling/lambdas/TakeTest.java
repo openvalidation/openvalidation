@@ -20,7 +20,7 @@ public class TakeTest {
     runner.run(
         "TAKE from numbers with with val greater than 10 AS var",
         "{numbers: [{val: 12}]}",
-        r -> r.containsValidationMessage("todo attention to where"));
+        r -> r.containsValidationMessage("The function TAKE requires at least two parameters"));
   }
 
   @Test
