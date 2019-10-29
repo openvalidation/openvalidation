@@ -43,4 +43,13 @@ public class ComplexDataPropertyDTO {
   public void setChild(String child) {
     this.child = child;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof ComplexDataPropertyDTO) {
+      return this.parent.equals(((ComplexDataPropertyDTO) obj).parent)
+          && this.child.equals(((ComplexDataPropertyDTO) obj).child);
+    }
+    return false;
+  }
 }

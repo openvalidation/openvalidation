@@ -1,4 +1,4 @@
-package io.openvalidation.test.rest.model.dto.dto.astDTO.transformation;
+package io.openvalidation.test.rest.model.dto.astDTO.transformation;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

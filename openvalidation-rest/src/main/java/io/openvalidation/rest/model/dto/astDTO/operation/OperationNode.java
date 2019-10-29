@@ -23,8 +23,9 @@ import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.Range;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
-import io.openvalidation.rest.model.dto.astDTO.operation.operand.Operator;
+import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperatorNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -34,7 +35,7 @@ import java.util.stream.Collectors;
 public class OperationNode extends ConditionNode {
   private OperandNode leftOperand;
   private OperandNode rightOperand;
-  private Operator operator;
+  private OperatorNode operator;
   private boolean constrained;
 
   public OperationNode(ASTCondition conditionBase, DocumentSection section, String culture) {
@@ -60,7 +61,7 @@ public class OperationNode extends ConditionNode {
           new RangeGenerator(section).generate(conditionBase.getLeftOperand());
 
       this.leftOperand =
-          NodeMapper.createOperand(conditionBase.getLeftOperand(), leftSection, culture);
+          NodeGenerator.createOperand(conditionBase.getLeftOperand(), leftSection, culture);
     }
 
     if (conditionBase.getRightOperand() != null) {
@@ -68,7 +69,7 @@ public class OperationNode extends ConditionNode {
           new RangeGenerator(section).generate(conditionBase.getRightOperand());
 
       this.rightOperand =
-          NodeMapper.createOperand(conditionBase.getRightOperand(), rightSection, culture);
+          NodeGenerator.createOperand(conditionBase.getRightOperand(), rightSection, culture);
     }
 
     if (conditionBase.getOperator() != null) {
@@ -76,7 +77,7 @@ public class OperationNode extends ConditionNode {
           && this.rightOperand.getDataType() == DataPropertyType.Boolean
           && this.rightOperand.getName().equals("true")
           && conditionBase.getOperator() == ASTComparisonOperator.EQUALS) {
-        this.operator = new Operator(conditionBase, null);
+        this.operator = new OperatorNode(conditionBase, null);
       } else {
         String keyword =
             Constants.COMPOPERATOR_TOKEN + conditionBase.getOperator().name().toLowerCase();
@@ -87,7 +88,7 @@ public class OperationNode extends ConditionNode {
             this.generateValidOperator(
                 new Range(section.getRange()), operatorLines, foundAliases, possibleAliases);
         if (operatorSection != null) {
-          this.operator = new Operator(conditionBase, operatorSection);
+          this.operator = new OperatorNode(conditionBase, operatorSection);
         }
       }
     }
@@ -129,11 +130,11 @@ public class OperationNode extends ConditionNode {
     this.rightOperand = rightOperand;
   }
 
-  public Operator getOperator() {
+  public OperatorNode getOperator() {
     return operator;
   }
 
-  public void setOperator(Operator operator) {
+  public void setOperator(OperatorNode operator) {
     this.operator = operator;
   }
 
@@ -143,5 +144,16 @@ public class OperationNode extends ConditionNode {
 
   public void setConstrained(boolean constrained) {
     this.constrained = constrained;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof OperationNode) {
+      return this.operator.equals(((OperationNode) obj).operator)
+          && this.rightOperand.equals(((OperationNode) obj).rightOperand)
+          && this.leftOperand.equals(((OperationNode) obj).leftOperand)
+          && this.constrained == ((OperationNode) obj).constrained;
+    }
+    return false;
   }
 }

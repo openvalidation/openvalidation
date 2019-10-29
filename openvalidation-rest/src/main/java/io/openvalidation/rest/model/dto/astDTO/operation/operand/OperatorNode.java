@@ -22,12 +22,12 @@ import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
-public class Operator extends GenericNode {
+public class OperatorNode extends GenericNode {
   private DataPropertyType dataType;
   private DataPropertyType validType;
   private ASTComparisonOperator operator;
 
-  public Operator(ASTCondition astCondition, DocumentSection section) {
+  public OperatorNode(ASTCondition astCondition, DocumentSection section) {
     super(section);
 
     this.operator = astCondition.getOperator();

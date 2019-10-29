@@ -62,7 +62,7 @@ public class CompletionParsingController {
     }
 
     TreeTransformer transformer = new TreeTransformer(result, astItemList, parameters);
-    MainNode node = transformer.transform(parameters.getRule());
+    MainNode node = transformer.transform();
 
     GenericNode relevantScope = node.getScopes().size() > 0 ? node.getScopes().get(0) : null;
     ScopeDTO dto = new ScopeDTO(relevantScope);
