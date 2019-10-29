@@ -29,7 +29,10 @@ public abstract class GenericNode {
     if (section == null) {
       this.lines = new ArrayList<>();
     } else {
-      this.lines = section.getLines().stream().map(line -> line.replace("\r", "")).collect(Collectors.toList());
+      this.lines =
+          section.getLines().stream()
+              .map(line -> line.replace("\r", ""))
+              .collect(Collectors.toList());
       this.range = section.getRange();
     }
   }
