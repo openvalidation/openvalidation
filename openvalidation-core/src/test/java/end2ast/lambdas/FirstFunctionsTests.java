@@ -330,8 +330,9 @@ class FirstFunctionsTests {
   }
 
   @Test
-  void first_function_with_last() throws Exception {
-    String rule = "LAST 10 FROM numbers.value as X \n\nFIRST item FROM X as var";
+  void first_function_variable_in_condition() throws Exception {
+    String rule = "FIRST FROM numbers.value as X \n\n" +
+            "If X is greater than 2 then error";
     String schema = "{numbers: [{value: 1}]}";
 
     End2AstRunner.run(rule, schema,
