@@ -1,4 +1,3 @@
 package exceptionhandling.lambdas;
 
-public class GetArrayOfTest {
-}
+public class GetArrayOfTest {}

@@ -4,8 +4,8 @@ import exceptionhandling.ExceptionRunner;
 import org.junit.jupiter.api.Test;
 
 public class TakeTest {
-    
-    private ExceptionRunner runner = new ExceptionRunner();
+
+  private ExceptionRunner runner = new ExceptionRunner();
 
   @Test
   void one_parameter_missing_array_property() throws Exception {
@@ -61,7 +61,7 @@ public class TakeTest {
             r.containsValidationMessage(
                 "The function TAKE has to be applied on an array property or a nested function. Currently applied on ASTOperandStaticString"));
   }
-  
+
   @Test
   void lambda_condition_with_missing_right_operand() throws Exception {
     // check if validation of parameters is triggered
