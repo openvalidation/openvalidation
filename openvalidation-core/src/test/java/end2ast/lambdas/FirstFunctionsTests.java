@@ -309,36 +309,35 @@ class FirstFunctionsTests {
     String rule = "FIRST item FROM numbers.value as var";
     String schema = "{numbers: [{value: 1}]}";
 
-    End2AstRunner.run(rule, schema,
-      r -> r.variables()
-            .first()
-            .operandFunction()
-            .hasName("FIRST")
-            .sizeOfParameters(1)
-            .parameters()
-            .first()
-            .function("GET_ARRAY_OF")
-            .sizeOfParameters(2)
-              .parameters()
-            .first()
-              .property()
-            .parentList()
-            .second()
-            .lambda()
-            .property()
-    );
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .hasName("FIRST")
+                .sizeOfParameters(1)
+                .parameters()
+                .first()
+                .function("GET_ARRAY_OF")
+                .sizeOfParameters(2)
+                .parameters()
+                .first()
+                .property()
+                .parentList()
+                .second()
+                .lambda()
+                .property());
   }
 
   @Test
+  @Disabled
   void first_function_variable_in_condition() throws Exception {
-    String rule = "FIRST FROM numbers.value as X \n\n" +
-            "If X is greater than 2 then error";
+    String rule = "FIRST FROM numbers.value as X \n\n" + "If X is greater than 2 then error";
     String schema = "{numbers: [{value: 1}]}";
 
-    End2AstRunner.run(rule, schema,
-      r -> r.variables()
-
-    );
+    End2AstRunner.run(rule, schema, r -> r.variables());
   }
 
   //  @Test
