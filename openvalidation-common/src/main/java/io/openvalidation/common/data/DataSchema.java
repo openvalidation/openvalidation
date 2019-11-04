@@ -50,10 +50,11 @@ public class DataSchema {
     this._properties.add(prop);
   }
 
-  public void addProperty(String name, String path, DataPropertyType type) {
+  public void addProperty(String name, String path, DataPropertyType type, DataPropertyType arrayCntType) {
     DataPropertyBase prop = null;
 
     DataPropertyBase parent = this.getArrayParentProperty(path);
+    DataPropertyType arrayContentType = type == DataPropertyType.Array ? arrayCntType : null;
 
     if (parent != null) {
       String propPath =
@@ -65,10 +66,14 @@ public class DataSchema {
               ? ((DataArrayProperty) parent).getArrayPath()
               : path;
 
-      prop = new DataArrayProperty(name, propPath, arrayPath, type);
-    } else prop = new DataProperty(name, path, type);
+      prop = new DataArrayProperty(name, propPath, arrayPath, type, arrayContentType);
+    } else prop = new DataProperty(name, path, type, arrayContentType);
 
     this._properties.add(prop);
+  }
+
+  public void addProperty(String name, String path, DataPropertyType type) {
+    addProperty(name, path, type, null);
   }
 
   public void addVariable(String name, DataPropertyType type) {

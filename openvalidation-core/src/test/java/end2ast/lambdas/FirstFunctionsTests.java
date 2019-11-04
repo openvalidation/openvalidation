@@ -333,9 +333,44 @@ class FirstFunctionsTests {
 
   @Test
   @Disabled
-  void first_function_variable_in_condition() throws Exception {
+  void first_function_variable_in_condition_on_jsondata() throws Exception {
     String rule = "FIRST FROM numbers.value as X \n\n" + "If X is greater than 2 then error";
-    String schema = "{numbers: [{value: 1}]}";
+    String schema = "{numbers: [1,2,3]}";
+
+    End2AstRunner.run(rule, schema, r -> r.variables());
+  }
+
+  @Test
+  @Disabled
+  void first_function_variable_in_condition_on_jsonschema() throws Exception {
+    String rule = "FIRST FROM numbers.value as X \n\n" + "If X is greater than 2 then error";
+    String schema = "{\n" +
+            "  \"definitions\": {},\n" +
+            "  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n" +
+            "  \"$id\": \"http://example.com/root.json\",\n" +
+            "  \"type\": \"object\",\n" +
+            "  \"title\": \"The Root Schema\",\n" +
+            "  \"required\": [\n" +
+            "    \"numbers\"\n" +
+            "  ],\n" +
+            "  \"properties\": {\n" +
+            "    \"numbers\": {\n" +
+            "      \"$id\": \"#/properties/numbers\",\n" +
+            "      \"type\": \"array\",\n" +
+            "      \"title\": \"The Numbers Schema\",\n" +
+            "      \"items\": {\n" +
+            "        \"$id\": \"#/properties/numbers/items\",\n" +
+            "        \"type\": \"integer\",\n" +
+            "        \"title\": \"The Items Schema\",\n" +
+            "        \"default\": 0,\n" +
+            "        \"examples\": [\n" +
+            "          1,\n" +
+            "          2\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    }\n" +
+            "  }\n" +
+            "}";
 
     End2AstRunner.run(rule, schema, r -> r.variables());
   }
