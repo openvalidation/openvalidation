@@ -29,6 +29,8 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class JsonSchema2DataSchemaConverterTest {
 
@@ -167,5 +169,54 @@ public class JsonSchema2DataSchemaConverterTest {
     assertThat(enumValues.length, is(3));
 
     assertThat(new ArrayList<>(Arrays.asList(enumValues)), contains("abc", "efg", "hij"));
+  }
+
+  @ParameterizedTest
+  @CsvSource(value = {
+          "string,String",
+          "number,Decimal",
+          "integer,Decimal",
+          "date,Date",
+          "array,Array",
+          "boolean,Boolean"})
+  public void should_resolve_type_of_array_contents_with_string(String input, String expected) throws Exception {
+    String json =
+        "{\n" +
+            "  \"definitions\": {},\n" +
+            "  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n" +
+            "  \"$id\": \"http://example.com/root.json\",\n" +
+            "  \"type\": \"object\",\n" +
+            "  \"title\": \"The Root Schema\",\n" +
+            "  \"required\": [\n" +
+            "    \"numbers\"\n" +
+            "  ],\n" +
+            "  \"properties\": {\n" +
+            "    \"numbers\": {\n" +
+            "      \"$id\": \"#/properties/numbers\",\n" +
+            "      \"type\": \"array\",\n" +
+            "      \"title\": \"The Numbers Schema\",\n" +
+            "      \"items\": {\n" +
+            "        \"$id\": \"#/properties/numbers/items\",\n" +
+            "        \"type\": \""+input+"\",\n" +
+            "        \"title\": \"The Items Schema\",\n" +
+            "        \"default\": 0,\n" +
+            "        \"examples\": [\n" +
+            "          abc,\n" +
+            "          def\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    }\n" +
+            "  }\n" +
+            "}";
+    DataSchema schema = SchemaConverterFactory.convert(json);
+
+    assertThat(schema, is(notNullValue()));
+    assertThat(schema.getProperties().size(), is(1));
+
+    DataProperty property = schema.getProperties().get(0);
+    assertThat(property, is(notNullValue()));
+    assertThat(property.getName(), is("numbers"));
+    assertThat(property.getType(), is(DataPropertyType.Array));
+    assertThat(property.getArrayContentType().toString(), is(expected)); // DataPropertyType.String
   }
 }
