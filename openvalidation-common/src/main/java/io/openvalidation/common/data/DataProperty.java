@@ -27,7 +27,11 @@ public class DataProperty extends DataPropertyBase {
   private DataProperty _propOfArray;
 
   public DataProperty(String name, String path, DataPropertyType type) {
-    super(name, type);
+    this(name, path, type, null);
+  }
+
+  public DataProperty(String name, String path, DataPropertyType type, DataPropertyType arrayContentType) {
+    super(name, type, arrayContentType);
     this._path = path;
     this.setFullName(
         (this._path != null && this._path.length() > 0)
