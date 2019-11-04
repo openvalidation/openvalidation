@@ -22,9 +22,13 @@ public class DataArrayProperty extends DataPropertyBase {
   private String _arrayPath;
   private String _propertyPath;
 
+  public DataArrayProperty(String name, String propertyPath, String arrayPath, DataPropertyType type){
+    this(name, propertyPath, arrayPath, type, null);
+  }
+
   public DataArrayProperty(
-      String name, String propertyPath, String arrayPath, DataPropertyType type) {
-    super(name, type);
+      String name, String propertyPath, String arrayPath, DataPropertyType type, DataPropertyType arrayContentType) {
+    super(name, type, arrayContentType);
     this.setFullName(
         (propertyPath != null && propertyPath.length() > 0)
             ? (arrayPath + "." + propertyPath + "." + name)

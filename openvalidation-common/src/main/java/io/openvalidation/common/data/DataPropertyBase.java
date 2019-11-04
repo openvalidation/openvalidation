@@ -22,11 +22,17 @@ public abstract class DataPropertyBase {
   private String _fullName;
   private String _fullNameLowerCase;
   private DataPropertyType _type;
+  private DataPropertyType _arrayContentType;
 
   public DataPropertyBase(String name, DataPropertyType type) {
+    this(name, type, null);
+  }
+
+  public DataPropertyBase(String name, DataPropertyType type, DataPropertyType arrayContentType) {
     this._name = name;
     this.setFullName(this._name);
     this._type = type;
+    this._arrayContentType = arrayContentType;
   }
 
   public String getName() {
@@ -57,5 +63,13 @@ public abstract class DataPropertyBase {
   @Override
   public String toString() {
     return this.getFullName() + " : " + this.getType().name();
+  }
+
+  public DataPropertyType get_arrayContentType() {
+    return _arrayContentType;
+  }
+
+  public void set_arrayContentType(DataPropertyType _arrayContentType) {
+    this._arrayContentType = _arrayContentType;
   }
 }
