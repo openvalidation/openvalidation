@@ -14,19 +14,21 @@
  *    limitations under the License.
  */
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.notNullValue;
-
 import io.openvalidation.common.converter.SchemaConverterFactory;
 import io.openvalidation.common.data.DataArrayProperty;
 import io.openvalidation.common.data.DataProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.data.DataSchema;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Collectors;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 public class Json2DataSchemaConverterTest {
+
+  //todo jgeske 04.11.19 test json-object -> json-schema -> data schema pipeline here
 
   @Test
   public void should_convert_simple_schema() throws Exception {
