@@ -65,11 +65,11 @@ public abstract class DataPropertyBase {
     return this.getFullName() + " : " + this.getType().name();
   }
 
-  public DataPropertyType get_arrayContentType() {
+  public DataPropertyType getArrayContentType() {
     return _arrayContentType;
   }
 
-  public void set_arrayContentType(DataPropertyType _arrayContentType) {
+  public void setArrayContentType(DataPropertyType _arrayContentType) {
     this._arrayContentType = _arrayContentType;
   }
 }

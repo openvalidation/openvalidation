@@ -58,6 +58,7 @@ public class Json2DataSchemaConverter implements ISchemaConverter {
   }
 
   private void fillSchema(JSONObject object, DataSchema schema, String path, int level) {
+    //todo jgeske 04.11.19 add pojo generator, and generate schema from pojo
 
     for (Object key : object.keySet()) {
       String name = (String) key;
