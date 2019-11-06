@@ -22,6 +22,7 @@ import io.openvalidation.rest.model.dto.UnkownElementParser;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.MainNode;
 import io.openvalidation.rest.model.dto.astDTO.ScopeDTO;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
 import io.openvalidation.rest.service.*;
 import java.util.List;
@@ -61,7 +62,8 @@ public class CompletionParsingController {
           e);
     }
 
-    TreeTransformer transformer = new TreeTransformer(result, astItemList, parameters);
+    TransformationParameter parameter = new TransformationParameter(parameters);
+    TreeTransformer transformer = new TreeTransformer(result, astItemList, parameter);
     MainNode node = transformer.transform();
 
     GenericNode relevantScope = node.getScopes().size() > 0 ? node.getScopes().get(0) : null;

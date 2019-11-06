@@ -22,6 +22,7 @@ import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.operation.ConditionNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
@@ -33,26 +34,26 @@ public class RuleNode extends GenericNode {
   private ActionErrorNode errorNode;
   private ConditionNode condition;
 
-  public RuleNode(ASTRule rule, DocumentSection section, String culture) {
-    super(section);
+  public RuleNode(ASTRule rule, DocumentSection section, TransformationParameter parameter) {
+    super(section, parameter);
 
     ASTActionError actionError = (ASTActionError) rule.getAction();
     if (actionError != null) {
-      this.errorNode = this.generateErrorNode(rule, actionError, culture);
+      this.errorNode = this.generateErrorNode(rule, actionError, parameter);
     }
 
     if (rule.getCondition() != null) {
       DocumentSection newSection = new RangeGenerator(section).generate(rule.getCondition());
       this.condition =
-          NodeGenerator.createConditionNode(rule.getCondition(), newSection, culture, rule);
+          NodeGenerator.createConditionNode(rule.getCondition(), newSection, rule, parameter);
     }
   }
 
   private ActionErrorNode generateErrorNode(
-      ASTRule rule, ASTActionError actionError, String culture) {
+      ASTRule rule, ASTActionError actionError, TransformationParameter parameter) {
 
     // Look for the "THEN"-Keyword
-    List<String> thenKeyword = Aliases.getAliasByToken(culture, Constants.THEN_TOKEN);
+    List<String> thenKeyword = Aliases.getAliasByToken(parameter.getCulture(), Constants.THEN_TOKEN);
     String actionErrorString;
 
     actionErrorString = actionError.getErrorMessage();
@@ -68,9 +69,11 @@ public class RuleNode extends GenericNode {
         && rule.getAllConditions().stream().anyMatch(ASTCondition::isConstrainedCondition)) {
       section =
           new DocumentSection(
-              this.getRange(), Arrays.asList(actionError.getErrorMessage().split("\n")));
+              this.getRange(), Arrays.asList(actionError.getErrorMessage().split("\n")), actionError);
+    } else if (section != null) {
+      section.setItem(actionError);
     }
-    return new ActionErrorNode(section, actionError);
+    return new ActionErrorNode(section, actionError, parameter);
   }
 
   public ActionErrorNode getErrorNode() {

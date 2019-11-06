@@ -21,6 +21,7 @@ import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
@@ -31,23 +32,23 @@ public class FunctionOperandNode extends OperandNode {
   private List<OperandNode> parameters;
   private DataPropertyType acceptedType;
 
-  public FunctionOperandNode(ASTOperandFunction operand, DocumentSection section, String culture) {
-    super(operand, section);
+  public FunctionOperandNode(ASTOperandFunction operand, DocumentSection section, TransformationParameter parameter) {
+    super(operand, section, parameter);
     this.parameters = new ArrayList<>();
     // this.returnType = operand.
 
-    for (ASTOperandBase parameter : operand.getParameters()) {
-      if (parameter == null) continue;
+    for (ASTOperandBase functionParameter : operand.getParameters()) {
+      if (functionParameter == null) continue;
 
-      DocumentSection newSection = new RangeGenerator(section).generate(parameter);
-      this.parameters.add(NodeGenerator.createOperand(parameter, newSection, culture));
+      DocumentSection newSection = new RangeGenerator(section).generate(functionParameter);
+      this.parameters.add(NodeGenerator.createOperand(functionParameter, newSection, parameter));
     }
 
     this.acceptedType =
         this.parameters.size() > 0 ? this.parameters.get(0).getDataType() : DataPropertyType.Object;
 
     String functionToken = Constants.FUNCTION_TOKEN + operand.getName().toLowerCase();
-    List<String> functionAliases = Aliases.getAliasByToken(culture, functionToken);
+    List<String> functionAliases = Aliases.getAliasByToken(parameter.getCulture(), functionToken);
     String foundAlias = null;
     if (functionAliases.size() > 0) {
       foundAlias = functionAliases.get(0);

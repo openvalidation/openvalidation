@@ -16,15 +16,21 @@
 
 package io.openvalidation.rest.model.dto.astDTO.transformation;
 
+import io.openvalidation.common.ast.ASTItem;
+import io.openvalidation.rest.model.dto.astDTO.Position;
 import io.openvalidation.rest.model.dto.astDTO.Range;
+
+import java.util.Iterator;
 import java.util.List;
 
 public class DocumentSection {
   private Range range;
   private List<String> lines;
+  private ASTItem item;
 
-  public DocumentSection(int startNumber, List<String> lines) {
+  public DocumentSection(int startNumber, List<String> lines, ASTItem item) {
     this.lines = lines;
+    this.item = item;
 
     if (this.lines.size() > 0) {
       String firstLine = this.lines.get(0);
@@ -38,7 +44,8 @@ public class DocumentSection {
     }
   }
 
-  public DocumentSection(Range range, List<String> lines) {
+  public DocumentSection(Range range, List<String> lines, ASTItem item) {
+    this.item = item;
     this.lines = lines;
     this.range = range;
   }
@@ -57,6 +64,14 @@ public class DocumentSection {
 
   public void setLines(List<String> lines) {
     this.lines = lines;
+  }
+
+  public ASTItem getItem() {
+    return item;
+  }
+
+  public void setItem(ASTItem item) {
+    this.item = item;
   }
 
   public DocumentSection trimLine() {
@@ -79,6 +94,28 @@ public class DocumentSection {
 
   public boolean isEmpty() {
     return this.range == null && this.lines.size() == 0;
+  }
+
+  public void deleteSection(DocumentSection section) {
+    boolean removedLine = false;
+
+    Iterator iterator = this.lines.iterator();
+    while (iterator.hasNext())
+    {
+      String currentLine = (String)iterator.next();
+      if (section.lines.stream().anyMatch(line -> line.equals(currentLine))) {
+        removedLine = true;
+        iterator.remove();
+      }
+    }
+
+    if (removedLine) {
+      Position newStart = new Position(section.getRange().getEnd());
+      newStart.setLine(newStart.getLine() + 1);
+      newStart.setColumn(0);
+
+      this.range = new Range(newStart, this.range.getEnd());
+    }
   }
 
   @Override

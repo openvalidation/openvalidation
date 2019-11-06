@@ -1,8 +1,12 @@
 package io.openvalidation.rest.model.dto.astDTO;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
 import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.exceptions.ASTValidationException;
 import io.openvalidation.common.exceptions.OpenValidationException;
+import io.openvalidation.rest.model.dto.OpenValidationExceptionDTO;
+import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.service.OVParams;
 
 import java.util.ArrayList;
@@ -11,21 +15,18 @@ import java.util.List;
 public class TransformationParameter {
   private String culture;
   private String rule;
-  private List<ASTItem> errorCauses;
+  private List<Entry<ASTItem, String>> itemMessagePair;
+  private List<OpenValidationExceptionDTO> parsedErrors;
 
   public TransformationParameter(String culture) {
     this.culture = culture;
-    this.errorCauses = new ArrayList<>();
+    this.itemMessagePair = new ArrayList<>();
+    this.parsedErrors = new ArrayList<>();
   }
 
   public TransformationParameter(OVParams ovParams) {
     this(ovParams.getCulture());
     this.rule = ovParams.getRule();
-  }
-
-  public TransformationParameter(String culture, List<ASTItem> errorCauses) {
-    this(culture);
-    this.errorCauses = errorCauses;
   }
 
   public String getCulture() {
@@ -36,14 +37,19 @@ public class TransformationParameter {
     this.culture = culture;
   }
 
-  public List<ASTItem> getErrorCauses() {
-    return errorCauses;
+  public List<Entry<ASTItem, String>> getItemMessagePair() {
+    return itemMessagePair;
   }
 
-  public void setErrorCauses(List<OpenValidationException> errorCauses) {
-    for (OpenValidationException error : errorCauses) {
+  public List<OpenValidationExceptionDTO> getParsedErrors() {
+    return parsedErrors;
+  }
+
+  public void setItemMessagePair(List<OpenValidationException> errors) {
+    for (OpenValidationException error : errors) {
       if (error instanceof ASTValidationException) {
-        this.errorCauses.add(((ASTValidationException) error).getItem());
+        Entry<ASTItem, String> entry = new SimpleEntry<>(((ASTValidationException) error).getItem(), error.getMessage());
+        this.itemMessagePair.add(entry);
       }
     }
   }
@@ -56,10 +62,15 @@ public class TransformationParameter {
     this.rule = rule;
   }
 
-  public void visitNode(ASTItem newItem) {
-    for (ASTItem item: this.errorCauses) {
-      boolean equals = newItem.equals(item);
-      System.out.println(equals);
+  public void visitNode(DocumentSection section) {
+    if (section == null || section.getItem() == null) return;
+
+    ASTItem newItem = section.getItem();
+    for (Entry<ASTItem, String> pair: this.itemMessagePair) {
+      if (!newItem.equals(pair.getKey())) continue;
+
+      OpenValidationExceptionDTO validationExceptionDTO = new OpenValidationExceptionDTO(pair.getValue(), section.getRange());
+      this.parsedErrors.add(validationExceptionDTO);
     }
   }
 }

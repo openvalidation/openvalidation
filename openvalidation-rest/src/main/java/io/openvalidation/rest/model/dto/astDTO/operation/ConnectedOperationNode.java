@@ -18,6 +18,7 @@ package io.openvalidation.rest.model.dto.astDTO.operation;
 
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
@@ -30,21 +31,22 @@ public class ConnectedOperationNode extends ConditionNode {
   private List<ConditionNode> conditions;
 
   public ConnectedOperationNode(
-      DocumentSection section, String culture, ConditionNode... condition) {
-    super(section, condition.length > 0 ? condition[0].getConnector() : null, culture);
+          DocumentSection section, TransformationParameter parameter, ConditionNode... condition) {
+    super(section, condition.length > 0 ? condition[0].getConnector() : null, parameter);
     this.conditions = Arrays.asList(condition);
   }
 
   public ConnectedOperationNode(
-      ASTConditionGroup conditionBase, DocumentSection section, String culture) {
-    super(section, conditionBase.getConnector(), culture);
+      ASTConditionGroup conditionBase, DocumentSection section, TransformationParameter parameter) {
+    super(section, conditionBase.getConnector(), parameter);
 
     this.conditions =
         conditionBase.getConditions().stream()
             .map(
                 condition -> {
                   DocumentSection newSection = new RangeGenerator(section).generate(condition);
-                  return NodeGenerator.createConditionNode(condition, newSection, culture);
+                  section.deleteSection(newSection);
+                  return NodeGenerator.createConditionNode(condition, newSection, parameter);
                 })
             .collect(Collectors.toList());
 
@@ -53,7 +55,7 @@ public class ConnectedOperationNode extends ConditionNode {
 
     ConditionNode newCondition =
         TransformationHelper.getOwnConditionElement(
-            conditionBase.getOriginalSource(), lastCondition, culture);
+            conditionBase.getOriginalSource(), lastCondition, parameter.getCulture());
     if (newCondition != null) {
       this.conditions.add(newCondition);
     }

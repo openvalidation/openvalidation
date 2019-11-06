@@ -18,13 +18,14 @@ package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.common.ast.ASTComment;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
 public class CommentNode extends GenericNode {
   private String content;
 
-  public CommentNode(ASTComment comment, DocumentSection section) {
-    super(section);
+  public CommentNode(ASTComment comment, DocumentSection section, TransformationParameter parameter) {
+    super(section, parameter);
 
     this.content = String.join("\n", comment.getContent());
   }

@@ -18,6 +18,7 @@ package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.common.ast.ASTVariable;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
@@ -27,14 +28,14 @@ public class VariableNode extends GenericNode {
   private OperandNode value;
   private VariableNameNode nameNode;
 
-  public VariableNode(ASTVariable variable, DocumentSection section, String culture) {
-    super(section);
+  public VariableNode(ASTVariable variable, DocumentSection section, TransformationParameter parameter) {
+    super(section, parameter);
 
     DocumentSection operandSection = new RangeGenerator(section).generate(variable.getValue());
 
     String variableNameString = variable.getOriginalSource();
     if (variable.getValue() != null) {
-      this.value = NodeGenerator.createOperand(variable.getValue(), operandSection, culture);
+      this.value = NodeGenerator.createOperand(variable.getValue(), operandSection, parameter);
       variableNameString =
           variableNameString
               .substring(variable.getValue().getOriginalSource().length())

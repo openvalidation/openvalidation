@@ -44,7 +44,7 @@ public class DocumentSplitter {
         currentLines.add(split);
       } else {
         if (currentLines.size() > 0) {
-          DocumentSection section = new DocumentSection(startLineIndex, currentLines);
+          DocumentSection section = new DocumentSection(startLineIndex, currentLines, null);
           sections.add(section);
           currentLines = new ArrayList<>();
         }
@@ -53,7 +53,7 @@ public class DocumentSplitter {
     }
 
     if (!currentLines.isEmpty()) {
-      DocumentSection section = new DocumentSection(startLineIndex, currentLines);
+      DocumentSection section = new DocumentSection(startLineIndex, currentLines, null);
       sections.add(section);
     }
 

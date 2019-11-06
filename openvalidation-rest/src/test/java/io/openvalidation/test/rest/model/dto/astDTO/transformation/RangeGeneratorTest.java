@@ -35,7 +35,7 @@ public class RangeGeneratorTest {
 
   @Test
   public void RangeGenerator_generate_with_empty_documentSection_expect_null() {
-    DocumentSection input = new DocumentSection(null, null);
+    DocumentSection input = new DocumentSection(null, null, null);
     RangeGenerator generator = new RangeGenerator(input);
 
     DocumentSection expected = null;
@@ -48,11 +48,11 @@ public class RangeGeneratorTest {
   public void RangeGenerator_generate_with_not_empty_documentSection_expect_null() {
     List<String> constructorInputLines = new ArrayList<>(Collections.singleton("1234567890"));
     DocumentSection constructorInput =
-        new DocumentSection(new Range(0, 0, 0, 10), constructorInputLines);
+        new DocumentSection(new Range(0, 0, 0, 10), constructorInputLines, null);
     RangeGenerator generator = new RangeGenerator(constructorInput);
 
     List<String> expectedLines = new ArrayList<>(Collections.singleton("2345678"));
-    DocumentSection expected = new DocumentSection(new Range(0, 1, 0, 8), expectedLines);
+    DocumentSection expected = new DocumentSection(new Range(0, 1, 0, 8), expectedLines, null);
     DocumentSection actual = generator.generate("2345678");
 
     assertThat(actual, is(expected));

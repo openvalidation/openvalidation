@@ -25,7 +25,7 @@ public abstract class GenericNode {
   private List<String> lines;
   private Range range;
 
-  public GenericNode(DocumentSection section) {
+  public GenericNode(DocumentSection section, TransformationParameter parameter) {
     if (section == null) {
       this.lines = new ArrayList<>();
     } else {
@@ -34,7 +34,13 @@ public abstract class GenericNode {
               .map(line -> line.replace("\r", ""))
               .collect(Collectors.toList());
       this.range = section.getRange();
+
+      // Might be null for nodes, that don't appear in the parser
+      if (parameter != null)
+        parameter.visitNode(section);
     }
+
+
   }
 
   public List<String> getLines() {
