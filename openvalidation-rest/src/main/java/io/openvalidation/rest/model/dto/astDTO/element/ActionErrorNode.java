@@ -2,13 +2,14 @@ package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.common.ast.ASTActionError;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
 public class ActionErrorNode extends GenericNode {
   private String errorMessage;
 
-  public ActionErrorNode(DocumentSection section, ASTActionError error) {
-    super(section);
+  public ActionErrorNode(DocumentSection section, ASTActionError error, TransformationParameter parameter) {
+    super(section, parameter);
     this.errorMessage = error.getErrorMessage();
   }
 

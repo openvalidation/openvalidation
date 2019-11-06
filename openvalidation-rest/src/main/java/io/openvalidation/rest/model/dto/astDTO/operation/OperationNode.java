@@ -22,6 +22,7 @@ import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.Range;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperatorNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
@@ -38,13 +39,13 @@ public class OperationNode extends ConditionNode {
   private OperatorNode operator;
   private boolean constrained;
 
-  public OperationNode(ASTCondition conditionBase, DocumentSection section, String culture) {
-    super(section, conditionBase.getConnector(), culture);
+  public OperationNode(ASTCondition conditionBase, DocumentSection section, TransformationParameter parameter) {
+    super(section, conditionBase.getConnector(), parameter);
 
     List<String> foundAliases = new ArrayList<>();
     if (!conditionBase.isConstrainedCondition() && conditionBase.getOriginalSource() != null) {
       String mustKeyword = Constants.MUST_TOKEN;
-      List<String> mustAliases = Aliases.getAliasByToken(culture, mustKeyword);
+      List<String> mustAliases = Aliases.getAliasByToken(parameter.getCulture(), mustKeyword);
       foundAliases =
           mustAliases.stream()
               .filter(
@@ -61,7 +62,7 @@ public class OperationNode extends ConditionNode {
           new RangeGenerator(section).generate(conditionBase.getLeftOperand());
 
       this.leftOperand =
-          NodeGenerator.createOperand(conditionBase.getLeftOperand(), leftSection, culture);
+          NodeGenerator.createOperand(conditionBase.getLeftOperand(), leftSection, parameter);
     }
 
     if (conditionBase.getRightOperand() != null) {
@@ -69,7 +70,7 @@ public class OperationNode extends ConditionNode {
           new RangeGenerator(section).generate(conditionBase.getRightOperand());
 
       this.rightOperand =
-          NodeGenerator.createOperand(conditionBase.getRightOperand(), rightSection, culture);
+          NodeGenerator.createOperand(conditionBase.getRightOperand(), rightSection, parameter);
     }
 
     if (conditionBase.getOperator() != null) {
@@ -77,18 +78,18 @@ public class OperationNode extends ConditionNode {
           && this.rightOperand.getDataType() == DataPropertyType.Boolean
           && this.rightOperand.getName().equals("true")
           && conditionBase.getOperator() == ASTComparisonOperator.EQUALS) {
-        this.operator = new OperatorNode(conditionBase, null);
+        this.operator = new OperatorNode(conditionBase, null, parameter);
       } else {
         String keyword =
             Constants.COMPOPERATOR_TOKEN + conditionBase.getOperator().name().toLowerCase();
-        List<String> possibleAliases = Aliases.getAliasByToken(culture, keyword);
+        List<String> possibleAliases = Aliases.getAliasByToken(parameter.getCulture(), keyword);
         possibleAliases.sort(Comparator.comparingInt(String::length).reversed());
         List<String> operatorLines = section.getLines();
         DocumentSection operatorSection =
             this.generateValidOperator(
                 new Range(section.getRange()), operatorLines, foundAliases, possibleAliases);
         if (operatorSection != null) {
-          this.operator = new OperatorNode(conditionBase, operatorSection);
+          this.operator = new OperatorNode(conditionBase, operatorSection, parameter);
         }
       }
     }
@@ -111,7 +112,7 @@ public class OperationNode extends ConditionNode {
       }
     }
 
-    return new DocumentSection(range, returnList).trimLine();
+    return new DocumentSection(range, returnList, null).trimLine();
   }
 
   public OperandNode getLeftOperand() {
