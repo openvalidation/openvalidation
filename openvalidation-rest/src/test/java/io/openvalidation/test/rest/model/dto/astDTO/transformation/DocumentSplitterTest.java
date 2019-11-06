@@ -31,7 +31,7 @@ public class DocumentSplitterTest {
     DocumentSection section =
         new DocumentSection(
             new Range(0, 0, 0, 16),
-            new ArrayList<String>(Collections.singleton("Das ist ein Test")));
+            new ArrayList<String>(Collections.singleton("Das ist ein Test")) , null);
     expected.add(section);
 
     List<DocumentSection> actual = splitter.splitDocument();
@@ -48,12 +48,12 @@ public class DocumentSplitterTest {
     ArrayList<String> firstLines = new ArrayList<>();
     firstLines.add("Das ist ein Test");
     firstLines.add("Blabla");
-    DocumentSection firstSection = new DocumentSection(new Range(0, 0, 1, 6), firstLines);
+    DocumentSection firstSection = new DocumentSection(new Range(0, 0, 1, 6), firstLines, null);
     expected.add(firstSection);
 
     DocumentSection secondSection =
         new DocumentSection(
-            new Range(3, 0, 3, 6), new ArrayList<>(Collections.singleton("Blabla")));
+            new Range(3, 0, 3, 6), new ArrayList<>(Collections.singleton("Blabla")), null);
     expected.add(secondSection);
 
     List<DocumentSection> actual = splitter.splitDocument();

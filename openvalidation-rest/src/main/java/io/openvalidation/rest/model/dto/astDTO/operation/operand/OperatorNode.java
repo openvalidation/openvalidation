@@ -20,6 +20,7 @@ import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 
 public class OperatorNode extends GenericNode {
@@ -27,8 +28,8 @@ public class OperatorNode extends GenericNode {
   private DataPropertyType validType;
   private ASTComparisonOperator operator;
 
-  public OperatorNode(ASTCondition astCondition, DocumentSection section) {
-    super(section);
+  public OperatorNode(ASTCondition astCondition, DocumentSection section, TransformationParameter parameter) {
+    super(section, parameter);
 
     this.operator = astCondition.getOperator();
     this.validType = astCondition.getOperator().validDataType();

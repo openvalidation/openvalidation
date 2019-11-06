@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 public class RangeGenerator {
   private List<String> outerLines;
   private Range outerRange;
+  private ASTItem item;
 
   public RangeGenerator(String text) {
     this.outerLines = text != null && !text.isEmpty() ? Arrays.asList(text.split("\n")) : null;
@@ -39,9 +40,11 @@ public class RangeGenerator {
     if (section != null) {
       this.outerLines = section.getLines();
       this.outerRange = section.getRange();
+      this.item = section.getItem();
     } else {
       this.outerLines = null;
       this.outerRange = null;
+      this.item = null;
     }
   }
 
@@ -52,6 +55,8 @@ public class RangeGenerator {
 
   public DocumentSection generate(ASTItem innerElement) {
     String sourceText = this.getOriginalSource(innerElement);
+
+    this.item = innerElement;
     return this.generate(sourceText);
   }
 
@@ -97,9 +102,9 @@ public class RangeGenerator {
 
     Range range =
         startPosition == null || endPosition == null ? null : new Range(startPosition, endPosition);
-    if (range == null) return new DocumentSection(range, new ArrayList<>());
+    if (range == null) return new DocumentSection(range, new ArrayList<>(), item);
 
-    return new DocumentSection(range, innerLines);
+    return new DocumentSection(range, innerLines, item);
   }
 
   private String getOriginalSource(ASTItem element) {

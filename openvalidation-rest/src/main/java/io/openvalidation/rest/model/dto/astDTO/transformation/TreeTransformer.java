@@ -27,17 +27,17 @@ import java.util.stream.Collectors;
 public class TreeTransformer {
   private List<ASTVariable> variables;
   private List<ASTItem> astItems;
-  private OVParams parameters;
+  private TransformationParameter parameter;
 
   public TreeTransformer(
-      OpenValidationResult result, List<ASTItem> astItemList, OVParams parameters) {
+      OpenValidationResult result, List<ASTItem> astItemList, TransformationParameter parameter) {
     this.variables =
         result != null && result.getASTModel() != null
             ? result.getASTModel().getVariables()
             : new ArrayList<>();
 
     this.astItems = astItemList;
-    this.parameters = parameters;
+    this.parameter = parameter;
   }
 
   public MainNode transform() {
@@ -49,13 +49,16 @@ public class TreeTransformer {
         this.variables.stream().map(Variable::new).collect(Collectors.toList()));
 
     ArrayList<DocumentSection> documentSections =
-        new DocumentSplitter(parameters.getRule()).splitDocument();
+        new DocumentSplitter(parameter.getRule()).splitDocument();
     if (documentSections.size() != this.astItems.size()) return mainNode;
 
     for (int index = 0; index < this.astItems.size(); index++) {
       ASTItem element = this.astItems.get(index);
+
       DocumentSection section = documentSections.get(index);
-      GenericNode node = NodeGenerator.generateNode(element, section, this.parameters.getCulture());
+      section.setItem(element);
+
+      GenericNode node = NodeGenerator.generateNode(element, section, parameter);
 
       if (node != null) {
         mainNode.addScope(node);

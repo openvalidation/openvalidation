@@ -8,6 +8,7 @@ import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.element.CommentNode;
 import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
 import io.openvalidation.rest.model.dto.astDTO.element.UnkownNode;
@@ -20,18 +21,18 @@ import io.openvalidation.rest.model.dto.astDTO.operation.operand.FunctionOperand
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 
 public class NodeGenerator {
-  public static GenericNode generateNode(ASTItem element, DocumentSection section, String culture) {
+  public static GenericNode generateNode(ASTItem element, DocumentSection section, TransformationParameter parameter) {
     GenericNode node = null;
 
     if (element instanceof ASTRule) {
-      node = new RuleNode((ASTRule) element, section, culture);
+      node = new RuleNode((ASTRule) element, section, parameter);
     } else if (element instanceof ASTVariable) {
-      node = new VariableNode((ASTVariable) element, section, culture);
+      node = new VariableNode((ASTVariable) element, section, parameter);
     } else if (element instanceof ASTComment) {
-      node = new CommentNode((ASTComment) element, section);
+      node = new CommentNode((ASTComment) element, section, parameter);
     } else if (element instanceof ASTOperandBase) {
       OperandNode tmpOperand =
-          NodeGenerator.createOperand((ASTOperandBase) element, section, culture);
+          NodeGenerator.createOperand((ASTOperandBase) element, section, parameter);
       node = new UnkownNode(tmpOperand, section);
     } else if (element instanceof ASTUnknown) {
       node = new UnkownNode(section);
@@ -41,47 +42,47 @@ public class NodeGenerator {
   }
 
   public static ConditionNode createConditionNode(
-      ASTConditionBase conditionBase, DocumentSection section, String culture) {
-    return NodeGenerator.createConditionNode(conditionBase, section, culture, null);
+      ASTConditionBase conditionBase, DocumentSection section, TransformationParameter parameter) {
+    return NodeGenerator.createConditionNode(conditionBase, section, null, parameter);
   }
 
   public static ConditionNode createConditionNode(
       ASTConditionBase conditionBase,
       DocumentSection section,
-      String culture,
-      ASTItem outerSource) {
+      ASTItem outerSource,
+      TransformationParameter parameter) {
     if (conditionBase instanceof ASTCondition) {
-      ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section, culture);
+      ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section, parameter);
 
       ConditionNode newNode =
           TransformationHelper.getOwnConditionElement(
               outerSource == null ? "" : outerSource.getOriginalSource(),
               ((ASTCondition) conditionBase),
-              culture);
+              parameter.getCulture());
       if (newNode != null) {
-        returnNode = new ConnectedOperationNode(section, culture, returnNode, newNode);
+        returnNode = new ConnectedOperationNode(section, parameter, returnNode, newNode);
       }
 
       return returnNode;
     }
 
     if (conditionBase instanceof ASTConditionGroup) {
-      return new ConnectedOperationNode((ASTConditionGroup) conditionBase, section, culture);
+      return new ConnectedOperationNode((ASTConditionGroup) conditionBase, section, parameter);
     }
 
     return null;
   }
 
   public static OperandNode createOperand(
-      ASTOperandBase operandBase, DocumentSection section, String culture) {
+      ASTOperandBase operandBase, DocumentSection section, TransformationParameter parameter) {
     if (operandBase instanceof ASTConditionBase) {
-      return NodeGenerator.createConditionNode((ASTConditionBase) operandBase, section, culture);
+      return NodeGenerator.createConditionNode((ASTConditionBase) operandBase, section, parameter);
     } else if (operandBase instanceof ASTOperandFunction) {
-      return new FunctionOperandNode((ASTOperandFunction) operandBase, section, culture);
+      return new FunctionOperandNode((ASTOperandFunction) operandBase, section, parameter);
     } else if (operandBase instanceof ASTOperandArray) {
-      return new ArrayOperandNode((ASTOperandArray) operandBase, section, culture);
+      return new ArrayOperandNode((ASTOperandArray) operandBase, section, parameter);
     }
 
-    return new OperandNode(operandBase, section);
+    return new OperandNode(operandBase, section, parameter);
   }
 }
