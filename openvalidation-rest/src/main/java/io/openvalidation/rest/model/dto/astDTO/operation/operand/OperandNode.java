@@ -22,6 +22,7 @@ import io.openvalidation.common.ast.operand.arithmetical.ASTOperandArithmetical;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.Range;
+import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.List;
@@ -32,8 +33,8 @@ public class OperandNode extends GenericNode {
   private String name;
   private boolean isStatic;
 
-  public OperandNode(ASTOperandBase operand, DocumentSection section) {
-    super(section);
+  public OperandNode(ASTOperandBase operand, DocumentSection section, TransformationParameter parameter) {
+    super(section, parameter);
 
     if (operand != null) {
       this.dataType = operand.getDataType();
@@ -62,8 +63,8 @@ public class OperandNode extends GenericNode {
     }
   }
 
-  public OperandNode(DataPropertyType dataType, DocumentSection section) {
-    super(section);
+  public OperandNode(DataPropertyType dataType, DocumentSection section, TransformationParameter parameter) {
+    super(section, parameter);
 
     this.dataType = dataType;
     this.name = name;
@@ -98,7 +99,7 @@ public class OperandNode extends GenericNode {
 
     List<String> lowerCaseLines =
         section.getLines().stream().map(String::toLowerCase).collect(Collectors.toList());
-    DocumentSection lowerCaseSection = new DocumentSection(section.getRange(), lowerCaseLines);
+    DocumentSection lowerCaseSection = new DocumentSection(section.getRange(), lowerCaseLines, section.getItem());
     DocumentSection newSection =
         new RangeGenerator(lowerCaseSection).generate(this.getName().toLowerCase());
 

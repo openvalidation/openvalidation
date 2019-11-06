@@ -19,7 +19,7 @@ public class DocumentSectionTest {
     lineInputs.add(lastLine);
 
     int startLineInput = 0;
-    DocumentSection section = new DocumentSection(startLineInput, lineInputs);
+    DocumentSection section = new DocumentSection(startLineInput, lineInputs, null);
 
     Range expectedRange = new Range(0, 0, 1, lastLine.length());
     Range actualRange = section.getRange();
@@ -37,7 +37,7 @@ public class DocumentSectionTest {
     lineInputs.add(lastLine);
 
     int startLineInput = 1;
-    DocumentSection section = new DocumentSection(startLineInput, lineInputs);
+    DocumentSection section = new DocumentSection(startLineInput, lineInputs, null);
 
     Range expectedRange = new Range(1, 0, 2, lastLine.length());
     Range actualRange = section.getRange();
@@ -52,7 +52,7 @@ public class DocumentSectionTest {
     lineInputs.add(firstLine);
 
     Range rangeInput = new Range(0, 0, 0, firstLine.length());
-    DocumentSection section = new DocumentSection(rangeInput, lineInputs).trimLine();
+    DocumentSection section = new DocumentSection(rangeInput, lineInputs, null).trimLine();
 
     Range expectedRange = new Range(0, 0, 0, firstLine.length());
     Range actualRange = section.getRange();
@@ -67,7 +67,7 @@ public class DocumentSectionTest {
     lineInputs.add(firstLine);
 
     Range rangeInput = new Range(0, 0, 0, firstLine.length());
-    DocumentSection section = new DocumentSection(rangeInput, lineInputs).trimLine();
+    DocumentSection section = new DocumentSection(rangeInput, lineInputs, null).trimLine();
 
     Range expectedRange = new Range(0, "  ".length(), 0, firstLine.length() - "  ".length());
     Range actualRange = section.getRange();

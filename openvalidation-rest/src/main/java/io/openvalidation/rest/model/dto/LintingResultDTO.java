@@ -9,10 +9,7 @@ import io.openvalidation.common.exceptions.ASTValidationException;
 import io.openvalidation.common.exceptions.ASTValidationSummaryException;
 import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.OpenValidationResult;
-import io.openvalidation.rest.model.dto.astDTO.GenericNode;
-import io.openvalidation.rest.model.dto.astDTO.MainNode;
-import io.openvalidation.rest.model.dto.astDTO.Position;
-import io.openvalidation.rest.model.dto.astDTO.Range;
+import io.openvalidation.rest.model.dto.astDTO.*;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
@@ -38,23 +35,26 @@ public class LintingResultDTO {
   }
 
   public LintingResultDTO(
-      OpenValidationResult ovResult, OVParams parameters, List<ASTItem> astItemList) {
+      OpenValidationResult ovResult, OVParams ovParams, List<ASTItem> astItemList) {
     if (ovResult == null)
       throw new IllegalArgumentException("OpenValidationResult should not be null");
 
-    TreeTransformer transformer = new TreeTransformer(ovResult, astItemList, parameters);
+    TransformationParameter parameter = new TransformationParameter(ovParams);
+    parameter.setItemMessagePair(ovResult.getErrors());
+
+    TreeTransformer transformer = new TreeTransformer(ovResult, astItemList, parameter);
     MainNode node = transformer.transform();
     this.setMainAstNode(node);
 
     try {
-      DataSchema schema = SchemaConverterFactory.convert(parameters.getSchema());
+      DataSchema schema = SchemaConverterFactory.convert(ovParams.getSchema());
       this.setSchema(new SchemaDTO(schema));
     } catch (Exception ex) {
       System.err.print("Schema could not be generated");
     }
 
     if (node.getRange() == null) {
-      String[] splittedDocument = parameters.getRule().split("\n");
+      String[] splittedDocument = ovParams.getRule().split("\n");
       Position startPosition = new Position(0, 0);
       Position endPosition =
           new Position(
@@ -62,9 +62,17 @@ public class LintingResultDTO {
       node.setRange(new Range(startPosition, endPosition));
     }
 
-    this.errors = new ArrayList<>();
+    this.errors = parameter.getParsedErrors();
     for (OpenValidationException error : ovResult.getErrors()) {
-      this.generateAndAddErrorDto(error, node, parameters.getRule());
+      // These exceptions where generated during the tree-transformation
+      if (error instanceof ASTValidationException)
+        continue;
+
+      if (error instanceof ASTValidationSummaryException) {
+        this.generateAndAddErrorDto((ASTValidationSummaryException) error, ovParams.getRule());
+      } else {
+        errors.add(new OpenValidationExceptionDTO(error.getMessage(), node.getRange()));
+      }
     }
   }
 
@@ -72,40 +80,9 @@ public class LintingResultDTO {
       OpenValidationException error, MainNode node, String ruleParameter) {
     if (error instanceof ASTValidationSummaryException) {
       this.generateAndAddErrorDto((ASTValidationSummaryException) error, ruleParameter);
-    } else if (error instanceof ASTValidationException) {
-      this.generateAndAddErrorDto((ASTValidationException) error, node, ruleParameter);
     } else {
       errors.add(new OpenValidationExceptionDTO(error.getMessage(), node.getRange()));
     }
-  }
-
-  private void generateAndAddErrorDto(
-      ASTValidationException error, MainNode node, String ruleParameter) {
-    // default position for errors that can't be mapped to a specific element
-    ASTItem item = error.getItem();
-    if (item == null) {
-      errors.add(new OpenValidationExceptionDTO(error.getMessage(), node.getRange()));
-      return;
-    }
-
-    String sourceString = item.getOriginalSource();
-
-    // Sometimes the position is not zero-based
-    int position = item.getGlobalPosition() == 0 ? 1 : item.getGlobalPosition();
-    if (position > node.getScopes().size() || node.getScopes().size() == 0) {
-      if (sourceString.isEmpty()) return;
-      DocumentSection newSection = new RangeGenerator(ruleParameter).generate(sourceString);
-      errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
-      return;
-    }
-
-    GenericNode generatedNode = node.getScopes().get(position - 1);
-    sourceString =
-        sourceString.isEmpty() ? String.join("\n", generatedNode.getLines()) : sourceString;
-    DocumentSection newSection =
-        new RangeGenerator(generatedNode.getLines(), generatedNode.getRange())
-            .generate(sourceString + "\r");
-    errors.add(new OpenValidationExceptionDTO(error.getMessage(), newSection.getRange()));
   }
 
   private void generateAndAddErrorDto(ASTValidationSummaryException error, String ruleParameter) {
