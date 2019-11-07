@@ -45,7 +45,7 @@ public class RangeGeneratorTest {
   }
 
   @Test
-  public void RangeGenerator_generate_with_not_empty_documentSection_expect_null() {
+  public void RangeGenerator_generate_with_not_empty_documentSection_one_line_expect_correct_string() {
     List<String> constructorInputLines = new ArrayList<>(Collections.singleton("1234567890"));
     DocumentSection constructorInput =
         new DocumentSection(new Range(0, 0, 0, 10), constructorInputLines, null);
@@ -57,4 +57,74 @@ public class RangeGeneratorTest {
 
     assertThat(actual, is(expected));
   }
+
+  @Test
+  public void RangeGenerator_generate_with_not_empty_documentSection_two_lines_expect_correct_string() {
+    List<String> constructorInputLines = new ArrayList<>(Collections.singleton("If the age is less than 18"));
+
+    String secondLine = "Then error!";
+    constructorInputLines.add(secondLine);
+
+    DocumentSection constructorInput =
+            new DocumentSection(new Range(0, 0, 1, secondLine.length()), constructorInputLines, null);
+    RangeGenerator generator = new RangeGenerator(constructorInput);
+
+    List<String> expectedLines = new ArrayList<>(Collections.singleton("error"));
+    DocumentSection expected = new DocumentSection(new Range(1, 5, 1, 10), expectedLines, null);
+    DocumentSection actual = generator.generate("error");
+
+    assertThat(actual, is(expected));
+  }
+
+  @Test
+  public void RangeGenerator_generate_with_connectedOperation_expect_first_operation() {
+    List<String> constructorInputLines = new ArrayList<>(Collections.singleton("If the age is less than 18"));
+
+    String secondLine = "and the name is klaus";
+    constructorInputLines.add(secondLine);
+
+
+    String thirdLine = "or the name is klaus";
+    constructorInputLines.add(thirdLine);
+
+
+    String lastLine = "Dann fehler!";
+    constructorInputLines.add(lastLine);
+
+    DocumentSection constructorInput =
+            new DocumentSection(new Range(0, 0, 1, lastLine.length()), constructorInputLines, null);
+    RangeGenerator generator = new RangeGenerator(constructorInput);
+
+    List<String> expectedLines = new ArrayList<>(Collections.singleton("or the name is klaus"));
+    DocumentSection expected = new DocumentSection(new Range(2, 0, 2, 20), expectedLines, null);
+    DocumentSection actual = generator.generate("or the name is klaus");
+
+    assertThat(actual, is(expected));
+  }
+
+//  @Test
+//  public void RangeGenerator_generate_with_connectedOperation_with_same_operations_expect_second_operation() {
+//    List<String> constructorInputLines = new ArrayList<>(Collections.singleton("If the age is less than 18"));
+//
+//    String secondLine = "and the name is klaus";
+//    constructorInputLines.add(secondLine);
+//
+//
+//    String thirdLine = "and the name is klaus";
+//    constructorInputLines.add(thirdLine);
+//
+//
+//    String lastLine = "Dann fehler!";
+//    constructorInputLines.add(lastLine);
+//
+//    DocumentSection constructorInput =
+//            new DocumentSection(new Range(0, 0, 1, lastLine.length()), constructorInputLines, null);
+//    RangeGenerator generator = new RangeGenerator(constructorInput);
+//
+//    List<String> expectedLines = new ArrayList<>(Collections.singleton("or the name is klaus"));
+//    DocumentSection expected = new DocumentSection(new Range(2, 0, 2, 21), expectedLines, null);
+//    DocumentSection actual = generator.generate("or the name is klaus");
+//
+//    assertThat(actual, is(expected));
+//  }
 }
