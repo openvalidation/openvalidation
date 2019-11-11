@@ -1,7 +1,6 @@
 package io.openvalidation.rest.model.dto.astDTO.element;
 
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
-import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 

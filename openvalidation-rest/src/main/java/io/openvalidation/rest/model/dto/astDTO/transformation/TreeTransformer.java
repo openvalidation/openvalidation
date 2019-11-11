@@ -19,7 +19,6 @@ package io.openvalidation.rest.model.dto.astDTO.transformation;
 import io.openvalidation.common.ast.*;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.rest.model.dto.astDTO.*;
-import io.openvalidation.rest.service.OVParams;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -31,7 +31,8 @@ public class DocumentSplitterTest {
     DocumentSection section =
         new DocumentSection(
             new Range(0, 0, 0, 16),
-            new ArrayList<String>(Collections.singleton("Das ist ein Test")) , null);
+            new ArrayList<String>(Collections.singleton("Das ist ein Test")),
+            null);
     expected.add(section);
 
     List<DocumentSection> actual = splitter.splitDocument();

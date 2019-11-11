@@ -28,7 +28,8 @@ public class OperatorNode extends GenericNode {
   private DataPropertyType validType;
   private ASTComparisonOperator operator;
 
-  public OperatorNode(ASTCondition astCondition, DocumentSection section, TransformationParameter parameter) {
+  public OperatorNode(
+      ASTCondition astCondition, DocumentSection section, TransformationParameter parameter) {
     super(section, parameter);
 
     this.operator = astCondition.getOperator();
