@@ -14,20 +14,22 @@
  *    limitations under the License.
  */
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.Languages;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.core.Aliases;
 import io.openvalidation.core.OpenValidation;
 import io.openvalidation.core.OpenValidationOptions;
-import java.util.Locale;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Locale;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class ParamValidationTest {
@@ -418,7 +420,7 @@ public class ParamValidationTest {
     assertThat(
         expectedException.getMessage(),
         containsString(
-            "invalid JSON Schema Format. Should be json data or json schmea in json or yaml format!"));
+            "invalid JSON Schema Format. Should be json data or json schema in json or yaml format!"));
   }
 
   // TODO @Testing: Refactorn: Exception soll beim konfigurieren von openvalidation kommen, bei
@@ -447,7 +449,7 @@ public class ParamValidationTest {
     assertThat(
         expectedException.getMessage(),
         containsString(
-            "invalid JSON Schema Format. Should be json data or json schmea in json or yaml format!"));
+            "invalid JSON Schema Format. Should be json data or json schema in json or yaml format!"));
   }
 
   @Test

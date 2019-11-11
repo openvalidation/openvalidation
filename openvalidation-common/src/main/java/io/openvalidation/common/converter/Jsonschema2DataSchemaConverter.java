@@ -69,7 +69,10 @@ public class Jsonschema2DataSchemaConverter implements ISchemaConverter {
       String name = key;
       JSONObject prop = (JSONObject) properties.get(key);
       DataPropertyType type = JsonUtils.parseTypeBySchemaProperty(prop);
-      DataPropertyType arrayContentType = type == DataPropertyType.Array? JsonUtils.parseTypeBySchemaProperty((JSONObject) prop.get("items")): null;
+      DataPropertyType arrayContentType =
+          type == DataPropertyType.Array
+              ? JsonUtils.parseTypeBySchemaProperty((JSONObject) prop.get("items"))
+              : null;
 
       String pth = (path != null && path.length() > 0) ? path : "";
       String fullName = (path != null && path.length() > 0) ? path + "." + name : name;

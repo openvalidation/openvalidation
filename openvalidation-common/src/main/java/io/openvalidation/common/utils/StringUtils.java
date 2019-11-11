@@ -269,10 +269,8 @@ public class StringUtils {
     return string.indexOf(sub);
   }
 
-  public static boolean isBoolean(String s)
-  {
-    if(s.equalsIgnoreCase("true") || s.equalsIgnoreCase("false"))
-    {
+  public static boolean isBoolean(String s) {
+    if (s.equalsIgnoreCase("true") || s.equalsIgnoreCase("false")) {
       return true;
     }
     return false;

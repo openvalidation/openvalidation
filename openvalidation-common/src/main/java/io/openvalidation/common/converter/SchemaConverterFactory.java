@@ -28,7 +28,7 @@ public class SchemaConverterFactory {
     if (JsonUtils.isJsonData(rawSchema)) return new Json2DataSchemaConverter(rawSchema);
 
     throw new OpenValidationException(
-        "invalid JSON Schema Format. Should be json data or json schmea in json or yaml format!\n"
+        "invalid JSON Schema Format. Should be json data or json schema in json or yaml format!\n"
             + rawSchema);
   }
 

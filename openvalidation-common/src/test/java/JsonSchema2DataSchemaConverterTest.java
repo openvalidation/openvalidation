@@ -172,42 +172,47 @@ public class JsonSchema2DataSchemaConverterTest {
   }
 
   @ParameterizedTest
-  @CsvSource(value = {
-          "string,String",
-          "number,Decimal",
-          "integer,Decimal",
-          "date,Date",
-          "array,Array",
-          "boolean,Boolean"})
-  public void should_resolve_type_of_array_contents_with_string(String input, String expected) throws Exception {
+  @CsvSource(
+      value = {
+        "string,String",
+        "number,Decimal",
+        "integer,Decimal",
+        "date,Date",
+        "array,Array",
+        "boolean,Boolean"
+      })
+  public void should_resolve_type_of_array_contents_with_string(String input, String expected)
+      throws Exception {
     String json =
-        "{\n" +
-            "  \"definitions\": {},\n" +
-            "  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n" +
-            "  \"$id\": \"http://example.com/root.json\",\n" +
-            "  \"type\": \"object\",\n" +
-            "  \"title\": \"The Root Schema\",\n" +
-            "  \"required\": [\n" +
-            "    \"numbers\"\n" +
-            "  ],\n" +
-            "  \"properties\": {\n" +
-            "    \"numbers\": {\n" +
-            "      \"$id\": \"#/properties/numbers\",\n" +
-            "      \"type\": \"array\",\n" +
-            "      \"title\": \"The Numbers Schema\",\n" +
-            "      \"items\": {\n" +
-            "        \"$id\": \"#/properties/numbers/items\",\n" +
-            "        \"type\": \""+input+"\",\n" +
-            "        \"title\": \"The Items Schema\",\n" +
-            "        \"default\": 0,\n" +
-            "        \"examples\": [\n" +
-            "          abc,\n" +
-            "          def\n" +
-            "        ]\n" +
-            "      }\n" +
-            "    }\n" +
-            "  }\n" +
-            "}";
+        "{\n"
+            + "  \"definitions\": {},\n"
+            + "  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n"
+            + "  \"$id\": \"http://example.com/root.json\",\n"
+            + "  \"type\": \"object\",\n"
+            + "  \"title\": \"The Root Schema\",\n"
+            + "  \"required\": [\n"
+            + "    \"numbers\"\n"
+            + "  ],\n"
+            + "  \"properties\": {\n"
+            + "    \"numbers\": {\n"
+            + "      \"$id\": \"#/properties/numbers\",\n"
+            + "      \"type\": \"array\",\n"
+            + "      \"title\": \"The Numbers Schema\",\n"
+            + "      \"items\": {\n"
+            + "        \"$id\": \"#/properties/numbers/items\",\n"
+            + "        \"type\": \""
+            + input
+            + "\",\n"
+            + "        \"title\": \"The Items Schema\",\n"
+            + "        \"default\": 0,\n"
+            + "        \"examples\": [\n"
+            + "          abc,\n"
+            + "          def\n"
+            + "        ]\n"
+            + "      }\n"
+            + "    }\n"
+            + "  }\n"
+            + "}";
     DataSchema schema = SchemaConverterFactory.convert(json);
 
     assertThat(schema, is(notNullValue()));
