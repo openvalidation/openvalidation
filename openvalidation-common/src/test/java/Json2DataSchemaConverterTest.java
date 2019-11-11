@@ -20,6 +20,8 @@ import io.openvalidation.common.data.DataProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.data.DataSchema;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.stream.Collectors;
 
@@ -186,5 +188,38 @@ public class Json2DataSchemaConverterTest {
     assertThat(prop3.getName(), is("value"));
     assertThat(prop3.getPropertyPath(), is("prop.ages"));
     assertThat(prop3.getArrayPath(), is("my.arr"));
+  }
+
+  @ParameterizedTest
+  @CsvSource(value = {
+          "banana;String",
+          "banana, apple;String",
+          "banana, 1, 1.5, true, [1,2,3];String",
+          "1;Decimal",
+          "1, 2, 3;Decimal",
+          "1, banana, 1.5, true, [1,2,3];Decimal",
+          "1.5;Decimal",
+          "1.5, 2.5, 3.5;Decimal",
+          "1.5, banana, 1, true, [1,2,3];Decimal",
+          //"date;Date",
+          "[1,2,3];Array",
+          "[1,2,3], [4,5,6];Array",
+          "[1,2,3], banana, 1.5, true;Array",
+          "true;Boolean",
+          "true, false;Boolean",
+          "true, 1.5, banana, 1, [1,2,3];Boolean"}, delimiter = ';')
+  public void should_resolve_type_of_array_contents_with_string(String input, String expected) throws Exception {
+    String json =
+        "{dataArray : [" + input + "]}";
+    DataSchema schema = SchemaConverterFactory.convert(json);
+
+    assertThat(schema, is(notNullValue()));
+    assertThat(schema.getProperties().size(), is(1));
+
+    DataProperty property = schema.getProperties().get(0);
+    assertThat(property, is(notNullValue()));
+    assertThat(property.getName(), is("dataArray"));
+    assertThat(property.getType(), is(DataPropertyType.Array));
+    assertThat(property.getArrayContentType().toString(), is(expected)); // DataPropertyType.String
   }
 }
