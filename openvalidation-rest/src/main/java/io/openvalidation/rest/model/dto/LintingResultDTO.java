@@ -15,7 +15,6 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.TreeTransformer;
 import io.openvalidation.rest.model.dto.schema.SchemaDTO;
 import io.openvalidation.rest.service.OVParams;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LintingResultDTO {
@@ -65,8 +64,7 @@ public class LintingResultDTO {
     this.errors = parameter.getParsedErrors();
     for (OpenValidationException error : ovResult.getErrors()) {
       // These exceptions where generated during the tree-transformation
-      if (error instanceof ASTValidationException)
-        continue;
+      if (error instanceof ASTValidationException) continue;
 
       if (error instanceof ASTValidationSummaryException) {
         this.generateAndAddErrorDto((ASTValidationSummaryException) error, ovParams.getRule());

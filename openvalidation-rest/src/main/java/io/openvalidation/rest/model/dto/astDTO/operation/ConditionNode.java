@@ -28,11 +28,13 @@ import java.util.List;
 public abstract class ConditionNode extends OperandNode {
   private String connector;
 
-  public ConditionNode(DocumentSection section, ASTConditionConnector connector, TransformationParameter parameter) {
+  public ConditionNode(
+      DocumentSection section, ASTConditionConnector connector, TransformationParameter parameter) {
     this(section, connector != null ? connector.name() : null, parameter);
   }
 
-  public ConditionNode(DocumentSection section, String connector, TransformationParameter parameter) {
+  public ConditionNode(
+      DocumentSection section, String connector, TransformationParameter parameter) {
     super(DataPropertyType.Boolean, section, parameter);
 
     if (connector != null) {

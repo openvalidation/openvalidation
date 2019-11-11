@@ -1,16 +1,15 @@
 package io.openvalidation.rest.model.dto.astDTO;
 
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
 import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.exceptions.ASTValidationException;
 import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.rest.model.dto.OpenValidationExceptionDTO;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.service.OVParams;
-
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class TransformationParameter {
   private String culture;
@@ -48,7 +47,8 @@ public class TransformationParameter {
   public void setItemMessagePair(List<OpenValidationException> errors) {
     for (OpenValidationException error : errors) {
       if (error instanceof ASTValidationException) {
-        Entry<ASTItem, String> entry = new SimpleEntry<>(((ASTValidationException) error).getItem(), error.getMessage());
+        Entry<ASTItem, String> entry =
+            new SimpleEntry<>(((ASTValidationException) error).getItem(), error.getMessage());
         this.itemMessagePair.add(entry);
       }
     }
@@ -66,10 +66,11 @@ public class TransformationParameter {
     if (section == null || section.getItem() == null) return;
 
     ASTItem newItem = section.getItem();
-    for (Entry<ASTItem, String> pair: this.itemMessagePair) {
+    for (Entry<ASTItem, String> pair : this.itemMessagePair) {
       if (!newItem.equals(pair.getKey())) continue;
 
-      OpenValidationExceptionDTO validationExceptionDTO = new OpenValidationExceptionDTO(pair.getValue(), section.getRange());
+      OpenValidationExceptionDTO validationExceptionDTO =
+          new OpenValidationExceptionDTO(pair.getValue(), section.getRange());
       this.parsedErrors.add(validationExceptionDTO);
     }
   }

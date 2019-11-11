@@ -28,7 +28,8 @@ public class VariableNode extends GenericNode {
   private OperandNode value;
   private VariableNameNode nameNode;
 
-  public VariableNode(ASTVariable variable, DocumentSection section, TransformationParameter parameter) {
+  public VariableNode(
+      ASTVariable variable, DocumentSection section, TransformationParameter parameter) {
     super(section, parameter);
 
     DocumentSection operandSection = new RangeGenerator(section).generate(variable.getValue());

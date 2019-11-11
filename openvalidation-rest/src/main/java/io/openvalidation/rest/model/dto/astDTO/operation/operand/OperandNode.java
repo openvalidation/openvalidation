@@ -33,7 +33,8 @@ public class OperandNode extends GenericNode {
   private String name;
   private boolean isStatic;
 
-  public OperandNode(ASTOperandBase operand, DocumentSection section, TransformationParameter parameter) {
+  public OperandNode(
+      ASTOperandBase operand, DocumentSection section, TransformationParameter parameter) {
     super(section, parameter);
 
     if (operand != null) {
@@ -63,7 +64,8 @@ public class OperandNode extends GenericNode {
     }
   }
 
-  public OperandNode(DataPropertyType dataType, DocumentSection section, TransformationParameter parameter) {
+  public OperandNode(
+      DataPropertyType dataType, DocumentSection section, TransformationParameter parameter) {
     super(section, parameter);
 
     this.dataType = dataType;
@@ -99,7 +101,8 @@ public class OperandNode extends GenericNode {
 
     List<String> lowerCaseLines =
         section.getLines().stream().map(String::toLowerCase).collect(Collectors.toList());
-    DocumentSection lowerCaseSection = new DocumentSection(section.getRange(), lowerCaseLines, section.getItem());
+    DocumentSection lowerCaseSection =
+        new DocumentSection(section.getRange(), lowerCaseLines, section.getItem());
     DocumentSection newSection =
         new RangeGenerator(lowerCaseSection).generate(this.getName().toLowerCase());
 

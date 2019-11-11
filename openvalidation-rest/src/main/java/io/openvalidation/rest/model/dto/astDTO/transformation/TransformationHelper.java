@@ -9,7 +9,8 @@ import io.openvalidation.rest.model.dto.astDTO.operation.OperationNode;
 import java.util.List;
 
 public class TransformationHelper {
-  // Used for a lonely "and" / "or" inside a condition-group which currently can't be parsed properly
+  // Used for a lonely "and" / "or" inside a condition-group which currently can't be parsed
+  // properly
   public static ConditionNode getOwnConditionElement(
       String originalSource, ASTCondition condition, String culture) {
     if (originalSource == null || condition == null) return null;
@@ -26,8 +27,10 @@ public class TransformationHelper {
     String newOriginalSource = newOperandString[0].replace("\n", "").trim();
     if (newOriginalSource.isEmpty()) return null;
 
-    List<String> connectionKeywords = Aliases.getAliasByToken(culture, Constants.AND_TOKEN, Constants.OR_TOKEN);
-    if (!connectionKeywords.stream().anyMatch(string -> newOriginalSource.toLowerCase().contains(string.toLowerCase())))
+    List<String> connectionKeywords =
+        Aliases.getAliasByToken(culture, Constants.AND_TOKEN, Constants.OR_TOKEN);
+    if (!connectionKeywords.stream()
+        .anyMatch(string -> newOriginalSource.toLowerCase().contains(string.toLowerCase())))
       return null;
 
     ASTCondition newCondition = new ASTCondition(newOriginalSource);

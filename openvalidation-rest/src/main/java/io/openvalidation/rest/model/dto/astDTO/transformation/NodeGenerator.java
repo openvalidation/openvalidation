@@ -21,7 +21,8 @@ import io.openvalidation.rest.model.dto.astDTO.operation.operand.FunctionOperand
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 
 public class NodeGenerator {
-  public static GenericNode generateNode(ASTItem element, DocumentSection section, TransformationParameter parameter) {
+  public static GenericNode generateNode(
+      ASTItem element, DocumentSection section, TransformationParameter parameter) {
     GenericNode node = null;
 
     if (element instanceof ASTRule) {
@@ -52,7 +53,8 @@ public class NodeGenerator {
       ASTItem outerSource,
       TransformationParameter parameter) {
     if (conditionBase instanceof ASTCondition) {
-      ConditionNode returnNode = new OperationNode((ASTCondition) conditionBase, section, parameter);
+      ConditionNode returnNode =
+          new OperationNode((ASTCondition) conditionBase, section, parameter);
 
       ConditionNode newNode =
           TransformationHelper.getOwnConditionElement(
