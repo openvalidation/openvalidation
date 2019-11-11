@@ -89,15 +89,18 @@ public abstract class TransformerBase<
 
     DataPropertyBase property = this.factoryCntx.resolveProperty(content);
 
-    if (property != null && property instanceof DataProperty) {
+    if (property instanceof DataProperty) {
       operand = new ASTOperandProperty(((DataProperty) property).getFullNameAsParts());
       operand.setDataType(property.getType());
       operand.setSource(content);
-    } else if (property != null && property instanceof DataVariableReference) {
-      operand = new ASTOperandVariable(((DataVariableReference) property).getName());
+      if (property.getType() == DataPropertyType.Array) {
+        ((ASTOperandProperty) operand).setArrayContentType(property.getArrayContentType());
+      }
+    } else if (property instanceof DataVariableReference) {
+      operand = new ASTOperandVariable(property.getName());
       operand.setSource(content);
       operand.setDataType(property.getType());
-    } else if (property != null && property instanceof DataArrayProperty) {
+    } else if (property instanceof DataArrayProperty) {
       DataArrayProperty p = (DataArrayProperty) property;
 
       ASTOperandFunctionBuilder functionBuilder = new ASTOperandFunctionBuilder();

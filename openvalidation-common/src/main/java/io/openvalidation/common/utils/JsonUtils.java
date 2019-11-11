@@ -17,6 +17,8 @@
 package io.openvalidation.common.utils;
 
 import io.openvalidation.common.data.DataPropertyType;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONArray;
@@ -24,13 +26,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class JsonUtils {
 
   private static final Pattern jsonArrayPattern = Pattern.compile("\\[(.+,?)*]$");
-
 
   public static void validate(String json, String schema) {
     JSONObject jsonData = loadJson(json);
@@ -81,10 +79,9 @@ public class JsonUtils {
     return DataPropertyType.Object;
   }
 
-  public static DataPropertyType parseArrayContentType(JSONArray jsonArray)
-  {
+  public static DataPropertyType parseArrayContentType(JSONArray jsonArray) {
     DataPropertyType type = DataPropertyType.Unknown;
-    if(jsonArray.length() > 0) {
+    if (jsonArray.length() > 0) {
       String firstElementString = String.valueOf(jsonArray.get(0));
       type = parseTypeFromString(firstElementString);
     }
@@ -109,7 +106,6 @@ public class JsonUtils {
     }
     return type;
   }
-
 
   public static DataPropertyType parseTypeBySchemaProperty(JSONObject schemaProperty) {
     Object type =
