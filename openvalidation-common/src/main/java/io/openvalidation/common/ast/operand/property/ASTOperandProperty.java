@@ -18,6 +18,7 @@ package io.openvalidation.common.ast.operand.property;
 
 import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
+import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,6 +29,7 @@ public class ASTOperandProperty extends ASTOperandBase {
   protected List<ASTPropertyPart> path = new ArrayList<>();
 
   protected String lambdaToken;
+  private DataPropertyType _arrayContentType;
 
   public ASTOperandProperty() {
     super();
@@ -55,6 +57,14 @@ public class ASTOperandProperty extends ASTOperandBase {
 
   public void setLambdaToken(String token) {
     this.lambdaToken = token;
+  }
+
+  public DataPropertyType getArrayContentType() {
+    return _arrayContentType;
+  }
+
+  public void setArrayContentType(DataPropertyType _arrayContentType) {
+    this._arrayContentType = _arrayContentType;
   }
 
   public List<ASTPropertyPart> getPath() {

@@ -30,7 +30,8 @@ public class DataProperty extends DataPropertyBase {
     this(name, path, type, null);
   }
 
-  public DataProperty(String name, String path, DataPropertyType type, DataPropertyType arrayContentType) {
+  public DataProperty(
+      String name, String path, DataPropertyType type, DataPropertyType arrayContentType) {
     super(name, type, arrayContentType);
     this._path = path;
     this.setFullName(

@@ -60,6 +60,13 @@ public class PropertyAssertion
     return this;
   }
 
+  public PropertyAssertion hasArrayContentType(DataPropertyType type) {
+    shouldNotBeEmpty();
+    shouldEquals(model.getArrayContentType(), type, "ARRAY PROPERTY CONTENT TYPE");
+
+    return this;
+  }
+
   public OperandAssertion parentOperand() {
     shouldBeInstanceOf(this.parent(), OperandAssertion.class, "PARENT OPERAND");
 
