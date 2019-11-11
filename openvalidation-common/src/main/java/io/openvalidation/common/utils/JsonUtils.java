@@ -24,7 +24,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class JsonUtils {
+
+  private static final Pattern jsonArrayPattern = Pattern.compile("\\[(.+,?)*]$");
+
 
   public static void validate(String json, String schema) {
     JSONObject jsonData = loadJson(json);
@@ -74,6 +80,36 @@ public class JsonUtils {
 
     return DataPropertyType.Object;
   }
+
+  public static DataPropertyType parseArrayContentType(JSONArray jsonArray)
+  {
+    DataPropertyType type = DataPropertyType.Unknown;
+    if(jsonArray.length() > 0) {
+      String firstElementString = jsonArray.getString(0);
+      type = parseTypeFromString(firstElementString);
+    }
+
+    return type;
+  }
+
+  public static DataPropertyType parseTypeFromString(String firstElementString) {
+    DataPropertyType type;
+
+    if (NumberParsingUtils.isNumber(firstElementString)) {
+      type = DataPropertyType.Decimal;
+    } else if (StringUtils.isBoolean(firstElementString)) {
+      type = DataPropertyType.Boolean;
+    } else {
+      Matcher jsonArrayMatcher = jsonArrayPattern.matcher(firstElementString);
+      if (jsonArrayMatcher.matches()) {
+        type = DataPropertyType.Array;
+      } else {
+        type = DataPropertyType.String;
+      }
+    }
+    return type;
+  }
+
 
   public static DataPropertyType parseTypeBySchemaProperty(JSONObject schemaProperty) {
     Object type =
