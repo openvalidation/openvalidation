@@ -19,7 +19,6 @@ package io.openvalidation.rest.model.dto.astDTO.transformation;
 import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.rest.model.dto.astDTO.Position;
 import io.openvalidation.rest.model.dto.astDTO.Range;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -100,9 +99,8 @@ public class DocumentSection {
     boolean removedLine = false;
 
     Iterator iterator = this.lines.iterator();
-    while (iterator.hasNext())
-    {
-      String currentLine = (String)iterator.next();
+    while (iterator.hasNext()) {
+      String currentLine = (String) iterator.next();
       if (section.lines.stream().anyMatch(line -> line.equals(currentLine))) {
         removedLine = true;
         iterator.remove();

@@ -36,11 +36,8 @@ public abstract class GenericNode {
       this.range = section.getRange();
 
       // Might be null for nodes, that don't appear in the parser
-      if (parameter != null)
-        parameter.visitNode(section);
+      if (parameter != null) parameter.visitNode(section);
     }
-
-
   }
 
   public List<String> getLines() {

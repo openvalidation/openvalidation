@@ -8,7 +8,8 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 public class ActionErrorNode extends GenericNode {
   private String errorMessage;
 
-  public ActionErrorNode(DocumentSection section, ASTActionError error, TransformationParameter parameter) {
+  public ActionErrorNode(
+      DocumentSection section, ASTActionError error, TransformationParameter parameter) {
     super(section, parameter);
     this.errorMessage = error.getErrorMessage();
   }

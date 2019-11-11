@@ -53,7 +53,8 @@ public class RuleNode extends GenericNode {
       ASTRule rule, ASTActionError actionError, TransformationParameter parameter) {
 
     // Look for the "THEN"-Keyword
-    List<String> thenKeyword = Aliases.getAliasByToken(parameter.getCulture(), Constants.THEN_TOKEN);
+    List<String> thenKeyword =
+        Aliases.getAliasByToken(parameter.getCulture(), Constants.THEN_TOKEN);
     String actionErrorString;
 
     actionErrorString = actionError.getErrorMessage();
@@ -69,7 +70,9 @@ public class RuleNode extends GenericNode {
         && rule.getAllConditions().stream().anyMatch(ASTCondition::isConstrainedCondition)) {
       section =
           new DocumentSection(
-              this.getRange(), Arrays.asList(actionError.getErrorMessage().split("\n")), actionError);
+              this.getRange(),
+              Arrays.asList(actionError.getErrorMessage().split("\n")),
+              actionError);
     } else if (section != null) {
       section.setItem(actionError);
     }
