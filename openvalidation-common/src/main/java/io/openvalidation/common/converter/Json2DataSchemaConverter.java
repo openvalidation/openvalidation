@@ -59,7 +59,7 @@ public class Json2DataSchemaConverter implements ISchemaConverter {
   }
 
   private void fillSchema(JSONObject object, DataSchema schema, String path, int level) {
-    //todo jgeske 04.11.19 add pojo generator, and generate schema from pojo
+    // todo jgeske 04.11.19 add pojo generator, and generate schema from pojo
 
     for (Object key : object.keySet()) {
       String name = (String) key;
@@ -70,7 +70,7 @@ public class Json2DataSchemaConverter implements ISchemaConverter {
       DataPropertyType propertyType = JsonUtils.parseType(value);
       DataPropertyType arrayContentType = null;
 
-      if(propertyType == DataPropertyType.Array) {
+      if (propertyType == DataPropertyType.Array) {
         arrayContentType = JsonUtils.parseArrayContentType((JSONArray) value);
       }
       schema.addProperty(name, pth, propertyType, arrayContentType);
@@ -81,15 +81,12 @@ public class Json2DataSchemaConverter implements ISchemaConverter {
     }
   }
 
-  private void fillSchema(JSONArray array, DataSchema schema, String path, int level){
-      array
-            .forEach(
-                p -> {
-                  if (p instanceof JSONObject)
-                    fillSchema((JSONObject) p, schema, path, level + 1);
-                  else if(p instanceof JSONArray)
-                    fillSchema((JSONArray) p, schema, path, level + 1);
-                });
+  private void fillSchema(JSONArray array, DataSchema schema, String path, int level) {
+    array.forEach(
+        p -> {
+          if (p instanceof JSONObject) fillSchema((JSONObject) p, schema, path, level + 1);
+          else if (p instanceof JSONArray) fillSchema((JSONArray) p, schema, path, level + 1);
+        });
   }
 
   public static DataSchema convertSchema(String rawSchema) throws Exception {

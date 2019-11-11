@@ -39,7 +39,8 @@ public class DataSchema {
     this._properties.add(prop);
   }
 
-  public void addProperty(String name, String path, DataPropertyType type, DataPropertyType arrayCntType) {
+  public void addProperty(
+      String name, String path, DataPropertyType type, DataPropertyType arrayCntType) {
     DataPropertyBase prop = null;
 
     DataPropertyBase parent = this.getArrayParentProperty(path);
