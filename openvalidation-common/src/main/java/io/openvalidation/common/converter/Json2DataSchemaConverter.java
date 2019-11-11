@@ -16,6 +16,7 @@
 
 package io.openvalidation.common.converter;
 
+import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.data.DataSchema;
 import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.utils.JsonUtils;
@@ -66,19 +67,29 @@ public class Json2DataSchemaConverter implements ISchemaConverter {
       String pth = (path != null && path.length() > 0) ? path : "";
       String fullName = (path != null && path.length() > 0) ? path + "." + name : name;
 
-      schema.addProperty(name, pth, JsonUtils.parseType(value));
+      DataPropertyType propertyType = JsonUtils.parseType(value);
+      DataPropertyType arrayContentType = null;
+
+      if(propertyType == DataPropertyType.Array) {
+        arrayContentType = JsonUtils.parseArrayContentType((JSONArray) value);
+      }
+      schema.addProperty(name, pth, propertyType, arrayContentType);
 
       if (value instanceof JSONObject) fillSchema((JSONObject) value, schema, fullName, level + 1);
 
-      if (value instanceof JSONArray) {
-        ((JSONArray) value)
+      if (value instanceof JSONArray) fillSchema((JSONArray) value, schema, fullName, level + 1);
+    }
+  }
+
+  private void fillSchema(JSONArray array, DataSchema schema, String path, int level){
+      array
             .forEach(
                 p -> {
-                  if (p instanceof JSONObject || p instanceof JSONArray)
-                    fillSchema((JSONObject) p, schema, fullName, level + 1);
+                  if (p instanceof JSONObject)
+                    fillSchema((JSONObject) p, schema, path, level + 1);
+                  else if(p instanceof JSONArray)
+                    fillSchema((JSONArray) p, schema, path, level + 1);
                 });
-      }
-    }
   }
 
   public static DataSchema convertSchema(String rawSchema) throws Exception {

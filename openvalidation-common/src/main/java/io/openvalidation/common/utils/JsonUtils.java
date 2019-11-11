@@ -85,7 +85,7 @@ public class JsonUtils {
   {
     DataPropertyType type = DataPropertyType.Unknown;
     if(jsonArray.length() > 0) {
-      String firstElementString = jsonArray.getString(0);
+      String firstElementString = String.valueOf(jsonArray.get(0));
       type = parseTypeFromString(firstElementString);
     }
 
