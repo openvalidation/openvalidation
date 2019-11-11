@@ -31,7 +31,7 @@ public class ConnectedOperationNode extends ConditionNode {
   private List<ConditionNode> conditions;
 
   public ConnectedOperationNode(
-          DocumentSection section, TransformationParameter parameter, ConditionNode... condition) {
+      DocumentSection section, TransformationParameter parameter, ConditionNode... condition) {
     super(section, condition.length > 0 ? condition[0].getConnector() : null, parameter);
     this.conditions = Arrays.asList(condition);
   }

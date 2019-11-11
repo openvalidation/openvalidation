@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
 public class ArrayOperandNode extends OperandNode {
   private List<OperandNode> items;
 
-  public ArrayOperandNode(ASTOperandArray operand, DocumentSection section, TransformationParameter parameter) {
+  public ArrayOperandNode(
+      ASTOperandArray operand, DocumentSection section, TransformationParameter parameter) {
     super(operand, section, parameter);
 
     if (operand.getItems().size() > 0) {

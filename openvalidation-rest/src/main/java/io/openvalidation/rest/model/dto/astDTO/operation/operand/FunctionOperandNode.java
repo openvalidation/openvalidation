@@ -32,7 +32,8 @@ public class FunctionOperandNode extends OperandNode {
   private List<OperandNode> parameters;
   private DataPropertyType acceptedType;
 
-  public FunctionOperandNode(ASTOperandFunction operand, DocumentSection section, TransformationParameter parameter) {
+  public FunctionOperandNode(
+      ASTOperandFunction operand, DocumentSection section, TransformationParameter parameter) {
     super(operand, section, parameter);
     this.parameters = new ArrayList<>();
     // this.returnType = operand.

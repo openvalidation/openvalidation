@@ -39,7 +39,8 @@ public class OperationNode extends ConditionNode {
   private OperatorNode operator;
   private boolean constrained;
 
-  public OperationNode(ASTCondition conditionBase, DocumentSection section, TransformationParameter parameter) {
+  public OperationNode(
+      ASTCondition conditionBase, DocumentSection section, TransformationParameter parameter) {
     super(section, conditionBase.getConnector(), parameter);
 
     List<String> foundAliases = new ArrayList<>();
