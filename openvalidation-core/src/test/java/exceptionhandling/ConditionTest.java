@@ -16,6 +16,7 @@
 
 package exceptionhandling;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -91,5 +92,27 @@ public class ConditionTest {
         r -> {
           r.containsValidationMessage("at least one operand in comparison should not be static");
         });
+  }
+
+  @Test
+  void wrong_comparison_type_of_first_function() throws Exception {
+    // check if validation of parameters is triggered
+    runner.run(
+        "FIRST FROM numbers AS firstNumber\n\n" +
+                "IF firstNumber IS Hallo THEN error",
+        "{numbers: [1, 2, 3]}",
+        r -> r.containsValidationMessage("comparison contains different DataTypes. \n" +
+                "left operand is of type: 'Decimal' and right operand is of type: 'String'"));
+  }
+
+  @Test
+  void wrong_comparison_type_of_last_function() throws Exception {
+    // check if validation of parameters is triggered
+    runner.run(
+        "LAST FROM numbers AS firstNumber\n\n" +
+                "IF firstNumber IS Hallo THEN error",
+        "{numbers: [1, 2, 3]}",
+        r -> r.containsValidationMessage("comparison contains different DataTypes. \n" +
+                "left operand is of type: 'Decimal' and right operand is of type: 'String'"));
   }
 }
