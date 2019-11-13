@@ -65,6 +65,14 @@ public class ASTOperandFunction extends ASTOperandBase {
     this.parameters = parameters;
   }
 
+  public void getArrayContentType()
+  {
+    if(parameters.size() > 0)
+    {
+
+    }
+  }
+
   @Override
   public DataPropertyType getDataType() {
     return (super.getDataType() == null) ? DataPropertyType.Object : super.getDataType();

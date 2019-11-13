@@ -25,9 +25,10 @@ import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.*;
 import io.openvalidation.common.utils.ThrowingConsumer;
-import java.util.List;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.util.List;
 
 public abstract class TransformerBase<
     TFactory, TModel extends ASTItem, TPRContext extends ParserRuleContext> {
