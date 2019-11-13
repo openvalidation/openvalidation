@@ -29,6 +29,7 @@ public class ASTOperandVariable extends ASTOperandBase {
 
   private String variableName;
   private ASTVariable _variable;
+
   private List<ASTPropertyPart> path = new ArrayList<>();
 
   public ASTOperandVariable(String varname) {
@@ -129,6 +130,21 @@ public class ASTOperandVariable extends ASTOperandBase {
     }
 
     return sb.toString();
+  }
+
+  public DataPropertyType getArrayContentType() {
+    DataPropertyType arrayContentType = null;
+
+    if (this.getDataType() == DataPropertyType.Array) {
+      ASTOperandBase content = _variable.getValue();
+      if (content instanceof ASTOperandVariable) {
+        arrayContentType = ((ASTOperandVariable) content).getArrayContentType();
+      } else if (content instanceof ASTOperandProperty) {
+        arrayContentType = ((ASTOperandProperty) content).getArrayContentType();
+      }
+    }
+
+    return arrayContentType;
   }
 
   @Override

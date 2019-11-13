@@ -14,19 +14,18 @@
  *    limitations under the License.
  */
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 import io.openvalidation.common.converter.SchemaConverterFactory;
 import io.openvalidation.common.data.DataArrayProperty;
 import io.openvalidation.common.data.DataProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.data.DataSchema;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.stream.Collectors;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 public class Json2DataSchemaConverterTest {
 
