@@ -45,6 +45,7 @@ public class PostProcessorFactory {
     _postprocessors.add(new PostModelImplicitBoolVariables());
     _postprocessors.add(new PostModelMissingRightOperandResolver());
     _postprocessors.add(new PostConditionSingleOperand());
+    _postprocessors.add(new PostModelFunctionTypeResolver());
     _postprocessors.add(new PostConditionSemanticOperatorResolver());
   }
 

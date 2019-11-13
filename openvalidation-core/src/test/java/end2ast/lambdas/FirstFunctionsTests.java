@@ -341,7 +341,6 @@ class FirstFunctionsTests {
   }
 
   @Test
-  @Disabled
   void first_function_variable_in_condition_on_jsonschema() throws Exception {
     String rule = "FIRST FROM numbers as X \n\n" + "If X is greater than 2 then error";
     String schema =
