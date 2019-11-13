@@ -17,6 +17,7 @@
 package io.openvalidation.common.unittesting.astassertion;
 
 import io.openvalidation.common.ast.ASTModel;
+import io.openvalidation.common.ast.ASTVariable;
 import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.data.DataPropertyType;
 
@@ -40,6 +41,14 @@ public class VariableReferenceAssertion
     this.shouldNotBeEmpty();
 
     shouldEquals(this.model.getDataType(), type, "VARIABLE DATA TYPE");
+
+    return this;
+  }
+
+  public VariableReferenceAssertion hasArrayContentType(DataPropertyType type) {
+    this.shouldNotBeEmpty();
+
+    shouldEquals(this.model.getArrayContentType(), type, "VARIABLE DATA TYPE");
 
     return this;
   }
@@ -68,5 +77,11 @@ public class VariableReferenceAssertion
 
   public ModelRootAssertion parentModel() {
     return parentCondition().parentModel();
+  }
+
+  public VariableAssertion variableValue() {
+    shouldBeInstanceOf(this.model.getVariable(), ASTVariable.class, "VARIABLE VALUE");
+
+    return new VariableAssertion(this.model.getVariable(), this.ast, this);
   }
 }
