@@ -81,3 +81,9 @@ To trigger autoformat manually run `mvn com.coveo:fmt-maven-plugin:format` in th
 
 The [Checkstyle Maven Plugin](https://maven.apache.org/plugins/maven-checkstyle-plugin/index.html) can be run via `mvn checkstyle:check`.
 It uses a [modified](build-tools/src/main/resources/google_checks.xml) [google java style](https://google.github.io/styleguide/javaguide.html) configuration.
+
+## Code Generation
+
+### Add new functions to HUMLFramework
+
+Please refer to [HUMLFramework Contribution](/docs/HUMLFramework.md).
