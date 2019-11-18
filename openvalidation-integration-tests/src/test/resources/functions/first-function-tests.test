@@ -1,0 +1,55 @@
+################# first function on simple number array ########################
+
+The first item from numbers AS X
+
+If X is 1 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [1]}
+
+{numbers: [1,2,3]}
+
+{numbers: [1.0]}
+
+{numbers: [1.0,2,3.5]}
+
+error
+
+################# first function on simple string array ########################
+
+The first item from fruits AS X
+
+If X is banana then error
+
+{fruits: [banana]}
+
+--------------  error triggered  -------------------
+{fruits: [banana]}
+
+{fruits: [banana,apple,pear]}
+
+error
+
+################# first function on simple bool array ########################
+
+The first item from booleans AS X
+
+If X then error
+
+{booleans: [true]}
+
+--------------  error triggered  -------------------
+{booleans: [true]}
+
+{booleans: [true,false,false]}
+
+error
+
+
+
+
+
+
+

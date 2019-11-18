@@ -3,6 +3,7 @@ package io.openvalidation.antlr.transformation.util;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
+import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import java.util.List;
@@ -47,6 +48,8 @@ public class FunctionFirstLastTypeResolver extends FunctionTypeResolverBase {
           functionReturnType =
               ((ASTOperandFunction) firstParam)
                   .getArrayContentType(); // FunctionUtils.resolveFunctionReturnType((ASTOperandFunction) firstParam);
+        } else if (firstParam instanceof ASTOperandVariable) {
+          functionReturnType = firstParam.getDataType();
         }
       }
     }
