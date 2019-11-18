@@ -19,6 +19,7 @@ package end2ast
 import io.openvalidation.common.ast.ASTComparisonOperator
 import io.openvalidation.common.data.DataPropertyType
 import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 

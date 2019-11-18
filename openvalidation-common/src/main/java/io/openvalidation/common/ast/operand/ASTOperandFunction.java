@@ -67,7 +67,7 @@ public class ASTOperandFunction extends ASTOperandBase {
 
   @Override
   public DataPropertyType getDataType() {
-    return (super.getDataType() == null) ? DataPropertyType.Object : super.getDataType();
+    return (super.getDataType() == null) ? DataPropertyType.Unknown : super.getDataType();
   }
 
   public DataPropertyType getArrayContentType() {
@@ -121,6 +121,18 @@ public class ASTOperandFunction extends ASTOperandBase {
     }
 
     return props;
+  }
+
+  public List<ASTOperandVariable> getVariables() {
+    List<ASTOperandVariable> vars = new ArrayList<>();
+
+    for (ASTOperandBase param : this.parameters) {
+      if (param instanceof ASTOperandVariable) {
+        vars.add((ASTOperandVariable) param);
+      }
+    }
+
+    return vars;
   }
 
   @Override
