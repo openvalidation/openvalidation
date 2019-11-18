@@ -46,6 +46,12 @@ public class FunctionAssertion
     return this;
   }
 
+  public FunctionAssertion hasArrayContentType(DataPropertyType expectedType) {
+    shouldEquals(
+        this.model.getArrayContentType(), expectedType, "FUNCTION ARRAY CONTENT DATA TYPE");
+    return this;
+  }
+
   public FunctionAssertion sizeOfParameters(int size) {
     this.shouldHaveSizeOf(model.getParameters(), size, "PARAMETERS");
 

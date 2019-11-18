@@ -46,7 +46,7 @@ class FirstFunctionsTests {
    */
 
   @Test
-  void first_function_simple() throws Exception {
+  void first_function_type_with_unknown_array_content() throws Exception {
     String rule = "a first item from addresses as a first address";
     String schema = "{addresses:[]}";
 
@@ -55,35 +55,42 @@ class FirstFunctionsTests {
         schema,
         r ->
             r.variables()
-                .hasSizeOf(1)
                 .first()
-                .hasName("a first address")
                 .operandFunction()
                 .hasName("FIRST")
-                .hasType(DataPropertyType.Object)
-                .sizeOfParameters(1)
-                .parameters()
-                .first()
-                .property("addresses")
-                .hasType(DataPropertyType.Array));
+                .hasType(DataPropertyType.Unknown));
   }
 
   @Test
-  void first_function_simple_with_specific_amount() throws Exception {
-    String rule = "the first 5 items from addresses as the first few addresses";
-    String schema = "{addresses:[]}";
+  void first_function_type_simple_with_object_array_content() throws Exception {
+    String rule = "the first item from addresses as the first few addresses";
+    String schema = "{addresses:[{zip: 1234}]}";
 
     End2AstRunner.run(
         rule,
         schema,
         r ->
             r.variables()
-                .hasSizeOf(1)
                 .first()
-                .hasName("the first few addresses")
                 .operandFunction()
                 .hasName("FIRST")
-                .hasType(DataPropertyType.Object)
+                .hasType(DataPropertyType.Object));
+  }
+
+  @Test
+  void first_function_simple_with_specific_amount() throws Exception {
+    String rule = "the first 5 items from addresses as the first few addresses";
+    String schema = "{addresses:[{zip: 1234}]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Array)
                 .sizeOfParameters(2)
                 .parameters()
                 .first()
@@ -332,9 +339,16 @@ class FirstFunctionsTests {
   }
 
   @Test
-  @Disabled
   void first_function_variable_in_condition_on_jsondata() throws Exception {
     String rule = "FIRST FROM numbers as X \n\n" + "If X is greater than 2 then error";
+    String schema = "{numbers: [1,2,3]}";
+
+    End2AstRunner.run(rule, schema, r -> r.variables());
+  }
+
+  @Test
+  void first_function_variable_in_condition_on_jsondata_with_amount() throws Exception {
+    String rule = "FIRST 1 FROM numbers as X \n\n" + "If X is greater than 2 then error";
     String schema = "{numbers: [1,2,3]}";
 
     End2AstRunner.run(rule, schema, r -> r.variables());
@@ -375,9 +389,10 @@ class FirstFunctionsTests {
     End2AstRunner.run(rule, schema, r -> r.variables());
   }
 
-  @Test
   @Disabled
-  void first_function_variable_in_condition_on_jsonschema2() throws Exception {
+  @Test
+  void first_function_variable_in_condition_on_jsonschema_with_lambda_without_amount()
+      throws Exception {
     String rule =
         "FIRST FROM numbers WITH value IS 5 as X \n\n" + "If X is greater than 2 then error";
     String schema =
@@ -418,8 +433,20 @@ class FirstFunctionsTests {
             + "  }\n"
             + "}";
 
-    End2AstRunner.run(rule, schema, r -> r.variables());
+    End2AstRunner.run(
+        rule,
+        schema,
+        r -> r.variables().first().operandFunction().hasType(DataPropertyType.Decimal));
   }
+
+  //  @Test
+  //  void first_function_variable_in_condition_on_jsonschema() throws Exception {
+  //    String rule = "FIRST FROM numbers as X \n\n" + "If X is greater than 2 then error";
+  //    String schema =
+  //        "{}";
+  //
+  //    End2AstRunner.run(rule, schema, r -> r.variables());
+  //  }
 
   //  @Test
   //  void take_function_simple() throws Exception {
