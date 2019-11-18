@@ -29,6 +29,7 @@ import org.json.JSONTokener;
 public class JsonUtils {
 
   private static final Pattern jsonArrayPattern = Pattern.compile("\\[(.+,?)*]$");
+  private static final Pattern jsonObjectPattern = Pattern.compile("\\{.*}$");
 
   public static void validate(String json, String schema) {
     JSONObject jsonData = loadJson(json);
@@ -98,8 +99,11 @@ public class JsonUtils {
       type = DataPropertyType.Boolean;
     } else {
       Matcher jsonArrayMatcher = jsonArrayPattern.matcher(firstElementString);
+      Matcher jsonObjectMatcher = jsonObjectPattern.matcher(firstElementString);
       if (jsonArrayMatcher.matches()) {
         type = DataPropertyType.Array;
+      } else if (jsonObjectMatcher.matches()) {
+        type = DataPropertyType.Object;
       } else {
         type = DataPropertyType.String;
       }

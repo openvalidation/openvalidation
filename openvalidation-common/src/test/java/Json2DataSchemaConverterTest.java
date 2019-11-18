@@ -14,18 +14,19 @@
  *    limitations under the License.
  */
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
 import io.openvalidation.common.converter.SchemaConverterFactory;
 import io.openvalidation.common.data.DataArrayProperty;
 import io.openvalidation.common.data.DataProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.data.DataSchema;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.stream.Collectors;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class Json2DataSchemaConverterTest {
 
@@ -223,5 +224,20 @@ public class Json2DataSchemaConverterTest {
     assertThat(property.getName(), is("dataArray"));
     assertThat(property.getType(), is(DataPropertyType.Array));
     assertThat(property.getArrayContentType().toString(), is(expected)); // DataPropertyType.String
+  }
+
+  @Test
+  public void should_resolve_array_content_type_correctly() throws Exception {
+    String json = "{addresses: [{zipcode: 1234}]}";
+    DataSchema schema = SchemaConverterFactory.convert(json);
+
+    assertThat(schema, is(notNullValue()));
+    DataProperty arrayProperty =
+        schema.getProperties().stream()
+            .filter(x -> x.getType() == DataPropertyType.Array)
+            .findFirst()
+            .get();
+
+    assertThat(arrayProperty.getArrayContentType(), is(DataPropertyType.Object));
   }
 }
