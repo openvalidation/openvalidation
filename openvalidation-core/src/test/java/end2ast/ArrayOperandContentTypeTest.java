@@ -165,4 +165,27 @@ public class ArrayOperandContentTypeTest {
                 .hasType(DataPropertyType.Array)
                 .hasArrayContentType(DataPropertyType.valueOf(expectedType)));
   }
+
+  @ParameterizedTest
+  @CsvSource(
+      value = {
+        "true;Object"
+      },
+      delimiter = ';')
+  void afsdf(
+      String arrayInput, String expectedType) throws Exception {
+    String input = "LAST FROM dataArray as var1";
+    String schema = "{dataArray: [" + arrayInput + "]}";
+
+    End2AstRunner.run(
+        input,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                    .hasType(DataPropertyType.Boolean)
+                .operandFunction()
+                .hasType(DataPropertyType.Boolean)
+                );
+  }
 }
