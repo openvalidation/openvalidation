@@ -98,21 +98,23 @@ public class ConditionTest {
   void wrong_comparison_type_of_first_function() throws Exception {
     // check if validation of parameters is triggered
     runner.run(
-        "FIRST FROM numbers AS firstNumber\n\n" +
-                "IF firstNumber IS Hallo THEN error",
+        "FIRST FROM numbers AS firstNumber\n\n" + "IF firstNumber IS Hallo THEN error",
         "{numbers: [1, 2, 3]}",
-        r -> r.containsValidationMessage("comparison contains different DataTypes. \n" +
-                "left operand is of type: 'Decimal' and right operand is of type: 'String'"));
+        r ->
+            r.containsValidationMessage(
+                "comparison contains different DataTypes. \n"
+                    + "left operand is of type: 'Decimal' and right operand is of type: 'String'"));
   }
 
   @Test
   void wrong_comparison_type_of_last_function() throws Exception {
     // check if validation of parameters is triggered
     runner.run(
-        "LAST FROM numbers AS firstNumber\n\n" +
-                "IF firstNumber IS Hallo THEN error",
+        "LAST FROM numbers AS firstNumber\n\n" + "IF firstNumber IS Hallo THEN error",
         "{numbers: [1, 2, 3]}",
-        r -> r.containsValidationMessage("comparison contains different DataTypes. \n" +
-                "left operand is of type: 'Decimal' and right operand is of type: 'String'"));
+        r ->
+            r.containsValidationMessage(
+                "comparison contains different DataTypes. \n"
+                    + "left operand is of type: 'Decimal' and right operand is of type: 'String'"));
   }
 }

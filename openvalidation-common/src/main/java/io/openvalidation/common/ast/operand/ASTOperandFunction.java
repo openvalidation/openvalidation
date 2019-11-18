@@ -65,17 +65,41 @@ public class ASTOperandFunction extends ASTOperandBase {
     this.parameters = parameters;
   }
 
-  public void getArrayContentType()
-  {
-    if(parameters.size() > 0)
-    {
-
-    }
-  }
-
   @Override
   public DataPropertyType getDataType() {
     return (super.getDataType() == null) ? DataPropertyType.Object : super.getDataType();
+  }
+
+  public DataPropertyType getArrayContentType() {
+    DataPropertyType type = null;
+
+    if (this.getName().equals("WHERE")) {
+      // should always return type Object cause it maps only from object array -> object array
+      type = DataPropertyType.Object;
+      //            ASTOperandBase secondParam = this.parameters.get(1);
+      //
+      //            List<ASTOperandProperty> props = secondParam.getProperties();
+      //            List<ASTOperandVariable> vars = secondParam instanceof ASTOperandLambdaCondition
+      // ? ((ASTCondition)((ASTOperandLambdaCondition) secondParam).getCondition()).getVariables() :
+      // new ArrayList<>();
+      //            if (!props.isEmpty()) {
+      //                type = props.get(0).getDataType();
+      //            } else if (!vars.isEmpty()) {
+      //                type = vars.get(0).getDataType();
+      //            }
+    } else if (this.getDataType() == DataPropertyType.Array) {
+      if (parameters.size() > 0) {
+        ASTOperandBase firstParam = parameters.get(0);
+        if (firstParam instanceof ASTOperandProperty) {
+          type = ((ASTOperandProperty) firstParam).getArrayContentType();
+        } else if (firstParam instanceof ASTOperandVariable) {
+          type = ((ASTOperandVariable) firstParam).getArrayContentType();
+        } else if (firstParam instanceof ASTOperandFunction) {
+          type = ((ASTOperandFunction) firstParam).getArrayContentType();
+        }
+      }
+    }
+    return type;
   }
 
   @Override

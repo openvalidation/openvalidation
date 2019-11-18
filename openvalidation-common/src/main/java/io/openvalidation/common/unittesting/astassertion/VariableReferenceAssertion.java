@@ -48,7 +48,7 @@ public class VariableReferenceAssertion
   public VariableReferenceAssertion hasArrayContentType(DataPropertyType type) {
     this.shouldNotBeEmpty();
 
-    shouldEquals(this.model.getArrayContentType(), type, "VARIABLE DATA TYPE");
+    shouldEquals(this.model.getArrayContentType(), type, "VARIABLE CONTENT DATA TYPE");
 
     return this;
   }

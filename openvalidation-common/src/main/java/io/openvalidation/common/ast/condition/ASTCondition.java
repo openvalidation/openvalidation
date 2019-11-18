@@ -18,10 +18,7 @@ package io.openvalidation.common.ast.condition;
 
 import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.ASTItem;
-import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.ast.operand.ASTOperandStatic;
-import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.ast.operand.*;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.NumberParsingUtils;
@@ -168,6 +165,20 @@ public class ASTCondition extends ASTConditionBase {
     }
 
     return props;
+  }
+
+  public List<ASTOperandVariable> getVariables() {
+    List<ASTOperandVariable> vars = new ArrayList<>();
+
+    if (this.leftOperand instanceof ASTOperandVariable) {
+      vars.add((ASTOperandVariable) this.leftOperand);
+    }
+
+    if (this.rightOperand instanceof ASTOperandVariable) {
+      vars.add((ASTOperandVariable) this.rightOperand);
+    }
+
+    return vars;
   }
 
   @Override

@@ -5,12 +5,12 @@ import io.openvalidation.common.data.DataPropertyType;
 
 public class FunctionTypeResolverDefault extends FunctionTypeResolverBase {
 
-    public FunctionTypeResolverDefault(ASTOperandFunction function) {
-        super(function);
-    }
+  public FunctionTypeResolverDefault(ASTOperandFunction function) {
+    super(function);
+  }
 
-    @Override
-    public DataPropertyType resolveType() {
-        return function.getDataType();
-    }
+  @Override
+  public DataPropertyType resolveType() {
+    return function.getDataType();
+  }
 }
