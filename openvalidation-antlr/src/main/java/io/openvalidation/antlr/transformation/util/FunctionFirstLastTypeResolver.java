@@ -48,8 +48,8 @@ public class FunctionFirstLastTypeResolver extends FunctionTypeResolverBase {
           functionReturnType =
               ((ASTOperandFunction) firstParam)
                   .getArrayContentType(); // FunctionUtils.resolveFunctionReturnType((ASTOperandFunction) firstParam);
-        } else if (firstParam instanceof ASTOperandVariable) {
-          functionReturnType = firstParam.getDataType();
+        } else if (firstParam instanceof ASTOperandVariable && firstParam.getDataType() == DataPropertyType.Array) {
+          functionReturnType = ((ASTOperandVariable) firstParam).getArrayContentType();
         }
       }
     }
