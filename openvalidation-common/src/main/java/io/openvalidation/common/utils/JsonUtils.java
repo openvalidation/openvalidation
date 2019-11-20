@@ -17,15 +17,14 @@
 package io.openvalidation.common.utils;
 
 import io.openvalidation.common.data.DataPropertyType;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class JsonUtils {
 
@@ -71,7 +70,7 @@ public class JsonUtils {
 
   public static DataPropertyType parseType(Object object) {
 
-    //todo lazevedo jgeske 18.11.19 Do you even need Object here?
+    // todo lazevedo jgeske 18.11.19 Do you even need Object here?
     if (object instanceof Boolean) return DataPropertyType.Boolean;
     if (object instanceof Float) return DataPropertyType.Decimal;
     if (object instanceof Double) return DataPropertyType.Decimal;

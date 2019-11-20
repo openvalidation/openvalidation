@@ -16,6 +16,8 @@
 
 package io.openvalidation.antlr.test.transformation;
 
+import static io.openvalidation.common.unittesting.astassertion.ModelRootAssertion.assertVariable;
+
 import io.openvalidation.antlr.ANTLRExecutor;
 import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.ASTModel;
@@ -23,8 +25,6 @@ import io.openvalidation.common.converter.SchemaConverterFactory;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.GrammarBuilder;
 import org.junit.jupiter.api.Test;
-
-import static io.openvalidation.common.unittesting.astassertion.ModelRootAssertion.assertVariable;
 
 public class PTLambdaTransformerTest {
 
@@ -39,13 +39,13 @@ public class PTLambdaTransformerTest {
             .AS("selector")
             .getText();
 
-    //first from addresses AS var
-    //var :{country: "fsgdfg"}  AS var
+    // first from addresses AS var
+    // var :{country: "fsgdfg"}  AS var
     // var.country
     // country
     String schema = "{addresses:[{country:''}]}}";
 
-    //{selector:[{country:''}]}}
+    // {selector:[{country:''}]}}
 
     ASTModel ast = ANTLRExecutor.run(input, SchemaConverterFactory.convert(schema));
 
