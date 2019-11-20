@@ -406,8 +406,7 @@ class FirstFunctionsTests {
       throws Exception {
     String rule =
         "FIRST FROM numbers WITH value IS 5 as X \n\n" + "If X is greater than 2 then error";
-    String schema =
-        "{numbers: [{value: 1}]}";
+    String schema = "{numbers: [{value: 1}]}";
 
     End2AstRunner.run(
         rule,

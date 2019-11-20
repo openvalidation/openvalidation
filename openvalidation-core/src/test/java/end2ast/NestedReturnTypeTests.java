@@ -6,86 +6,80 @@ import org.junit.jupiter.api.Test;
 
 public class NestedReturnTypeTests {
 
+  @Test
+  void boolean_variable_containing_a_function() throws Exception {
 
-    @Test
-    void boolean_variable_containing_a_function() throws Exception{
+    String input = "The first item from booleans AS X\n\n" + "If X then error";
 
-        String input =
-                "The first item from booleans AS X\n\n" +
-                "If X then error";
+    End2AstRunner.run(
+        input,
+        "{booleans: [true]}",
+        "en",
+        r ->
+            r.rules()
+                .first()
+                .condition()
+                .hasOperator(ASTComparisonOperator.EQUALS)
+                .leftVariable()
+                .hasType(DataPropertyType.Boolean)
+                .hasName("X")
+                .parentCondition()
+                .rightBoolean(true));
+  }
 
+  @Test
+  void boolean_variable_containing_a_function_containing_a_variable() throws Exception {
 
-        End2AstRunner.run(input, "{booleans: [true]}","en",
-                r ->
-                    r.rules()
-                        .first()
-                            .condition()
-                                .hasOperator(ASTComparisonOperator.EQUALS)
-                                .leftVariable()
-                                    .hasType(DataPropertyType.Boolean)
-                                    .hasName("X")
-                            .parentCondition()
-                                .rightBoolean(true)
-        );
-    }
+    String input = "booleans AS var\n\n" + "The first item from var AS X\n\n" + "If X then error";
 
-    @Test
-    void boolean_variable_containing_a_function_containing_a_variable() throws Exception {
+    End2AstRunner.run(
+        input,
+        "{booleans: [true]}",
+        "en",
+        r ->
+            r.rules()
+                .first()
+                .condition()
+                .hasOperator(ASTComparisonOperator.EQUALS)
+                .leftVariable()
+                .hasType(DataPropertyType.Boolean)
+                .hasName("X")
+                .parentCondition()
+                .rightBoolean(true));
+  }
 
-        String input =
-                "booleans AS var\n\n" +
-                "The first item from var AS X\n\n" +
-                "If X then error";
+  @Test
+  void boolean_function_containing_a_variable() throws Exception {
 
-        End2AstRunner.run(input, "{booleans: [true]}","en",
-                r ->
-                    r.rules()
-                        .first()
-                            .condition()
-                                .hasOperator(ASTComparisonOperator.EQUALS)
-                                .leftVariable()
-                                    .hasType(DataPropertyType.Boolean)
-                                    .hasName("X")
-                            .parentCondition()
-                                .rightBoolean(true)
-        );
-    }
+    String input = "booleans AS var\n\n" + "The first item from var AS X\n\n" + "If X then error";
 
-    @Test
-    void boolean_function_containing_a_variable() throws Exception{
+    End2AstRunner.run(
+        input,
+        "{booleans: [true]}",
+        "en",
+        r ->
+            r.variables()
+                .second()
+                .operandFunction()
+                .hasType(DataPropertyType.Boolean)
+                .hasName("FIRST"));
+  }
 
-        String input =
-                "booleans AS var\n\n" +
-                "The first item from var AS X\n\n" +
-                "If X then error";
+  @Test
+  void boolean_function_containing_a_variable_containing_a_function() throws Exception {
 
+    String input =
+        "first 2 from booleans AS var\n\n" + "The first item from var AS X\n\n" + "If X then error";
 
-        End2AstRunner.run(input, "{booleans: [true]}","en",
-                r ->
-                    r.variables()
-                        .second()
-                            .operandFunction()
-                            .hasType(DataPropertyType.Boolean)
-                            .hasName("FIRST")
-        );
-    }
-
-    @Test
-    void boolean_function_containing_a_variable_containing_a_function() throws Exception{
-
-        String input =
-                "first 2 from booleans AS var\n\n" +
-                "The first item from var AS X\n\n" +
-                "If X then error";
-
-
-        End2AstRunner.run(input, "{booleans: [true]}","en",
-                r ->
-                    r.variables()
-                        .second()
-                            .operandFunction()
-                            .hasType(DataPropertyType.Boolean)
-                            .hasName("FIRST")
-        );
-    }
+    End2AstRunner.run(
+        input,
+        "{booleans: [true]}",
+        "en",
+        r ->
+            r.variables()
+                .second()
+                .operandFunction()
+                .hasType(DataPropertyType.Boolean)
+                .hasName("FIRST"));
+  }
 }

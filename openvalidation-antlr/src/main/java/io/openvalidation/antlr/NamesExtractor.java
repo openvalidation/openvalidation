@@ -19,9 +19,10 @@ package io.openvalidation.antlr;
 import io.openvalidation.antlr.generated.mainParser;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.data.DataVariableReference;
+import org.antlr.v4.runtime.tree.ParseTree;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 public class NamesExtractor {
   public static List<DataVariableReference> getNames(ParseTree ctx) {
@@ -41,7 +42,9 @@ public class NamesExtractor {
       String originText =
           variableContext.expression() != null ? variableContext.expression().getText() : "";
 
-      result.add(new DataVariableReference(name, type, originText));
+      if (!name.isEmpty()) {
+        result.add(new DataVariableReference(name, type, originText));
+      }
     }
 
     for (int i = 0; i < ctx.getChildCount(); i++) {
