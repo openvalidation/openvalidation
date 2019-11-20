@@ -34,7 +34,7 @@ public class PostProcessorFactory {
     _postprocessors.add(new PostModelVariableResolver());
 
     _postprocessors.add(new PostModelDataTypeResolver());
-//    _postprocessors.add(new PostModelFunctionTypeResolver());
+    //    _postprocessors.add(new PostModelFunctionTypeResolver());
 
     _postprocessors.add(new PostModelDataSchemaVariableTypeResolver());
     _postprocessors.add(new PostModelConstrainedGroupConnectorInversion());
