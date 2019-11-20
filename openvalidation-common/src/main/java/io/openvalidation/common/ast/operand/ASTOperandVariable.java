@@ -142,7 +142,7 @@ public class ASTOperandVariable extends ASTOperandBase {
       } else if (content instanceof ASTOperandProperty) {
         arrayContentType = ((ASTOperandProperty) content).getArrayContentType();
       } else if (content instanceof ASTOperandFunction) {
-        arrayContentType = content.getDataType();
+        arrayContentType = ((ASTOperandFunction) content).getArrayContentType();
       }
     }
 
