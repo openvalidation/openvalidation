@@ -18,10 +18,11 @@ package end2ast.lambdas;
 
 import end2ast.End2AstRunner;
 import io.openvalidation.common.ast.ASTComparisonOperator;
-import io.openvalidation.common.ast.condition.ASTConditionConnector;
 import io.openvalidation.common.data.DataPropertyType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class FirstFunctionsTests {
 
@@ -51,6 +52,12 @@ class FirstFunctionsTests {
 
   addresses:[{stree:'hallo', city:'test'},{stree:'abc', city:'test'},{stree:'dddd', city:'test'}]
 
+  first from numbers
+  first 2 from numbers
+  first from addresses where zipcode = 5
+  first 2 from addresses where zipcode = 5
+  first from addresses.zipcode
+  first 2 from addresses.zipcode
 
 
 
@@ -89,9 +96,64 @@ class FirstFunctionsTests {
   }
 
   @Test
-  void first_function_simple_with_specific_amount() throws Exception {
-    String rule = "the first 5 items from addresses as the first few addresses";
-    String schema = "{addresses:[{zip: 1234}]}";
+  void first_function_type_simple_with_decimal_array_content() throws Exception {
+    String rule = "the first item from numbers as the first few addresses";
+    String schema = "{numbers:[1,2,3,4]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Decimal));
+  }
+
+  @Test
+  void first_function_type_simple_with_array_array_content() throws Exception {
+    String rule = "the first item from arrays as the first few addresses";
+    String schema = "{arrays:[[1,2,3,4],[1,2,3,4],[1,2,3,4]]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Array));
+  }
+
+  @Test
+  void first_function_simple_on_numbers_array() throws Exception {
+    String rule = "the first item from numbers as the first address";
+    String schema = "{numbers:[1,2,3,4]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Decimal)
+                .sizeOfParameters(1)
+                .parameters()
+                .first()
+                .property("numbers")
+                .hasType(DataPropertyType.Array)
+                .hasArrayContentType(DataPropertyType.Decimal)
+                );
+  }
+
+  @Test
+  void first_function_simple_on_numbers_array_with_amount() throws Exception {
+    String rule = "the first 2 items from numbers as the first address";
+    String schema = "{numbers:[1,2,3,4]}";
 
     End2AstRunner.run(
         rule,
@@ -105,17 +167,25 @@ class FirstFunctionsTests {
                 .sizeOfParameters(2)
                 .parameters()
                 .first()
-                .property("addresses")
+                .property("numbers")
                 .hasType(DataPropertyType.Array)
+                    .hasArrayContentType(DataPropertyType.Decimal)
                 .parentList()
                 .second()
                 .number()
-                .hasValue(5.0));
+                .hasValue(2.0)
+    );
   }
 
-  @Test
-  void first_function_with_simple_condition() throws Exception {
-    String rule = "a first item from addresses with zip_code equals 12345 as a first address";
+
+  @ParameterizedTest
+  @CsvSource({
+          "The first item from addresses with zip_code equals 12345 as a first address",
+          "The first item from the addresses given with a zip_code number equal to 12345 as a first address",
+          "The first item from addresses with zip_code equal to the number 12345 as a first address"
+  })
+  void first_function_simple_on_object_array_with_condition(String input) throws Exception {
+    String rule = input;
     String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
 
     End2AstRunner.run(
@@ -150,10 +220,14 @@ class FirstFunctionsTests {
                 .rightNumber(12345.0));
   }
 
-  @Test
-  void first_function_with_simple_condition_and_sugar_around_array_and_property() throws Exception {
-    String rule =
-        "The first item from the addresses given with a zip_code number greater than 12345 as a first address";
+  @ParameterizedTest
+  @CsvSource({
+          "The first 2 items from addresses with zip_code equals 12345 as first2addresses",
+          "The first 2 items from the addresses given with a zip_code number equal to 12345 as first2addresses",
+          "The first 2 items from addresses with zip_code equal to the number 12345 as first2addresses"
+  })
+  void first_function_simple_on_object_array_with_condition_with_amount(String input) throws Exception {
+    String rule = input;
     String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
 
     End2AstRunner.run(
@@ -163,12 +237,17 @@ class FirstFunctionsTests {
             r.variables()
                 .hasSizeOf(1)
                 .first()
-                .hasName("a first address")
+                .hasName("first2addresses")
                 .operandFunction()
                 .hasName("FIRST")
-                .hasType(DataPropertyType.Object)
-                .sizeOfParameters(1)
+                .hasType(DataPropertyType.Array)
+                  .hasArrayContentType(DataPropertyType.Object)
+                .sizeOfParameters(2)
                 .parameters()
+                    .second()
+                    .number()
+                    .hasValue(2.0)
+                    .parentList()
                 .first()
                 .function()
                 .hasName("WHERE")
@@ -180,142 +259,60 @@ class FirstFunctionsTests {
                 .parentList()
                 .second()
                 .lambdaCondition()
-                .hasOperator(ASTComparisonOperator.GREATER_THAN)
-                .hasNoConnector()
-                .leftProperty("zip_code")
-                .hasType(DataPropertyType.Decimal)
-                .parentCondition()
-                .rightNumber(12345.0));
-  }
-
-  @Test
-  void first_function_with_simple_condition_and_sugar_around_number_in_condition()
-      throws Exception {
-    String rule =
-        "The first item from addresses with zip_code equal to the number 12345 as a first address";
-    String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
-
-    End2AstRunner.run(
-        rule,
-        schema,
-        r ->
-            r.variables()
-                .hasSizeOf(1)
-                .first()
-                .hasName("a first address")
-                .operandFunction()
-                .hasName("FIRST")
-                .hasType(DataPropertyType.Object)
-                .sizeOfParameters(1)
-                .parameters()
-                .first()
-                .function()
-                .hasName("WHERE")
-                .sizeOfParameters(2)
-                .parameters()
-                .first()
-                .property("addresses")
-                .hasType(DataPropertyType.Array)
-                .parentList()
-                .second()
-                .lambdaCondition()
-                .hasOperator(ASTComparisonOperator.EQUALS)
-                .hasNoConnector()
-                .leftProperty("zip_code")
-                .hasType(DataPropertyType.Decimal)
-                .parentCondition()
-                .rightNumber(12345.0));
-  }
-
-  @Test
-  void first_function_with_simple_condition_with_explicit_array_path() throws Exception {
-    String rule = "a first item from info.addresses with zip_code equals 12345 as a first address";
-    String schema = "{info: {addresses:[{zip_code: 1, city: Berlin}]}}";
-
-    End2AstRunner.run(
-        rule,
-        schema,
-        r ->
-            r.variables()
-                .hasSizeOf(1)
-                .first()
-                .hasName("a first address")
-                .operandFunction()
-                .hasName("FIRST")
-                .hasType(DataPropertyType.Object)
-                .sizeOfParameters(1)
-                .parameters()
-                .first()
-                .function()
-                .hasName("WHERE")
-                .sizeOfParameters(2)
-                .parameters()
-                .first()
-                .property("addresses")
-                .hasType(DataPropertyType.Array)
-                .parentList()
-                .second()
-                .lambdaCondition()
-                .hasOperator(ASTComparisonOperator.EQUALS)
-                .hasNoConnector()
-                .leftProperty("zip_code")
-                .hasType(DataPropertyType.Decimal)
-                .parentCondition()
-                .rightNumber(12345.0));
-  }
-
-  @Test
-  void first_function_with_condition_group_with_explicit_array_path() throws Exception {
-    String rule =
-        "a first item from info.addresses with zip_code equals 12345 and city equals Berlin as a first address";
-    String schema = "{info: {addresses:[{zip_code: 1, city: Berlin}]}}";
-
-    End2AstRunner.run(
-        rule,
-        schema,
-        r ->
-            r.variables()
-                .hasSizeOf(1)
-                .first()
-                .hasName("a first address")
-                .operandFunction()
-                .hasName("FIRST")
-                .hasType(DataPropertyType.Object)
-                .sizeOfParameters(1)
-                .parameters()
-                .first()
-                .function()
-                .hasName("WHERE")
-                .sizeOfParameters(2)
-                .parameters()
-                .first()
-                .property("addresses")
-                .hasType(DataPropertyType.Array)
-                .parentList()
-                .second()
-                .lambdaConditionGroup()
-                .hasSize(2)
-                .first()
                 .hasOperator(ASTComparisonOperator.EQUALS)
                 .hasNoConnector()
                 .leftProperty("zip_code")
                 .hasType(DataPropertyType.Decimal)
                 .parentCondition()
                 .rightNumber(12345.0)
-                .parentConditionGroup()
+    );
+  }
+
+
+
+  @Test
+  void first_function_on_object_array_explicit_path() throws Exception {
+    String rule =
+        "The first item from info.addresses with zip_code equals 12345 as a first address";
+    String schema = "{info: {addresses:[{zip_code: 1, city: Berlin}]}}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .hasSizeOf(1)
+                .first()
+                .hasName("a first address")
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Object)
+                .sizeOfParameters(1)
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .sizeOfParameters(2)
+                .parameters()
+                .first()
+                .property("addresses")
+                .hasType(DataPropertyType.Array)
+                .parentList()
                 .second()
+                .lambdaCondition()
                 .hasOperator(ASTComparisonOperator.EQUALS)
-                .hasConnector(ASTConditionConnector.AND)
-                .leftProperty("city")
-                .hasType(DataPropertyType.String)
+                .hasNoConnector()
+                .leftProperty("zip_code")
+                .hasType(DataPropertyType.Decimal)
                 .parentCondition()
-                .rightString("Berlin"));
+                .rightNumber(12345.0)
+    );
   }
 
   // todo lionelpa 7.10.19 simple array access with FIRST may need changes in grammar
   @Disabled
   @Test
-  void abcdef() throws Exception {
+  void first_function_in_direct_comparison() throws Exception {
     String rule = "FIRST item FROM numbers IS 1 as sadfasdf";
     String schema = "{numbers: [1,2,3,4]}";
 
@@ -323,7 +320,7 @@ class FirstFunctionsTests {
   }
 
   @Test
-  void first_function_with_get_array_of() throws Exception {
+  void first_function_with_get_array_of_with_decimal_property_has_correct_type() throws Exception {
     String rule = "FIRST item FROM numbers.value as var";
     String schema = "{numbers: [{value: 1}]}";
 
@@ -335,6 +332,49 @@ class FirstFunctionsTests {
                 .first()
                 .operandFunction()
                 .hasName("FIRST")
+                    .hasType(DataPropertyType.Decimal));
+
+  }
+
+  @Test
+  void first_param_property_of_get_array_of_has_correct_type() throws Exception {
+    String rule = "FIRST item FROM numbers.value as var";
+    String schema = "{numbers: [{value: 1}]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .parameters()
+                    .first()
+                    .function()
+            .hasName("GET_ARRAY_OF")
+    .parameters()
+            .first()
+            .property()
+            .hasType(DataPropertyType.Array)
+            .hasArrayContentType(DataPropertyType.Decimal)
+    );
+
+  }
+
+  @Test
+  void first_function_with_get_array_of_on_decimal_array() throws Exception {
+    String rule = "FIRST item FROM numbers.value as var";
+    String schema = "{numbers: [{value: 1}]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .hasName("FIRST")
+                    .hasType(DataPropertyType.Decimal)
                 .sizeOfParameters(1)
                 .parameters()
                 .first()
@@ -342,7 +382,8 @@ class FirstFunctionsTests {
                 .sizeOfParameters(2)
                 .parameters()
                 .first()
-                .property()
+                .property("numbers")
+
                 .parentList()
                 .second()
                 .lambda()
@@ -400,19 +441,6 @@ class FirstFunctionsTests {
     End2AstRunner.run(rule, schema, r -> r.variables());
   }
 
-  @Disabled
-  @Test
-  void first_function_variable_in_condition_on_jsonschema_with_lambda_without_amount()
-      throws Exception {
-    String rule =
-        "FIRST FROM numbers WITH value IS 5 as X \n\n" + "If X is greater than 2 then error";
-    String schema = "{numbers: [{value: 1}]}";
-
-    End2AstRunner.run(
-        rule,
-        schema,
-        r -> r.variables().first().operandFunction().hasType(DataPropertyType.Decimal));
-  }
 
   //  @Test
   //  void first_function_variable_in_condition_on_jsonschema() throws Exception {
