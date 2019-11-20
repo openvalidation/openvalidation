@@ -40,6 +40,17 @@ class FirstFunctionsTests {
   take 10 items from addresses with city gleich dortmund
   take 10 street from addresses with city gleich dortmund
 
+  take street from addresses                                     //[hallo, abc, ddd]
+  addresses.street
+  take street from addresses where city equals dortmund          //[hallo]
+  take first 2 street from addresses                             //[hallo, abc]
+       first 2 street from addresses                             //[hallo, abc]
+  take first street from addresses                               //hallo
+       first street from addresses                               //hallo
+
+
+  addresses:[{stree:'hallo', city:'test'},{stree:'abc', city:'test'},{stree:'dddd', city:'test'}]
+
 
 
 
@@ -396,42 +407,7 @@ class FirstFunctionsTests {
     String rule =
         "FIRST FROM numbers WITH value IS 5 as X \n\n" + "If X is greater than 2 then error";
     String schema =
-        "{\n"
-            + "  \"definitions\": {},\n"
-            + "  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n"
-            + "  \"$id\": \"http://example.com/root.json\",\n"
-            + "  \"type\": \"object\",\n"
-            + "  \"title\": \"The Root Schema\",\n"
-            + "  \"required\": [\n"
-            + "    \"numbers\"\n"
-            + "  ],\n"
-            + "  \"properties\": {\n"
-            + "    \"numbers\": {\n"
-            + "      \"$id\": \"#/properties/numbers\",\n"
-            + "      \"type\": \"array\",\n"
-            + "      \"title\": \"The Numbers Schema\",\n"
-            + "      \"items\": {\n"
-            + "        \"$id\": \"#/properties/numbers/items\",\n"
-            + "        \"type\": \"object\",\n"
-            + "        \"title\": \"The Items Schema\",\n"
-            + "        \"required\": [\n"
-            + "          \"value\"\n"
-            + "        ],\n"
-            + "        \"properties\": {\n"
-            + "          \"value\": {\n"
-            + "            \"$id\": \"#/properties/numbers/items/properties/value\",\n"
-            + "            \"type\": \"integer\",\n"
-            + "            \"title\": \"The Value Schema\",\n"
-            + "            \"default\": 0,\n"
-            + "            \"examples\": [\n"
-            + "              5\n"
-            + "            ]\n"
-            + "          }\n"
-            + "        }\n"
-            + "      }\n"
-            + "    }\n"
-            + "  }\n"
-            + "}";
+        "{numbers: [{value: 1}]}";
 
     End2AstRunner.run(
         rule,
