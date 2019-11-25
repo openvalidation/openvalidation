@@ -27,9 +27,10 @@ import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.*;
 import io.openvalidation.common.utils.StringUtils;
 import io.openvalidation.common.utils.ThrowingConsumer;
-import java.util.List;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.util.List;
 
 public abstract class TransformerBase<
     TFactory, TModel extends ASTItem, TPRContext extends ParserRuleContext> {
@@ -104,8 +105,7 @@ public abstract class TransformerBase<
       DataArrayProperty p = (DataArrayProperty) property;
 
       ASTOperandFunctionBuilder functionBuilder = new ASTOperandFunctionBuilder();
-      String[] proppath = {p.getName()};
-      functionBuilder.createArrayOfFunction(p.getArrayPathAsList(), proppath);
+      functionBuilder.createArrayOfFunction(p);
 
       operand = functionBuilder.getModel();
       operand.setSource(content);
