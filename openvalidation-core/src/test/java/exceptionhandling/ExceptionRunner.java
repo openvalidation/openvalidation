@@ -16,19 +16,18 @@
 
 package exceptionhandling;
 
+import static io.openvalidation.common.unittesting.astassertion.ResultAssertion.assertResult;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
+
 import io.openvalidation.common.exceptions.OpenValidationException;
 import io.openvalidation.common.model.OpenValidationResult;
 import io.openvalidation.common.unittesting.astassertion.ResultAssertion;
 import io.openvalidation.common.utils.StringUtils;
 import io.openvalidation.core.OpenValidation;
-
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static io.openvalidation.common.unittesting.astassertion.ResultAssertion.assertResult;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 
 public class ExceptionRunner {
 
