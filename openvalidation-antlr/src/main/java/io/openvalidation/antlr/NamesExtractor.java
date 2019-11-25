@@ -19,10 +19,9 @@ package io.openvalidation.antlr;
 import io.openvalidation.antlr.generated.mainParser;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.data.DataVariableReference;
-import org.antlr.v4.runtime.tree.ParseTree;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 public class NamesExtractor {
   public static List<DataVariableReference> getNames(ParseTree ctx) {

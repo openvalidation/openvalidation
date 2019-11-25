@@ -146,8 +146,7 @@ class FirstFunctionsTests {
                 .first()
                 .property("numbers")
                 .hasType(DataPropertyType.Array)
-                .hasArrayContentType(DataPropertyType.Decimal)
-                );
+                .hasArrayContentType(DataPropertyType.Decimal));
   }
 
   @Test
@@ -169,20 +168,18 @@ class FirstFunctionsTests {
                 .first()
                 .property("numbers")
                 .hasType(DataPropertyType.Array)
-                    .hasArrayContentType(DataPropertyType.Decimal)
+                .hasArrayContentType(DataPropertyType.Decimal)
                 .parentList()
                 .second()
                 .number()
-                .hasValue(2.0)
-    );
+                .hasValue(2.0));
   }
-
 
   @ParameterizedTest
   @CsvSource({
-          "The first item from addresses with zip_code equals 12345 as a first address",
-          "The first item from the addresses given with a zip_code number equal to 12345 as a first address",
-          "The first item from addresses with zip_code equal to the number 12345 as a first address"
+    "The first item from addresses with zip_code equals 12345 as a first address",
+    "The first item from the addresses given with a zip_code number equal to 12345 as a first address",
+    "The first item from addresses with zip_code equal to the number 12345 as a first address"
   })
   void first_function_simple_on_object_array_with_condition(String input) throws Exception {
     String rule = input;
@@ -222,11 +219,12 @@ class FirstFunctionsTests {
 
   @ParameterizedTest
   @CsvSource({
-          "The first 2 items from addresses with zip_code equals 12345 as first2addresses",
-          "The first 2 items from the addresses given with a zip_code number equal to 12345 as first2addresses",
-          "The first 2 items from addresses with zip_code equal to the number 12345 as first2addresses"
+    "The first 2 items from addresses with zip_code equals 12345 as first2addresses",
+    "The first 2 items from the addresses given with a zip_code number equal to 12345 as first2addresses",
+    "The first 2 items from addresses with zip_code equal to the number 12345 as first2addresses"
   })
-  void first_function_simple_on_object_array_with_condition_with_amount(String input) throws Exception {
+  void first_function_simple_on_object_array_with_condition_with_amount(String input)
+      throws Exception {
     String rule = input;
     String schema = "{addresses:[{zip_code: 1, city: Berlin}]}";
 
@@ -241,13 +239,13 @@ class FirstFunctionsTests {
                 .operandFunction()
                 .hasName("FIRST")
                 .hasType(DataPropertyType.Array)
-                  .hasArrayContentType(DataPropertyType.Object)
+                .hasArrayContentType(DataPropertyType.Object)
                 .sizeOfParameters(2)
                 .parameters()
-                    .second()
-                    .number()
-                    .hasValue(2.0)
-                    .parentList()
+                .second()
+                .number()
+                .hasValue(2.0)
+                .parentList()
                 .first()
                 .function()
                 .hasName("WHERE")
@@ -264,11 +262,8 @@ class FirstFunctionsTests {
                 .leftProperty("zip_code")
                 .hasType(DataPropertyType.Decimal)
                 .parentCondition()
-                .rightNumber(12345.0)
-    );
+                .rightNumber(12345.0));
   }
-
-
 
   @Test
   void first_function_on_object_array_explicit_path() throws Exception {
@@ -305,8 +300,7 @@ class FirstFunctionsTests {
                 .leftProperty("zip_code")
                 .hasType(DataPropertyType.Decimal)
                 .parentCondition()
-                .rightNumber(12345.0)
-    );
+                .rightNumber(12345.0));
   }
 
   // todo lionelpa 7.10.19 simple array access with FIRST may need changes in grammar
@@ -332,8 +326,7 @@ class FirstFunctionsTests {
                 .first()
                 .operandFunction()
                 .hasName("FIRST")
-                    .hasType(DataPropertyType.Decimal));
-
+                .hasType(DataPropertyType.Decimal));
   }
 
   @Test
@@ -386,7 +379,6 @@ class FirstFunctionsTests {
 
     End2AstRunner.run(rule, schema, r -> r.variables());
   }
-
 
   //  @Test
   //  void first_function_variable_in_condition_on_jsonschema() throws Exception {
