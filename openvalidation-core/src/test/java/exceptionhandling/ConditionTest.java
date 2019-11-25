@@ -118,16 +118,18 @@ public class ConditionTest {
                     + "left operand is of type: 'Decimal' and right operand is of type: 'String'"));
   }
 
-    @Test
-    void first_function_with_invalid_return_type_in_comparison() throws Exception {
-        String rule =
-                "FIRST FROM numbers WITH value IS 5 as X \n\n" + "If X is greater than 2 then error";
-        String schema = "{numbers: [{value: 1}]}";
+  @Test
+  void first_function_with_invalid_return_type_in_comparison() throws Exception {
+    String rule =
+        "FIRST FROM numbers WITH value IS 5 as X \n\n" + "If X is greater than 2 then error";
+    String schema = "{numbers: [{value: 1}]}";
 
-        runner.run(
-                rule,
-                schema,
-                r -> r.containsValidationMessage("comparison contains different DataTypes. \n" +
-                        "left operand is of type: 'Object' and right operand is of type: 'Decimal'"));
-    }
+    runner.run(
+        rule,
+        schema,
+        r ->
+            r.containsValidationMessage(
+                "comparison contains different DataTypes. \n"
+                    + "left operand is of type: 'Object' and right operand is of type: 'Decimal'"));
+  }
 }

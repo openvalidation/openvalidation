@@ -191,14 +191,13 @@ public class ASTOperandFunctionBuilder
 
   // create
 
-  public ASTOperandFunctionBuilder createArrayOfFunction(DataArrayProperty arrayProperty)
-  {
+  public ASTOperandFunctionBuilder createArrayOfFunction(DataArrayProperty arrayProperty) {
     String[] arrayPropertyPath = arrayProperty.getArrayPathAsArray();
 
     String[] lambdaPropertyPath = arrayProperty.getFullPathExceptArrayPathAsArray();
     DataPropertyType lambdaPropertyType = arrayProperty.getType();
 
-    //contruct parameters for GET_ARRAY_OF function
+    // contruct parameters for GET_ARRAY_OF function
     ASTOperandProperty arrayOperandProperty = new ASTOperandProperty(arrayPropertyPath);
     arrayOperandProperty.setDataType(DataPropertyType.Array);
     arrayOperandProperty.setArrayContentType(DataPropertyType.Object);
@@ -210,9 +209,7 @@ public class ASTOperandFunctionBuilder
     lambda.setProperty(lambdaProperty);
     lambda.setLambdaToken(ASTOperandProperty.generateLambdaToken(this));
 
-    return createFunction("GET_ARRAY_OF").
-            addParameter(arrayOperandProperty)
-            .addParameter(lambda);
+    return createFunction("GET_ARRAY_OF").addParameter(arrayOperandProperty).addParameter(lambda);
   }
 
   public ASTOperandFunctionBuilder createArrayOfFunction(
