@@ -17,6 +17,7 @@
 package io.openvalidation.common.ast.operand;
 
 import io.openvalidation.common.ast.ASTItem;
+import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaProperty;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import java.util.*;
@@ -87,6 +88,16 @@ public class ASTOperandFunction extends ASTOperandBase {
       //            } else if (!vars.isEmpty()) {
       //                type = vars.get(0).getDataType();
       //            }
+    } else if(this.getName().equals("GET_ARRAY_OF"))
+    {
+        if(this.parameters.size() > 1)
+        {
+            ASTOperandBase secondParam = parameters.get(1);
+            if(secondParam instanceof ASTOperandLambdaProperty)
+            {
+                type = ((ASTOperandLambdaProperty) secondParam).getProperty().getDataType();
+            }
+        }
     } else if (this.getDataType() == DataPropertyType.Array) {
       if (parameters.size() > 0) {
         ASTOperandBase firstParam = parameters.get(0);
