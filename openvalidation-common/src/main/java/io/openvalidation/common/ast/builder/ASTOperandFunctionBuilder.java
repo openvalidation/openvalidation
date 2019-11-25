@@ -23,6 +23,7 @@ import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
 import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaCondition;
 import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaProperty;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
+import io.openvalidation.common.data.DataArrayProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.StringUtils;
 
@@ -190,16 +191,34 @@ public class ASTOperandFunctionBuilder
 
   // create
 
+  public ASTOperandFunctionBuilder createArrayOfFunction(DataArrayProperty arrayProperty)
+  {
+    String[] arrayPropertyPath = arrayProperty.getArrayPathAsArray();
+
+    String[] lambdaPropertyPath = arrayProperty.getFullPathExceptArrayPathAsArray();
+    DataPropertyType lambdaPropertyType = arrayProperty.getType();
+
+    //contruct parameters for GET_ARRAY_OF function
+    ASTOperandProperty arrayOperandProperty = new ASTOperandProperty(arrayPropertyPath);
+    arrayOperandProperty.setDataType(DataPropertyType.Array);
+    arrayOperandProperty.setArrayContentType(DataPropertyType.Object);
+
+    ASTOperandProperty lambdaProperty = new ASTOperandProperty(lambdaPropertyPath);
+    lambdaProperty.setDataType(lambdaPropertyType);
+
+    ASTOperandLambdaProperty lambda = new ASTOperandLambdaProperty();
+    lambda.setProperty(lambdaProperty);
+    lambda.setLambdaToken(ASTOperandProperty.generateLambdaToken(this));
+
+    return createFunction("GET_ARRAY_OF").
+            addParameter(arrayOperandProperty)
+            .addParameter(lambda);
+  }
+
   public ASTOperandFunctionBuilder createArrayOfFunction(
       String[] arrayProperties, String[] lambdaProperties) {
     return createArrayOfFunction(
         arrayProperties, ASTOperandProperty.generateLambdaToken(this), lambdaProperties);
-  }
-
-  public ASTOperandFunctionBuilder createArrayOfFunction(
-      String arrayProperty, String lambdaProperties) {
-    return createArrayOfFunction(
-        arrayProperty, ASTOperandProperty.generateLambdaToken(this), lambdaProperties);
   }
 
   public ASTOperandFunctionBuilder createArrayOfFunction(
