@@ -66,7 +66,7 @@ public class DataArrayProperty extends DataPropertyBase {
     return null;
   }
 
-  public String[] getArrayPathAsList() {
+  public String[] getArrayPathAsArray() {
     if (this.getArrayPath() == null) return null;
 
     if (this.getArrayPath().contains(".")) return this.getArrayPath().split("\\.");

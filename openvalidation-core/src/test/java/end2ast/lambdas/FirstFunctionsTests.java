@@ -337,60 +337,6 @@ class FirstFunctionsTests {
   }
 
   @Test
-  void first_param_property_of_get_array_of_has_correct_type() throws Exception {
-    String rule = "FIRST item FROM numbers.value as var";
-    String schema = "{numbers: [{value: 1}]}";
-
-    End2AstRunner.run(
-        rule,
-        schema,
-        r ->
-            r.variables()
-                .first()
-                .operandFunction()
-                .parameters()
-                    .first()
-                    .function()
-            .hasName("GET_ARRAY_OF")
-    .parameters()
-            .first()
-            .property()
-            .hasType(DataPropertyType.Array)
-            .hasArrayContentType(DataPropertyType.Decimal)
-    );
-
-  }
-
-  @Test
-  void first_function_with_get_array_of_on_decimal_array() throws Exception {
-    String rule = "FIRST item FROM numbers.value as var";
-    String schema = "{numbers: [{value: 1}]}";
-
-    End2AstRunner.run(
-        rule,
-        schema,
-        r ->
-            r.variables()
-                .first()
-                .operandFunction()
-                .hasName("FIRST")
-                    .hasType(DataPropertyType.Decimal)
-                .sizeOfParameters(1)
-                .parameters()
-                .first()
-                .function("GET_ARRAY_OF")
-                .sizeOfParameters(2)
-                .parameters()
-                .first()
-                .property("numbers")
-
-                .parentList()
-                .second()
-                .lambda()
-                .property());
-  }
-
-  @Test
   void first_function_variable_in_condition_on_jsondata() throws Exception {
     String rule = "FIRST FROM numbers as X \n\n" + "If X is greater than 2 then error";
     String schema = "{numbers: [1,2,3]}";
