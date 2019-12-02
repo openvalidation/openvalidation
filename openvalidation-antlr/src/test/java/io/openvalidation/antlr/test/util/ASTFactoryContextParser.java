@@ -38,7 +38,7 @@ public class ASTFactoryContextParser {
     parser.addParseListener(astBuildListener);
 
     parser.main();
-    TransformerContext factoryContext = astBuildListener.get_factoryContext();
+    TransformerContext factoryContext = astBuildListener.get_transformerContext();
     return factoryContext;
   }
 }
