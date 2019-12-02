@@ -1,0 +1,18 @@
+################# last function on simple number array ########################
+
+The last item from numbers AS X
+
+If X is 3 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [3]}
+
+{numbers: [1,2,3]}
+
+{numbers: [1.0, 3.0]}
+
+{numbers: [0.5, 1.0, 2.0, 3.0]}
+
+error
