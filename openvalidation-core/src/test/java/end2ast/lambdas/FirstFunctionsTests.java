@@ -330,7 +330,6 @@ class FirstFunctionsTests {
   }
 
   @Test
-  @Disabled
   void first_param_property_of_get_array_of_has_correct_type() throws Exception {
     String rule = "FIRST item FROM numbers.value as var";
     String schema = "{numbers: [{value: 1}]}";
@@ -350,11 +349,10 @@ class FirstFunctionsTests {
                 .first()
                 .property()
                 .hasType(DataPropertyType.Array)
-                .hasArrayContentType(DataPropertyType.Decimal));
+                .hasArrayContentType(DataPropertyType.Object));
   }
 
   @Test
-  @Disabled
   void first_function_with_get_array_of_on_decimal_array() throws Exception {
     String rule = "FIRST item FROM numbers.value as var";
     String schema = "{numbers: [{value: 1}]}";
