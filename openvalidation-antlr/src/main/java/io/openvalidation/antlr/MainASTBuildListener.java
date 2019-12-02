@@ -27,7 +27,7 @@ import io.openvalidation.common.log.ProcessLogger;
 public class MainASTBuildListener extends mainBaseListener {
   private PTModelTransformer _factory;
   private ASTModel _ast;
-  private TransformerContext _factoryContext;
+  private TransformerContext _transformerContext;
   private DataSchema _schema;
 
   public MainASTBuildListener(DataSchema schema) {
@@ -39,9 +39,9 @@ public class MainASTBuildListener extends mainBaseListener {
     try {
       _schema.complete(NamesExtractor.getNames(ctx));
 
-      _factoryContext = new TransformerContext(_schema);
+      _transformerContext = new TransformerContext(_schema);
 
-      _factory = new PTModelTransformer(ctx, _factoryContext);
+      _factory = new PTModelTransformer(ctx, _transformerContext);
       _ast = _factory.transform();
 
       ProcessLogger.success(ProcessLogger.PARSER_MAIN);
@@ -56,7 +56,7 @@ public class MainASTBuildListener extends mainBaseListener {
     return _ast;
   }
 
-  public TransformerContext get_factoryContext() {
-    return _factoryContext;
+  public TransformerContext get_transformerContext() {
+    return _transformerContext;
   }
 }
