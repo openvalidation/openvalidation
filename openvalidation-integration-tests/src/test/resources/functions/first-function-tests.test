@@ -47,7 +47,7 @@ If X then error
 
 error
 
-################# IGNORE first function on variable containing an array ########################
+################# first function on variable containing an array ########################
 
 numbers AS array
 
@@ -68,7 +68,7 @@ If X is 1 then error
 
 error
 
-################# IGNORE first function on variable containing a variable containing an array ########################
+################# first function on variable containing a variable containing an array ########################
 numbers AS arr
 
 arr AS array
@@ -90,7 +90,7 @@ If X is 1 then error
 
 error
 
-################# IGNORE first function on variable containing a function ########################
+################# first function on variable containing a function ########################
 
 first 2 items from numbers AS array
 
@@ -111,10 +111,30 @@ If X is 1 then error
 
 error
 
-################# IGNORE first function on variable containing a function with variable ########################
+################# first function on variable containing a function with variable ########################
 numbers AS array
 
 first 2 items from array AS first2Array
+
+The first item from first2Array AS X
+
+If X is 1 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [1]}
+
+{numbers: [1,2,3]}
+
+{numbers: [1.0]}
+
+{numbers: [1.0,2,3.5]}
+
+error
+
+################# first function on variable containing a function with property ########################
+first 2 items from numbers AS first2Array
 
 The first item from first2Array AS X
 
