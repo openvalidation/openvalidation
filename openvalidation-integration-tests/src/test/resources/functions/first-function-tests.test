@@ -154,10 +154,19 @@ If X is 1 then error
 error
 
 
+################# IGNORE first function on array of complex types containing an array of complex types ########################
+first from cars as firstCar
+
+first from firstCar.Wheels as firstWheel
+
+if firstWheel.diameter is greater than 125
+then lennyFace
+
+{cars:[{wheels:[{diameter: 1.1,tireType:'boelf'}, {diameter: 500.5,tireType:'muff'}], manufacturer:'schmaudi'},{wheels:[{diameter: 2.2,tireType:'kroet'}, {diameter: 0.5,tireType:'linn'}], manufacturer:'tojoda'}], formname:'oof'}
+
+--------------  error triggered  -------------------
 
 
+{cars:[{wheels:[{diameter: 126.0,tireType:'garkeintype'}, {diameter: 1.0,tireType:'muffel'}]}, formname:'nix'}
 
-
-
-
-
+lennyFace
