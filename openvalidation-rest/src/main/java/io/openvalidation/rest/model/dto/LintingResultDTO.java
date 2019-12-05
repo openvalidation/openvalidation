@@ -54,17 +54,20 @@ public class LintingResultDTO {
 
     if (node.getRange() == null) {
       String[] splittedDocument = ovParams.getRule().split("\n");
-      Position startPosition = new Position(0, 0);
-      Position endPosition =
-          new Position(
-              splittedDocument.length - 1, splittedDocument[splittedDocument.length - 1].length());
-      node.setRange(new Range(startPosition, endPosition));
+      if (splittedDocument.length > 0) {
+        Position startPosition = new Position(0, 0);
+        Position endPosition =
+            new Position(
+                splittedDocument.length - 1,
+                splittedDocument[splittedDocument.length - 1].length());
+        node.setRange(new Range(startPosition, endPosition));
+      }
     }
 
     this.errors = parameter.getParsedErrors();
     for (OpenValidationException error : ovResult.getErrors()) {
       // These exceptions where generated during the tree-transformation
-      if (error instanceof ASTValidationException) continue;
+      if (error instanceof ASTValidationException && this.errors.size() > 0) continue;
 
       if (error instanceof ASTValidationSummaryException) {
         this.generateAndAddErrorDto((ASTValidationSummaryException) error, ovParams.getRule());
