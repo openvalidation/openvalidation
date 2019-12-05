@@ -124,7 +124,7 @@ public class RangeGenerator {
       int lineNumber) {
     int startColumnNumber = -1;
     Matcher startPattern =
-        Pattern.compile("(?i)\\b" + startLine.trim() + "\\b").matcher(currentLine);
+        Pattern.compile("(?i)\\b" + Pattern.quote(startLine.trim()) + "\\b").matcher(currentLine);
     if (startPattern.find()) {
       startColumnNumber = startPattern.start();
     } else {
@@ -149,7 +149,8 @@ public class RangeGenerator {
       int outerStartLine,
       int lineNumber) {
     int startIndex = -1;
-    Matcher endPattern = Pattern.compile("(?i)\\b" + endLine.trim() + "\\b").matcher(currentLine);
+    Matcher endPattern =
+        Pattern.compile("(?i)\\b" + Pattern.quote(endLine.trim()) + "\\b").matcher(currentLine);
     if (endPattern.find()) {
       startIndex = endPattern.start();
     } else {
