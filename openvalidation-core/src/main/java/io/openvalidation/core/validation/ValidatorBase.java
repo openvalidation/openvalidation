@@ -36,6 +36,10 @@ public abstract class ValidatorBase {
     this.globalPosition = globalPosition;
   }
 
+  public void setContext(ValidationContext context) {
+    this.setContext(context, -1);
+  }
+
   public abstract void validate() throws Exception;
 
   protected void validate(ASTItem item) throws Exception {
