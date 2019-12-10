@@ -1,0 +1,20 @@
+################# IGNORE where function on simple number array ########################
+
+from numbers where number greater 2 AS X
+
+first item from X AS Y
+
+If Y is 3 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [3]}
+
+{numbers: [1,2,3]}
+
+{numbers: [1.0, 3.0]}
+
+{numbers: [0.5, 1.0, 2.0, 3.0]}
+
+error
