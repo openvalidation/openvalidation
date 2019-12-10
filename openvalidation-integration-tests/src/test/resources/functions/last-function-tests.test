@@ -16,3 +16,158 @@ If X is 3 then error
 {numbers: [0.5, 1.0, 2.0, 3.0]}
 
 error
+
+################# last function on simple string array ########################
+
+The last item from fruits AS X
+
+If X is banana then error
+
+{fruits: [banana]}
+
+--------------  error triggered  -------------------
+{fruits: [banana]}
+
+{fruits: [apple,pear,banana]}
+
+{fruits: [banana,banana,banana,banana]}
+
+{fruits: [apple,pear,banana, apple, pear, banana]}
+
+error
+
+################# last function on simple bool array ########################
+
+The last item from booleans AS X
+
+If X then error
+
+{booleans: [true]}
+
+--------------  error triggered  -------------------
+{booleans: [true]}
+
+{booleans: [false,false,true]}
+
+{booleans: [true,true,true]}
+
+{booleans: [false,false,true,false,false,true]}
+
+error
+
+################# last function on variable containing an array ########################
+
+numbers AS array
+
+The last item from array AS X
+
+If X is 1 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [1]}
+
+{numbers: [3,2,1]}
+
+{numbers: [1.0]}
+
+{numbers: [2,3.5,1.0]}
+
+{numbers: [2,3.5,1.0]}
+
+{numbers: [1,1.0,1.0,1,1,1.0]}
+
+{numbers: [1,1.0,1.0,1,1.5,1.0]}
+
+error
+
+################# last function on variable containing a variable containing an array ########################
+
+numbers AS arr
+
+arr AS array
+
+The last item from array AS X
+
+If X is 1 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [1]}
+
+{numbers: [3,2,1]}
+
+{numbers: [1.0]}
+
+{numbers: [2,3.5,1.0]}
+
+{numbers: [1.0,2.0,3.5,2,3,1,1.0]}
+
+error
+
+################# last function on variable containing a function ########################
+
+last 2 items from numbers AS array
+
+The last item from array AS X
+
+If X is 1 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [1]}
+
+{numbers: [1,2,3,1,1]}
+
+{numbers: [1.0]}
+
+{numbers: [1.0,2,3.5,1.0,1.0]}
+
+error
+
+################# last function on variable containing a function with variable ########################
+numbers AS array
+
+last 2 items from array AS last2Array
+
+The last item from last2Array AS X
+
+If X is 1 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [1]}
+
+{numbers: [3,2,1]}
+
+{numbers: [1.0]}
+
+{numbers: [1.0,2,3.5,1.0]}
+
+error
+
+################# last function on variable containing a function with property ########################
+last 2 items from numbers AS last2Array
+
+The last item from last2Array AS X
+
+If X is 1 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [1]}
+
+{numbers: [3,2,1]}
+
+{numbers: [1.0]}
+
+{numbers: [1.0,2,3.5,1.0]}
+
+{numbers: [1,1.0,2,2.0,3.5,3,1.0]}
+
+error
