@@ -44,7 +44,6 @@ public class UnkownElementParserTest {
 
     UnkownElementParser parser = new UnkownElementParser(astModel, parameter);
 
-    List<ASTItem> expected = new ArrayList<>();
     List<ASTItem> actual = parser.generate(ovService);
 
     assertThat(actual.get(0), instanceOf(ASTOperandStaticString.class));

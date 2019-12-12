@@ -16,7 +16,9 @@
 
 package io.openvalidation.rest.model.dto.astDTO;
 
+import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 public abstract class GenericNode {
   private List<String> lines;
   private Range range;
+  private List<KeywordNode> keywords;
 
   public GenericNode(DocumentSection section, TransformationParameter parameter) {
     if (section == null) {
@@ -34,6 +37,8 @@ public abstract class GenericNode {
               .map(line -> line.replace("\r", ""))
               .collect(Collectors.toList());
       this.range = section.getRange();
+
+      this.generateKeywords(parameter);
 
       // Might be null for nodes, that don't appear in the parser
       if (parameter != null) parameter.visitNode(section);
@@ -59,6 +64,27 @@ public abstract class GenericNode {
   public String getType() {
     return this.getClass().getSimpleName();
   }
+
+  public List<KeywordNode> getKeywords() {
+    return keywords;
+  }
+
+  private void generateKeywords(TransformationParameter parameter) {
+    this.keywords = new ArrayList<>();
+
+    for (String keyword : getPotentialKeywords()) {
+      List<String> potentialAliases = Aliases.getAliasByToken(parameter.getCulture(), keyword);
+      for (String alias : potentialAliases) {
+        DocumentSection keywordSection = new RangeGenerator(this.lines, this.range).generate(alias);
+        if (keywordSection == null || keywordSection.isEmpty()) continue;
+
+        KeywordNode newNode = new KeywordNode(keywordSection);
+        this.keywords.add(newNode);
+      }
+    }
+  }
+
+  public abstract List<String> getPotentialKeywords();
 
   @Override
   public boolean equals(Object obj) {

@@ -11,7 +11,7 @@ import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.element.CommentNode;
 import io.openvalidation.rest.model.dto.astDTO.element.RuleNode;
-import io.openvalidation.rest.model.dto.astDTO.element.UnkownNode;
+import io.openvalidation.rest.model.dto.astDTO.element.UnknownNode;
 import io.openvalidation.rest.model.dto.astDTO.element.VariableNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.ConditionNode;
 import io.openvalidation.rest.model.dto.astDTO.operation.ConnectedOperationNode;
@@ -34,9 +34,9 @@ public class NodeGenerator {
     } else if (element instanceof ASTOperandBase) {
       OperandNode tmpOperand =
           NodeGenerator.createOperand((ASTOperandBase) element, section, parameter);
-      node = new UnkownNode(tmpOperand, section);
+      node = new UnknownNode(tmpOperand, section);
     } else if (element instanceof ASTUnknown) {
-      node = new UnkownNode(section);
+      node = new UnknownNode(section);
     }
 
     return node;

@@ -23,6 +23,7 @@ import io.openvalidation.core.Aliases;
 import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class ConditionNode extends OperandNode {
@@ -53,5 +54,9 @@ public abstract class ConditionNode extends OperandNode {
 
   public void setConnector(String connector) {
     this.connector = connector;
+  }
+
+  public List<String> getPotentialKeywords() {
+    return Arrays.asList(Constants.AND_TOKEN, Constants.OR_TOKEN);
   }
 }

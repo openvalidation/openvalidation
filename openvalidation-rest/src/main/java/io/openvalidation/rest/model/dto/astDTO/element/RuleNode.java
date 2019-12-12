@@ -28,6 +28,7 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class RuleNode extends GenericNode {
@@ -36,6 +37,7 @@ public class RuleNode extends GenericNode {
 
   public RuleNode(ASTRule rule, DocumentSection section, TransformationParameter parameter) {
     super(section, parameter);
+    if (rule == null) return;
 
     ASTActionError actionError = (ASTActionError) rule.getAction();
     if (actionError != null) {
@@ -57,7 +59,7 @@ public class RuleNode extends GenericNode {
         Aliases.getAliasByToken(parameter.getCulture(), Constants.THEN_TOKEN);
     String actionErrorString;
 
-    actionErrorString = actionError.getErrorMessage();
+    actionErrorString = actionError.getOriginalSource();
     if (thenKeyword.size() > 0) {
       actionErrorString = thenKeyword.get(0) + " " + actionErrorString;
     }
@@ -93,5 +95,9 @@ public class RuleNode extends GenericNode {
 
   public void setCondition(ConditionNode condition) {
     this.condition = condition;
+  }
+
+  public List<String> getPotentialKeywords() {
+    return Collections.singletonList(Constants.IF_TOKEN);
   }
 }
