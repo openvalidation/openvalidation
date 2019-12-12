@@ -22,6 +22,8 @@ import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.rest.model.dto.astDTO.GenericNode;
 import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OperatorNode extends GenericNode {
   private DataPropertyType dataType;
@@ -32,9 +34,11 @@ public class OperatorNode extends GenericNode {
       ASTCondition astCondition, DocumentSection section, TransformationParameter parameter) {
     super(section, parameter);
 
-    this.operator = astCondition.getOperator();
-    this.validType = astCondition.getOperator().validDataType();
-    this.dataType = astCondition.getDataType();
+    if (astCondition != null) {
+      this.operator = astCondition.getOperator();
+      this.validType = astCondition.getOperator().validDataType();
+      this.dataType = astCondition.getDataType();
+    }
   }
 
   public DataPropertyType getDataType() {
@@ -59,5 +63,9 @@ public class OperatorNode extends GenericNode {
 
   public void setValidType(DataPropertyType validType) {
     this.validType = validType;
+  }
+
+  public List<String> getPotentialKeywords() {
+    return new ArrayList<>();
   }
 }

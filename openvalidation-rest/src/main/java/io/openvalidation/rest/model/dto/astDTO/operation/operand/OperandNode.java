@@ -25,6 +25,7 @@ import io.openvalidation.rest.model.dto.astDTO.Range;
 import io.openvalidation.rest.model.dto.astDTO.TransformationParameter;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +70,6 @@ public class OperandNode extends GenericNode {
     super(section, parameter);
 
     this.dataType = dataType;
-    this.name = name;
   }
 
   public DataPropertyType getDataType() {
@@ -114,6 +114,10 @@ public class OperandNode extends GenericNode {
     } else {
       return this.getRange();
     }
+  }
+
+  public List<String> getPotentialKeywords() {
+    return new ArrayList<>();
   }
 
   @Override

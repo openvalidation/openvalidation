@@ -26,6 +26,7 @@ import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FunctionOperandNode extends OperandNode {
@@ -36,7 +37,7 @@ public class FunctionOperandNode extends OperandNode {
       ASTOperandFunction operand, DocumentSection section, TransformationParameter parameter) {
     super(operand, section, parameter);
     this.parameters = new ArrayList<>();
-    // this.returnType = operand.
+    if (operand == null) return;
 
     for (ASTOperandBase functionParameter : operand.getParameters()) {
       if (functionParameter == null) continue;
@@ -74,5 +75,9 @@ public class FunctionOperandNode extends OperandNode {
 
   public void setAcceptedType(DataPropertyType returnType) {
     this.acceptedType = returnType;
+  }
+
+  public List<String> getPotentialKeywords() {
+    return Collections.singletonList(Constants.FUNCTION_TOKEN);
   }
 }

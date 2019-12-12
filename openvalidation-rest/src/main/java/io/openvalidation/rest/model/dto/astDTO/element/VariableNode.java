@@ -23,6 +23,8 @@ import io.openvalidation.rest.model.dto.astDTO.operation.operand.OperandNode;
 import io.openvalidation.rest.model.dto.astDTO.transformation.DocumentSection;
 import io.openvalidation.rest.model.dto.astDTO.transformation.NodeGenerator;
 import io.openvalidation.rest.model.dto.astDTO.transformation.RangeGenerator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VariableNode extends GenericNode {
   private OperandNode value;
@@ -31,6 +33,7 @@ public class VariableNode extends GenericNode {
   public VariableNode(
       ASTVariable variable, DocumentSection section, TransformationParameter parameter) {
     super(section, parameter);
+    if (variable == null) return;
 
     DocumentSection operandSection = new RangeGenerator(section).generate(variable.getValue());
 
@@ -45,7 +48,7 @@ public class VariableNode extends GenericNode {
     variableNameString = variableNameString.trim();
 
     DocumentSection variableSection = new RangeGenerator(section).generate(variableNameString);
-    this.nameNode = new VariableNameNode(variableSection, variable.getName());
+    this.nameNode = new VariableNameNode(variableSection, variable.getName(), parameter);
   }
 
   public VariableNameNode getNameNode() {
@@ -62,5 +65,10 @@ public class VariableNode extends GenericNode {
 
   public void setValue(OperandNode value) {
     this.value = value;
+  }
+
+  @Override
+  public List<String> getPotentialKeywords() {
+    return new ArrayList<>();
   }
 }
