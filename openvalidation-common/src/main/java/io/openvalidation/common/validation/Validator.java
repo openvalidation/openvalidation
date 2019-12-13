@@ -17,6 +17,8 @@
 package io.openvalidation.common.validation;
 
 import io.openvalidation.common.exceptions.OpenValidationException;
+import io.openvalidation.common.model.Language;
+import io.openvalidation.common.model.Languages;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +26,15 @@ import java.util.stream.Collectors;
 public class Validator {
 
   public static final String CANNOT_BE_EMPTY_MESSAGE = " cannot be empty";
+
+  public static void mustBeExistingLanguage(String value, String paramName)
+      throws OpenValidationException {
+    Language lang = Languages.getLanguage(value);
+    if (lang == null)
+      throw new OpenValidationException(
+          paramName + " is not a valid language.",
+          getUserErrorMessage(ValidatorErrorKind.NotValid, paramName));
+  }
 
   public static void shouldNotBeEmpty(String value, String paramName)
       throws OpenValidationException {
@@ -113,6 +124,26 @@ public class Validator {
       throw new OpenValidationException(paramName + " cannot be empty", userMessage);
   }
 
+  public static <T> void shouldHaveSizeBetween(
+      T[] value, int minSize, int maxSize, String paramName) throws OpenValidationException {
+    shouldHaveSizeBetween(
+        Arrays.stream(value).collect(Collectors.toList()),
+        minSize,
+        maxSize,
+        paramName,
+        getUserErrorMessage(null, paramName));
+  }
+
+  public static <T> void shouldHaveSizeBetween(
+      List<T> value, int minSize, int maxSize, String paramName, String userMessage)
+      throws OpenValidationException {
+    shouldNotBeEmpty(value, paramName, userMessage);
+
+    if (value.size() < minSize || value.size() > maxSize)
+      throw new OpenValidationException(
+          paramName + " must have valid size between " + minSize + ", " + maxSize, userMessage);
+  }
+
   public static void shouldBeTrue(boolean value, String paramName) throws OpenValidationException {
     if (!value) throw new OpenValidationException(paramName + " is not true");
   }
@@ -174,6 +205,8 @@ public class Validator {
         return "%s should be empty.";
       case NotEmpty:
         return "%s should not be empty.";
+      case NotValid:
+        return "%s is not valid.";
       default:
         return "%s should not be empty.";
     }
@@ -185,6 +218,7 @@ public class Validator {
     Equals,
     NotEquals,
     Empty,
-    NotEmpty
+    NotEmpty,
+    NotValid
   }
 }

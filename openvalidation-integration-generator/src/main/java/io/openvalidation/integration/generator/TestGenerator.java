@@ -30,6 +30,7 @@ public class TestGenerator {
 
   private String testCaseSourceDirectory;
   private String baseOutputDirectory;
+  private String targetLanguage;
   private List<IntegrationTest> tests;
   private List<OpenValidationResult> results;
   private Exception exception;
@@ -88,7 +89,7 @@ public class TestGenerator {
   }
 
   public void generate() throws Exception {
-    setResult(RuleGenerator.generate(getTests(), getOutputSourceDirectory()));
+    setResult(RuleGenerator.generate(getTests(), getOutputSourceDirectory(), getTargetLanguage()));
   }
 
   public int validate() {
@@ -113,12 +114,17 @@ public class TestGenerator {
   }
 
   public void validateArgs() throws OpenValidationException {
-    Validator.shouldHaveSizeOf(args, 2, "CLI Parameters");
+    // Validator.shouldHaveSizeOf(args, 2, "CLI Parameters");
+    Validator.shouldHaveSizeBetween(args, 2, 3, "CLI Parameters");
     Validator.shouldNotBeEmpty(args[0], "PATH To Integration TEST Files");
     Validator.shouldNotBeEmpty(args[1], "PATH To Output Dir");
+    if (args.length == 3) {
+      Validator.mustBeExistingLanguage(args[2], "Target Language");
+    }
 
     this.setTestCaseSourceDirectory(args[0]);
     this.setBaseOutputDirectory(args[1]);
+    this.setTargetLanguage(args.length > 2 ? args[2] : "Java"); // set Java as default Language
   }
 
   public void print() {
@@ -131,5 +137,13 @@ public class TestGenerator {
 
   public void printline(String title, String message) {
     Console.printl(title + " : " + message + "\n");
+  }
+
+  public String getTargetLanguage() {
+    return targetLanguage;
+  }
+
+  public void setTargetLanguage(String targetLanguage) {
+    this.targetLanguage = targetLanguage;
   }
 }
