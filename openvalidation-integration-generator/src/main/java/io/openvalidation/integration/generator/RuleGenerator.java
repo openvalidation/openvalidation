@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RuleGenerator {
-  public static List<OpenValidationResult> generate(List<IntegrationTest> tests, String outputDir)
-      throws Exception {
+  public static List<OpenValidationResult> generate(
+      List<IntegrationTest> tests, String outputDir, String targetLanguage) throws Exception {
     boolean freameworkGeneration = false;
     List<OpenValidationResult> allResults = new ArrayList<>();
 
@@ -39,7 +39,7 @@ public class RuleGenerator {
 
       OpenValidation ov = OpenValidation.createDefault();
       ov.setLocale("en");
-      ov.setLanguage(Languages.getLanguage("Java"));
+      ov.setLanguage(Languages.getLanguage(targetLanguage));
       ov.setRule(test.getRule());
       ov.setSchema(test.getSchema());
       ov.setOutput(outputDir + "io/openvalidation/integration/tests/");
