@@ -81,8 +81,8 @@ If    the weather is rainy
 then  Don't forget your umbrella!
 ```
 
-As you can see the first kind of rule starts with an `If` followed by its condition containing the validation logic `the weather is rainy` and is concluded by the keyword `then` followed by the error message, in our case `Don't forget your umbrella!`. Notice that the `is` acts as an operator and is only one of many ways to express equality in the openVALIDATION language. The way the words are aligned here only servers illustrative reasons and is by no means necessary, by the way. The error is triggered if the condition is true. This rule would roughly translate to:
-```java
+As you can see the first kind of rule starts with an `If` followed by its condition containing the validation logic `the weather is rainy` and is concluded by the keyword `then` followed by the error message, in our case `Don't forget your umbrella!`. Notice that the `is` acts as an operator and is only one of many ways to express equality in the openVALIDATION language. The way the words are aligned here only serve illustrative reasons and is by no means necessary. The error is triggered if the condition is true. This rule would roughly translate to:
+```javascript
 if(model.getWeather() == "rainy")
 {
     throw new Exception("Don't forget your umbrella!");
@@ -93,8 +93,8 @@ Additionally, there is a second way to express rules in openVALIDATION. Let's ha
 ```
 The weather must be rainy.
 ```
-This kind of rule is special in the way that it contains the keyword `must` and lacks an error message. However, *the whole rule itself can be seen as the error message*. In fact, an explicit error message initiated by a `then` is not allowed in this case. The `must` operator implies an equality operator between `weather` and `sunny`. Another very important trait of this sort of rule is the way its logic translates into code compared to an `if-then-rule`:
-```java
+This kind of rule is special in the way that it contains the keyword `must` and lacks an error message. However, *the whole rule itself can be seen as the error message*. In fact, an explicit error message initiated by a `then` is not allowed in this case. The `must` operator implies an equality operator between `weather` and `rainy`. Another very important trait of this sort of rule is the way its logic translates into code compared to an `if-then-rule`:
+```javascript
 if(model.getWeather() != "rainy")
 {
     throw new Exception("The weather must be rainy.");
