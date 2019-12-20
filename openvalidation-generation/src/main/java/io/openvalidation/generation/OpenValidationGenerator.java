@@ -66,6 +66,7 @@ public class OpenValidationGenerator implements IOpenValidationGenerator {
 
       // set default params
       ast.setDefault("generated_class_name", "HUMLValidator");
+      ast.setDefault("generated_class_namespace", "io.openvalidation.rules");
 
       String code = CodeGenerator.generate(language.getName().toLowerCase(), template, ast, false);
 

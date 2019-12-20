@@ -72,6 +72,18 @@ public class CLIApplication {
       return false;
     }
 
+    if ((options.language.getShortName().equals("java")
+            || options.language.getShortName().equals("cs"))
+        && (options.params == null || !options.params.contains("model_type"))) {
+      this.messages.add(
+          "missing argument --params(-p) model_type=xxx. an output language '"
+              + options.language.getName()
+              + "' requires a model type of external model.  \n\n");
+
+      ProcessLogger.error(ProcessLogger.CLI_VALIDATE_ARGS);
+      return false;
+    }
+
     ProcessLogger.success(ProcessLogger.CLI_VALIDATE_ARGS);
     return true;
   }

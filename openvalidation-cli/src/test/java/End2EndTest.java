@@ -70,7 +70,9 @@ public class End2EndTest {
 
     if (schema == null) schema = "";
 
-    CLIOptions inputOptions = this.getOptions("-r", rule, "-c", "en", "-s", schema);
+    CLIOptions inputOptions =
+        this.getOptions(
+            "-r", rule, "-c", "en", "-s", schema, "-p", "model_type=io.openvalidation.model");
     CLIApplication app = new CLIApplication(OpenValidation.createDefault(), inputOptions);
 
     OpenValidationResult result = app.run();
