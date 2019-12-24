@@ -23,7 +23,7 @@
     <groupId>io.openvalidation</groupId>
     <artifactId>openvalidation</artifactId>
     <packaging>pom</packaging>
-    <version>${revision}</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>openVALIDATION</name>
     <description>Compose validation rules in the language you use every day,
         openVALIDATION handles code creation for you.</description>
@@ -346,17 +346,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
