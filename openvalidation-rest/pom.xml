@@ -78,13 +78,11 @@
             <groupId>io.openvalidation</groupId>
             <artifactId>openvalidation-core</artifactId>
             <version>0.0.3</version>
-            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>io.openvalidation</groupId>
             <artifactId>openvalidation-common</artifactId>
             <version>0.0.3</version>
-            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
