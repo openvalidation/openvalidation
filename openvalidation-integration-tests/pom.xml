@@ -22,7 +22,7 @@
     <parent>
         <artifactId>openvalidation</artifactId>
         <groupId>io.openvalidation</groupId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>0.0.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>openvalidation-integration-tests</artifactId>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>io.openvalidation</groupId>
             <artifactId>openvalidation-integration-generator</artifactId>
-            <version>0.0.3-SNAPSHOT</version>
+            <version>0.0.3</version>
         </dependency>
     </dependencies>
 
