@@ -38,8 +38,10 @@ public class FunctionFirstLastTypeResolver extends FunctionTypeResolverBase {
       else {
         functionReturnType = DataPropertyType.Array;
       }
-    } else {
+    } else { // todo 06.01.20 implement check, if DataType is Array and Arraycontent Type is Array,
+      // and then get array data type from one level below.
       if (parameters.size() == 1) {
+        // arr<arr<int>>
         ASTOperandBase firstParam = parameters.get(0);
         if (firstParam instanceof ASTOperandProperty
             && firstParam.getDataType() == DataPropertyType.Array) {

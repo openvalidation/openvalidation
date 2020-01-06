@@ -175,6 +175,30 @@ class FirstFunctionsTests {
                 .hasValue(2.0));
   }
 
+  @Disabled
+  @Test
+  void first_function_simple_on_array_of_number_arrays() throws Exception {
+    String rule = "the first item from arrays as firstArray";
+    String schema = "{arrays:[[1,2,3],[4,5,6],[7,8,9]]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .hasName("FIRST")
+                .hasType(DataPropertyType.Array)
+                .hasArrayContentType(DataPropertyType.Decimal)
+                .sizeOfParameters(1)
+                .parameters()
+                .first()
+                .property("arrays")
+                .hasType(DataPropertyType.Array)
+                .hasArrayContentType(DataPropertyType.Array));
+  }
+
   @ParameterizedTest
   @CsvSource({
     "The first item from addresses with zip_code equals 12345 as a first address",
