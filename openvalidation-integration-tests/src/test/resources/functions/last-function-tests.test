@@ -17,6 +17,27 @@ If X is 3 then error
 
 error
 
+################# last function on simple number array with amount ########################
+
+The last 3 items from numbers AS lastNumbers
+
+The last from lastNumbers AS X
+
+If X is 3 then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+{numbers: [3]}
+
+{numbers: [1,2,3]}
+
+{numbers: [1.0, 3.0]}
+
+{numbers: [0.5, 1.0, 2.0, 3.0]}
+
+error
+
 ################# last function on simple string array ########################
 
 The last item from fruits AS X
@@ -36,9 +57,51 @@ If X is banana then error
 
 error
 
+################# last function on simple string array with amount ########################
+
+The last 3 items from fruits AS lastFruits
+
+The last from lastFruits AS X
+
+If X is banana then error
+
+{fruits: [banana]}
+
+--------------  error triggered  -------------------
+{fruits: [banana]}
+
+{fruits: [apple,pear,banana]}
+
+{fruits: [banana,banana,banana,banana]}
+
+{fruits: [apple,pear,banana, apple, pear, banana]}
+
+error
+
 ################# last function on simple bool array ########################
 
 The last item from booleans AS X
+
+If X then error
+
+{booleans: [true]}
+
+--------------  error triggered  -------------------
+{booleans: [true]}
+
+{booleans: [false,false,true]}
+
+{booleans: [true,true,true]}
+
+{booleans: [false,false,true,false,false,true]}
+
+error
+
+################# last function on simple bool array with amount ########################
+
+The last 3 items from booleans AS lastBools
+
+The last from lastBools AS X
 
 If X then error
 
