@@ -102,7 +102,6 @@ If X then error
 
 error
 
-
 ################# first function on variable containing an array ########################
 
 numbers AS array
@@ -226,3 +225,22 @@ then lennyFace
 {cars:[{wheels:[{diameter: 126.0,tireType:'garkeintype'}, {diameter: 1.0,tireType:'muffel'}]}, formname:'nix'}
 
 lennyFace
+
+################# IGNORE first function on array containing array of numbers ########################
+
+The first item from number_arrays AS firstArray
+
+The first item from firstArray AS X
+
+If X is 1 then error
+
+{number_arrays: [[1,2,3]]}
+
+--------------  error triggered  -------------------
+{number_arrays: [[1]]}
+
+{number_arrays: [[1], [2]}
+
+{number_arrays: [[1,2,3], [4,5,6]}
+
+error
