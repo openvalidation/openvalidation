@@ -184,6 +184,7 @@ var HUMLFramework = function() {
 
     this.FIRST = function(operand, amount){
         if(operand != null){
+            if(!amount) amount = 1;
             if(operand.length && operand.length > amount){
                 var out = [];
                 for(var x=0; x < amount && x < operand.length; x++){
@@ -198,6 +199,7 @@ var HUMLFramework = function() {
 
     this.LAST = function(operand, amount){
         if(operand != null){
+            if(!amount) amount = 1;
             if(operand.length && operand.length > amount){
                 var out = [];
                 var len = operand.length - amount;
