@@ -1,4 +1,44 @@
-################# function sum of all shares example ########################
+################# sum of function on numbers array ########################
+
+sum of numbers as totalSum
+
+if totalSum is 10
+then sum is 10
+
+if totalSum is 0
+then sum is 0
+
+if totalSum is not 0
+and totalSum is not 10
+then sum is invalid
+
+{numbers:[1.1,2.0,3.0,4.0]}
+
+--------------  sum of 10  -------------------
+
+{numbers:[10]}
+
+{numbers:[2, 3, 5]}
+
+{numbers:[20, -10]}
+
+{numbers:[2.0, 3.0, 5.0]}
+
+{numbers:[1.5, 3.5, 5]}
+
+sum is 10
+
+--------------  sum of 0  -------------------
+
+{numbers:[0]}
+
+{numbers:[-1, 1]}
+
+{numbers:[-0.1, 0.1]}
+
+sum is 0
+
+################# sum of function all shares example ########################
 
 sum of portfolio.shares.percentage as totalsum
 
@@ -20,7 +60,7 @@ then the total sum of all portfolio shares should be exactly 100%
 
 the total sum of all portfolio shares should be exactly 100%
 
-################# function sum of ages ########################
+################# sum of function ages ########################
 
 sum of people.age as ages
 
@@ -63,7 +103,7 @@ some people
 
 old people
 
-################# function sum of compare sum of ########################
+################# sum of function compare sum of ########################
 
 sum of people.age as people_ages
 
