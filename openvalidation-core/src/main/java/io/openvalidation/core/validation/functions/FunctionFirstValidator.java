@@ -17,7 +17,7 @@ public class FunctionFirstValidator extends FunctionValidatorBase {
   }
 
   @Override
-  public void validate() throws Exception {
+  public void validateFunction() throws Exception {
     List<ASTOperandBase> parameters = function.getParameters();
 
     if (parameters.isEmpty())
@@ -25,6 +25,7 @@ public class FunctionFirstValidator extends FunctionValidatorBase {
           "The function " + function.getName() + " requires at least one parameter", function);
     else if (parameters.size() <= 2) {
       // validate first parameter
+      // FIRST [array/function/variable]
       ASTOperandBase firstParam = parameters.get(0);
       if (!(firstParam instanceof ASTOperandProperty)
           && !(firstParam instanceof ASTOperandFunction)
@@ -44,7 +45,7 @@ public class FunctionFirstValidator extends FunctionValidatorBase {
                 + "'",
             function);
       }
-      // FIRST [array/function] [amount]
+      // FIRST [array/function/variable] [amount]
       if (parameters.size() == 2) {
         ASTOperandBase secondParam = parameters.get(1);
         if (!(secondParam instanceof ASTOperandStaticNumber
@@ -62,7 +63,5 @@ public class FunctionFirstValidator extends FunctionValidatorBase {
       throw new ASTValidationException(
           "Invalid number of parameters (" + parameters.size() + ")", function);
     }
-
-    validateParameters();
   }
 }

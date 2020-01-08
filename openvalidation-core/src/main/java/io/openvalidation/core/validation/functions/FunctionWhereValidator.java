@@ -16,7 +16,7 @@ public class FunctionWhereValidator extends FunctionValidatorBase {
   }
 
   @Override
-  public void validate() throws Exception {
+  public void validateFunction() throws Exception {
     List<ASTOperandBase> parameters = function.getParameters();
 
     if (parameters.size() != 2)
@@ -57,6 +57,5 @@ public class FunctionWhereValidator extends FunctionValidatorBase {
             function);
       }
     }
-    validateParameters();
   }
 }

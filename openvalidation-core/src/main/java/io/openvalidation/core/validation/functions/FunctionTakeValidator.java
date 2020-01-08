@@ -17,7 +17,7 @@ public class FunctionTakeValidator extends FunctionValidatorBase {
   }
 
   @Override
-  public void validate() throws Exception {
+  public void validateFunction() throws Exception {
     List<ASTOperandBase> parameters = function.getParameters();
 
     if (parameters.isEmpty() || parameters.size() == 1)
@@ -82,7 +82,5 @@ public class FunctionTakeValidator extends FunctionValidatorBase {
         }
       }
     }
-
-    validateParameters();
   }
 }
