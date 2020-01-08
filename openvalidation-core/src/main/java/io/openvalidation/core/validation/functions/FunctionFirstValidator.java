@@ -4,10 +4,10 @@ import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
 import io.openvalidation.common.ast.operand.ASTOperandVariable;
-import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaCondition;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.exceptions.ASTValidationException;
+
 import java.util.List;
 
 public class FunctionFirstValidator extends FunctionValidatorBase {
@@ -48,13 +48,20 @@ public class FunctionFirstValidator extends FunctionValidatorBase {
       // FIRST [array/function/variable] [amount]
       if (parameters.size() == 2) {
         ASTOperandBase secondParam = parameters.get(1);
-        if (!(secondParam instanceof ASTOperandStaticNumber
-            || secondParam instanceof ASTOperandLambdaCondition)) {
+        if (!(secondParam instanceof ASTOperandStaticNumber)) {
           throw new ASTValidationException(
               "The function "
                   + function.getName()
                   + " either takes a number or a lambda condition as the second parameter. Current second parameter is "
                   + secondParam.getClass().getSimpleName(),
+              function);
+        }
+        else if(((ASTOperandStaticNumber) secondParam).getNumberValue() < 1){
+          throw new ASTValidationException(
+              "The function "
+                  + function.getName()
+                  + " only takes numbers with a value greater or equal to 1 as the second parameter. Current value is "
+                  + ((ASTOperandStaticNumber) secondParam).getNumberValue(),
               function);
         }
       }
