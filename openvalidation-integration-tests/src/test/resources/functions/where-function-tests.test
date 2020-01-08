@@ -1,12 +1,31 @@
+################# where function integration number array example  ########################
+
+a first item from numbers with number equals 42 as myNumber
+
+first item from numbers with number greater than 30 as bigNumber
+
+if myNumber equals bigNumber
+then error
+
+
+{numbers:[{number:1.1}]}
+
+--------------  error triggered  -------------------
+
+{numbers:[{number:1},{number:2},{number:42}]}
+
+
+error
+
 ################# IGNORE where function on simple number array ########################
 
-from numbers where number greater 2 AS X
+first 2 number from numbers where number greater 2 AS X
 
 first item from X AS Y
 
 If Y is 3 then error
 
-{numbers: [1,2,3]}
+{numbers: [1.2,2.8,3.0]}
 
 --------------  error triggered  -------------------
 {numbers: [3]}
