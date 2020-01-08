@@ -8,7 +8,6 @@ import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.exceptions.ASTValidationException;
 import io.openvalidation.common.utils.StringUtils;
-
 import java.util.List;
 
 public class FunctionLastValidator extends FunctionValidatorBase {
