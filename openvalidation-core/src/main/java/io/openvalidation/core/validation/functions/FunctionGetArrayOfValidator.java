@@ -16,7 +16,7 @@ public class FunctionGetArrayOfValidator extends FunctionValidatorBase {
   }
 
   @Override
-  public void validate() throws Exception {
+  public void validateFunction() throws Exception {
 
     List<ASTOperandBase> parameters = function.getParameters();
 
@@ -66,7 +66,5 @@ public class FunctionGetArrayOfValidator extends FunctionValidatorBase {
                       + " has to be of type 'Decimal'. Type found: " + firstParam.getDataType(), function);
       }*/
     }
-
-    validateParameters();
   }
 }

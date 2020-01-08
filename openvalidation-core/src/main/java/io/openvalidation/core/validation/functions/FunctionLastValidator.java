@@ -17,7 +17,7 @@ public class FunctionLastValidator extends FunctionValidatorBase {
   }
 
   @Override
-  public void validate() throws Exception {
+  public void validateFunction() throws Exception {
     List<ASTOperandBase> parameters = function.getParameters();
 
     if (parameters.isEmpty())
@@ -62,7 +62,5 @@ public class FunctionLastValidator extends FunctionValidatorBase {
       throw new ASTValidationException(
           "Invalid number of parameters (" + parameters.size() + ")", function);
     }
-
-    validateParameters();
   }
 }

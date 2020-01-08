@@ -15,7 +15,7 @@ public class FunctionSumOfValidator extends FunctionValidatorBase {
   }
 
   @Override
-  public void validate() throws Exception {
+  public void validateFunction() throws Exception {
     List<ASTOperandBase> parameters = function.getParameters();
 
     if (parameters.size() != 1)
@@ -47,7 +47,5 @@ public class FunctionSumOfValidator extends FunctionValidatorBase {
             function);
       }
     }
-
-    validateParameters();
   }
 }
