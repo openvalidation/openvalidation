@@ -7,7 +7,7 @@ import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.exceptions.ASTValidationException;
-
+import io.openvalidation.common.utils.StringUtils;
 import java.util.List;
 
 public class FunctionFirstValidator extends FunctionValidatorBase {
@@ -27,36 +27,48 @@ public class FunctionFirstValidator extends FunctionValidatorBase {
       // validate first parameter
       // FIRST [array/function/variable]
       ASTOperandBase firstParam = parameters.get(0);
+      String firstParamClassName = StringUtils.getUserFriendlyClassName(firstParam);
       if (!(firstParam instanceof ASTOperandProperty)
           && !(firstParam instanceof ASTOperandFunction)
           && !(firstParam instanceof ASTOperandVariable)) {
         throw new ASTValidationException(
             "The function "
                 + function.getName()
-                + " has to be applied on an array property or a nested function. Currently applied on "
-                + firstParam.getClass().getSimpleName(),
+                + " has to be applied on a property, variable or a nested function of type 'Array'. Currently applied on a "
+                + firstParamClassName
+                + "("
+                + firstParam.getClass().getSimpleName()
+                + ").",
             function);
       } else if (firstParam.getDataType() != DataPropertyType.Array) {
         throw new ASTValidationException(
             "The function "
                 + function.getName()
-                + " has to be applied on a property of type 'Array'. But is applied on property of type '"
+                + " has to be applied on a "
+                + firstParamClassName
+                + " of type 'Array'. But is applied on "
+                + firstParamClassName
+                + " of type '"
                 + firstParam.getDataType()
-                + "'",
+                + "'.",
             function);
       }
-      // FIRST [array/function/variable] [amount]
+      // FIRST [array/function/variable] [amount:number]
+      // todo lazevedo 8.1.20 allow variables, properties (and functions) as amount-parameter
       if (parameters.size() == 2) {
         ASTOperandBase secondParam = parameters.get(1);
+        String secondParamClassName = StringUtils.getUserFriendlyClassName(secondParam);
         if (!(secondParam instanceof ASTOperandStaticNumber)) {
           throw new ASTValidationException(
               "The function "
                   + function.getName()
-                  + " either takes a number or a lambda condition as the second parameter. Current second parameter is "
-                  + secondParam.getClass().getSimpleName(),
+                  + " only takes a number as its second parameter. Current second parameter is "
+                  + secondParamClassName
+                  + "("
+                  + secondParam.getClass().getSimpleName()
+                  + ").",
               function);
-        }
-        else if(((ASTOperandStaticNumber) secondParam).getNumberValue() < 1){
+        } else if (((ASTOperandStaticNumber) secondParam).getNumberValue() < 1) {
           throw new ASTValidationException(
               "The function "
                   + function.getName()

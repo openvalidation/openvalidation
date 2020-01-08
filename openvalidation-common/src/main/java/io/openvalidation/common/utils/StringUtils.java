@@ -16,6 +16,15 @@
 
 package io.openvalidation.common.utils;
 
+import io.openvalidation.common.ast.ASTVariable;
+import io.openvalidation.common.ast.condition.ASTCondition;
+import io.openvalidation.common.ast.condition.ASTConditionGroup;
+import io.openvalidation.common.ast.operand.ASTOperandFunction;
+import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
+import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.ast.operand.ASTOperandVariable;
+import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaCondition;
+import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -274,5 +283,19 @@ public class StringUtils {
       return true;
     }
     return false;
+  }
+
+  public static String getUserFriendlyClassName(Object o) {
+    String result = o.getClass().getSimpleName();
+
+    if (o instanceof ASTVariable || o instanceof ASTOperandVariable) result = "variable";
+    if (o instanceof ASTOperandProperty) result = "property";
+    if (o instanceof ASTOperandFunction) result = "function";
+    if (o instanceof ASTOperandStaticString) result = "string";
+    if (o instanceof ASTOperandStaticNumber) result = "number";
+    if (o instanceof ASTOperandLambdaCondition || o instanceof ASTCondition) result = "condition";
+    if (o instanceof ASTConditionGroup) result = "condition group";
+
+    return result;
   }
 }
