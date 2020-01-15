@@ -173,6 +173,7 @@ public class OperandAssertion
     shouldBeInstanceOf(this.parent(), FunctionAssertion.class, "PARENT FUNCTION");
     return (FunctionAssertion) this.parent();
   }
+
   public LambdaAssertion parentLambda() {
     shouldBeInstanceOf(this.parent(), LambdaAssertion.class, "PARENT LAMBDA");
     return (LambdaAssertion) this.parent();

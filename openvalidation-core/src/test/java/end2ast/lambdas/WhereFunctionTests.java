@@ -47,8 +47,7 @@ public class WhereFunctionTests {
                 .leftProperty()
                 .hasEmptyPath()
                 .hasType(DataPropertyType.Decimal)
-                .hasSameLambdaTokenAsParentLambdaCondition()
-    );
+                .hasSameLambdaTokenAsParentLambdaCondition());
   }
 
   @Test
@@ -77,7 +76,6 @@ public class WhereFunctionTests {
                 .leftProperty()
                 .hasEmptyPath()
                 .hasType(DataPropertyType.Decimal)
-                .hasSameLambdaTokenAsParentLambdaCondition()
-    );
+                .hasSameLambdaTokenAsParentLambdaCondition());
   }
 }

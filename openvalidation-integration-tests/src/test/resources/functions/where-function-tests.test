@@ -1,4 +1,4 @@
-################# where function integration number array example  ########################
+################# where function integration object array example  ########################
 
 a first item from numbers with number equals 42 as myNumber
 
@@ -16,6 +16,25 @@ then error
 
 
 error
+
+
+################# where function integration number array without sugar  ########################
+
+first from numbers with a value greater than 1 AS myNumber
+
+If myNumber is 1
+Then error
+
+{numbers:[1,2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers:[1]}
+
+{numbers:[1,2,3]}
+
+error
+
 
 ################# IGNORE where function on simple number array ########################
 
@@ -37,3 +56,5 @@ If Y is 3 then error
 {numbers: [0.5, 1.0, 2.0, 3.0]}
 
 error
+
+
