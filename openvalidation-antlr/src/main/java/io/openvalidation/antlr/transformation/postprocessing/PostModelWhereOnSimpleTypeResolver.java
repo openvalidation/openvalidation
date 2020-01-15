@@ -5,13 +5,12 @@ import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
-import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.ast.operand.ASTOperandFunction;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
-import io.openvalidation.common.ast.operand.ASTOperandVariable;
+import io.openvalidation.common.ast.operand.*;
 import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaCondition;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
+import io.openvalidation.common.utils.NumberParsingUtils;
+
 import java.util.function.Predicate;
 
 public class PostModelWhereOnSimpleTypeResolver
@@ -33,7 +32,6 @@ public class PostModelWhereOnSimpleTypeResolver
             ASTConditionBase conditionBase =
                 ((ASTOperandLambdaCondition) secondParam).getCondition();
 
-            // first names with name equals Peter; is name or peter the lambda token?
             resolve(
                 conditionBase,
                 ((ASTOperandLambdaCondition) secondParam).getLambdaToken(),
@@ -70,6 +68,18 @@ public class PostModelWhereOnSimpleTypeResolver
       ASTOperandBase leftOperand = condition.getLeftOperand();
       ASTOperandBase rightOperand = condition.getRightOperand();
 
+      //special case for static numbers in comparison
+      if (arrayContentType == DataPropertyType.Decimal &&
+              leftOperand instanceof ASTOperandStaticString &&
+              rightOperand instanceof ASTOperandStaticString) {
+        resolveStaticNumbers(condition, leftOperand, rightOperand);
+
+        //update operand variables
+        leftOperand = condition.getLeftOperand();
+        rightOperand = condition.getRightOperand();
+      }
+
+
       // todo lazevedo 13.1.20 Do operands with different data types exist?
       if (leftOperand.getDataType() == arrayContentType
           || rightOperand.getDataType() == arrayContentType) {
@@ -77,8 +87,11 @@ public class PostModelWhereOnSimpleTypeResolver
         replacementProperty.setLambdaToken(lambdaToken);
         replacementProperty.setDataType(arrayContentType);
 
-        // todo lazevedo 13.1.20 Replacement of static string comparison may cause ambiguity
-        // problems
+        // todo lazevedo 13.1.20 Replacement of static string comparison may cause ambiguity problems
+        // first names with name equals Peter; is name or peter the lambda token?
+
+        /* todo lazevedo 15.1.20 '...value 5 equal to age' causes a condition in lambda that is independent of lambda token. Because
+        *   'age' is a decimal prop the PostModelNumbersResolver will parse 'value 1' as 1. Add validation check for those cases? */
         if (leftOperand instanceof ASTOperandStaticString) {
           replacementProperty.setSource(leftOperand.getOriginalSource());
           condition.setLeftOperand(replacementProperty);
@@ -88,6 +101,30 @@ public class PostModelWhereOnSimpleTypeResolver
         }
       }
     }
+  }
+
+  private void resolveStaticNumbers(ASTCondition condition, ASTOperandBase leftOperand, ASTOperandBase rightOperand) {
+    //special case with static number comparison
+    //... with value equal to 5
+    //second operand will be read as ASTOperandStaticString: 'to 5' and not be resolved
+
+    ASTOperandBase newLeft = leftOperand;
+    String leftStringValue = ((ASTOperandStaticString) leftOperand).getValue();
+    ASTOperandBase newRight = rightOperand;
+    String rightStringValue = ((ASTOperandStaticString) rightOperand).getValue();
+
+    if (NumberParsingUtils.containsNumber(leftStringValue)) {
+      newLeft = new ASTOperandStaticNumber(NumberParsingUtils.extractNumber(leftStringValue));
+      newLeft.setSource(leftOperand.getOriginalSource());
+    }
+
+    if (NumberParsingUtils.containsNumber(rightStringValue)) {
+      newRight = new ASTOperandStaticNumber(NumberParsingUtils.extractNumber(rightStringValue));
+      newRight.setSource(rightOperand.getOriginalSource());
+    }
+
+    condition.setLeftOperand(newLeft);
+    condition.setRightOperand(newRight);
   }
 
   @Override
