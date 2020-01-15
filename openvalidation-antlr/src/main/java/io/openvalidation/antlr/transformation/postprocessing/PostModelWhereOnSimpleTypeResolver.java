@@ -10,7 +10,6 @@ import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaCondition;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.NumberParsingUtils;
-
 import java.util.function.Predicate;
 
 public class PostModelWhereOnSimpleTypeResolver
@@ -68,45 +67,58 @@ public class PostModelWhereOnSimpleTypeResolver
       ASTOperandBase leftOperand = condition.getLeftOperand();
       ASTOperandBase rightOperand = condition.getRightOperand();
 
-      //special case for static numbers in comparison
-      if (arrayContentType == DataPropertyType.Decimal &&
-              leftOperand instanceof ASTOperandStaticString &&
-              rightOperand instanceof ASTOperandStaticString) {
+      // special case for static numbers in comparison
+      if (arrayContentType == DataPropertyType.Decimal
+          && leftOperand instanceof ASTOperandStaticString
+          && rightOperand instanceof ASTOperandStaticString) {
         resolveStaticNumbers(condition, leftOperand, rightOperand);
 
-        //update operand variables
+        // update operand variables
         leftOperand = condition.getLeftOperand();
         rightOperand = condition.getRightOperand();
       }
 
-
       // todo lazevedo 13.1.20 Do operands with different data types exist?
-      if (leftOperand.getDataType() == arrayContentType
-          || rightOperand.getDataType() == arrayContentType) {
+      if ((leftOperand != null && leftOperand.getDataType() == arrayContentType)
+          || (rightOperand != null && rightOperand.getDataType() == arrayContentType)) {
         ASTOperandProperty replacementProperty = new ASTOperandProperty();
         replacementProperty.setLambdaToken(lambdaToken);
         replacementProperty.setDataType(arrayContentType);
 
-        // todo lazevedo 13.1.20 Replacement of static string comparison may cause ambiguity problems
+        // todo lazevedo 13.1.20 Replacement of static string comparison may cause ambiguity
+        // problems
         // first names with name equals Peter; is name or peter the lambda token?
 
         /* todo lazevedo 15.1.20 '...value 5 equal to age' causes a condition in lambda that is independent of lambda token. Because
-        *   'age' is a decimal prop the PostModelNumbersResolver will parse 'value 1' as 1. Add validation check for those cases? */
+         *   'age' is a decimal prop the PostModelNumbersResolver will parse 'value 1' as 1. Add validation check for those cases? */
+        ASTOperandBase newLeftOperand = leftOperand;
+        ASTOperandBase newRightOperand = rightOperand;
+
         if (leftOperand instanceof ASTOperandStaticString) {
           replacementProperty.setSource(leftOperand.getOriginalSource());
-          condition.setLeftOperand(replacementProperty);
+          newLeftOperand = replacementProperty;
+        } else if (leftOperand == null) {
+          replacementProperty.setSource("");
+          newLeftOperand = replacementProperty;
         } else if (rightOperand instanceof ASTOperandStaticString) {
           replacementProperty.setSource(rightOperand.getOriginalSource());
-          condition.setRightOperand(replacementProperty);
+          newRightOperand = replacementProperty;
+        } else if (rightOperand == null) {
+          replacementProperty.setSource("");
+          newRightOperand = replacementProperty;
         }
+
+        condition.setLeftOperand(newLeftOperand);
+        condition.setRightOperand(newRightOperand);
       }
     }
   }
 
-  private void resolveStaticNumbers(ASTCondition condition, ASTOperandBase leftOperand, ASTOperandBase rightOperand) {
-    //special case with static number comparison
-    //... with value equal to 5
-    //second operand will be read as ASTOperandStaticString: 'to 5' and not be resolved
+  private void resolveStaticNumbers(
+      ASTCondition condition, ASTOperandBase leftOperand, ASTOperandBase rightOperand) {
+    // special case with static number comparison
+    // ... with value equal to 5
+    // second operand will be read as ASTOperandStaticString: 'to 5' and not be resolved
 
     ASTOperandBase newLeft = leftOperand;
     String leftStringValue = ((ASTOperandStaticString) leftOperand).getValue();
