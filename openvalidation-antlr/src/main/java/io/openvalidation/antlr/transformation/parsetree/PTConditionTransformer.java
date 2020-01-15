@@ -27,9 +27,10 @@ import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.StringUtils;
+import org.antlr.v4.runtime.tree.ParseTree;
+
 import java.util.List;
 import java.util.stream.Collectors;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 public class PTConditionTransformer
     extends TransformerBase<PTConditionTransformer, ASTCondition, mainParser.ConditionContext> {
@@ -106,7 +107,7 @@ public class PTConditionTransformer
 
     ASTCondition condition = builder.getModel();
 
-    return this.postprocess(condition.resolveImplicitBooleanCondition());
+    return condition.resolveImplicitBooleanCondition();
   }
 
   public ASTCondition transformImplicitCondition(ASTItem item, ParseTree source) throws Exception {

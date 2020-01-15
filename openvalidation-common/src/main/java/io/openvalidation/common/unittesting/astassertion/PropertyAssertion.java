@@ -53,10 +53,10 @@ public class PropertyAssertion
 
   public PropertyAssertion hasSameLambdaTokenAsParentLambdaCondition()
   {
-    shouldBeInstanceOf(this.parent  ,ConditionAssertion.class, "PARENT CONDITION");
+    parentOperand().parentCondition();
     shouldNotBeEmpty(this.model.getLambdaToken(), "PROPERTY LAMBDA TOKEN");
 
-    ((ConditionAssertion)this.parent).parentLambda().hasToken(this.model.getLambdaToken());
+    ((OperandAssertion)this.parent).parentCondition().parentLambda().hasToken(this.model.getLambdaToken());
 
     return this;
   }
