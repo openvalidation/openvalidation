@@ -21,6 +21,7 @@ import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.ast.operand.property.ASTPropertyStaticPart;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.unittesting.astassertion.lists.OperandListAssertion;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,12 +39,28 @@ public class PropertyAssertion
     return this;
   }
 
-  public PropertyAssertion hasLambda(String token) {
+  public PropertyAssertion hasEmptyPath()
+  {
+    return this.hasPath("");
+  }
+
+  public PropertyAssertion hasLambdaToken(String token) {
     shouldNotBeEmpty();
     shouldEquals(this.model.getLambdaToken(), token, "PROPERTY LAMBDA");
 
     return this;
   }
+
+  public PropertyAssertion hasSameLambdaTokenAsParentLambdaCondition()
+  {
+    shouldBeInstanceOf(this.parent  ,ConditionAssertion.class, "PARENT CONDITION");
+    shouldNotBeEmpty(this.model.getLambdaToken(), "PROPERTY LAMBDA TOKEN");
+
+    ((ConditionAssertion)this.parent).parentLambda().hasToken(this.model.getLambdaToken());
+
+    return this;
+  }
+
 
   public PropertyAssertion tokenStartsWith(String expectedStart) {
     shouldNotBeEmpty();

@@ -66,6 +66,13 @@ public class LambdaAssertion
     return this;
   }
 
+  public LambdaAssertion hasToken(String lambdaToken) {
+    this.shouldNotBeEmpty(this.model.getLambdaToken(), "LAMBDA TOKEN");
+    this.shouldEquals(this.model.getLambdaToken(), lambdaToken, "LAMBDA TOKEN");
+
+    return this;
+  }
+
   public FunctionAssertion parentFunction() {
     this.shouldBeInstanceOf(this.parent, OperandAssertion.class, "PARENT FUNCTION");
     return ((OperandAssertion) this.parent).parentList().parentFunction();
