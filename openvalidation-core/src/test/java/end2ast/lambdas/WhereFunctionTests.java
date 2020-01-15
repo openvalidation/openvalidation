@@ -41,6 +41,14 @@ public class WhereFunctionTests {
                 .firstProperty()
                 .hasPath("numbers")
                 .hasType(DataPropertyType.Array)
-                .hasArrayContentType(DataPropertyType.Decimal));
+                .hasArrayContentType(DataPropertyType.Decimal)
+                .parentFunction()
+                .secondLambda()
+                .condition()
+                .leftProperty()
+                .hasEmptyPath()
+                .hasType(DataPropertyType.Decimal)
+                .hasSameLambdaTokenAsParentLambdaCondition()
+    );
   }
 }
