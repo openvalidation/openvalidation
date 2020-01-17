@@ -84,4 +84,28 @@ public class WhereTest {
                 .hasName("WHERE")
                 .hasArrayContentType(DataPropertyType.Object));
   }
+
+  @Test
+  @Disabled
+  void compare_different_datatypes_after_where_filter_with_rule() throws Exception {
+    String rule =
+        "first from numbers with a value greater than 1 AS myNumber\n"
+            + "\n"
+            + "If myNumber is 1\n"
+            + "Then error";
+    String schema = "{numbers:[0.5,1,2,3]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .hasArrayContentType(DataPropertyType.Object));
+  }
 }
