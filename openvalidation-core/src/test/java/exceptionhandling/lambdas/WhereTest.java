@@ -108,4 +108,33 @@ public class WhereTest {
                 .hasName("WHERE")
                 .hasArrayContentType(DataPropertyType.Object));
   }
+  
+  @Test
+  void lambda_with_static_component_compare() throws Exception {
+    String rule =
+        "first from person with value 5 equal to age as a_variable";
+    String schema = "{person:[{age:18, name:'Adam'}]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .hasArrayContentType(DataPropertyType.Object)
+                .parameters()
+                .hasSizeOf(2)
+                .second()
+                .lambdaCondition()
+                  .leftNumber().hasValue(5.0)
+                .parentCondition()
+                  .rightProperty()
+                  .hasPath("age")
+                );
+  }
 }
