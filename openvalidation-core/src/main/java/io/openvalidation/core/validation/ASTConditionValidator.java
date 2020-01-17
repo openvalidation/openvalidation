@@ -21,6 +21,7 @@ import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandStatic;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaCondition;
 import io.openvalidation.common.exceptions.ASTValidationException;
 
 public class ASTConditionValidator extends ValidatorBase {
@@ -88,13 +89,22 @@ public class ASTConditionValidator extends ValidatorBase {
 
     if (rightOperand != null) validate(rightOperand, this.globalPosition);
 
-    // todo jgeske 23.05.2019 create special validation case for array operators
+    if (this._condition.getRightOperand() instanceof ASTOperandLambdaCondition) { // always false
+      // todo jgeske 17.01.2020 if _condition.getParent is a lambda operator,
+      // we can argue with different data types in comparisons
+      // maybe we want to adjust the internals of comparisons to contain a 'isLambdaParam'-flag
+      // or we check if a comparison contains the 'with' keyword in source
+      // or we specify this by examining the modelToken, and if it matches the lambda mask,
+      //  we can perfom a different check for static operands
+    }
+
     if (rightOperand != null
         && leftOperand.getDataType() != rightOperand.getDataType()
         && !(operator == ASTComparisonOperator.AT_LEAST_ONE_OF
             || operator == ASTComparisonOperator.NONE_OF
             || operator == ASTComparisonOperator.ONE_OF)) {
 
+      // todo jgeske 17.01.2020 further exploration of errors for comparisons in array operations
       if (!(leftOperand.isEnumData() && rightOperand.isStringData())
           && !(rightOperand.isEnumData() && leftOperand.isStringData())) {
         throw new ASTValidationException(
