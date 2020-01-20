@@ -78,4 +78,23 @@ public class WhereFunctionTests {
                 .hasType(DataPropertyType.Decimal)
                 .hasSameLambdaTokenAsParentLambdaCondition());
   }
+
+  @Test
+  void where_on_simple_type_array_has_correct_return_types() throws Exception {
+    String input = "first from numbers with a value greater than 1 AS myNumber";
+    String schema = "{numbers:[0.5, 1.1, 1, 2,3]}";
+
+    End2AstRunner.run(
+        input,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .function()
+                .parameters()
+                .first()
+                .function("WHERE")
+                .hasType(DataPropertyType.Array)
+                .hasArrayContentType(DataPropertyType.Decimal));
+  }
 }
