@@ -68,16 +68,17 @@ public class NumberParsingUtils {
   }
 
   public static boolean isNumber(String value) {
+    boolean result = false;
     if (value != null) {
       String v = value.trim();
-      if (v.length() > 0 && StringUtils.isNumeric(v) || isDouble(v)) {
-        if (v.length() > 1 && v.startsWith("0")) return false;
-
-        return true;
+      if (v.length() > 0 && StringUtils.isNumeric(v)) {
+        if (!(v.length() > 1 && v.startsWith("0"))) result = true;
+      } else if (isDouble(v)) {
+        if (v.startsWith("0.") || !v.startsWith("0")) result = true;
       }
     }
 
-    return false;
+    return result;
   }
 
   public static boolean containsNumber(String value) {

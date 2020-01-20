@@ -74,21 +74,7 @@ public class ASTOperandFunction extends ASTOperandBase {
   public DataPropertyType getArrayContentType() {
     DataPropertyType type = null;
 
-    if (this.getName().equals("WHERE")) {
-      // should always return type Object cause it maps only from object array -> object array
-      type = DataPropertyType.Object;
-      //            ASTOperandBase secondParam = this.parameters.get(1);
-      //
-      //            List<ASTOperandProperty> props = secondParam.getProperties();
-      //            List<ASTOperandVariable> vars = secondParam instanceof ASTOperandLambdaCondition
-      // ? ((ASTCondition)((ASTOperandLambdaCondition) secondParam).getCondition()).getVariables() :
-      // new ArrayList<>();
-      //            if (!props.isEmpty()) {
-      //                type = props.get(0).getDataType();
-      //            } else if (!vars.isEmpty()) {
-      //                type = vars.get(0).getDataType();
-      //            }
-    } else if (this.getName().equals("GET_ARRAY_OF")) {
+    if (this.getName().equals("GET_ARRAY_OF")) {
       if (this.parameters.size() > 1) {
         ASTOperandBase secondParam = parameters.get(1);
         if (secondParam instanceof ASTOperandLambdaProperty) {

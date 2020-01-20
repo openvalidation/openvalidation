@@ -108,11 +108,10 @@ public class WhereTest {
                 .hasName("WHERE")
                 .hasArrayContentType(DataPropertyType.Object));
   }
-  
+
   @Test
   void lambda_with_static_component_compare() throws Exception {
-    String rule =
-        "first from person with value 5 equal to age as a_variable";
+    String rule = "first from person with value 5 equal to age as a_variable";
     String schema = "{person:[{age:18, name:'Adam'}]}";
 
     End2AstRunner.run(
@@ -131,10 +130,10 @@ public class WhereTest {
                 .hasSizeOf(2)
                 .second()
                 .lambdaCondition()
-                  .leftNumber().hasValue(5.0)
+                .leftNumber()
+                .hasValue(5.0)
                 .parentCondition()
-                  .rightProperty()
-                  .hasPath("age")
-                );
+                .rightProperty()
+                .hasPath("age"));
   }
 }

@@ -41,4 +41,20 @@ public class NumberParsinUtilsTest {
 
     assertThat(result, is(false));
   }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"0", "0.5", "1", "1.5", "12345.6789"})
+  public void test_isNumber_positives(String numberString) {
+    boolean result = NumberParsingUtils.isNumber(numberString);
+
+    assertThat(result, is(true));
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"0123.456", "1.1.20", "0123", "01234-567-89"})
+  public void test_isNumber_negatives(String numberString) {
+    boolean result = NumberParsingUtils.isNumber(numberString);
+
+    assertThat(result, is(false));
+  }
 }
