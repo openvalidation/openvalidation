@@ -66,9 +66,8 @@ public class WhereTest {
   }
 
   @Test
-  void compare_primitive_datatypes_after_where_filter() throws Exception {
-    String rule =
-        "first from numbers with a value greater than 1 AS myNumber";
+  void compare_primitive_datatype_number_after_where_filter() throws Exception {
+    String rule = "first from numbers with a value greater than 1 AS myNumber";
     String schema = "{numbers:[0.5,1,2,3]}";
 
     End2AstRunner.run(
@@ -83,6 +82,25 @@ public class WhereTest {
                 .function()
                 .hasName("WHERE")
                 .hasArrayContentType(DataPropertyType.Decimal));
+  }
+
+  @Test
+  void compare_primitive_datatype_string_after_where_filter() throws Exception {
+    String rule = "first from strings with a value equals peter 1 AS myNumber";
+    String schema = "{strings:['peter', 'paul', 'marry']}";
+
+    End2AstRunner.run(
+            rule,
+            schema,
+            r ->
+                    r.variables()
+                            .first()
+                            .operandFunction()
+                            .parameters()
+                            .first()
+                            .function()
+                            .hasName("WHERE")
+                            .hasArrayContentType(DataPropertyType.String));
   }
 
   @Test
@@ -111,5 +129,47 @@ public class WhereTest {
                 .parentCondition()
                 .rightProperty()
                 .hasPath("age"));
+  }
+
+  
+  //implicid booleans in WHERE-function
+  @Test
+  @Disabled
+  void implicid_condition_in_where_with_boolean_value_simple_bool_array() throws Exception {
+    String rule = "first from bools with a value AS myBool";
+    String schema = "{bools:[false,false,false,true]}";
+
+    End2AstRunner.run(
+            rule,
+            schema,
+            r ->
+                    r.variables()
+                            .first()
+                            .operandFunction()
+                            .parameters()
+                            .first()
+                            .function()
+                            .hasName("WHERE")
+                            .hasArrayContentType(DataPropertyType.Boolean));
+  }
+
+  @Test
+  @Disabled
+  void implicid_condition_in_where_with_boolean_value_complex_object() throws Exception {
+    String rule = "first from people with married AS myPerson";
+    String schema = "{people:[{name:'paul', married:true}, {name:'peter', married:false}, {name:'marry', married:false}]}";
+
+    End2AstRunner.run(
+            rule,
+            schema,
+            r ->
+                    r.variables()
+                            .first()
+                            .operandFunction()
+                            .parameters()
+                            .first()
+                            .function()
+                            .hasName("WHERE")
+                            .hasArrayContentType(DataPropertyType.Object));
   }
 }
