@@ -51,7 +51,7 @@ public class NumberParsinUtilsTest {
   }
 
   @ParameterizedTest
-  @ValueSource(strings = {"0123.456", "1.1.20", "0123", "01234-567-89"})
+  @ValueSource(strings = {"01.23", "0123.456", "1.1.20", "0123", "01234-567-89"})
   public void test_isNumber_negatives(String numberString) {
     boolean result = NumberParsingUtils.isNumber(numberString);
 

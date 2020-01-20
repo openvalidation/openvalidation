@@ -192,15 +192,17 @@ public class Json2DataSchemaConverterTest {
   @ParameterizedTest
   @CsvSource(
       value = {
+        // "01.23;String", //todo lazevedo 20.1.20 zero at the beginning is trimmed by json object
+        // parser. Thus he result is Decimal
         "banana;String",
         "banana, apple;String",
         "banana, 1, 1.5, true, [1,2,3];String",
         "1;Decimal",
         "1, 2, 3;Decimal",
         "1, banana, 1.5, true, [1,2,3];Decimal",
-        "1.5;Decimal",
-        "1.5, 2.5, 3.5;Decimal",
-        "1.5, banana, 1, true, [1,2,3];Decimal",
+        "0.5;Decimal",
+        "0.5, 2.5, 3.5;Decimal",
+        "0.5, banana, 1, true, [1,2,3];Decimal",
         // "date;Date",
         "[1,2,3];Array",
         "[1,2,3], [4,5,6];Array",
