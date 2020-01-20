@@ -235,6 +235,52 @@ public class HUMLFramework {
 
         return Arrays.stream(array).collect(Collectors.toList());
     }
+    
+    public <T> T[] WHERE(Object item, Predicate<? super T> condition){
+        if(item instanceof List){
+            return WHERE((List<T>)item, condition);
+        } else if(item.getClass().isArray()){
+            if (item.getClass().getName().equalsIgnoreCase("[i"))//integer primitive array
+            {
+                List<Integer> lst = new ArrayList<>();
+                for(int i : (int[])item){ lst.add(i); }
+                return WHERE((List<T>)lst, condition);
+            }else if (item.getClass().getName().equalsIgnoreCase("[b")) {//byte primitive array
+                List<Byte> lst = new ArrayList<>();
+                for(byte i : (byte[])item){ lst.add(i); }
+                return WHERE((List<T>)lst, condition);
+            } else if (item.getClass().getName().equalsIgnoreCase("[z")) {//boolean primitive array
+                List<Boolean> lst = new ArrayList<>();
+                for(boolean i : (boolean[])item){ lst.add(i); }
+                return WHERE((List<T>)lst, condition);
+            } else if (item.getClass().getName().equalsIgnoreCase("[s")) {//short primitive array
+                List<Short> lst = new ArrayList<>();
+                for(short i : (short[])item){ lst.add(i); }
+                return WHERE((List<T>)lst, condition);
+            } else if (item.getClass().getName().equalsIgnoreCase("[j")) {//long primitive array
+                List<Long> lst = new ArrayList<>();
+                for(long i : (long[])item){ lst.add(i); }
+                return WHERE((List<T>)lst, condition);
+            } else if (item.getClass().getName().equalsIgnoreCase("[f")) {//float primitive array
+                List<Float> lst = new ArrayList<>();
+                for(float i : (float[])item){ lst.add(i); }
+                return WHERE((List<T>)lst, condition);
+            } else if (item.getClass().getName().equalsIgnoreCase("[d")) {//double primitive array
+                List<Double> lst = new ArrayList<>();
+                for(double i : (double[])item){ lst.add(i); }
+                return WHERE((List<T>)lst, condition);
+            } else if (item.getClass().getName().equalsIgnoreCase("[c")) {//char primitive array
+                List<Character> lst = new ArrayList<>();
+                for(char i : (char[])item){ lst.add(i); }
+                return WHERE((List<T>)lst, condition);
+            } else {//non primitive
+                List<T> lst = Arrays.asList((T[]) item);
+                return WHERE((List<T>)lst, condition);
+            }
+        }
+        
+        return null; //no valid  type resolution found
+    }
 
     public <T> T[] WHERE(T[] array, Predicate<? super T> condition) {
         return WHERE(toList(array), condition);
