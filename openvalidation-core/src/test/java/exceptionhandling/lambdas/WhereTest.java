@@ -45,7 +45,6 @@ public class WhereTest {
                 .hasArrayContentType(DataPropertyType.Object));
   }
 
-  @Disabled
   @Test
   void where_function_in_first_function_on_int_array() throws Exception {
     String rule = "a first item from numbers with item equals 42 as myNumber";
@@ -62,7 +61,7 @@ public class WhereTest {
                 .first()
                 .function()
                 .hasName("WHERE")
-                .hasArrayContentType(DataPropertyType.Object));
+                .hasArrayContentType(DataPropertyType.Decimal));
   }
 
   @Test
@@ -90,17 +89,36 @@ public class WhereTest {
     String schema = "{strings:['peter', 'paul', 'marry']}";
 
     End2AstRunner.run(
-            rule,
-            schema,
-            r ->
-                    r.variables()
-                            .first()
-                            .operandFunction()
-                            .parameters()
-                            .first()
-                            .function()
-                            .hasName("WHERE")
-                            .hasArrayContentType(DataPropertyType.String));
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .hasArrayContentType(DataPropertyType.String));
+  }
+
+  @Test
+  void compare_primitive_datatype_number_cascading_after_where_filter() throws Exception {
+    String rule = "first 2 number from numbers with number greater 2 AS X";
+    String schema = "{numbers:[0.5,1,2,3]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .hasArrayContentType(DataPropertyType.Decimal));
   }
 
   @Test
@@ -131,8 +149,7 @@ public class WhereTest {
                 .hasPath("age"));
   }
 
-  
-  //implicid booleans in WHERE-function
+  // implicid booleans in WHERE-function
   @Test
   @Disabled
   void implicid_condition_in_where_with_boolean_value_simple_bool_array() throws Exception {
@@ -140,36 +157,37 @@ public class WhereTest {
     String schema = "{bools:[false,false,false,true]}";
 
     End2AstRunner.run(
-            rule,
-            schema,
-            r ->
-                    r.variables()
-                            .first()
-                            .operandFunction()
-                            .parameters()
-                            .first()
-                            .function()
-                            .hasName("WHERE")
-                            .hasArrayContentType(DataPropertyType.Boolean));
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .hasArrayContentType(DataPropertyType.Boolean));
   }
 
   @Test
   @Disabled
   void implicid_condition_in_where_with_boolean_value_complex_object() throws Exception {
     String rule = "first from people with married AS myPerson";
-    String schema = "{people:[{name:'paul', married:true}, {name:'peter', married:false}, {name:'marry', married:false}]}";
+    String schema =
+        "{people:[{name:'paul', married:true}, {name:'peter', married:false}, {name:'marry', married:false}]}";
 
     End2AstRunner.run(
-            rule,
-            schema,
-            r ->
-                    r.variables()
-                            .first()
-                            .operandFunction()
-                            .parameters()
-                            .first()
-                            .function()
-                            .hasName("WHERE")
-                            .hasArrayContentType(DataPropertyType.Object));
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .hasArrayContentType(DataPropertyType.Object));
   }
 }
