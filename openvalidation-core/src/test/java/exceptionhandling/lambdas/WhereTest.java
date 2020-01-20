@@ -65,34 +65,10 @@ public class WhereTest {
                 .hasArrayContentType(DataPropertyType.Object));
   }
 
-  @Disabled
   @Test
-  void where_function_in_first_function_on_int_array_simplified() throws Exception {
-    String rule = "first numbers with 42 as myNumber";
-    String schema = "{numbers:[1.1,2,3,4,5]}";
-
-    End2AstRunner.run(
-        rule,
-        schema,
-        r ->
-            r.variables()
-                .first()
-                .operandFunction()
-                .parameters()
-                .first()
-                .function()
-                .hasName("WHERE")
-                .hasArrayContentType(DataPropertyType.Object));
-  }
-
-  @Test
-  @Disabled
-  void compare_different_datatypes_after_where_filter_with_rule() throws Exception {
+  void compare_primitive_datatypes_after_where_filter() throws Exception {
     String rule =
-        "first from numbers with a value greater than 1 AS myNumber\n"
-            + "\n"
-            + "If myNumber is 1\n"
-            + "Then error";
+        "first from numbers with a value greater than 1 AS myNumber";
     String schema = "{numbers:[0.5,1,2,3]}";
 
     End2AstRunner.run(
@@ -106,7 +82,7 @@ public class WhereTest {
                 .first()
                 .function()
                 .hasName("WHERE")
-                .hasArrayContentType(DataPropertyType.Object));
+                .hasArrayContentType(DataPropertyType.Decimal));
   }
 
   @Test
