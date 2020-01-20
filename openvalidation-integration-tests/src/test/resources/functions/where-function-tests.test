@@ -40,9 +40,9 @@ Then error
 error
 
 
-################# IGNORE where function on simple number array ########################
+################# where function on simple number array ########################
 
-first 2 number from numbers where number greater 2 AS X
+first 2 number from numbers with number greater 2 AS X
 
 first item from X AS Y
 
@@ -60,5 +60,92 @@ If Y is 3 then error
 {numbers: [0.5, 1.0, 2.0, 3.0]}
 
 error
+
+
+################# where function integration object with number check  ########################
+
+first thing from things with number greater than 4 AS myThing
+
+first thing from things AS myOtherThing
+
+If myThing is myOtherThing
+Then error
+
+If myThing is not myOtherThing
+then anotherError
+
+{things:[{number:5.0, name:'ja'}]}
+
+--------------  equal triggered  -------------------
+
+{things:[{number:5.0, name:'ja'}]}
+
+{things:[{number:5.0, name:'fuenf'},{number:2.0, name:'zwei'}]}
+
+error
+
+--------------  not equal triggered  -------------------
+
+{things:[{number:1.0, name:'eins'},{number:5.0, name:'fuenf'}]}
+
+anotherError
+
+
+################# IGNORE where function integration nested object with number check  ########################
+
+first thing from things with thing.container.position greater than 1 AS myThing
+
+first thing from things AS myOtherThing
+
+If myThing is myOtherThing
+Then error
+
+If myThing is not myOtherThing
+then anotherError
+
+{things:[{number:5.0, container:{position:1.5, name:'one'}}]}
+
+--------------  equal triggered  -------------------
+
+{things:[{number:5.0, container:{position:4.0, name:'four'}}]}
+
+{things:[{number:5.0, container:{position:7.0, name:'seven'}},{number:2.0, container:{position:2, name:'two'}}]}
+
+error
+
+--------------  not equal triggered  -------------------
+
+{things:[{number:5.0, container:{position:1.0, name:'one'}},{number:2.0, container:{position:2, name:'two'}}]}
+
+anotherError
+
+
+################# IGNORE where function integration nested object with number check faulty model resolution function  ########################
+
+first thing from things with container.position greater than 1 AS myThing
+
+first thing from things AS myOtherThing
+
+If myThing is myOtherThing
+Then error
+
+If myThing is not myOtherThing
+then anotherError
+
+{things:[{number:5.0, container:{position:1.5, name:'one'}}]}
+
+--------------  equal triggered  -------------------
+
+{things:[{number:5.0, container:{position:4.0, name:'four'}}]}
+
+{things:[{number:5.0, container:{position:7.0, name:'seven'}},{number:2.0, container:{position:2, name:'two'}}]}
+
+error
+
+--------------  not equal triggered  -------------------
+
+{things:[{number:5.0, container:{position:1.0, name:'one'}},{number:2.0, container:{position:2, name:'two'}}]}
+
+anotherError
 
 
