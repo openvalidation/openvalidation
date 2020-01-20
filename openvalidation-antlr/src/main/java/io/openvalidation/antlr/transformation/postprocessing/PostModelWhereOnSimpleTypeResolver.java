@@ -91,6 +91,18 @@ public class PostModelWhereOnSimpleTypeResolver
 
         /* todo lazevedo 15.1.20 '...value 5 equal to age' causes a condition in lambda that is independent of lambda token. Because
          *   'age' is a decimal prop the PostModelNumbersResolver will parse 'value 1' as 1. Add validation check for those cases? */
+        // ^- jgeske 17.01.20 is this a problem? sounds like intended behaviour to me.
+        //      the only case where this would be detrimental, would be a property/variable named
+        // 'value 1' not being
+        //      recognized, and the static interpreter being selected over the variable/property
+        // resolution.
+
+        /* uncomment this bracket for a more generic solution to the table below.
+        if(leftOperand != null && rightOperand != null && //only one operand is staticString
+                ((leftOperand instanceof ASTOperandStaticString) != (rightOperand instanceof ASTOperandStaticString))){
+        }
+        */
+
         ASTOperandBase newLeftOperand = leftOperand;
         ASTOperandBase newRightOperand = rightOperand;
 
