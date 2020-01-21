@@ -1,4 +1,4 @@
-################# where function integration object array example  ########################
+################# where function in first function integration object array example  ########################
 
 a first item from numbers with number equals 42 as myNumber
 
@@ -18,7 +18,7 @@ then error
 error
 
 
-################# where function on number array without sugar  ########################
+################# where function in first function on number array without sugar  ########################
 
 first from numbers with a value greater than 1 AS myNumber
 
@@ -39,7 +39,7 @@ Then error
 
 error
 
-################# where function on number array with sugar  ########################
+################# where function in first function on number array with sugar  ########################
 
 first from numbers with a value greater than the number 1 AS myNumber
 
@@ -60,7 +60,7 @@ Then error
 
 error
 
-################# where function on variable with number array without sugar  ########################
+################# where function in first function on variable with number array without sugar  ########################
 
 numbers AS numList
 
@@ -83,7 +83,7 @@ Then error
 
 error
 
-################# where function on variable with number array with sugar  ########################
+################# where function in first function on variable with number array with sugar  ########################
 
 numbers AS numList
 
@@ -108,7 +108,7 @@ error
 
 
 
-################# where function on simple number array ########################
+################# where function in first function on simple number array ########################
 
 first 2 number from numbers with number greater 2 AS X
 
@@ -129,7 +129,7 @@ If Y is 3 then error
 
 error
 
-################# where function on simple number array ########################
+################# where function in first function on simple number array ########################
 
 first 2 number from numbers with number greater 2 AS X
 
@@ -151,7 +151,7 @@ If Y is 3 then error
 error
 
 
-################# where function on variable with simple number array ########################
+################# where function in first function on variable with simple number array ########################
 
 numbers AS numList
 
@@ -175,7 +175,7 @@ If Y is 3 then error
 error
 
 
-################# where function integration object with number check  ########################
+################# where function in first function integration object with number check  ########################
 
 first thing from things with number greater than 4 AS myThing
 
@@ -204,7 +204,7 @@ error
 anotherError
 
 
-################# IGNORE where function integration nested object with number check  ########################
+################# IGNORE where function in first function integration nested object with number check  ########################
 
 first thing from things with thing.container.position greater than 1 AS myThing
 
@@ -233,7 +233,7 @@ error
 anotherError
 
 
-################# IGNORE where function integration nested object with number check faulty model resolution function  ########################
+################# IGNORE where function in first function integration nested object with number check faulty model resolution function  ########################
 
 first thing from things with container.position greater than 1 AS myThing
 
