@@ -12,7 +12,7 @@ The validation rules can be automatically translated by openVALIDATION into Java
 [http://openvalidation.io](http://openvalidation.io)
 
 # Getting Started
-
+ 
 This readme provides a brief overview. For more details check out our [documentation and guides](https://docs.openvalidation.io), or try it out directly in the browser on the [playground](http://playground.openvalidation.io/#/).
 
 ### Download & Installation
