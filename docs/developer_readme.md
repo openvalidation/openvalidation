@@ -47,9 +47,10 @@ Refer to [this ticket](https://github.com/carlossg/docker-maven/issues/90) for m
 
 ## Generate and run integrations tests (standalone)
 
-To generate integration tests, use ``GeneratorCLI``, the CLI will require 2 parameters:
-- Path to the test resource file folder (default ``OpenValidation\openvalidation-integration-tests/src/test/resources``)
-- Path to generate test Classes to (default ``OpenValidation\openvalidation-integration-tests\target``)
+To generate integration tests, use ``GeneratorCLI``, the CLI will require 2 or 3 parameters:
+- Path to the test resource file folder (default ``OpenValidation/openvalidation-integration-tests/src/test/resources``)
+- Path to generate test Classes to (default ``OpenValidation/openvalidation-integration-tests/target``)
+- (optional) target language identifier. This currently only generates for the validators, and not the models, but can be used to generate a great number of integration tests.
 
 After generating the files, these can be run via ``io.openvalidation.integration.tests.IntegrationTestsRunner`` (most IDEs require you to mark ``OpenValidation\openvalidation-integration-tests\target\generated-test-sources\java`` as generated sources folder, so your builder can discover them)
 
