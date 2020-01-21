@@ -81,7 +81,8 @@ public class ASTConditionBuilder
 
   public ASTConditionBuilder withLeftOperandAsPropertyWithLambdayToken(
       String property, String lambdaToken) {
-    String[] prop = {property};
+
+    String[] prop = property.isEmpty() ? new String[0] : new String[] {property};
 
     return withLeftOperandAsPropertyWithLambdayToken(prop, lambdaToken);
   }

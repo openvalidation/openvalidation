@@ -21,10 +21,11 @@ import io.openvalidation.common.ast.builder.ASTConditionBuilder;
 import io.openvalidation.common.ast.builder.ASTOperandFunctionBuilder;
 import io.openvalidation.generation.tests.ExpectationBuilder;
 import io.openvalidation.generation.tests.GTE;
-import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 public class GeneratorWhereArrayLambdasTest {
   private static Stream<Arguments> simple_map_array() {
@@ -56,6 +57,44 @@ public class GeneratorWhereArrayLambdasTest {
           ASTOperandFunctionBuilder builder = new ASTOperandFunctionBuilder();
           builder
               .createWhereFunction("addresses")
+              .addLambdaConditionParamenter(conditionBuilder.getModel(), lambdaToken);
+
+          return builder.getModel();
+        });
+  }
+
+  private static Stream<Arguments> where_on_simple_type_array() {
+    return Stream.of(
+        //            language      expected
+        Arguments.of("javascript", "huml.WHERE(model.numbers, x => huml.EQUALS(x, 100.0))"),
+        Arguments.of("java", "huml.WHERE(model.getNumbers(), x -> huml.EQUALS(x, 100.0))"),
+        Arguments.of("csharp", "huml.WHERE(model.Numbers, x => huml.EQUALS(x, 100.0))"),
+        Arguments.of("python", "huml.WHERE(model.numbers, lambda x: huml.EQUALS(x, 100.0))"));
+  }
+
+  @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
+  @MethodSource()
+  public void where_on_simple_type_array(String language, String expected) throws Exception {
+    GTE.execute(
+        expected,
+        language,
+        p -> {
+
+          // {numbers:[1,2,3,4]}
+          // addresses.WHERE(a -> a == 100)
+
+          String lambdaToken = "x";
+
+          ASTConditionBuilder conditionBuilder = new ASTConditionBuilder();
+          conditionBuilder
+              .create()
+              .withOperator(ASTComparisonOperator.EQUALS)
+              .withLeftOperandAsPropertyWithLambdayToken("", lambdaToken)
+              .withRightOperandAsNumber(100);
+
+          ASTOperandFunctionBuilder builder = new ASTOperandFunctionBuilder();
+          builder
+              .createWhereFunction("numbers")
               .addLambdaConditionParamenter(conditionBuilder.getModel(), lambdaToken);
 
           return builder.getModel();
