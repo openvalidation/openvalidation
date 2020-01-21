@@ -1,3 +1,123 @@
+################# where function alone integration object array example  ########################
+
+All from numbers with a number equal to 42 as myCandidates
+
+The first item from myCandidates as myNumber
+
+All from numbers with a number greater than 30 as yourCandidates
+
+The first item from myCandidates as yourNumber
+
+If myNumber is yourNumber
+then error
+
+
+{numbers:[{number:1.1}]}
+
+--------------  error triggered  -------------------
+
+{numbers:[{number:1},{number:2},{number:42}]}
+
+
+error
+
+
+################# where function alone on number array without sugar  ########################
+
+All numbers from numbers with a value greater than 1 as myCandidates
+
+first from myCandidates AS myNumber
+
+If myNumber is 2
+Then error
+
+{numbers:[0.5, 1.1, 1, 2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers:[2]}
+
+{numbers:[1,2,3]}
+
+{numbers:[0.5,1,2,3]}
+
+{numbers:[0.5, 0.8, 0.9, 0.99, 0.75, 0.55, 2]}
+
+error
+
+################# where function alone on number array with sugar  ########################
+
+All numbers from numbers with a value greater than the number 1 as myCandidates
+
+first from myCandidates AS myNumber
+
+If myNumber is 2
+Then error
+
+{numbers:[0.5, 1.1, 1, 2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers:[2]}
+
+{numbers:[1,2,3]}
+
+{numbers:[0.5,1,2,3]}
+
+{numbers:[0.5, 0.8, 0.9, 0.99, 0.75, 0.55, 2]}
+
+error
+
+################# where function alone on variable with number array without sugar  ########################
+
+numbers AS numList
+
+All numbers from numList with a value greater than 1 as myCandidates
+
+First from myCandidates AS myNumber
+
+If myNumber is 2
+Then error
+
+{numbers:[0.5, 1.1, 1, 2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers:[2]}
+
+{numbers:[1,2,3]}
+
+{numbers:[0.5,1,2,3]}
+
+{numbers:[0.5, 0.8, 0.9, 0.99, 0.75, 0.55, 2]}
+
+error
+
+################# where function alone on variable with number array with sugar  ########################
+
+numbers AS numList
+
+All numbers from numList with a value greater than the number 1 as myCandidates
+
+First from myCandidates AS myNumber
+
+If myNumber is 2
+Then error
+
+{numbers:[0.5, 1.1, 1, 2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers:[2]}
+
+{numbers:[1,2,3]}
+
+{numbers:[0.5,1,2,3]}
+
+{numbers:[0.5, 0.8, 0.9, 0.99, 0.75, 0.55, 2]}
+
+error
+
 ################# where function in first function integration object array example  ########################
 
 a first item from numbers with number equals 42 as myNumber
