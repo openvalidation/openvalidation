@@ -18,7 +18,7 @@ then error
 error
 
 
-################# where function integration number array without sugar  ########################
+################# where function on number array without sugar  ########################
 
 first from numbers with a value greater than 1 AS myNumber
 
@@ -39,10 +39,123 @@ Then error
 
 error
 
+################# where function on number array with sugar  ########################
+
+first from numbers with a value greater than the number 1 AS myNumber
+
+If myNumber is 2
+Then error
+
+{numbers:[0.5, 1.1, 1, 2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers:[2]}
+
+{numbers:[1,2,3]}
+
+{numbers:[0.5,1,2,3]}
+
+{numbers:[0.5, 0.8, 0.9, 0.99, 0.75, 0.55, 2]}
+
+error
+
+################# where function on variable with number array without sugar  ########################
+
+numbers AS numList
+
+first from numList with a value greater than 1 AS myNumber
+
+If myNumber is 2
+Then error
+
+{numbers:[0.5, 1.1, 1, 2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers:[2]}
+
+{numbers:[1,2,3]}
+
+{numbers:[0.5,1,2,3]}
+
+{numbers:[0.5, 0.8, 0.9, 0.99, 0.75, 0.55, 2]}
+
+error
+
+################# where function on variable with number array with sugar  ########################
+
+numbers AS numList
+
+first from numList with a value greater than the number 1 AS myNumber
+
+If myNumber is 2
+Then error
+
+{numbers:[0.5, 1.1, 1, 2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers:[2]}
+
+{numbers:[1,2,3]}
+
+{numbers:[0.5,1,2,3]}
+
+{numbers:[0.5, 0.8, 0.9, 0.99, 0.75, 0.55, 2]}
+
+error
+
+
 
 ################# where function on simple number array ########################
 
 first 2 number from numbers with number greater 2 AS X
+
+first item from X AS Y
+
+If Y is 3 then error
+
+{numbers: [1.2,2.8,3.0]}
+
+--------------  error triggered  -------------------
+{numbers: [3]}
+
+{numbers: [1,2,3]}
+
+{numbers: [1.0, 3.0]}
+
+{numbers: [0.5, 1.0, 2.0, 3.0]}
+
+error
+
+################# where function on simple number array ########################
+
+first 2 number from numbers with number greater 2 AS X
+
+first item from X AS Y
+
+If Y is 3 then error
+
+{numbers: [1.2,2.8,3.0]}
+
+--------------  error triggered  -------------------
+{numbers: [3]}
+
+{numbers: [1,2,3]}
+
+{numbers: [1.0, 3.0]}
+
+{numbers: [0.5, 1.0, 2.0, 3.0]}
+
+error
+
+
+################# where function on variable with simple number array ########################
+
+numbers AS numList
+
+first 2 number from numList with number greater 2 AS X
 
 first item from X AS Y
 

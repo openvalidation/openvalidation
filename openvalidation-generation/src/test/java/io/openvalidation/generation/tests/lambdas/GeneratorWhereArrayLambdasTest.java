@@ -21,11 +21,10 @@ import io.openvalidation.common.ast.builder.ASTConditionBuilder;
 import io.openvalidation.common.ast.builder.ASTOperandFunctionBuilder;
 import io.openvalidation.generation.tests.ExpectationBuilder;
 import io.openvalidation.generation.tests.GTE;
+import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
 
 public class GeneratorWhereArrayLambdasTest {
   private static Stream<Arguments> simple_map_array() {
