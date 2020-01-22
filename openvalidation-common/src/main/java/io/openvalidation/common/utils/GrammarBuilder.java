@@ -44,6 +44,19 @@ public class GrammarBuilder {
     return this;
   }
 
+  public GrammarBuilder AS_OPERATOR() {
+    return AS_OPERATOR("ASOPERATOR", "");
+  }
+
+  public GrammarBuilder AS_OPERATOR(String name) {
+    return AS_OPERATOR("ASOPERATOR", name);
+  }
+
+  public GrammarBuilder AS_OPERATOR(String affixForToken, String name) {
+    this._builder.append(" " + Constants.AS_OPERATOR_TOKEN + affixForToken + " ").append(name);
+    return this;
+  }
+
   public GrammarBuilder TAKE() {
     return TAKE("TAKE", "");
   }

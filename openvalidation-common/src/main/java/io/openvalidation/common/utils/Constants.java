@@ -30,6 +30,7 @@ public class Constants {
   public static final String OR_TOKEN = KEYWORD_SYMBOL + "or" + KEYWORD_SYMBOL;
   public static final String UNLESS_TOKEN = KEYWORD_SYMBOL + "unless" + KEYWORD_SYMBOL;
   public static final String AS_TOKEN = KEYWORD_SYMBOL + "as" + KEYWORD_SYMBOL;
+  public static final String AS_OPERATOR_TOKEN = KEYWORD_SYMBOL + "asoperator" + KEYWORD_SYMBOL;
   public static final String IF_TOKEN = KEYWORD_SYMBOL + "if" + KEYWORD_SYMBOL;
   public static final String THEN_TOKEN = KEYWORD_SYMBOL + "then" + KEYWORD_SYMBOL;
   public static final String END_OF_FILE_TOKEN = "<EOF>";

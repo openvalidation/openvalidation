@@ -1,12 +1,13 @@
 grammar main;
 
-main                     : PARAGRAPH? (rule_definition|rule_constrained|variable|comment|unknown)
-                            (PARAGRAPH (rule_definition|rule_constrained|variable|comment|unknown))*
+main                     : PARAGRAPH? (rule_definition|rule_constrained|variable|semantic_operator|comment|unknown)
+                            (PARAGRAPH (rule_definition|rule_constrained|variable|semantic_operator|comment|unknown))*
                              PARAGRAPH? unknown? EOF;
 
 
 comment                  :  STRING? COMMENT unknown?;
 variable                 :  (lambda|expression)? AS name?;
+semantic_operator        :  unknown? OPERATOR_COMP? AS_OPERATOR name?;
 rule_definition          :  IF? expression? THEN action?
                          |  IF expression? THEN? action?;
 
@@ -54,9 +55,11 @@ OPERATOR_ARITH           :  'ʬarithmoperatorʬ'[a-zA-Z]+'ʬ'[a-zA-Z0-9_]+;
 WITH_ERROR               :  'ʬerrorcodeʬ'[a-zA-Z0-9_]+ (' '* [0-9]*)?;
 WITH                     :  'ʬwithʬ'[a-zA-Z0-9_]+;
 
-FROM                     : 'ʬfromʬ'[a-zA-Z0-9_]+;
-ORDERED_BY               : 'ʬorderedʬ'[a-zA-Z0-9_]+;
+FROM                     :  'ʬfromʬ'[a-zA-Z0-9_]+;
+ORDERED_BY               :  'ʬorderedʬ'[a-zA-Z0-9_]+;
 
+
+AND                      :  'ʬandʬ';
 
 OF                       :  'ʬofʬ'[a-zA-Z0-9_]+;
 CONSTRAINT               :  'ʬconstraintʬ'[a-zA-Z]+'ʬ'[a-zA-Z0-9_]+;
@@ -66,6 +69,7 @@ PARAGRAPH                :  'ʬparagraphʬ';                              //map 
 OPERATOR_COMP            :  'ʬoperatorʬ'[a-zA-Z0-9_]+'ʬ'[a-zA-Z0-9_]+;
 FUNCTION                 :  'ʬfunctionʬ'[a-zA-Z0-9_]+'ʬ'[a-zA-Z0-9_]+;
 AS                       :  'ʬasʬ'[a-zA-Z0-9_]+;
+AS_OPERATOR              :  'ʬasoperatorʬ'[a-zA-Z0-9_]+;
 COMBINATOR               :  'ʬandʬ'[a-zA-Z0-9_]+
                           | 'ʬorʬ'[a-zA-Z0-9_]+
                           | 'ʬunlessʬ'[a-zA-Z0-9_]+;

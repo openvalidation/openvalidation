@@ -19,7 +19,7 @@ package io.openvalidation.antlr.test.util;
 import io.openvalidation.antlr.NamesExtractor;
 import io.openvalidation.antlr.generated.mainLexer;
 import io.openvalidation.antlr.generated.mainParser;
-import io.openvalidation.common.data.DataVariableReference;
+import io.openvalidation.common.data.DataPropertyBase;
 import java.util.List;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -28,7 +28,7 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class NamesExtractorParser {
-  public static List<DataVariableReference> parse(String preprocessedInput) {
+  public static List<DataPropertyBase> parse(String preprocessedInput) {
     CharStream inputStream = CharStreams.fromString(preprocessedInput);
 
     mainLexer lexer = new mainLexer(inputStream);
@@ -37,7 +37,7 @@ public class NamesExtractorParser {
     parser.removeErrorListeners();
 
     ParseTree tree = parser.main();
-    List<DataVariableReference> variableReferences = NamesExtractor.getNames(tree);
+    List<DataPropertyBase> variableReferences = NamesExtractor.getNames(tree);
     return variableReferences;
   }
 }

@@ -16,6 +16,7 @@
 
 package io.openvalidation.common.data;
 
+import io.openvalidation.common.ast.ASTComparisonOperator;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,9 +27,18 @@ public class DataSchema {
   private List<DataPropertyBase> _properties = new ArrayList<>();
   private HashMap<String, DataProperty> uniqueProperties = new HashMap<>();
 
-  public void complete(List<DataVariableReference> dataVariableReferences) {
+  public void completeWithVariables(List<DataVariableReference> dataVariableReferences) {
     addVariables(dataVariableReferences);
     sort();
+  }
+
+  public void complete(List<DataPropertyBase> dataproperties) {
+    this._properties.addAll(dataproperties);
+    sort();
+  }
+
+  public void appendSemanticOperators(List<DataSemanticOperator> operators) {
+    this._properties.addAll(operators);
   }
 
   public void add(DataPropertyBase property) {
@@ -68,6 +78,11 @@ public class DataSchema {
     this._properties.add(variable);
   }
 
+  public void addSemanticOperator(
+      String name, String operandName, DataPropertyType type, ASTComparisonOperator operator) {
+    this.add(new DataSemanticOperator(name, operandName, type, operator));
+  }
+
   public void addVariables(List<DataVariableReference> variables) {
     this._properties.addAll(variables);
   }
@@ -92,6 +107,13 @@ public class DataSchema {
     return this._properties.stream()
         .filter(p -> p instanceof DataProperty)
         .map(p -> (DataProperty) p)
+        .collect(Collectors.toList());
+  }
+
+  public List<DataSemanticOperator> getSemanticOperators() {
+    return this._properties.stream()
+        .filter(p -> p instanceof DataSemanticOperator)
+        .map(p -> (DataSemanticOperator) p)
         .collect(Collectors.toList());
   }
 

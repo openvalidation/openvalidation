@@ -33,7 +33,7 @@ class DataSchemaUniquePropertiesTest {
   private DataSchema resolve(String schema, List<DataVariableReference> variableReferences)
       throws Exception {
     DataSchema dataSchema = SchemaConverterFactory.convert(schema);
-    dataSchema.complete(variableReferences);
+    dataSchema.completeWithVariables(variableReferences);
 
     return dataSchema;
   }
