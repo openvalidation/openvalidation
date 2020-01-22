@@ -22,6 +22,7 @@ import io.openvalidation.common.ast.builder.ASTBuilderBase;
 import io.openvalidation.common.ast.builder.ASTOperandFunctionBuilder;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandVariable;
+import io.openvalidation.common.ast.operand.ASTSemanticOperator;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.*;
 import io.openvalidation.common.utils.ThrowingConsumer;
@@ -102,25 +103,15 @@ public abstract class TransformerBase<
       String[] proppath = {p.getName()};
       functionBuilder.createArrayOfFunction(p.getArrayPathAsList(), proppath);
 
-      //            ASTOperandProperty arrayProperty = new
-      // ASTOperandProperty(p.getArrayPathAsList());
-      //            arrayProperty.setDataType(DataPropertyType.Array);
-      //            arrayProperty.setSource(p.getArrayPath());
-      //
-      //            ASTOperandProperty lambdaProperty = new ASTOperandProperty(p.getName());
-      //            lambdaProperty.setLambdaToken("s");
-      //            lambdaProperty.setDataType(p.getType());
-      //            lambdaProperty.setSource(p.getName());
-      //
-      //            ASTOperandFunctionBuilder functionBuilder = new ASTOperandFunctionBuilder();
-      //            functionBuilder.create()
-      //                           .withName("GET_ARRAY_OF")
-      //                           .addParameter(arrayProperty)
-      //                           .addParameter(lambdaProperty);
-      //
       operand = functionBuilder.getModel();
       operand.setSource(content);
       operand.setDataType(DataPropertyType.Array);
+    } else if (property != null && property instanceof DataSemanticOperator) {
+      DataSemanticOperator dso = (DataSemanticOperator) property;
+      ASTOperandBase semanticOperand = this.createProperty(dso.getOperandName());
+
+      operand = new ASTSemanticOperator(dso, semanticOperand);
+      operand.setSource(content);
     }
 
     return operand;
