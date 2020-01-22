@@ -201,7 +201,6 @@ public class PTLambdaTransformer
                 ((ASTOperandLambdaProperty) ((ASTOperandFunction) operand).getParameters().get(1))
                     .getProperty();
             opprop.setSource(lambda.getOriginalSource());
-            System.out.println("debug");
 
             ASTConditionBuilder conditionBuilder = new ASTConditionBuilder().create();
             conditionBuilder

@@ -18,13 +18,13 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
 
     // validate the specific function
     //    FunctionValidatorBase subFunctionValidator = createFunctionSubValidator();
-    ValidatorBase subFunctionValidator = createFunctionSubValidator();
+    FunctionValidatorBase subFunctionValidator = createFunctionSubValidator();
     subFunctionValidator.setContext(this.context);
     subFunctionValidator.validate();
   }
 
   //  private FunctionValidatorBase createFunctionSubValidator() throws Exception
-  private ValidatorBase createFunctionSubValidator() throws Exception {
+  private FunctionValidatorBase createFunctionSubValidator() throws Exception {
     switch (function.getName()) {
       case "FIRST":
         return new FunctionFirstValidator(function);
@@ -42,8 +42,6 @@ public class ASTOperandFunctionValidator extends ValidatorBase {
       default:
         throw new ASTValidationException(
             "Function with name '" + function.getName() + "' is not known", function);
-        //        System.out.println("Nich jefundn");
-        //        return new EmptyValidator();
     }
   }
 }

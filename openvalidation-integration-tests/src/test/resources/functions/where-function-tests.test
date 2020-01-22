@@ -329,8 +329,8 @@ first from persons with married is true AS myThing
 
 first from persons with married is true AS myOtherThing
 
-If myThing is not myOtherThing
-then anotherError
+If myThing is myOtherThing
+then error
 
 {persons:[{married:true}]}
 
@@ -346,8 +346,8 @@ first from persons with married AS myThing
 
 first from persons with married AS myOtherThing
 
-If myThing is not myOtherThing
-then anotherError
+If myThing is myOtherThing
+then error
 
 {persons:[{married:true}]}
 
@@ -363,8 +363,8 @@ first from persons with is married AS myThing
 
 first from persons with married is AS myOtherThing
 
-If myThing is not myOtherThing
-then anotherError
+If myThing is myOtherThing
+then error
 
 {persons:[{married:true}]}
 

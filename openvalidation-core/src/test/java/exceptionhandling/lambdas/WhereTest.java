@@ -1,9 +1,13 @@
 package exceptionhandling.lambdas;
 
 import end2ast.End2AstRunner;
+import exceptionhandling.ExceptionRunner;
+import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.data.DataPropertyType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class WhereTest {
 
@@ -170,10 +174,16 @@ public class WhereTest {
                 .hasArrayContentType(DataPropertyType.Boolean));
   }
 
-  @Test
-  @Disabled
-  void implicit_condition_in_where_with_boolean_value_complex_object() throws Exception {
-    String rule = "first from people with married AS myPerson";
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "first from people with married AS myPerson",
+        "first from people with married is AS myPerson",
+        "first from people with married is true AS myPerson",
+      })
+  void implicit_condition_in_where_with_boolean_value_complex_object_1(String input)
+      throws Exception {
+    String rule = input;
     String schema =
         "{people:[{name:'paul', married:true}, {name:'peter', married:false}, {name:'marry', married:false}]}";
 
@@ -188,6 +198,104 @@ public class WhereTest {
                 .first()
                 .function()
                 .hasName("WHERE")
-                .hasArrayContentType(DataPropertyType.Object));
+                .parameters()
+                .second()
+                .lambdaCondition()
+                .leftProperty()
+                .hasType(DataPropertyType.Boolean)
+                .hasPath("married")
+                .hasSameLambdaTokenAsParentLambdaCondition()
+                .parentCondition()
+                .hasOperator(ASTComparisonOperator.EQUALS)
+                .rightBoolean(true));
+  }
+
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "first from people with is married AS myPerson",
+        "first from people with true is married true AS myPerson",
+      })
+  void implicit_condition_in_where_with_boolean_value_complex_object_2(String input)
+      throws Exception {
+    String rule = input;
+    String schema =
+        "{people:[{name:'paul', married:true}, {name:'peter', married:false}, {name:'marry', married:false}]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .operandFunction()
+                .parameters()
+                .first()
+                .function()
+                .hasName("WHERE")
+                .parameters()
+                .second()
+                .lambdaCondition()
+                .rightProperty()
+                .hasType(DataPropertyType.Boolean)
+                .hasPath("married")
+                .hasSameLambdaTokenAsParentLambdaCondition()
+                .parentCondition()
+                .hasOperator(ASTComparisonOperator.EQUALS)
+                .leftBoolean(true));
+  }
+
+  private ExceptionRunner runner = new ExceptionRunner();
+
+  @Test
+  @Disabled
+  // todo lazevedo 22.01.20 faulty where function parsed as property 'numbers'. How to handle.
+  void missing_condition() throws Exception {
+    runner.run(
+        "All from numbers with something AS var",
+        "{numbers: [1,2,3]}",
+        r -> r.containsValidationMessage("Error"));
+  }
+
+  @Test
+  void property_not_of_type_array() throws Exception {
+    runner.run(
+        "All from number with value greater than 5 AS var",
+        "{number: 1}",
+        r ->
+            r.containsValidationMessage(
+                "The first parameter (property) of WHERE has to be of type 'Array'. Type found: Decimal."));
+  }
+
+  @Test
+  void property_first_param_is_string() throws Exception {
+    runner.run(
+        "All from something with value greater than 5 AS var",
+        "{numbers:[1,2,3]}",
+        r ->
+            r.containsValidationMessage(
+                "The first parameter of the function WHERE has to be an array property or a nested function. Currently applied on string"));
+  }
+
+  @Test
+  void both_parameters_in_condition_static_numbers() throws Exception {
+    runner.run(
+        "All from numbers with 5 greater than 1 AS var",
+        "{numbers: [1,2,3]}",
+        r ->
+            r.containsValidationMessage(
+                "at least one operand in comparison should not be static\n"
+                    + "left operand is of type: 'astoperandstaticnumber' and right operand is of type: 'astoperandstaticnumber'"));
+  }
+
+  @Test
+  void both_parameters_in_condition_static_strings() throws Exception {
+    runner.run(
+        "All from numbers with Hello equals Bye AS var",
+        "{numbers: [1,2,3]}",
+        r ->
+            r.containsValidationMessage(
+                "at least one operand in comparison should not be static\n"
+                    + "left operand is of type: 'astoperandstaticstring' and right operand is of type: 'astoperandstaticstring'"));
   }
 }
