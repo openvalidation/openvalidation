@@ -21,17 +21,17 @@ import io.openvalidation.antlr.transformation.TransformerBase;
 import io.openvalidation.antlr.transformation.TransformerContext;
 import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
+import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 
 public class PTAccessorWithTransformer
-    extends TransformerBase<
-        PTAccessorWithTransformer, ASTConditionBase, mainParser.Accessor_withContext> {
+    extends TransformerBase<PTAccessorWithTransformer, ASTItem, mainParser.Accessor_withContext> {
 
   public PTAccessorWithTransformer(
       mainParser.Accessor_withContext treeCntx, TransformerContext fctx) {
     super(treeCntx, fctx);
   }
 
-  public ASTConditionBase transform() throws Exception {
+  public ASTItem transform() throws Exception {
     ASTItem item = null;
 
     if (antlrTreeCntx.condition() != null) {
@@ -43,12 +43,11 @@ public class PTAccessorWithTransformer
     }
 
     if (item != null) {
-      if (item instanceof ASTConditionBase) return (ASTConditionBase) item;
-      //            else
-      //            {
-      //                return ASTCondition
-      //            }
-    }
+      if (item instanceof ASTConditionBase) return item;
+      if (item instanceof ASTOperandStaticString) // ready for bool extraction
+      return item;
+    } // todo lazevedo 21.01.20 if item instanceof ASTOperandStaticString, check if the string
+    // contains a property of the inner object
 
     return null;
   }

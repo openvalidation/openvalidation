@@ -42,6 +42,8 @@ import java.util.function.Predicate;
    -> left operand is property and right is bool
 */
 
+// todo lazevedo 21.1.20 has similar purpose as PostModelImplicitBoolOperand, whereas this one
+// considers the bool property on both sides of the comparison. Merge the classes.
 public class PostModelImplicitBoolVariables
     extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
 
