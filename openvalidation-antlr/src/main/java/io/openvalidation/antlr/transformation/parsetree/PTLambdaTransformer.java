@@ -197,14 +197,14 @@ public class PTLambdaTransformer
 
           ASTOperandBase operand = TransformerBase.createProperty(prop, lambda.getOriginalSource());
           if (operand instanceof ASTOperandFunction && operand.getName().equals("GET_ARRAY_OF")) {
-            ASTOperandProperty opprop =
+            ASTOperandProperty opProp =
                 ((ASTOperandLambdaProperty) ((ASTOperandFunction) operand).getParameters().get(1))
                     .getProperty();
-            opprop.setSource(lambda.getOriginalSource());
+            opProp.setSource(lambda.getOriginalSource());
 
             ASTConditionBuilder conditionBuilder = new ASTConditionBuilder().create();
             conditionBuilder
-                .withLeftOperand(opprop)
+                .withLeftOperand(opProp)
                 .withOperator(ASTComparisonOperator.EQUALS)
                 .withRightOperandAsBoolean(true)
                 .withSource(lambda.getOriginalSource());
