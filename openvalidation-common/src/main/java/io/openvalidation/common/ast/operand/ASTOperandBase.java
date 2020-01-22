@@ -92,6 +92,10 @@ public abstract class ASTOperandBase extends ASTItem {
     return this instanceof ASTOperandStaticString;
   }
 
+  public boolean isSemanticOperator() {
+    return this instanceof ASTSemanticOperator;
+  }
+
   public boolean isEnumData() {
     return this.getDataType() == DataPropertyType.Enum;
   }
