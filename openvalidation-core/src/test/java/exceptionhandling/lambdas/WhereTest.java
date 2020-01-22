@@ -152,7 +152,7 @@ public class WhereTest {
   // implicid booleans in WHERE-function
   @Test
   @Disabled
-  void implicid_condition_in_where_with_boolean_value_simple_bool_array() throws Exception {
+  void implicit_condition_in_where_with_boolean_value_simple_bool_array() throws Exception {
     String rule = "first from bools with a value AS myBool";
     String schema = "{bools:[false,false,false,true]}";
 
@@ -172,7 +172,7 @@ public class WhereTest {
 
   @Test
   @Disabled
-  void implicid_condition_in_where_with_boolean_value_complex_object() throws Exception {
+  void implicit_condition_in_where_with_boolean_value_complex_object() throws Exception {
     String rule = "first from people with married AS myPerson";
     String schema =
         "{people:[{name:'paul', married:true}, {name:'peter', married:false}, {name:'marry', married:false}]}";

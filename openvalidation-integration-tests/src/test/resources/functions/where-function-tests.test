@@ -323,6 +323,56 @@ error
 
 anotherError
 
+################# where function explicit bool  ########################
+
+first from persons with married is true AS myThing
+
+first from persons with married is true AS myOtherThing
+
+If myThing is not myOtherThing
+then anotherError
+
+{persons:[{married:true}]}
+
+--------------  equal triggered  -------------------
+
+{persons:[{married:true}]}
+
+error
+
+################# where function implicit bool  ########################
+
+first from persons with married AS myThing
+
+first from persons with married AS myOtherThing
+
+If myThing is not myOtherThing
+then anotherError
+
+{persons:[{married:true}]}
+
+--------------  equal triggered  -------------------
+
+{persons:[{married:true}]}
+
+error
+
+################# where function implicit bool with comparison operator ########################
+
+first from persons with is married AS myThing
+
+first from persons with married is AS myOtherThing
+
+If myThing is not myOtherThing
+then anotherError
+
+{persons:[{married:true}]}
+
+--------------  equal triggered  -------------------
+
+{persons:[{married:true}]}
+
+error
 
 ################# IGNORE where function in first function integration nested object with number check  ########################
 

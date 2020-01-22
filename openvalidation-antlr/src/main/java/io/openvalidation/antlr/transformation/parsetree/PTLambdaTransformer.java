@@ -20,18 +20,24 @@ import io.openvalidation.antlr.generated.mainParser;
 import io.openvalidation.antlr.transformation.ParseTreeUtils;
 import io.openvalidation.antlr.transformation.TransformerBase;
 import io.openvalidation.antlr.transformation.TransformerContext;
+import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.ASTItem;
+import io.openvalidation.common.ast.builder.ASTConditionBuilder;
 import io.openvalidation.common.ast.builder.ASTOperandFunctionBuilder;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
 import io.openvalidation.common.ast.operand.*;
+import io.openvalidation.common.ast.operand.lambda.ASTOperandLambdaProperty;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
+import io.openvalidation.common.ast.operand.property.ASTPropertyStaticPart;
 import io.openvalidation.common.data.DataArrayProperty;
 import io.openvalidation.common.data.DataPropertyBase;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.common.utils.NumberParsingUtils;
 import io.openvalidation.common.utils.StringUtils;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class PTLambdaTransformer
@@ -173,6 +179,39 @@ public class PTLambdaTransformer
               }
             },
             ASTOperandStaticString.class);
+      } else if (lambda instanceof ASTOperandStaticString) {
+        // lazevedo 21.1.20 if the lambda is no condition but a static string a check on whether it
+        // is
+        // an implicit bool comparison.
+        DataPropertyBase prop =
+            factoryCntx
+                .getSchema()
+                .resolve(((ASTOperandStaticString) lambda).getValue(), scope.getPathAsString());
+        if (prop instanceof DataArrayProperty) {
+          ASTOperandProperty astProperty = new ASTOperandProperty();
+          astProperty.setDataType(prop.getType());
+          astProperty.setPath(
+              Arrays.stream(((DataArrayProperty) prop).getFullPathExceptArrayPathAsArray())
+                  .map(part -> new ASTPropertyStaticPart(part))
+                  .collect(Collectors.toList()));
+
+          ASTOperandBase operand = TransformerBase.createProperty(prop, lambda.getOriginalSource());
+          if (operand instanceof ASTOperandFunction && operand.getName().equals("GET_ARRAY_OF")) {
+            ASTOperandProperty opprop =
+                ((ASTOperandLambdaProperty) ((ASTOperandFunction) operand).getParameters().get(1))
+                    .getProperty();
+            opprop.setSource(lambda.getOriginalSource());
+            System.out.println("debug");
+
+            ASTConditionBuilder conditionBuilder = new ASTConditionBuilder().create();
+            conditionBuilder
+                .withLeftOperand(opprop)
+                .withOperator(ASTComparisonOperator.EQUALS)
+                .withRightOperandAsBoolean(true)
+                .withSource(lambda.getOriginalSource());
+            condition = conditionBuilder.getModel();
+          }
+        }
       }
     }
 
@@ -226,6 +265,9 @@ public class PTLambdaTransformer
       builder.createWhereFunction(arrayItem).addLambdaConditionParamenter(condition);
 
       whereFunction = builder.getModel();
+    } else if (arrayItem != null) { // implicid condition equals null
+      ASTOperandFunctionBuilder builder = new ASTOperandFunctionBuilder();
+      // parse property from antlrTreeCntx.accessor_with().content() and fill as condition
     }
 
     return whereFunction;
