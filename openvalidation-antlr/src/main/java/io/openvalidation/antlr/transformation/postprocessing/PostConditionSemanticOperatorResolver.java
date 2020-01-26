@@ -16,22 +16,14 @@
 
 package io.openvalidation.antlr.transformation.postprocessing;
 
-import io.openvalidation.common.ast.ASTItem;
-import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTSemanticOperator;
 import java.util.function.Predicate;
 
-public class PostModelSemanticOperatorResolver
-    extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
+public class PostConditionSemanticOperatorResolver extends PostProcessorSelfBase<ASTCondition> {
 
   @Override
-  public void process(ASTItem item, PostProcessorContext context) {
-    super.process(item, context);
-  }
-
-  @Override
-  protected Predicate<? super ASTCondition> getFilter() {
+  protected Predicate<ASTCondition> getFilter() {
     return c ->
         c.hasLeftOperand() && c.getLeftOperand().isSemanticOperator()
             || c.hasRightOperand() && c.getRightOperand().isSemanticOperator();
@@ -49,11 +41,8 @@ public class PostModelSemanticOperatorResolver
 
     if (operator != null) {
       condition.setOperator(operator.getOperator());
-      if (condition.getLeftOperand() == null || condition.getLeftOperand().isStaticString())
-        condition.setLeftOperand(operator.getOperand());
-      else
-        condition.setRightOperand(operator.getOperand());
+      condition.setLeftOperand(operator.getOperand());
+      condition.setRightOperand(operator.getSecondOperand());
     }
-
   }
 }

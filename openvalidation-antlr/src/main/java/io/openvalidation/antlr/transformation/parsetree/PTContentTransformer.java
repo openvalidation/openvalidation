@@ -68,8 +68,6 @@ public class PTContentTransformer
         operand = this.createProperty(content);
 
         if (operand == null) {
-          // String cnt = StringUtils.stripWords(content, new String[]{" ist", "be ", "sein",
-          // "heißen", "heißt", " ", "\n", "\n", "\n\r"});
           if (!content.trim().isEmpty()) {
             operand = new ASTOperandStaticString(content);
             operand.setSource(content);
