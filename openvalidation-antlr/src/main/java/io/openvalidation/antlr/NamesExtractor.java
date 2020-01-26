@@ -23,6 +23,7 @@ import io.openvalidation.common.data.DataPropertyBase;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.data.DataSemanticOperator;
 import io.openvalidation.common.data.DataVariableReference;
+import io.openvalidation.common.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -104,6 +105,8 @@ public class NamesExtractor {
     DataPropertyType type;
     String name = ((mainParser.NameContext) ctx).unknown().getText().trim();
     String operandName = null;
+
+    name = StringUtils.reverseKeywords(name);
 
     type = determineDataPropertyType(ctx);
 

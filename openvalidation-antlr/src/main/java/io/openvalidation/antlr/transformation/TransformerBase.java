@@ -25,6 +25,7 @@ import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.ASTSemanticOperator;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.*;
+import io.openvalidation.common.utils.StringUtils;
 import io.openvalidation.common.utils.ThrowingConsumer;
 import java.util.List;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -112,6 +113,12 @@ public abstract class TransformerBase<
 
       operand = new ASTSemanticOperator(dso, semanticOperand);
       operand.setSource(content);
+
+      // try to recognize second operand value
+      String cleaned = content.replaceAll(dso.getName(), "");
+      cleaned = StringUtils.stripSpecialWords(cleaned);
+      ASTOperandBase secondOperand = this.createProperty(cleaned);
+      ((ASTSemanticOperator) operand).setSecondOperand(secondOperand, cleaned, content);
     }
 
     return operand;
