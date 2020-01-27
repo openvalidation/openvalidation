@@ -17,7 +17,6 @@
 package io.openvalidation.common.data;
 
 import io.openvalidation.common.ast.ASTComparisonOperator;
-import io.openvalidation.common.utils.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 

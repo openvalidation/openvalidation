@@ -195,7 +195,7 @@ public class PTLambdaTransformer
                   .map(part -> new ASTPropertyStaticPart(part))
                   .collect(Collectors.toList()));
 
-          ASTOperandBase operand = TransformerBase.createProperty(prop, lambda.getOriginalSource());
+          ASTOperandBase operand = this.createProperty(prop, lambda.getOriginalSource());
           if (operand instanceof ASTOperandFunction && operand.getName().equals("GET_ARRAY_OF")) {
             ASTOperandProperty opProp =
                 ((ASTOperandLambdaProperty) ((ASTOperandFunction) operand).getParameters().get(1))
