@@ -24,8 +24,6 @@ import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.data.DataSemanticOperator;
 import io.openvalidation.common.data.DataVariableReference;
 import io.openvalidation.common.utils.StringUtils;
-import org.antlr.v4.runtime.tree.ParseTree;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -75,18 +73,19 @@ public class NamesExtractor {
 
       if (ctx.getParent() instanceof mainParser.Semantic_operatorContext)
         result.add(createDataSemanticOperator(ctx));
-      else if (ctx.getParent() instanceof mainParser.VariableContext)
-        {result.add(createDataVariableReference(ctx))
-      type = determineDataPropertyType(ctx);
+      else if (ctx.getParent() instanceof mainParser.VariableContext) {
+        DataPropertyType type;
+        String name = ((mainParser.NameContext) ctx).unknown().getText().trim();
+        type = determineDataPropertyType(ctx);
 
-      mainParser.VariableContext variableContext = (mainParser.VariableContext) ctx.getParent();
-      String originText =
-          variableContext.expression() != null ? variableContext.expression().getText() : "";
+        mainParser.VariableContext variableContext = (mainParser.VariableContext) ctx.getParent();
+        String originText =
+            variableContext.expression() != null ? variableContext.expression().getText() : "";
 
-      if (!name.isEmpty()) {
-        result.add(new DataVariableReference(name, type, originText));
+        if (!name.isEmpty()) {
+          result.add(new DataVariableReference(name, type, originText));
+        }
       }
-    }
     }
 
     for (int i = 0; i < ctx.getChildCount(); i++) {

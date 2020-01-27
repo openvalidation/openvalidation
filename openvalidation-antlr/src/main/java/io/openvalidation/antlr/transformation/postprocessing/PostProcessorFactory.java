@@ -34,7 +34,8 @@ public class PostProcessorFactory {
     _postprocessors.add(new PostModelVariableResolver());
 
     _postprocessors.add(new PostModelDataTypeResolver());
-    //    _postprocessors.add(new PostModelFunctionTypeResolver());
+    //    _postprocessors.add(new PostModelFunctionTypeResolver()); todo lazevedo 27.01.20
+    // refactor/usage
 
     _postprocessors.add(new PostModelDataSchemaVariableTypeResolver());
     _postprocessors.add(new PostModelConstrainedGroupConnectorInversion());
@@ -49,7 +50,6 @@ public class PostProcessorFactory {
     _postprocessors.add(new PostModelImplicitBoolVariables());
     _postprocessors.add(new PostModelMissingRightOperandResolver());
     _postprocessors.add(new PostConditionSingleOperand());
-    _postprocessors.add(new PostModelFunctionTypeResolver());
     _postprocessors.add(new PostConditionSemanticOperatorResolver());
     _postprocessors.add(new PostModelWhereOnSimpleTypeResolver());
   }

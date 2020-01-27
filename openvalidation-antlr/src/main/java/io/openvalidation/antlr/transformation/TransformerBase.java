@@ -84,7 +84,7 @@ public abstract class TransformerBase<
     return builder;
   }
 
-  public static ASTOperandBase createProperty(DataPropertyBase property, String content) {
+  public ASTOperandBase createProperty(DataPropertyBase property, String content) {
     ASTOperandBase operand = null;
     if (property instanceof DataProperty) {
       operand = new ASTOperandProperty(((DataProperty) property).getFullNameAsParts());
