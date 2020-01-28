@@ -420,6 +420,30 @@ class FirstFunctionsTests {
     End2AstRunner.run(rule, schema, r -> r.variables());
   }
 
+  @Disabled
+  @Test
+  void first_function_on_numbers_array_with_arithmetic_in_condition_playground() throws Exception {
+    String rule = "First from numbers with a value * 2 greater than 3 as myNumber";
+    String schema = "{numbers: [1,2,3]}";
+
+    End2AstRunner.run(
+        rule,
+        schema,
+        r ->
+            r.variables()
+                .first()
+                .function("FIRST")
+                .parameters()
+                .second()
+                .lambdaCondition()
+                .leftArithmeticalOperation()
+                .first()
+                .propertyValue()
+                .hasType(DataPropertyType.Decimal)
+                .hasEmptyPath()
+                .hasSameLambdaTokenAsParentLambdaCondition());
+  }
+
   @Test
   void first_function_variable_in_condition_on_jsonschema() throws Exception {
     String rule = "FIRST FROM numbers as X \n\n" + "If X is greater than 2 then error";
