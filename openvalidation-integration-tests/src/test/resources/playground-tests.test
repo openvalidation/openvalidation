@@ -1,0 +1,73 @@
+################# simple list functions PLAYGROUND ########################
+First element from primes as first_number
+
+Last element from primes as last_number
+
+If the first_number is not equal to the last_number
+Then The first number has to be equal to the last number
+
+{primes: [1,2,3]}
+
+--------------  error triggered  -------------------
+
+{primes: [1,2,3]}
+
+{primes: [3,5,7]}
+
+{primes: [3.0,5,7.0]}
+
+The first number has to be equal to the last number
+
+################# simple list function with condition PLAYGROUND ########################
+The first number from possibly_primes with a value bigger than 7 as the number after 7
+
+If the number after 7 is not 11
+Then The given list does not represent the list of prime numbers
+
+{possibly_primes: [1,2,3]}
+
+--------------  error triggered  -------------------
+
+{possibly_primes: [3,5,7,12]}
+
+The given list does not represent the list of prime numbers
+
+################# filtering lists on simple type array PLAYGROUND ########################
+COMMENT Filtering happens in the first line
+
+All numbers from numbers with a value greater than 0 as positives
+
+The first number from positives as first positive number
+
+The last number from positives as last positive number
+
+If the first positive number + the last positive number is 3
+Then The sum is not allowed
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers:[-2,-1,0,1,2]}
+
+{numbers:[2,1,0,-1,-2]}
+
+The sum is not allowed
+
+################# IGNORE first function with arithmetic PLAYGROUND ########################
+First from numbers with a value * 2 greater than 3 AS myNumber
+
+If myNumber is 2
+Then error
+
+{numbers: [1,2,3]}
+
+--------------  error triggered  -------------------
+
+{numbers: [1,2,3]}
+
+{numbers: [1.0, 2.0]}
+
+{numbers: [1.0,2,3.5]}
+
+error
