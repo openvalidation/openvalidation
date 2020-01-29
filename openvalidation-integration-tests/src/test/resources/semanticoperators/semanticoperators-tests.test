@@ -1,0 +1,43 @@
+################# semanticoperator age older example ########################
+
+age greater as operator older
+
+user should not be older than 18
+
+{age:1.5}
+
+--------------  invalid  -------------------
+
+{age:22}
+
+{age:18.5}
+
+user should not be older than 18
+
+################# semantic operator location come from example ########################
+
+location equals as operator come from 
+
+user must not come from Dortmund
+
+{location:''}
+
+--------------  invalid  -------------------
+{location:'Dortmund'}
+
+user must not come from Dortmund
+
+################# IGNORE FIXME semantic operator location come from inverse example ########################
+
+location equals as operator come from 
+
+user must come from Dortmund
+
+{location:''}
+
+--------------  invalid  -------------------
+{location:'Berlin'}
+
+{location:'London'}
+
+user must come from Dortmund
