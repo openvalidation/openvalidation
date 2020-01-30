@@ -26,6 +26,7 @@ public class ASTModel extends ASTItem {
   private Map<String, Object> _params = new HashMap<>();
   private List<ASTGlobalElement> _elements = new ArrayList<>();
   private List<ASTRule> _nullCheckRules = null;
+  private List<String> _semanticOperatorNames = new ArrayList<>();
 
   public List<ASTGlobalElement> getElements() {
     return _elements;
@@ -177,5 +178,17 @@ public class ASTModel extends ASTItem {
     }
 
     return sb.toString();
+  }
+
+  public List<String> getSemanticOperatorNames() {
+    return _semanticOperatorNames;
+  }
+
+  public void addSemanticOperatorName(String... names) {
+    if (names != null) {
+      for (String n : names) {
+        this._semanticOperatorNames.add(n);
+      }
+    }
   }
 }

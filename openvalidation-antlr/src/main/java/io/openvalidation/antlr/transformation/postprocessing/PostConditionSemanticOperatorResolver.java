@@ -40,6 +40,8 @@ public class PostConditionSemanticOperatorResolver extends PostProcessorSelfBase
     }
 
     if (operator != null) {
+      condition.setSemanticOperatorName(operator.getSemanticOperator().getName());
+
       condition.setOperator(operator.getOperator());
       condition.setLeftOperand(operator.getOperand());
       condition.setRightOperand(operator.getSecondOperand());

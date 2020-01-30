@@ -36,6 +36,8 @@ public class ASTCondition extends ASTConditionBase {
 
   private boolean isConstrainedCondition;
   private boolean hasToBeInverted;
+  private String semanticOperatorName;
+
   private List<ASTConditionBase> unresolvedConditions = new ArrayList<>();
 
   public ASTCondition() {}
@@ -126,6 +128,14 @@ public class ASTCondition extends ASTConditionBase {
 
   public boolean hasSimpleComparisonOperator() {
     return operator != null && operator.isSimpleComparisonOperator();
+  }
+
+  public String getSemanticOperatorName() {
+    return semanticOperatorName;
+  }
+
+  public void setSemanticOperatorName(String semanticOperator) {
+    this.semanticOperatorName = semanticOperator;
   }
 
   public ASTCondition setOperator(ASTComparisonOperator operator) {
