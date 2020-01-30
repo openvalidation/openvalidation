@@ -1,4 +1,94 @@
-################# simple list functions PLAYGROUND ########################
+################# PLAYGROUND hello openvalidation example ########################
+your name HAS to be Validaria
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+--------------  error triggered  -------------------
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+your name HAS to be Validaria
+
+################# PLAYGROUND if then rule example ########################
+
+  IF  the name IS NOT Validaria
+THEN  the Name schould be Validaria
+
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+--------------  error triggered  -------------------
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+the Name schould be Validaria
+
+################# PLAYGROUND lists example ########################
+
+a location MUST be London, Berlin or Paris
+
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+--------------  error triggered  -------------------
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+a location MUST be London, Berlin or Paris
+
+################# PLAYGROUND variables example ########################
+
+Berlin AS capital city
+
+the location HAS to be capital city
+
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+--------------  error triggered  -------------------
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+the location HAS to be capital city
+
+################# PLAYGROUND arithmetic example ########################
+
+    user's age - 18 years
+AS  actual work experience
+
+the indicated professional experience MUST NOT be LARGER then the actual work experience
+
+
+
+{age: 25, experience: 3}
+
+--------------  first error triggered  -------------------
+
+{age: 18, experience: 1}
+
+{age: 17, experience: 0}
+
+the indicated professional experience MUST NOT be LARGER then the actual work experience
+
+
+################# PLAYGROUND nested conditions example ########################
+
+  IF  user's name IS Validaria
+ AND  his location IS Dortmund
+      OR  his location IS Berlin
+THEN  if the user is named Validaria, he or she must not be from Dortmund or Berlin
+
+{name: 'Validaria', location: 'Dortmund'}
+
+--------------  first error triggered  -------------------
+
+{name: 'Validaria', location: 'Dortmund'}
+
+{name: 'Validaria', location: 'Berlin'}
+
+if the user is named Validaria, he or she must not be from Dortmund or Berlin
+
+################# PLAYGROUND simple list functions ########################
 First element from primes as first_number
 
 Last element from primes as last_number
@@ -18,7 +108,7 @@ Then The first number has to be equal to the last number
 
 The first number has to be equal to the last number
 
-################# simple list function with condition PLAYGROUND ########################
+################# PLAYGROUND simple list function with condition ########################
 The first number from possibly_primes with a value bigger than 7 as the number after 7
 
 If the number after 7 is not 11
@@ -32,7 +122,7 @@ Then The given list does not represent the list of prime numbers
 
 The given list does not represent the list of prime numbers
 
-################# filtering lists on simple type array PLAYGROUND ########################
+################# PLAYGROUND filtering lists on simple type array ########################
 COMMENT Filtering happens in the first line
 
 All numbers from numbers with a value greater than 0 as positives
@@ -54,7 +144,7 @@ Then The sum is not allowed
 
 The sum is not allowed
 
-################# IGNORE first function with arithmetic PLAYGROUND ########################
+################# IGNORE PLAYGROUND first function with arithmetic ########################
 First from numbers with a value * 2 greater than 3 AS myNumber
 
 If myNumber is 2
@@ -71,3 +161,62 @@ Then error
 {numbers: [1.0,2,3.5]}
 
 error
+
+################# IGNORE PLAYGROUND Legacy Schema example ########################
+      MFG.z_bfm32 IS MPA 
+  AS  Student
+ 
+      oZ2
+  AS  residence
+
+      user SHOULD be a Student
+ AND  his residence SHOULD be Dortmund
+
+{MFG:{z_bfm32: 'MPA123'},oZ2: 'Berlin'}
+
+--------------  first error triggered  -------------------
+
+{MFG:{z_bfm32: 'MPA123'},oZ2: 'Berlin'}
+
+{MFG:{z_bfm32: 'MPA123'},oZ2: 'Dortmund'}
+
+{MFG:{z_bfm32: 'MPA'},oZ2: 'London'}
+
+user SHOULD be a Student  AND  his residence SHOULD be Dortmund
+
+################# IGNORE PLAYGROUND precondition example ########################
+
+      the age ist SMALLER than 18 
+  AS  underage
+
+      the user MUST NOT be underage
+ AND  his name SHOULD be Validaria
+
+  IF  user IS NOT underage
+ AND  his location IS NOT Dortmund
+THEN  sorry, your location should be Dortmund
+
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+--------------  first error triggered  -------------------
+
+{name: 'Satoshi', age: 25, location: 'Dortmund'}
+
+{name: 'Hans', age: 25, location: 'Dortmund'}
+
+{name: 'Maria', age: 25, location: 'Dortmund'}
+
+{name: 'Validaria', age: 16, location: 'Dortmund'}
+
+the user MUST NOT be underage  AND  his name SHOULD be Validaria
+
+--------------  second error triggered  -------------------
+
+{name: 'Validaria', age: 25, location: 'München'}
+
+{name: 'Validaria', age: 25, location: 'Los Angeles'}
+
+{name: 'Validaria', age: 25, location: 'London'}
+
+sorry, your location should be Dortmund
