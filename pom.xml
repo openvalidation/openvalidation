@@ -23,7 +23,7 @@
     <groupId>io.openvalidation</groupId>
     <artifactId>openvalidation</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
     <name>openVALIDATION</name>
     <description>Compose validation rules in the language you use every day,
         openVALIDATION handles code creation for you.</description>
