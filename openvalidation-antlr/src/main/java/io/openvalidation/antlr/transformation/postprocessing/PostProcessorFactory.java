@@ -52,6 +52,7 @@ public class PostProcessorFactory {
     _postprocessors.add(new PostConditionSingleOperand());
     _postprocessors.add(new PostConditionSemanticOperatorResolver());
     _postprocessors.add(new PostModelWhereOnSimpleTypeResolver());
+    _postprocessors.add(new PostModelSemanticNamesCollector());
   }
 
   public List<PostProcessorBase> create(ASTItem item) {
