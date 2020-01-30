@@ -61,6 +61,22 @@ public class PreProcessorKeywordCollisionStep extends PreProcessorStepBase {
       if (RegExUtils.hasArithmeticalTimesCollision(item))
         item = RegExUtils.fixArithmeticalTimesCollision(item);
 
+      // .. alter muss größer als 18 sein ...
+      if (item.contains(Constants.AS_TOKEN)
+          && (item.contains(Constants.CONSTRAINT_TOKEN) || item.contains(Constants.IF_TOKEN))) {
+        String token =
+            item.contains(Constants.CONSTRAINT_TOKEN)
+                ? Constants.CONSTRAINT_TOKEN
+                : Constants.IF_TOKEN;
+
+        int ruleTokenPosition = item.indexOf(token);
+        int asPosition = item.indexOf(Constants.AS_TOKEN);
+
+        if (ruleTokenPosition < asPosition) {
+          item = item.replaceAll(Constants.AS_TOKEN, "");
+        }
+      }
+
       String prg = ((x++) < (items.length - 1)) ? Constants.PARAGRAPH_TOKEN : "";
 
       sb.append(item + prg);

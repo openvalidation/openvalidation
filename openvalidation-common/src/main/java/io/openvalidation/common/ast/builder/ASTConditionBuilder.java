@@ -129,6 +129,11 @@ public class ASTConditionBuilder
     return this;
   }
 
+  public ASTConditionBuilder markAsHasToBeInverted() {
+    this.model.setHasToBeInverted(true);
+    return this;
+  }
+
   public ASTConditionBuilder unmarkAsConstrainedCondition() {
     this.model.setConstrainedCondition(false);
     return this;
