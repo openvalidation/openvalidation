@@ -25,6 +25,23 @@ public class SemanticOperatorTests {
   }
 
   @Test
+  public void should_resolve_semantic_operator_with_opposite_comp_operator() throws Exception {
+    End2AstRunner.run(
+        "age greater as operator older \n\n user should be older than 18",
+        "{age:0}",
+        r ->
+            r.rules()
+                .hasSizeOf(1)
+                .first()
+                .hasError("user should be older than 18")
+                .condition()
+                .hasOperator(ASTComparisonOperator.LESS_OR_EQUALS)
+                .leftProperty("age")
+                .parentCondition()
+                .rightNumber(18.0));
+  }
+
+  @Test
   public void should_resolve_semantic_operator_string_comp() throws Exception {
     End2AstRunner.run(
         "location equals as operator come from \n\n user must not come from Dortmund",
@@ -124,5 +141,23 @@ public class SemanticOperatorTests {
                 .operandProperty()
                 .hasPath("alter")
                 .hasType(DataPropertyType.Decimal));
+  }
+
+  @Test
+  public void should_resolve_semantic_operator_with_as_collision() throws Exception {
+    End2AstRunner.run(
+        "alter und größer als operator älter \n\n Der Benutzer muss älter als 18 Jahre sein",
+        "{alter:0}",
+        "de",
+        r ->
+            r.rules()
+                .hasSizeOf(1)
+                .first()
+                .hasError("Der Benutzer muss älter als 18 Jahre sein")
+                .condition()
+                .hasOperator(ASTComparisonOperator.LESS_OR_EQUALS)
+                .leftProperty("alter")
+                .parentCondition()
+                .rightNumber(18.0));
   }
 }

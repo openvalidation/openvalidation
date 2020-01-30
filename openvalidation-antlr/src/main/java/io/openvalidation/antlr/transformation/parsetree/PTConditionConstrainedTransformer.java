@@ -132,6 +132,7 @@ public class PTConditionConstrainedTransformer
 
       if (ruleIndicator.equals(Constants.MUST)) {
         operatorInverted = ASTComparisonOperator.NOT_EQUALS;
+        builder.markAsHasToBeInverted();
 
         if (operator != null) {
 

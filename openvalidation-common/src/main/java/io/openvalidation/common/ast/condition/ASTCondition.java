@@ -35,6 +35,7 @@ public class ASTCondition extends ASTConditionBase {
   private ASTComparisonOperator operator = null;
 
   private boolean isConstrainedCondition;
+  private boolean hasToBeInverted;
   private List<ASTConditionBase> unresolvedConditions = new ArrayList<>();
 
   public ASTCondition() {}
@@ -303,6 +304,14 @@ public class ASTCondition extends ASTConditionBase {
 
   public void setConstrainedCondition(boolean constrainedCondition) {
     isConstrainedCondition = constrainedCondition;
+  }
+
+  public boolean hasToBeInverted() {
+    return hasToBeInverted;
+  }
+
+  public void setHasToBeInverted(boolean hasToBeInverted) {
+    this.hasToBeInverted = hasToBeInverted;
   }
 
   @Override

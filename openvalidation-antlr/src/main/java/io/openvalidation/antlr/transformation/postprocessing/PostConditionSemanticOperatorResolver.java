@@ -43,6 +43,8 @@ public class PostConditionSemanticOperatorResolver extends PostProcessorSelfBase
       condition.setOperator(operator.getOperator());
       condition.setLeftOperand(operator.getOperand());
       condition.setRightOperand(operator.getSecondOperand());
+
+      if (condition.hasToBeInverted()) condition.setOperator(condition.getOperator().invert());
     }
   }
 }
