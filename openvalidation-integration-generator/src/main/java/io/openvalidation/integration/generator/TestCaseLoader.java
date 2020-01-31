@@ -22,6 +22,7 @@ import io.openvalidation.common.utils.FileSystemUtils;
 import io.openvalidation.common.utils.LINQ;
 import io.openvalidation.common.utils.RegExUtils;
 import io.openvalidation.common.utils.StringUtils;
+import io.openvalidation.core.Aliases;
 import io.openvalidation.integration.generator.model.IntegrationTest;
 import io.openvalidation.integration.generator.model.IntegrationTestExecution;
 import java.io.IOException;
@@ -63,12 +64,24 @@ public class TestCaseLoader {
 
     AtomicInteger x = new AtomicInteger();
 
+    String baseRespath = path.replaceAll("\\\\", "/").toLowerCase();
+    String currentCulture = "en";
+
+    for (String c : Aliases.availableCultures) {
+      if (baseRespath.indexOf("/" + c.toLowerCase() + "/") > -1) {
+        currentCulture = c.toLowerCase();
+        break;
+      }
+    }
+    String finalCurrentCulture = currentCulture;
+
     RegExUtils.each(
         TEST_DEFINITION_SEPARATOR,
         content,
         (matcher) -> {
-          IntegrationTest test = new IntegrationTest(matcher.group(1));
+          IntegrationTest test = new IntegrationTest(matcher.group(1), finalCurrentCulture);
           test.setTestFile(path);
+          test.setCulture(finalCurrentCulture);
 
           if (!test.getTestName().contains("IGNORE")) {
             String allContent = rawTests.get(x.getAndIncrement());

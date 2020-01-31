@@ -38,7 +38,7 @@ public class RuleGenerator {
       String name = test.getMaskedTestName();
 
       OpenValidation ov = OpenValidation.createDefault();
-      ov.setLocale("en");
+      ov.setLocale(test.getCulture());
       ov.setLanguage(Languages.getLanguage(targetLanguage));
       ov.setRule(test.getRule());
       ov.setSchema(test.getSchema());

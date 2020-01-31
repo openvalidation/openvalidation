@@ -78,7 +78,8 @@ public class IntegrationTestsRunner {
 
   // todo 09.08.19 jgeske use intelligent fallback. this is null with most default configurations
   private static String getTestDirectory() {
-    URL resource = IntegrationTest.class.getClassLoader().getResource("rule-tests.test");
+
+    URL resource = IntegrationTest.class.getClassLoader().getResource("root.file");
     String filePath = resource.getFile();
     String path = (new File(filePath)).getParent().replaceAll("%2520", "%20");
 

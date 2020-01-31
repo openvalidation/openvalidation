@@ -29,11 +29,13 @@ public class IntegrationTest {
   private String _rule;
   private String _schema;
   private String _testFile;
+  private String _culture;
 
   public IntegrationTest() {}
 
-  public IntegrationTest(String name) {
-    this.setTestName(name);
+  public IntegrationTest(String name, String culture) {
+
+    this.setTestName(culture.trim() + " " + name.trim());
   }
 
   private List<IntegrationTestExecution> _testExecution = new ArrayList<>();
@@ -76,6 +78,14 @@ public class IntegrationTest {
 
   public void setTestFile(String _testFile) {
     this._testFile = _testFile;
+  }
+
+  public String getCulture() {
+    return _culture;
+  }
+
+  public void setCulture(String _culture) {
+    this._culture = _culture;
   }
 
   public String getMaskedTestName() {

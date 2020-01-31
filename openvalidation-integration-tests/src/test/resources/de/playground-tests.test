@@ -1,0 +1,10 @@
+################# PLAYGROUND hello openvalidation example ########################
+dein name muss Validaria sein
+
+{name: 'Satoshi'}
+
+--------------  error triggered  -------------------
+
+{name: 'Satoshi'}
+
+dein name muss Validaria sein
