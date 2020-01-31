@@ -1,5 +1,6 @@
-################# PLAYGROUND hello openvalidation example ########################
-dein name muss Validaria sein
+################# PLAYGROUND Hallo openVALIDATION example ########################
+
+Dein name muss Validaria sein
 
 {name: 'Satoshi'}
 
@@ -7,4 +8,143 @@ dein name muss Validaria sein
 
 {name: 'Satoshi'}
 
-dein name muss Validaria sein
+Dein name muss Validaria sein
+
+################# PLAYGROUND wenn dann Regel  ########################
+
+WENN der Name NICHT Validaria ist
+DANN der Name muss Validaria sein
+
+{name: 'Satoshi'}
+
+--------------  error triggered  -------------------
+
+{name: 'Satoshi'}
+
+der Name muss Validaria sein
+
+################# PLAYGROUND Listen ########################
+
+der Ort MUSS London, Berlin oder Paris sein
+
+{Ort: 'Dortmund'}
+
+--------------  error triggered  -------------------
+
+{Ort: 'Dortmund'}
+
+der Ort MUSS London, Berlin oder Paris sein
+
+################# PLAYGROUND Variablen ########################
+
+Berlin ALS Hauptstadt
+
+der Ort MUSS Hauptstadt sein
+
+{Ort: 'Dortmund'}
+
+--------------  error triggered  -------------------
+
+{Ort: 'Dortmund'}
+
+der Ort MUSS Hauptstadt sein
+
+################# PLAYGROUND Vorbedingung ########################
+
+      das Alter ist KLEINER 18
+ ALS  Minderjährig
+
+      der Benutzer DARF NICHT Minderjährig sein UND sein Name MUSS Validaria sein
+
+WENN  der Benutzer NICHT Minderjährig ist
+ UND  sein Ort ist NICHT Dortmund
+DANN  es tut mir leid, dein Ort muss Dortmund sein
+
+{name: 'Satoshi', Alter: 25, Ort: 'Dortmund'}
+
+--------------  error triggered  -------------------
+
+{name: 'Satoshi', Alter: 25, Ort: 'Dortmund'}
+
+der Benutzer DARF NICHT Minderjährig sein UND sein Name MUSS Validaria sein
+
+################# PLAYGROUND Arithmetik ########################
+
+     das Alter des Benutzers - 18 Jahre
+ALS  tatsächliche Berufserfahrung
+
+die angegebene Berufserfahrung DARF NICHT GRÖßER als die tatsächliche Berufserfahrung sein
+
+{Alter: 20, Berufserfahrung: 3}
+
+--------------  error triggered  -------------------
+
+{Alter: 20, Berufserfahrung: 3}
+
+die angegebene Berufserfahrung DARF NICHT GRÖßER als die tatsächliche Berufserfahrung sein
+
+################# PLAYGROUND Verschachtelte Bedingung ########################
+
+WENN  der Name des Benutzers IST Validaria
+ UND  sein Ort IST Dortmund
+      ODER  sein Ort IST Berlin
+DANN sollte der Benutzer Validaria heißen dann darf er oder sie nicht aus Dortmund oder aus Berlin kommen
+
+{name: 'Validaria', Ort: 'Dortmund'}
+
+--------------  error triggered  -------------------
+
+{name: 'Validaria', Ort: 'Dortmund'}
+
+sollte der Benutzer Validaria heißen dann darf er oder sie nicht aus Dortmund oder aus Berlin kommen
+
+################# PLAYGROUND Legacy Schema ########################
+
+      MFG.z_bfm32 ist GLEICH MPA
+ ALS  Student
+
+      oZ2
+ ALS  Wohnort
+
+der Benutzer MUSS ein Student sein UND sein Wohnort MUSS Dortmund sein
+
+{mfg: {z_bfm32: 'MPA123'}, oz2: 'Dortmund'}
+
+--------------  error triggered  -------------------
+
+{mfg: {z_bfm32: 'MPA123'}, oz2: 'Dortmund'}
+
+der Benutzer MUSS ein Student sein UND sein Wohnort MUSS Dortmund sein
+
+################# PLAYGROUND Erstes Element einer Liste ########################
+
+Das erste Element aus den Namen als Boss
+
+Ich muss der Boss sein
+
+{Namen: ['Hans', 'Peter', 'Klaus'], Ich:'Peter'}
+
+--------------  error triggered  -------------------
+
+{Namen: ['Hans', 'Peter', 'Klaus'], Ich:'Peter'}
+
+Ich muss der Boss sein
+
+################# PLAYGROUND Erstes Element einer Liste mit Bedingung ########################
+
+Das erste Element aus den Zahlen mit einem Wert größer 3 als magische Zahl
+
+Die magische Zahl muss 4 sein
+
+{Zahlen: [1,2,3,5]}
+
+--------------  error triggered  -------------------
+
+{Zahlen: [1,2,3,5]}
+
+Die magische Zahl muss 4 sein
+
+
+
+
+
