@@ -23,12 +23,20 @@
 
 ## install
 
-provide npm and jar installation
+install via npm
+
+```bash
+npm i openvalidation -g
+```
 
 <br/><br/><br/><br/><br/><br/>
 ## use
 
-provide npm and jar usage
+after npm install:
+
+```bash
+openvalidation -r "users age should not be less than 18 years" -s "{age:0}" -c en
+```
 
 <br/><br/><br/><br/><br/><br/>
 ## read
