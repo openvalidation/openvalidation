@@ -13,32 +13,35 @@
 </p>
 
 
-<br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
 
 
 ![first screen](/docs/first-screen.png)
 
-<br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
 
 
 ## install
 
 provide npm and jar installation
 
+<br/><br/><br/><br/><br/><br/>
 ## use
 
 provide npm and jar usage
 
+<br/><br/><br/><br/><br/><br/>
 ## read
 
 For more details check out our [documentation and guides](https://docs.openvalidation.io)
 
+<br/><br/><br/><br/><br/><br/>
 ## try
 
 try it out directly in the browser on the [playground](https://playground.openvalidation.io/)
 
 
-
+<br/><br/><br/><br/><br/><br/>
 
 ## contribute
 
@@ -49,6 +52,8 @@ Thank you to all the people and bots who already contributed to openVALIDATION!
 <!-- generate new contributor list.. https://contributors-img.firebaseapp.com/ -->
 <a href="https://github.com/openvalidation/openvalidation/graphs/contributors"><img src="https://contributors-img.firebaseapp.com/image?repo=openvalidation/openvalidation"/>
 </a>
+
+<br/><br/><br/><br/><br/><br/>
 
 ## contact
 
