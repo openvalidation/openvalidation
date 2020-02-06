@@ -8,31 +8,34 @@
   <a href="https://twitter.com/openVALIDATION"><img src="https://img.shields.io/twitter/follow/openVALIDATION?style=social" alt="Follow us on Twitter"></a> 
  <br/><br/>
  <span>An Open Source no-code compiler for validation rules</span>
- <br/><br/>
+ <br/>
  <a href="https://openvalidation.io" target="_blank">openvalidation.io</a>
 </p>
 
 
-
 <br/><br/>
 
-Compose validation rules in the language you use every day, openVALIDATION handles code creation for you.
 
 ![first screen](/docs/first-screen.png)
 
 <br/><br/>
 
- 
-This readme provides a brief overview. For more details check out our [documentation and guides](https://docs.openvalidation.io), or try it out directly in the browser on the [playground](https://playground.openvalidation.io/).
 
-### install
+## install
 
-xxx
+provide npm and jar installation
 
-### use
+## use
 
-xxx
+provide npm and jar usage
 
+## read
+
+For more details check out our [documentation and guides](https://docs.openvalidation.io)
+
+## try
+
+try it out directly in the browser on the [playground](https://playground.openvalidation.io/)
 
 
 
