@@ -1,15 +1,25 @@
-[![Build Status](https://dev.azure.com/validaria/openvalidation/_apis/build/status/openVALIDATION/openVALIDATION%20master?branchName=master)](https://dev.azure.com/validaria/openvalidation/_build/latest?definitionId=1&branchName=master)
-![Azure DevOps tests (compact)](https://img.shields.io/azure-devops/tests/validaria/openvalidation/1?compact_message)
-[![Maven Central](https://img.shields.io/maven-central/v/io.openvalidation/openvalidation)](https://search.maven.org/search?q=g:io.openvalidation)
-[![Follow us on Twitter](https://img.shields.io/twitter/follow/openVALIDATION?style=social)](https://twitter.com/openVALIDATION)
+<p>&nbsp;<br/></p>
+<p align="center"><a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="100" src="docs/ci/log-part.png" alt="Vue logo"></a></p>
+<p align="center">
+  <a href="https://dev.azure.com/validaria/openvalidation/_build/latest?definitionId=1&branchName=master"><img src="https://dev.azure.com/validaria/openvalidation/_apis/build/status/openVALIDATION/openVALIDATION%20master?branchName=master" alt="Build Status"></a>
+  <a href="https://img.shields.io/azure-devops/tests/validaria/openvalidation/1?compact_message"><img src="https://img.shields.io/azure-devops/tests/validaria/openvalidation/1?compact_message" alt="Azure DevOps tests (compact)"></a> 
+  <a href="https://search.maven.org/search?q=g:io.openvalidation"><img src="https://img.shields.io/maven-central/v/io.openvalidation/openvalidation" alt="Maven Central"></a> 
+ <br/>
+  <a href="https://twitter.com/openVALIDATION"><img src="https://img.shields.io/twitter/follow/openVALIDATION?style=social" alt="Follow us on Twitter"></a> 
+ <br/><br/>
+ <span>An Open Source no-code compiler for validation rules</span>
+ <br/><br/>
+ <a href="https://openvalidation.io" target="_blank">openvalidation.io</a>
+</p>
 
 
-OpenVALIDATION enables you to generate validation rules from natural language-like expressions in English and German without any knowledge in programming.
-The validation rules can be automatically translated by openVALIDATION into Java, JavaScript, C# or Python, with more languages to come!
+
+<hr/>
+
+Compose validation rules in the language you use every day, openVALIDATION handles code creation for you.
+
 
 ![first screen](/docs/first-screen.png)
-
-[http://openvalidation.io](http://openvalidation.io)
 
 # Getting Started
  
