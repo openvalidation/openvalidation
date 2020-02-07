@@ -16,7 +16,7 @@
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
 
-![first screen](/docs/first-screen.png)
+![first screen](/docs/ci/openvalidation-nlc.png)
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
