@@ -211,8 +211,18 @@ try it out directly in the browser on the [playground](https://playground.openva
 
 ## contribute
 <br/><br/>
-Please refer to our [contribution guidelines](CONTRIBUTING.md).
 
+We still have 2 zeros in the version 0.0.X of openVALIDATION, so there is still a lot to do. If you want to join us, you are more than welcome to participate! 
+
+Check our [contribution guide](https://docs.openvalidation.io/contribution/contribution-guide).
+
+Even if you're not a developer or don't fully understand the technical part of openVALIDATION yet, it doesn't matter. There are many different ways to join the project. 
+
+Check our [contribution guide specially for beginners](https://docs.openvalidation.io/contribution/for-beginners)
+
+
+
+<br/><br/>
 Thank you to all the people and bots who already contributed to openVALIDATION!
 
 <!-- generate new contributor list.. https://contributors-img.firebaseapp.com/ -->
