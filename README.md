@@ -57,13 +57,8 @@ culture code of the natural language. For example **de** for German or **en** fo
 the programming language of the generation output. 
 **JavaScript** is a default language. Available: Java, JavaScript, CSharp, (Python and Rust are still in development)
 
-more <a href="https://docs.openvalidation.io/openvalidation-cli" target="_blank">CLI Options...</a>
+See more <a href="https://docs.openvalidation.io/openvalidation-cli" target="_blank">CLI Options...</a> at <a href="https://docs.openvalidation.io">docs.openvalidation.io</a>
 
-
-<br/><br/><br/><br/><br/><br/>
-## understand
-<br/><br/>
-For more details check out our [documentation and guides](https://docs.openvalidation.io)
 
 <br/><br/><br/><br/><br/><br/>
 ## samples
@@ -76,73 +71,116 @@ For more details check out our [documentation and guides](https://docs.openvalid
   </tr>
   <tr>
     <td>
+      <br/><br/>
       the <i>name</i> <b>should</b> be <i>Alex</i>
+      <br/><br/>
     </td>
     <td>{name:''}</td>
     <td>simple rule. The rule itself is also the error message</td>    
   </tr>
   <tr>
-    <td><b>if</b> the <i>name</i> <b>is not</b> <i>Alex</i><br/> <b>then</b> <font style="color:#f00!important">the given name is not Alex</font></td>
+    <td>
+      <br/><br/>
+      <b>if</b> the <i>name</i> <b>is not</b> <i>Alex</i><br/> <b>then</b> the given name is not Alex
+    <br/><br/>
+    </td>
     <td>{name:''}</td>
     <td>simple if/then rule. The text after <b>then</b> is the error message</td>    
   </tr>  
   <tr>
-    <td>a <i>name</i> <b>must</b> be <i>Alex</i>, <i>Peter</i> or <i>Helmut</i></td>
+    <td>
+      <br/><br/>
+      a <i>name</i> <b>must</b> be <i>Alex</i>, <i>Peter</i> or <i>Helmut</i>
+    <br/><br/>
+    </td>
     <td>{name:''}</td>
     <td>condition with multiple(OR) values</td>    
   </tr>   
   <tr>
-    <td><i>Berlin</i> <b>as</b> <i>capital city</i><br/><br/>
-      the <i>location</i> <b>has</b> to be a <i>capital city</i></td>
+    <td>
+      <br/><br/>
+      <i>Berlin</i> <b>as</b> <i>capital city</i><br/><br/>
+      the <i>location</i> <b>has</b> to be a <i>capital city</i>
+    <br/><br/>
+    </td>
     <td>{location:''}</td>
     <td>domain specific expression as variable</td>    
   </tr>   
   <tr>
     <td>
+      <br/><br/>
       the <i>age</i> <b>is smaller</b> than <i>18</i> years <b>as</b> <i>underage</i>
 <br/><br/>
       the user <b>must not</b> be <i>underage</i><br/>
       <b>and</b> his <i>name</i> <b>should</b> be <i>Alex</i>
+      <br/><br/>
     </td>
     <td>{age:0, name:''}</td>
     <td>preconditions as variable</td>    
   </tr>   
   <tr>
     <td>
+      <br/><br/>
       user's <i>age</i> <b>-</b> <i>18</i> years <b>as</b> <i>actual work experience</i>
+      <br/><br/>
     </td>
     <td>{age:0}</td>
     <td>arithmetic</td>    
   </tr>
   <tr>
     <td>
+      <br/><br/>
       <i>age</i> and <b>smaller as operator</b> <i>younger</i>
       <br/><br/>
       user <b>must not</b> be <i>younger</i> than <i>18</i> years
+      <br/><br/>
     </td>
     <td>{age:0}</td>
     <td>semantic, domain specific comparison operator</td>    
   </tr>   
   <tr>
     <td>
+      <br/><br/>
       <b>first</b> item <b>from</b> <i>names</i> <b>as</b> <i>Boss</i>
 <br/><br/>    
       the <i>Boss</i> <b>should</b> be <i>Alex</i>
+      <br/><br/>
     </td>
     <td>{names:['Alex','Peter','Helmut']}</td>
     <td>first item from list</td>    
   </tr>     
   <tr>
     <td>
+      <br/><br/>
       <b>first</b> number <b>from</b> <i>numbers</i> <b>with</b> a value <b>bigger</b> than 3 <b>as</b> <i>magic number</i>
 <br/><br/>    
       the <i>magic number</i> <b>has</b> to be <i>4</i>
+      <br/><br/>
     </td>
     <td>{numbers:[1,2,3,4,5,6,7]}</td>
     <td>filtering the list</td>    
   </tr>  
   
 </table>
+
+<br/><br/><br/><br/><br/><br/>
+## understand
+<br/><br/>
+openVALIDATION enables programming of validation rules using natural language, such as German or English and many more.
+The rules recorded in natural language are readable not only by humans but also by the computer and therefore no longer need to be programmed by a software developer.
+
+<br/><br/>
+
+**The grammar**
+
+The Grammar of openVALIDATION based on a natural language is both formal and natural. This distinguishes this grammar from other programming languages or DSL's. It allows the use of additional semantic or grammatical content. The additional content is only relevant for human readability. The machine, on the other hand, ignores this addition. Thus it is possible to express the rules in a grammatically correct way on the one hand and to give them a semantic context on the other. This all makes the rules easier to understand. Rules formulated with openVALIDATION are thus at the same time a formal, machine-processable specification, but also a documentation that is easy for humans to understand.
+
+<p align="center">
+<img src="https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LZu2slXWxv3PqRBZ9rs%2F-L_6dad7BzkwzHIkvLuu%2F-L_6n6-bhPwuuuHonLpy%2Fgrammar2.png?alt=media&token=b5588e1b-19df-4330-9575-43e33f39a0cd" width="80%"/>
+</p>
+
+<br/><br/>
+For more details check out our [documentation and guides](https://docs.openvalidation.io)
 
 <br/><br/><br/><br/><br/><br/>
 ## try
