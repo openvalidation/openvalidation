@@ -28,6 +28,14 @@ install via npm as global cli command
 ```bash
 npm i openvalidation -g
 ```
+<br/><br/>
+or just download the executable jar via curl:
+
+```
+curl 'https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar' --output openvalidation.jar
+```
+<br/><br/>
+or direct [download](https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar).
 
 <br/><br/><br/><br/><br/><br/>
 ## use
@@ -39,6 +47,15 @@ openvalidation -r "users age should not be less than 18 years" -s "{age:0}" -c e
 ```
 
 <br/><br/>
+or if you downloaded the executable jar before:
+```
+java -jar openvalidation.jar -s "{name : 'text'}" -r "a name must be alex" -c en
+```
+
+<br/><br/>
+**cli parameters**
+
+<br/>
 
 **-r** (--rule)
 
@@ -50,7 +67,9 @@ schema in JSON Schema or JSON Object format
 
 **-c** (--culture)
 
-culture code of the natural language. For example **de** for German or **en** for English
+culture code of the natural language. For example **de** for German or **en** for English. 
+The culture of **current system** will be used as Default if the parameter -c was not specified.
+**en** is the absolute fallback if specified culture not supported by openVALIDATION.
 
 **-l** (--language)
 
