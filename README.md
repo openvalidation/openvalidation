@@ -23,7 +23,7 @@
 
 ## install
 
-install via npm
+install via npm as global cli command
 
 ```bash
 npm i openvalidation -g
@@ -38,10 +38,59 @@ after npm install:
 openvalidation -r "users age should not be less than 18 years" -s "{age:0}" -c en
 ```
 
+<br/><br/>
+
+**-r** (--rule)
+
+validation rule in a natural language
+
+**-s** (--schema)
+
+schema in JSON Schema or JSON Object format
+
+**-c** (--culture)
+
+culture code of the natural language. For example **de** for German or **en** for English
+
+**-l** (--language)
+
+the programming language of the generation output. 
+**JavaScript** is a default language. Available: Java, JavaScript, CSharp, (Python and Rust are still in development)
+
+more <a href="https://docs.openvalidation.io/openvalidation-cli" target="_blank">CLI Options...</a>
+
+
 <br/><br/><br/><br/><br/><br/>
-## read
+## understand
 
 For more details check out our [documentation and guides](https://docs.openvalidation.io)
+
+<br/><br/><br/><br/><br/><br/>
+## samples
+
+<table>
+  <tr>
+    <th>rule</th>
+    <th>schema</th>
+    <th>description</th>
+  </tr>
+  <tr>
+    <td>the name should be Alex</td>
+    <td>{name:''}</td>
+    <td>simple rule. The rule itself is also the error message</td>    
+  </tr>
+  <tr>
+    <td>if the name is not Alex then the given name is not Alex</td>
+    <td>{name:''}</td>
+    <td>simple if/then rule. The text after <b>then</b> is the error message</td>    
+  </tr>  
+  <tr>
+    <td>a name must be Alex, Peter or Klaus-Peter</td>
+    <td>{name:''}</td>
+    <td>list...</td>    
+  </tr>   
+  
+</table>
 
 <br/><br/><br/><br/><br/><br/>
 ## try
