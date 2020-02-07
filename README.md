@@ -1,5 +1,5 @@
 <p>&nbsp;<br/></p>
-<p align="center"><a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="100" src="docs/ci/log-part.png" alt="Vue logo"></a></p>
+<p align="center"><a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="200" src="docs/ci/logo-v2.png" alt="Vue logo"></a></p>
 <p align="center">
   <a href="https://dev.azure.com/validaria/openvalidation/_build/latest?definitionId=1&branchName=master"><img src="https://dev.azure.com/validaria/openvalidation/_apis/build/status/openVALIDATION/openVALIDATION%20master?branchName=master" alt="Build Status"></a>
   <a href="https://img.shields.io/azure-devops/tests/validaria/openvalidation/1?compact_message"><img src="https://img.shields.io/azure-devops/tests/validaria/openvalidation/1?compact_message" alt="Azure DevOps tests (compact)"></a> 
@@ -7,7 +7,7 @@
  <br/>
   <a href="https://twitter.com/openVALIDATION"><img src="https://img.shields.io/twitter/follow/openVALIDATION?style=social" alt="Follow us on Twitter"></a> 
  <br/><br/>
- <span>An Open Source no-code compiler for validation rules</span>
+ <span>a natural language (no-code) compiler for validation rules</span>
  <br/>
  <a href="https://openvalidation.io" target="_blank">openvalidation.io</a>
 </p>
@@ -75,20 +75,55 @@ For more details check out our [documentation and guides](https://docs.openvalid
     <th>description</th>
   </tr>
   <tr>
-    <td>the name should be Alex</td>
+    <td>the name <b>should</b> be Alex</td>
     <td>{name:''}</td>
     <td>simple rule. The rule itself is also the error message</td>    
   </tr>
   <tr>
-    <td>if the name is not Alex then the given name is not Alex</td>
+    <td><b>if</b> the name <b>is not</b> Alex<br/> <b>then</b> the given name is not Alex</td>
     <td>{name:''}</td>
     <td>simple if/then rule. The text after <b>then</b> is the error message</td>    
   </tr>  
   <tr>
-    <td>a name must be Alex, Peter or Klaus-Peter</td>
+    <td>a name <b>must</b> be Alex, Peter or Helmut</td>
     <td>{name:''}</td>
-    <td>list...</td>    
+    <td>condition with multiple(OR) values</td>    
   </tr>   
+  <tr>
+    <td>Berlin <b>as</b> capital city<br/><br/>
+      the location <b>has</b> to be a capital city</td>
+    <td>{location:''}</td>
+    <td>domain specific expression as variable</td>    
+  </tr>   
+  <tr>
+    <td>
+      the age <b>ist smaller</b> than 18 years <b>as</b> underage
+<br/><br/>
+      the user <b>must not</b> be underage<br/>
+      <b>and</b> his name <b>should</b> be Alex
+    </td>
+    <td>{age:0}</td>
+    <td>preconditions as variable</td>    
+  </tr>   
+  <tr>
+    <td>
+    user's age - 18 years AS actual work experience
+    </td>
+    <td>{age:0}</td>
+    <td>arithmetic</td>    
+  </tr>
+  <tr>
+    <td>
+      <b>age</b> and <b>smaller as</b>  operator younger
+ 
+user <b>must not</b> be younger than 18 years
+    </td>
+    <td>{age:0}</td>
+    <td>semantic/domain specific comparison operator</td>    
+  </tr>  
+  
+  
+
   
 </table>
 
