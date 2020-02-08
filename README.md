@@ -21,6 +21,21 @@
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
 
+## contents
+<br/><br/>
+
+- [install](#install)
+- [use](#use)
+- [integrate](#integrate)
+- [samples](#samples)
+- [understand](#understand)
+- [try](#try)
+- [contribute](#contribute)
+- [contact](#contact)
+- [license](#license)
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
 ## install
 <br/><br/>
 install via npm as global cli command
