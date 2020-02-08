@@ -29,15 +29,13 @@ install via npm as global cli command
 npm i openvalidation -g
 ```
 <br/><br/>
-or just download the executable jar via curl:
+or just download the executable jar [here](https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar) or via curl:
 
 ```
 curl 'https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar' --output openvalidation.jar
 ```
+
 <br/><br/>
-or direct [download](https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar).
-
-
 or install a docker image
 
 ```
