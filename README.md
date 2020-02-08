@@ -1,24 +1,18 @@
+<p aling="center"><img src="/docs/ci/openvalidation-nlc.png" alt="openVALIDATION a natural language no-code compiler"/></p>
 <p>&nbsp;<br/></p>
-<p align="center"><a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="200" src="docs/ci/logo-v2.png" alt="Vue logo"></a><br/><br/></p>
 <p align="center">
   <a href="https://dev.azure.com/validaria/openvalidation/_build/latest?definitionId=1&branchName=master"><img src="https://img.shields.io/azure-devops/build/validaria/openvalidation/1/master?style=flat-square&label=Azure%20DevOps%20Build" alt="Build Status"></a>
   <a href="https://img.shields.io/azure-devops/tests/validaria/openvalidation/1?compact_message"><img src="https://img.shields.io/azure-devops/tests/validaria/openvalidation/1?compact_message&style=flat-square" alt="Azure DevOps tests (compact)"></a> 
   <a href="https://search.maven.org/search?q=g:io.openvalidation"><img src="https://img.shields.io/maven-central/v/io.openvalidation/openvalidation?style=flat-square" alt="Maven Central"></a> 
- <br/>
   <a href="https://twitter.com/openVALIDATION"><img src="https://img.shields.io/twitter/follow/openVALIDATION?style=flat-square&logo=twitter" alt="Follow us on Twitter"></a> 
  <br/><br/>
- <span>a natural language (no-code) compiler for validation rules</span>
- <br/>
  <a href="https://openvalidation.io" target="_blank">openvalidation.io</a> | <a href="https://playground.openvalidation.io" target="_blank">playground.openvalidation.io</a> | <a href="https://docs.openvalidation.io" target="_blank">docs.openvalidation.io</a>
+  <br/><br/>
+   <span>a natural language (no-code) compiler for validation rules</span>
 </p>
 
-
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
-
-![first screen](/docs/ci/openvalidation-nlc.png)
-
-<br/><br/><br/><br/><br/><br/><br/><br/>
 
 
 ## contents
@@ -33,6 +27,10 @@
 - [contribute](#contribute)
 - [contact](#contact)
 - [license](#license)
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+<p align="center"><a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="200" src="docs/ci/logo-v2.png" alt="Vue logo"></a><br/><br/></p>
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
