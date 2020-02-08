@@ -1,4 +1,8 @@
+<br/><br/>
 <p aling="center"><img src="/docs/ci/openvalidation-nlc.png" alt="openVALIDATION a natural language no-code compiler"/></p>
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
 <p>&nbsp;<br/></p>
 <p align="center">
   <a href="https://dev.azure.com/validaria/openvalidation/_build/latest?definitionId=1&branchName=master"><img src="https://img.shields.io/azure-devops/build/validaria/openvalidation/1/master?style=flat-square&label=Azure%20DevOps%20Build" alt="Build Status"></a>
@@ -8,8 +12,10 @@
  <br/><br/>
  <a href="https://openvalidation.io" target="_blank">openvalidation.io</a> | <a href="https://playground.openvalidation.io" target="_blank">playground.openvalidation.io</a> | <a href="https://docs.openvalidation.io" target="_blank">docs.openvalidation.io</a>
   <br/><br/>
-   <span>a natural language (no-code) compiler for validation rules</span>
+   <span>a natural language (no-code) compiler for validation rules</span>  
 </p>
+<br/><br/>
+<p align="center"><a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="200" src="docs/ci/logo-v2.png" alt="Vue logo"></a><br/><br/></p>
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
@@ -27,10 +33,6 @@
 - [contribute](#contribute)
 - [contact](#contact)
 - [license](#license)
-
-<br/><br/><br/><br/><br/><br/><br/><br/>
-
-<p align="center"><a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="200" src="docs/ci/logo-v2.png" alt="Vue logo"></a><br/><br/></p>
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
