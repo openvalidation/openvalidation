@@ -37,6 +37,13 @@ curl 'https://downloadarchive.blob.core.windows.net/openvalidation-generator/ope
 <br/><br/>
 or direct [download](https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar).
 
+
+or install a docker image
+
+```
+docker pull openvalidation/openvalidation-rest
+```
+
 <br/><br/><br/><br/><br/><br/>
 ## use
 <br/><br/>
@@ -51,6 +58,14 @@ or if you downloaded the executable jar before:
 ```
 java -jar openvalidation.jar -r "user's age should not be less than 18 years" -s "{age : 0}"  -c en -l javascript
 ```
+
+<br/><br/>
+run openVALIDATION as a service in docker container
+```
+docker run openvalidation/openvalidation-rest
+curl -X POST http://localhost/
+```
+
 <br/><br/>
 **result**
 
