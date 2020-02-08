@@ -43,14 +43,42 @@ or direct [download](https://downloadarchive.blob.core.windows.net/openvalidatio
 after npm install:
 
 ```bash
-openvalidation -r "users age should not be less than 18 years" -s "{age:0}" -c en
+openvalidation -r "user's age should not be less than 18 years" -s "{age:0}" -c en -l javascript
 ```
 
 <br/><br/>
 or if you downloaded the executable jar before:
 ```
-java -jar openvalidation.jar -s "{name : 'text'}" -r "a name must be alex" -c en
+java -jar openvalidation.jar -r "user's age should not be less than 18 years" -s "{age : 0}"  -c en -l javascript
 ```
+<br/><br/>
+**result**
+
+The following JavaScript code will be generated:
+
+```javascript
+
+
+var HUMLValidator = function() {
+    var huml = new HUMLFramework();
+    
+        huml.appendRule("",
+            ["age"],
+            "user&#x27;s age should not be less than 18 years",
+            function(model) { 
+                return huml.LESS_THAN(model.age, 18.0);
+            },
+            false
+        );
+
+    this.validate = function(model){
+        return huml.validate(model);
+    }
+}
+
+```
+
+The generated code does not depend on the 3'rd party libraries at all. Therefore, a custom framework is generated in addition to the rules. This framework contains a basic architecture to integrate the generated validation rules more easily into other systems.
 
 <br/><br/>
 **cli parameters**
@@ -74,14 +102,31 @@ The culture of **current system** will be used as Default if the parameter -c wa
 **-l** (--language)
 
 the programming language of the generation output. 
-**JavaScript** is a default language. Available: Java, JavaScript, CSharp, (Python and Rust are still in development)
+**Java** is a default language. Available: Java, JavaScript, CSharp, (Python and Rust are still in development)
+
+
+**-o** (--output)
+
+The Output option defines a directory where the generated code files are stored. Without specifying the output parameter, the generated code is only displayed in the console. If no output directory is specified, the result will only be displayed in the console. 
+
+
+
 
 See more <a href="https://docs.openvalidation.io/openvalidation-cli" target="_blank">CLI Options...</a> at <a href="https://docs.openvalidation.io">docs.openvalidation.io</a>
 
+<br/><br/><br/><br/><br/><br/>
+## integrate
+<br/><br/>
+
+coming soon...
 
 <br/><br/><br/><br/><br/><br/>
 ## samples
 <br/><br/>
+
+Here are examples of different validation rules:
+
+<br/>
 <table cellpadding="25">
   <tr>
     <th>rule</th>
