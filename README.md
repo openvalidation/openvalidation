@@ -123,15 +123,44 @@ the programming language of the generation output.
 The Output option defines a directory where the generated code files are stored. Without specifying the output parameter, the generated code is only displayed in the console. If no output directory is specified, the result will only be displayed in the console. 
 
 
-
-
 See more <a href="https://docs.openvalidation.io/openvalidation-cli" target="_blank">CLI Options...</a> at <a href="https://docs.openvalidation.io">docs.openvalidation.io</a>
 
 <br/><br/><br/><br/><br/><br/>
 ## integrate
 <br/><br/>
 
-coming soon...
+The first step is to generate a rule in e.g. nodejs. To generate code files, the output directory must be defined with the parameter -o.
+
+
+```bash
+openvalidation -r "user's age should not be less than 18 years" -s "{age:0}" -c en -l node -o ./
+```
+
+the compiler generates 2 code files OpenValidation.js (the actual rules) and HUMLFramework.js (the generic framework)
+
+Now you can integrate the generated code into a NodeJS application:
+
+
+```javascript
+
+var openVALIDATION = require('./OpenValidation.js');
+
+var data = {name:'Alex', age:17};
+
+var validationRESULT = openVALIDATION.validate(data);
+
+if (validationRESULT.hasErrors) {
+  console.log(validationRESULT.errors);
+} else {
+  console.log("this data is valid!");
+}
+
+
+```
+
+
+Further integration examples can be found [here](https://docs.openvalidation.io/openvalidation-integration).  
+
 
 <br/><br/><br/><br/><br/><br/>
 ## samples
