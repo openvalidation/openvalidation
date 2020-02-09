@@ -92,7 +92,7 @@ java -jar openvalidation.jar -r "user's age should not be less than 18 years" -s
 
 docker run -p 7070:80  openvalidation/openvalidation-rest
 
-curl -X POST -H "Content-Type: application/json" -d "{\"rule\":\"applicants age should not be less than 18 years\",\"culture\":\"en\",\"language\":\"JavaScript\",\"schema\":\"{age:0}\"}" http://localhost:7070/
+curl -X POST -H "Content-Type: application/json" -d "{\"rule\":\"user's age should not be less than 18 years\",\"culture\":\"en\",\"language\":\"JavaScript\",\"schema\":\"{age:0}\"}" http://localhost:7070/
 
 ```
 
