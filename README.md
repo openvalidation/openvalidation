@@ -1,7 +1,7 @@
 <br/><br/>
 <p aling="center"><img src="/docs/ci/openvalidation-nlc.png" alt="openVALIDATION a natural language no-code compiler"/></p>
 
-<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/>
 
 <p>&nbsp;<br/></p>
 <p align="center">
@@ -14,8 +14,6 @@
   <br/><br/>
    <span>a natural language (no-code) compiler for validation rules</span>  
 </p>
-<br/><br/>
-<p align="center"><a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="200" src="docs/ci/logo-v2.png" alt="Vue logo"></a><br/><br/></p>
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
@@ -24,6 +22,7 @@
 ## contents
 <br/><br/>
 
+- [introduction](#introduction)
 - [install](#install)
   - [npm](#npm)
   - [jar](#jar)
@@ -41,6 +40,20 @@
 - [contribute](#contribute)
 - [contact](#contact)
 - [license](#license)
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+## introduction
+<br/><br/>
+<a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="200" src="docs/ci/logo-v2.png" alt="a natural language compiler for validation rules"></a>
+
+<br/>
+
+openVALIDATION enables programming validation rules using natural language, such as German or English. 
+
+The rules recorded in natural language are readable not only by humans but also by the machines and therefore no longer need to be programmed by a software developer. This task is now taken over by openVALIDATION compiler. With integrated code generators, corresponding source code in the desired programming language can be generated automatically, such as Java, C#, JavaScript or Python, with more to come. This code can then be integrated into any application (services, frontends, middleware). 
+
+Write once, DONT CODE and run everywhere!
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
