@@ -25,7 +25,15 @@
 <br/><br/>
 
 - [install](#install)
-- [use](#use)
+  - [npm](#npm)
+  - [jar](#jar)
+  - [docker image](#docker-image)
+- [run](#run)
+  - [npm](#npm-cli)
+  - [jar](#executable-jar)
+  - [docker container](#docker-container)
+  - [result](#result)  
+  - [cli parameters](#cli-parameters)    
 - [integrate](#integrate)
 - [samples](#samples)
 - [understand](#understand)
@@ -38,12 +46,16 @@
 
 ## install
 <br/><br/>
+### npm
+
 install via npm as global cli command
 
 ```bash
 npm i openvalidation -g
 ```
 <br/><br/>
+### jar
+
 or just download the executable jar [here](https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar) or via curl:
 
 ```
@@ -51,36 +63,41 @@ curl 'https://downloadarchive.blob.core.windows.net/openvalidation-generator/ope
 ```
 
 <br/><br/>
-or install a docker image
+### docker image
 
 ```
 docker pull openvalidation/openvalidation-rest
 ```
 
 <br/><br/><br/><br/><br/><br/>
-## use
+## run
 <br/><br/>
-after npm install:
+### npm cli
 
 ```bash
 openvalidation -r "user's age should not be less than 18 years" -s "{age:0}" -c en -l javascript
 ```
 
 <br/><br/>
-or if you downloaded the executable jar before:
+### executable jar
+
 ```
 java -jar openvalidation.jar -r "user's age should not be less than 18 years" -s "{age : 0}"  -c en -l javascript
 ```
 
 <br/><br/>
-run openVALIDATION as a service in docker container
+
+### docker container
 ```
-docker run openvalidation/openvalidation-rest
-curl -X POST http://localhost/
+
+docker run -p 7070:80  openvalidation/openvalidation-rest
+
+curl -X POST -H "Content-Type: application/json" -d "{\"rule\":\"applicants age should not be less than 18 years\",\"culture\":\"en\",\"language\":\"JavaScript\",\"schema\":\"{age:0}\"}" http://localhost:7070/
+
 ```
 
 <br/><br/>
-**result**
+### result
 
 The following JavaScript code will be generated:
 
@@ -109,7 +126,7 @@ var HUMLValidator = function() {
 The generated code does not depend on the 3'rd party libraries at all. Therefore, a custom framework is generated in addition to the rules. This framework contains a basic architecture to integrate the generated validation rules more easily into other systems.
 
 <br/><br/>
-**cli parameters**
+### cli parameters
 
 <br/>
 
