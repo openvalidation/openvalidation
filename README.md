@@ -315,7 +315,7 @@ Here are examples of different validation rules:
 ## understand
 <br/>
 
-openVALIDATION enables programming of validation rules using natural language, such as German or English and many more.
+openVALIDATION enables programming of validation rules using natural languages, such as German or English and many more.
 The rules recorded in natural language are readable not only by humans but also by the computer and therefore no longer need to be programmed by a software developer.
 
 
