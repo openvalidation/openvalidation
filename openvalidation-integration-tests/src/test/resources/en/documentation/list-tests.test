@@ -100,6 +100,56 @@ the best number MUST NOT be 1
 X MUST NOT be 4
 
 
+################# DOCUMENTATION LISTS Filtering of lists with complex contents by property ########################
+
+applicants.age AS age list
+
+
+The FIRST FROM age list AS Peters age
+
+The FIRST FROM age list WITH a value GREATER THAN 18 AS Klaus age
+
+The LAST FROM age list AS Friedas age
+
+
+Peters age MUST be GREATER THAN 0
+
+Klaus age MUST be GREATER THAN 0
+
+Friedas age MUST be GREATER THAN 0
+
+
+{applicants: [
+    {name: "Peter", age: 17},
+    {name: "Klaus", age: 19},
+    {name: "Frieda", age: 38}]}
+
+--------------  first error triggered  -------------------
+
+{applicants: [
+    {name: "Peter", age: -1},
+    {name: "Klaus", age: 19},
+    {name: "Frieda", age: 38}]}
+
+Peters age MUST be GREATER THAN 0
+
+--------------  second error triggered  -------------------
+
+{applicants: [
+    {name: "Peter", age: 17},
+    {name: "Klaus", age: -1},
+    {name: "Frieda", age: 38}]}
+
+Klaus age MUST be GREATER THAN 0
+
+--------------  third error triggered  -------------------
+
+{applicants: [
+    {name: "Peter", age: 17},
+    {name: "Klaus", age: 19},
+    {name: "Frieda", age: -1}]}
+
+Friedas age MUST be GREATER THAN 0
 
 
 
