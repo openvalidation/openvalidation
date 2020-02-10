@@ -362,7 +362,7 @@ Thank you to all the people and bots who already contributed to openVALIDATION!
 ## contact
 <br/>
 
-You can write an [E-Mail](mailto:validaria@openvalidation.io), mention our twitter account [@openVALIDATION](https://twitter.com/openVALIDATION) or message us at our instagram account [@openvalidation_](https://www.instagram.com/openvalidation_/).
+You can write an [E-Mail](mailto:validaria@openvalidation.io), mention our twitter account [@openVALIDATION](https://twitter.com/openVALIDATION) or message us at our Instagram account [@openvalidation_](https://www.instagram.com/openvalidation_/).
 
 <br/><br/><br/>
 ## license
