@@ -45,6 +45,7 @@
 
 ## introduction
 <br/>
+
 <a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="200" src="docs/ci/logo-v2.png" alt="a natural language compiler for validation rules"></a>
 
 <br/>
@@ -58,7 +59,7 @@ Write once, DONT CODE and run everywhere!
 <br/><br/><br/><br/>
 
 ## install
-<br/>
+
 ### npm
 
 install via npm as global cli command
@@ -66,7 +67,7 @@ install via npm as global cli command
 ```bash
 npm i openvalidation -g
 ```
-<br/>
+
 ### jar
 
 or just download the executable jar [here](https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar) or via curl:
@@ -76,6 +77,7 @@ curl 'https://downloadarchive.blob.core.windows.net/openvalidation-generator/ope
 ```
 
 <br/>
+
 ### docker image
 
 ```
@@ -84,21 +86,22 @@ docker pull openvalidation/openvalidation-rest
 
 <br/><br/><br/><br/>
 ## run
-<br/>
+
+
 ### npm cli
 
 ```bash
 openvalidation -r "user's age should not be less than 18 years" -s "{age:0}" -c en -l javascript
 ```
 
-<br/>
+
 ### executable jar
 
 ```
 java -jar openvalidation.jar -r "user's age should not be less than 18 years" -s "{age : 0}"  -c en -l javascript
 ```
 
-<br/>
+
 ### docker container
 ```
 
@@ -138,8 +141,10 @@ var HUMLValidator = function() {
 The generated code does not depend on the 3'rd party libraries at all. Therefore, a custom framework is generated in addition to the rules. This framework contains a basic architecture to integrate the generated validation rules more easily into other systems.
 
 <br/><br/>
+
 ### cli parameters
-<br/>
+
+
 **-r** (--rule)
 
 validation rule in a natural language
