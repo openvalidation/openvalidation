@@ -370,6 +370,6 @@ You can write an [E-Mail](mailto:validaria@openvalidation.io), mention our twitt
 
 openVALIDATION was initially developed as part of a research project at [BROCKHAUS AG](http://brockhaus-ag.de) in Dortmund.
 
-Only an Open Source solution has the ability to unfold its true potential. That's why we released it on GitHub as an open source project under the Apache 2.0 license.
+Only an Open Source solution can unfold its true potential. That's why we released it on GitHub as an open-source project under the Apache 2.0 license.
 
 See [LICENSE.txt](LICENSE.txt)
