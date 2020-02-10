@@ -16,11 +16,8 @@
 </p>
 
 <br/><br/><br/><br/>
-
-
-
 ## contents
-<br/><br/>
+<br/>
 
 - [introduction](#introduction)
 - [install](#install)
@@ -42,7 +39,6 @@
 - [license](#license)
 
 <br/><br/><br/><br/>
-
 ## introduction
 <br/>
 
@@ -57,8 +53,8 @@ The rules recorded in natural language are readable not only by humans but also 
 Write once, DONT CODE and run everywhere!
 
 <br/><br/><br/><br/>
-
 ## install
+<br/>
 
 ### npm
 
@@ -68,6 +64,7 @@ install via npm as global cli command
 npm i openvalidation -g
 ```
 
+
 ### jar
 
 or just download the executable jar [here](https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar) or via curl:
@@ -76,7 +73,6 @@ or just download the executable jar [here](https://downloadarchive.blob.core.win
 curl 'https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar' --output openvalidation.jar
 ```
 
-<br/>
 
 ### docker image
 
@@ -86,7 +82,7 @@ docker pull openvalidation/openvalidation-rest
 
 <br/><br/><br/><br/>
 ## run
-
+<br/>
 
 ### npm cli
 
@@ -143,7 +139,7 @@ The generated code does not depend on the 3'rd party libraries at all. Therefore
 <br/><br/>
 
 ### cli parameters
-
+<br/>
 
 **-r** (--rule)
 
@@ -174,7 +170,7 @@ See more <a href="https://docs.openvalidation.io/openvalidation-cli" target="_bl
 
 <br/><br/><br/><br/>
 ## integrate
-<br/><br/>
+<br/>
 
 The first step is to generate a rule in e.g. nodejs. To generate code files, the output directory must be defined with the parameter -o.
 
@@ -211,7 +207,7 @@ Further integration examples can be found [here](https://docs.openvalidation.io/
 
 <br/><br/><br/><br/>
 ## samples
-<br/><br/>
+<br/>
 
 Here are examples of different validation rules:
 
@@ -318,7 +314,8 @@ Here are examples of different validation rules:
 
 <br/><br/><br/><br/>
 ## understand
-<br/><br/>
+<br/>
+
 openVALIDATION enables programming of validation rules using natural language, such as German or English and many more.
 The rules recorded in natural language are readable not only by humans but also by the computer and therefore no longer need to be programmed by a software developer.
 
@@ -336,14 +333,14 @@ For more details check out our [documentation and guides](https://docs.openvalid
 
 <br/><br/><br/><br/>
 ## try
-<br/><br/>
+<br/>
+
 try it out directly in the browser on the [playground](https://playground.openvalidation.io/)
 
 
 <br/><br/><br/><br/>
-
 ## contribute
-<br/><br/>
+<br/>
 
 We still have 2 zeros in the version 0.0.X of openVALIDATION, so there is still a lot to do. If you want to join us, you are more than welcome to participate! 
 
@@ -363,15 +360,15 @@ Thank you to all the people and bots who already contributed to openVALIDATION!
 </a>
 
 <br/><br/><br/><br/>
-
 ## contact
-<br/><br/>
+<br/>
+
 You can write an [E-Mail](mailto:validaria@openvalidation.io), mention our twitter account [@openVALIDATION](https://twitter.com/openVALIDATION) or message us at our instagram account [@openvalidation_](https://www.instagram.com/openvalidation_/).
 
 <br/><br/><br/><br/>
-
 ## license
-<br/><br/>
+<br/>
+
 openVALIDATION was initially developed as part of a research project at [BROCKHAUS AG](http://brockhaus-ag.de) in Dortmund.
 
 Only an Open Source solution has the ability to unfold its true potential. That's why we released it on GitHub as an open source project under the Apache 2.0 license.
