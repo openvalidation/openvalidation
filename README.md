@@ -15,7 +15,7 @@
    <span>a natural language (no-code) compiler for validation rules</span>  
 </p>
 
-<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 
 
 
@@ -41,7 +41,7 @@
 - [contact](#contact)
 - [license](#license)
 
-<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## introduction
 <br/><br/>
@@ -55,7 +55,7 @@ The rules recorded in natural language are readable not only by humans but also 
 
 Write once, DONT CODE and run everywhere!
 
-<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## install
 <br/><br/>
@@ -82,7 +82,7 @@ curl 'https://downloadarchive.blob.core.windows.net/openvalidation-generator/ope
 docker pull openvalidation/openvalidation-rest
 ```
 
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 ## run
 <br/><br/>
 ### npm cli
@@ -170,7 +170,7 @@ The Output option defines a directory where the generated code files are stored.
 
 See more <a href="https://docs.openvalidation.io/openvalidation-cli" target="_blank">CLI Options...</a> at <a href="https://docs.openvalidation.io">docs.openvalidation.io</a>
 
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 ## integrate
 <br/><br/>
 
@@ -207,7 +207,7 @@ if (validationRESULT.hasErrors) {
 Further integration examples can be found [here](https://docs.openvalidation.io/openvalidation-integration).  
 
 
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 ## samples
 <br/><br/>
 
@@ -314,7 +314,7 @@ Here are examples of different validation rules:
   
 </table>
 
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 ## understand
 <br/><br/>
 openVALIDATION enables programming of validation rules using natural language, such as German or English and many more.
@@ -333,13 +333,13 @@ The Grammar of openVALIDATION based on a natural language is both formal and nat
 <br/><br/>
 For more details check out our [documentation and guides](https://docs.openvalidation.io)
 
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 ## try
 <br/><br/>
 try it out directly in the browser on the [playground](https://playground.openvalidation.io/)
 
 
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## contribute
 <br/><br/>
@@ -361,13 +361,13 @@ Thank you to all the people and bots who already contributed to openVALIDATION!
 <a href="https://github.com/openvalidation/openvalidation/graphs/contributors"><img src="https://contributors-img.firebaseapp.com/image?repo=openvalidation/openvalidation"/>
 </a>
 
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## contact
 <br/><br/>
 You can write an [E-Mail](mailto:validaria@openvalidation.io), mention our twitter account [@openVALIDATION](https://twitter.com/openVALIDATION) or message us at our instagram account [@openvalidation_](https://www.instagram.com/openvalidation_/).
 
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## license
 <br/><br/>
