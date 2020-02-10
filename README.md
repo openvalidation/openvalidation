@@ -44,7 +44,7 @@
 <br/><br/><br/><br/>
 
 ## introduction
-<br/><br/>
+<br/>
 <a href="https://openvalidation.io" target="_blank" rel="noopener noreferrer"><img width="200" src="docs/ci/logo-v2.png" alt="a natural language compiler for validation rules"></a>
 
 <br/>
@@ -58,7 +58,7 @@ Write once, DONT CODE and run everywhere!
 <br/><br/><br/><br/>
 
 ## install
-<br/><br/>
+<br/>
 ### npm
 
 install via npm as global cli command
@@ -66,7 +66,7 @@ install via npm as global cli command
 ```bash
 npm i openvalidation -g
 ```
-<br/><br/>
+<br/>
 ### jar
 
 or just download the executable jar [here](https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar) or via curl:
@@ -75,7 +75,7 @@ or just download the executable jar [here](https://downloadarchive.blob.core.win
 curl 'https://downloadarchive.blob.core.windows.net/openvalidation-generator/openvalidation.jar' --output openvalidation.jar
 ```
 
-<br/><br/>
+<br/>
 ### docker image
 
 ```
@@ -84,22 +84,21 @@ docker pull openvalidation/openvalidation-rest
 
 <br/><br/><br/><br/>
 ## run
-<br/><br/>
+<br/>
 ### npm cli
 
 ```bash
 openvalidation -r "user's age should not be less than 18 years" -s "{age:0}" -c en -l javascript
 ```
 
-<br/><br/>
+<br/>
 ### executable jar
 
 ```
 java -jar openvalidation.jar -r "user's age should not be less than 18 years" -s "{age : 0}"  -c en -l javascript
 ```
 
-<br/><br/>
-
+<br/>
 ### docker container
 ```
 
@@ -140,9 +139,7 @@ The generated code does not depend on the 3'rd party libraries at all. Therefore
 
 <br/><br/>
 ### cli parameters
-
 <br/>
-
 **-r** (--rule)
 
 validation rule in a natural language
@@ -320,7 +317,6 @@ Here are examples of different validation rules:
 openVALIDATION enables programming of validation rules using natural language, such as German or English and many more.
 The rules recorded in natural language are readable not only by humans but also by the computer and therefore no longer need to be programmed by a software developer.
 
-<br/><br/>
 
 **The grammar**
 
