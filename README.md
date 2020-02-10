@@ -347,7 +347,7 @@ Check our [contribution guide](https://docs.openvalidation.io/contribution/contr
 
 Even if you're not a developer or don't fully understand the technical part of openVALIDATION yet, it doesn't matter. There are many different ways to join the project. 
 
-Check our [contribution guide specially for beginners](https://docs.openvalidation.io/contribution/for-beginners)
+Check our [contribution guide especially for beginners](https://docs.openvalidation.io/contribution/for-beginners)
 
 
 
