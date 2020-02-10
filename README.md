@@ -134,7 +134,7 @@ var HUMLValidator = function() {
 
 ```
 
-The generated code does not depend on the 3'rd party libraries at all. Therefore, a custom framework is generated in addition to the rules. This framework contains a basic architecture to integrate the generated validation rules more easily into other systems.
+The generated code does not depend on 3'rd party libraries at all. Therefore, a custom framework is generated in addition to the rules. This framework contains a basic architecture to integrate the generated validation rules more easily into other systems.
 <br/>
 
 ### cli parameters
