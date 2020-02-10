@@ -15,7 +15,7 @@
    <span>a natural language (no-code) compiler for validation rules</span>  
 </p>
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## contents
 <br/>
 
@@ -38,7 +38,7 @@
 - [contact](#contact)
 - [license](#license)
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## introduction
 <br/>
 
@@ -52,7 +52,7 @@ The rules recorded in natural language are readable not only by humans but also 
 
 Write once, DONT CODE and run everywhere!
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## install
 <br/>
 
@@ -80,7 +80,7 @@ curl 'https://downloadarchive.blob.core.windows.net/openvalidation-generator/ope
 docker pull openvalidation/openvalidation-rest
 ```
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## run
 <br/>
 
@@ -107,7 +107,7 @@ curl -X POST -H "Content-Type: application/json" -d "{\"rule\":\"user's age shou
 
 ```
 
-<br/><br/>
+<br/>
 ### result
 
 The following JavaScript code will be generated:
@@ -136,10 +136,9 @@ var HUMLValidator = function() {
 
 The generated code does not depend on the 3'rd party libraries at all. Therefore, a custom framework is generated in addition to the rules. This framework contains a basic architecture to integrate the generated validation rules more easily into other systems.
 
-<br/><br/>
-
-### cli parameters
 <br/>
+### cli parameters
+
 
 **-r** (--rule)
 
@@ -168,7 +167,7 @@ The Output option defines a directory where the generated code files are stored.
 
 See more <a href="https://docs.openvalidation.io/openvalidation-cli" target="_blank">CLI Options...</a> at <a href="https://docs.openvalidation.io">docs.openvalidation.io</a>
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## integrate
 <br/>
 
@@ -205,7 +204,7 @@ if (validationRESULT.hasErrors) {
 Further integration examples can be found [here](https://docs.openvalidation.io/openvalidation-integration).  
 
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## samples
 <br/>
 
@@ -312,7 +311,7 @@ Here are examples of different validation rules:
   
 </table>
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## understand
 <br/>
 
@@ -331,14 +330,14 @@ The Grammar of openVALIDATION based on a natural language is both formal and nat
 <br/><br/>
 For more details check out our [documentation and guides](https://docs.openvalidation.io)
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## try
 <br/>
 
 try it out directly in the browser on the [playground](https://playground.openvalidation.io/)
 
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## contribute
 <br/>
 
@@ -359,13 +358,13 @@ Thank you to all the people and bots who already contributed to openVALIDATION!
 <a href="https://github.com/openvalidation/openvalidation/graphs/contributors"><img src="https://contributors-img.firebaseapp.com/image?repo=openvalidation/openvalidation"/>
 </a>
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## contact
 <br/>
 
 You can write an [E-Mail](mailto:validaria@openvalidation.io), mention our twitter account [@openVALIDATION](https://twitter.com/openVALIDATION) or message us at our instagram account [@openvalidation_](https://www.instagram.com/openvalidation_/).
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 ## license
 <br/>
 
