@@ -106,8 +106,8 @@ docker run -p 7070:80  openvalidation/openvalidation-rest
 curl -X POST -H "Content-Type: application/json" -d "{\"rule\":\"user's age should not be less than 18 years\",\"culture\":\"en\",\"language\":\"JavaScript\",\"schema\":\"{age:0}\"}" http://localhost:7070/
 
 ```
-
 <br/>
+
 ### result
 
 The following JavaScript code will be generated:
@@ -135,8 +135,8 @@ var HUMLValidator = function() {
 ```
 
 The generated code does not depend on the 3'rd party libraries at all. Therefore, a custom framework is generated in addition to the rules. This framework contains a basic architecture to integrate the generated validation rules more easily into other systems.
-
 <br/>
+
 ### cli parameters
 
 
