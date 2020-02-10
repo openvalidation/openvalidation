@@ -1,0 +1,105 @@
+################# DOCUMENTATION LISTS First and last element of a list FIRST and LAST function simple ########################
+
+The FIRST number FROM my favourite numbers AS first favourite number
+
+My first favourite number MUST NOT be 1
+
+{favourite_numbers: [1, 2, 4, 8, 16]}
+
+--------------  error triggered  -------------------
+
+{favourite_numbers: [1, 2, 4, 8, 16]}
+
+My first favourite number MUST NOT be 1
+
+
+
+################# DOCUMENTATION LISTS First and last element of a list FIRST and LAST function with amount ########################
+
+The FIRST 3 numbers from my favourite numbers AS Top 3
+
+
+The FIRST FROM Top 3 AS first number
+
+first number MUST NOT be 1
+
+
+The LAST FROM Top 3 AS last number
+
+last number MUST NOT be 4
+
+{favourite_numbers: [1, 2, 4, 8, 16]}
+
+--------------  first error triggered  -------------------
+
+{favourite_numbers: [1, 2, 100, 8, 16]}
+
+first number MUST NOT be 1
+
+--------------  second error triggered  -------------------
+
+{favourite_numbers: [100, 2, 4, 8, 16]}
+
+last number MUST NOT be 4
+
+
+
+################# DOCUMENTATION LISTS Filtering of lists with conditions WITH function simple ########################
+
+All items FROM numbers WITH a value GREATER THAN 5 AS my list
+
+
+The FIRST FROM my list AS first number
+
+The first number MUST NOT be 6
+
+
+The LAST FROM my list AS last number
+
+The last number MUST NOT be 10
+
+{numbers: [1,2,3,4,5,6,7,8,9,10]}
+
+--------------  first error triggered  -------------------
+
+{numbers: [1,2,3,4,5,6,7,8,9,100]}
+
+The first number MUST NOT be 6
+
+--------------  second error triggered  -------------------
+
+{numbers: [1,2,3,4,5,100,7,8,9,10]}
+
+The last number MUST NOT be 10
+
+
+
+################# DOCUMENTATION LISTS FIRST and LAST in combination with conditions simple ########################
+
+The FIRST number FROM my favourite numbers AS the best number
+
+The FIRST number FROM my favourite numbers WITH a value GREATER THAN 2 AS X
+
+
+the best number MUST NOT be 1
+
+X MUST NOT be 4
+
+{favourite_numbers: [1,2,4,8,16,32]}
+
+--------------  first error triggered  -------------------
+
+{favourite_numbers: [1,2,100,8,16,32]}
+
+the best number MUST NOT be 1
+
+--------------  second error triggered  -------------------
+
+{favourite_numbers: [0,2,4,8,16,32]}
+
+X MUST NOT be 4
+
+
+
+
+
