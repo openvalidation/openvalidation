@@ -1,0 +1,105 @@
+################# DOCUMENTATION LISTEN Erstes und letztes Element einer Liste ERSTE und LETZTE Funktion simple ########################
+
+Die ERSTE Zahl AUS meinen Lieblingszahlen ALS erste Lieblingszahl
+
+Meine erste Lieblingszahl DARF NICHT 1 sein
+
+{Lieblingszahlen: [1, 2, 4, 8, 16]}
+
+--------------  error triggered  -------------------
+
+{Lieblingszahlen: [1, 2, 4, 8, 16]}
+
+Meine erste Lieblingszahl DARF NICHT 1 sein
+
+
+
+################# DOCUMENTATION LISTEN Erstes und letztes Element einer Liste ERSTE und LETZTE Funktion with amount ########################
+
+Die ERSTEN 3 Zahlen AUS meinen Lieblingszahlen ALS Top 3
+
+
+Die ERSTE Zahl AUS Top 3 ALS erste Zahl
+
+Die erste Zahl DARF NICHT 1 sein
+
+
+Die LETZTEN Zahl AUS Top 3 ALS letzte Zahl
+
+Die letzte Zahl DARF NICHT 4 sein
+
+{Lieblingszahlen: [1, 2, 4, 8, 16]}
+
+--------------  first error triggered  -------------------
+
+{Lieblingszahlen: [1, 2, 100, 8, 16]}
+
+Die erste Zahl DARF NICHT 1 sein
+
+--------------  second error triggered  -------------------
+
+{Lieblingszahlen: [100, 2, 4, 8, 16]}
+
+Die letzte Zahl DARF NICHT 4 sein
+
+
+
+################# DOCUMENTATION LISTEN Filterung von Listen mit Bedingung MIT Funktion simple ########################
+
+Alle Elemente AUS Zahlen MIT einem Wert GRÖßER 5 ALS MeineListe
+
+
+Die ERSTE Zahl AUS MeineListe ALS erste Zahl
+
+Die erste Zahl DARF NICHT 6 sein
+
+
+Die LETZTEN Zahl AUS MeineListe ALS letzte Zahl
+
+Die letzte Zahl DARF NICHT 10 sein
+
+{Zahlen: [1,2,3,4,5,6,7,8,9,10]}
+
+--------------  first error triggered  -------------------
+
+{Zahlen: [1,2,3,4,5,6,7,8,9,100]}
+
+Die erste Zahl DARF NICHT 6 sein
+
+--------------  second error triggered  -------------------
+
+{Zahlen: [1,2,3,4,5,100,7,8,9,10]}
+
+Die letzte Zahl DARF NICHT 10 sein
+
+
+
+################# DOCUMENTATION LISTEN ERSTE und LETZTE in Kombination mit Bedingung simple ########################
+
+Die ERSTE Zahl AUS meinen Lieblingszahlen ALS Favorit
+
+Die ERSTE Zahl AUS meinen Lieblingszahlen MIT einem Wert GRÖßER als 2 ALS Number
+
+
+Favorit DARF NICHT 1 sein
+
+Number DARF NICHT 4 sein
+
+{Lieblingszahlen: [1,2,4,8,16,32]}
+
+--------------  first error triggered  -------------------
+
+{Lieblingszahlen: [1,2,100,8,16,32]}
+
+Favorit DARF NICHT 1 sein
+
+--------------  second error triggered  -------------------
+
+{Lieblingszahlen: [0,2,4,8,16,32]}
+
+Number DARF NICHT 4 sein
+
+
+
+
+
