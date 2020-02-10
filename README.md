@@ -46,7 +46,7 @@
 
 <br/>
 
-openVALIDATION enables programming validation rules using natural language, such as German or English. 
+openVALIDATION enables programming validation rules using natural languages, such as German or English. 
 
 The rules recorded in natural language are readable not only by humans but also by the machines and therefore no longer need to be programmed by a software developer. This task is now taken over by openVALIDATION compiler. With integrated code generators, corresponding source code in the desired programming language can be generated automatically, such as Java, C#, JavaScript or Python, with more to come. This code can then be integrated into any application (services, frontends, middleware). 
 
