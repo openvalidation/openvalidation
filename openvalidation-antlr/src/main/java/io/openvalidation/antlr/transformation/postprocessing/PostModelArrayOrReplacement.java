@@ -21,9 +21,10 @@ import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
+import io.openvalidation.common.ast.operand.ASTOperandStatic;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.utils.ArrayContentUtils;
 import io.openvalidation.common.utils.LINQ;
-import io.openvalidation.common.utils.StringUtils;
 import java.util.function.Predicate;
 
 public class PostModelArrayOrReplacement
@@ -65,13 +66,16 @@ public class PostModelArrayOrReplacement
         ASTCondition cnd = group.filterConditions().get(indx + 1);
 
         if (condition.getRightOperand() instanceof ASTOperandArray) {
-          if (cnd.getLeftOperand().isStaticString()) {
+          if (cnd.getLeftOperand().isStatic()) {
             String val = ((ASTOperandStaticString) cnd.getLeftOperand()).getValue();
-            ((ASTOperandStaticString) cnd.getLeftOperand())
-                .setValue(StringUtils.stripSpecialWords(val));
+            ASTOperandStatic staticOperand =
+                ArrayContentUtils.resolveStaticArrayContent(
+                    val, ((ASTOperandArray) condition.getRightOperand()).getContentType());
+            ((ASTOperandArray) condition.getRightOperand()).add(staticOperand);
+          } else {
+            ((ASTOperandArray) condition.getRightOperand()).add(cnd.getLeftOperand());
           }
 
-          ((ASTOperandArray) condition.getRightOperand()).add(cnd.getLeftOperand());
           group.getConditions().remove(cnd);
           // TODO: replace source with new elements...
         }

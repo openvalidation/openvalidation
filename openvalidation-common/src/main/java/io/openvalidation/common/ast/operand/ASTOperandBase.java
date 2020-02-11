@@ -88,6 +88,10 @@ public abstract class ASTOperandBase extends ASTItem {
     return this.getDataType() == DataPropertyType.String;
   }
 
+  public boolean isStatic() {
+    return this instanceof ASTOperandStatic;
+  }
+
   public boolean isStaticString() {
     return this instanceof ASTOperandStaticString;
   }

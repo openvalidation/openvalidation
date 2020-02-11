@@ -21,6 +21,8 @@ import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.data.DataPropertyType;
+import io.openvalidation.common.utils.ArrayContentUtils;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.common.utils.StringUtils;
 import java.util.function.Predicate;
@@ -42,11 +44,21 @@ public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTConditi
 
   @Override
   protected void processItem(ASTCondition condition) {
-    ASTOperandArray leftOperandArray = this.resolveArrayInOperand(condition.getLeftOperand());
-    if (leftOperandArray != null) condition.setLeftOperand(leftOperandArray);
 
-    ASTOperandArray rightOperandArray = this.resolveArrayInOperand(condition.getRightOperand());
-    if (rightOperandArray != null) condition.setRightOperand(rightOperandArray);
+    ASTOperandBase leftOp = condition.getLeftOperand();
+    ASTOperandBase rightOp = condition.getRightOperand();
+
+    ASTOperandArray leftOperandArray = null;
+    ASTOperandArray rightOperandArray = null;
+
+    if (rightOp != null) {
+      leftOperandArray = this.resolveArrayInOperand(leftOp, rightOp.getDataType());
+      if (leftOperandArray != null) condition.setLeftOperand(leftOperandArray);
+    }
+    if (leftOp != null) {
+      rightOperandArray = this.resolveArrayInOperand(rightOp, leftOp.getDataType());
+      if (rightOperandArray != null) condition.setRightOperand(rightOperandArray);
+    }
 
     if (leftOperandArray != null || rightOperandArray != null) {
       if (condition.getOperator() == ASTComparisonOperator.EQUALS)
@@ -56,8 +68,9 @@ public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTConditi
     }
   }
 
-  public ASTOperandArray resolveArrayInOperand(ASTOperandBase operand) {
-    ASTOperandArray result = null;
+  public ASTOperandArray resolveArrayInOperand(
+      ASTOperandBase operand, DataPropertyType resolutionType) {
+    ASTOperandArray resultArray = null;
 
     if (operand != null && operand instanceof ASTOperandStaticString) {
       String val = ((ASTOperandStaticString) operand).getValue();
@@ -66,21 +79,24 @@ public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTConditi
         val = StringUtils.trimSpecialChars(val);
 
         if (val.contains(",")) {
-          result = new ASTOperandArray();
+          resultArray = new ASTOperandArray();
+          resultArray.setContentType(resolutionType);
 
           for (String delimiter : Constants.ARRAY_DELIMITER_ALIASES) {
             val = val.replaceAll(" " + delimiter + " ", ",");
           }
-
+          System.out.println();
           for (String v : val.split(",")) {
-            result.add(new ASTOperandStaticString(StringUtils.stripSpecialWords(v.trim())));
+            ASTOperandBase extractedItem =
+                ArrayContentUtils.resolveStaticArrayContent(v, resolutionType);
+            resultArray.add(extractedItem);
           }
 
-          result.setSource(operand.getPreprocessedSource());
+          resultArray.setSource(operand.getPreprocessedSource());
         }
       }
     }
 
-    return result;
+    return resultArray;
   }
 }
