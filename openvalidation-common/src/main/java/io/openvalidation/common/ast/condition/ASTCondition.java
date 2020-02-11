@@ -271,17 +271,28 @@ public class ASTCondition extends ASTConditionBase {
     }
 
     // try to find numbers on the left or right side
+    // this may occur in rules in German, e.g.:
+    //      "Wenn der Wert 100 ist dann..."
+    // both operands (Wert & 100), which are a property and a static number are on the left of the
+    // operator (IST (=))
+    // this is to be resolved here
     if (this.getLeftOperand() != null && this.getLeftOperand().isNumber() && rightOperand == null) {
-      String value =
+      String leftOpSource =
           (this.isConstrainedCondition)
               ? this.getPreprocessedSource()
               : this.getLeftOperand().getPreprocessedSource();
 
-      if (NumberParsingUtils.containsNumber(value)) {
-        Double dbl = NumberParsingUtils.extractDouble(value);
+      if (NumberParsingUtils.containsNumber(leftOpSource)) {
+        Double dbl = NumberParsingUtils.extractDouble(leftOpSource);
         if (dbl != null) {
-          rightOperand = new ASTOperandStaticNumber(dbl);
-          rightOperand.setSource(value);
+          // only set the left operand if the newly extracted value is not the same as the already
+          // existing one
+          // to prevent duplicate extraction
+          if (!(this.getLeftOperand() instanceof ASTOperandStaticNumber
+              && ((ASTOperandStaticNumber) this.getLeftOperand()).getNumberValue() == dbl)) {
+            rightOperand = new ASTOperandStaticNumber(dbl);
+            rightOperand.setSource(leftOpSource);
+          }
         }
       }
     }
@@ -289,15 +300,22 @@ public class ASTCondition extends ASTConditionBase {
     if (this.getRightOperand() != null
         && this.getRightOperand().isNumber()
         && leftOperand == null) {
-      String value =
+      String rightOpSource =
           (this.isConstrainedCondition)
               ? this.getPreprocessedSource()
               : this.getRightOperand().getPreprocessedSource();
-      if (NumberParsingUtils.containsNumber(value)) {
-        Double dbl = NumberParsingUtils.extractDouble(value);
+
+      if (NumberParsingUtils.containsNumber(rightOpSource)) {
+        Double dbl = NumberParsingUtils.extractDouble(rightOpSource);
         if (dbl != null) {
-          leftOperand = new ASTOperandStaticNumber(dbl);
-          leftOperand.setSource(value);
+          // only set the right operand if the newly extracted value is not the same as the already
+          // existing one
+          // to prevent duplicate extraction
+          if (!(this.getRightOperand() instanceof ASTOperandStaticNumber
+              && ((ASTOperandStaticNumber) this.getRightOperand()).getNumberValue() == dbl)) {
+            leftOperand = new ASTOperandStaticNumber(dbl);
+            leftOperand.setSource(rightOpSource);
+          }
         }
       }
     }

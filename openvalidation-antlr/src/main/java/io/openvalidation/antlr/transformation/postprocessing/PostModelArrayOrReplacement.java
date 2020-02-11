@@ -22,7 +22,6 @@ import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandStatic;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import io.openvalidation.common.utils.ArrayContentUtils;
 import io.openvalidation.common.utils.LINQ;
 import java.util.function.Predicate;
@@ -67,7 +66,7 @@ public class PostModelArrayOrReplacement
 
         if (condition.getRightOperand() instanceof ASTOperandArray) {
           if (cnd.getLeftOperand().isStatic()) {
-            String val = ((ASTOperandStaticString) cnd.getLeftOperand()).getValue();
+            String val = ((ASTOperandStatic) cnd.getLeftOperand()).getValue();
             ASTOperandStatic staticOperand =
                 ArrayContentUtils.resolveStaticArrayContent(
                     val, ((ASTOperandArray) condition.getRightOperand()).getContentType());
