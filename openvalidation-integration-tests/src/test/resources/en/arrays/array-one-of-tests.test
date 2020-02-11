@@ -1,0 +1,45 @@
+################# array one of with static strings  ########################
+
+Your name has to be Anna or Ben
+
+Your name has to be Ben or Claudia
+
+
+{name: ""}
+
+
+--------------  first rule triggered -------------------
+
+{name: Claudia}
+
+Your name has to be Anna or Ben
+
+--------------  second rule triggered -------------------
+
+{name: Anna}
+
+Your name has to be Ben or Claudia
+
+
+
+################# array one of with static numbers  ########################
+
+Your age has to be 1 or 2
+
+Your age has to be 2 or 3
+
+
+{age: 0}
+
+
+--------------  first rule triggered -------------------
+
+{age: 3}
+
+Your age has to be 1 or 2
+
+--------------  second rule triggered -------------------
+
+{age: 1}
+
+Your age has to be 2 or 3
