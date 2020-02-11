@@ -21,6 +21,7 @@ import static org.hamcrest.Matchers.*;
 
 import io.openvalidation.common.ast.builder.ASTConditionBuilder;
 import io.openvalidation.common.ast.condition.ASTCondition;
+import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -62,5 +63,22 @@ public class ASTConditionTest {
 
     assertThat(parentProperties.get(0).getPathAsString(), is("order"));
     assertThat(parentProperties.get(1).getPathAsString(), is("order.person"));
+  }
+
+  @Test
+  public void should_resolve_nothing() {
+    ASTOperandStaticNumber number = new ASTOperandStaticNumber(5.0);
+    number.setSource("the number 5 is the source");
+
+    ASTCondition condition = new ASTCondition();
+    condition.setLeftOperand(number);
+
+    assertThat(condition.getLeftOperand().isNumber(), is(true));
+    assertThat(condition.getRightOperand(), nullValue());
+
+    condition.resolveNumberValue();
+
+    assertThat(condition.getLeftOperand().isNumber(), is(true));
+    assertThat(condition.getRightOperand(), nullValue());
   }
 }

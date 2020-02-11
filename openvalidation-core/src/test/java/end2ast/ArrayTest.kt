@@ -217,9 +217,15 @@ class ArrayTest {
         }
     }
 
-    @Disabled
     @ParameterizedTest
     @ValueSource(strings = [
+        "Dein Alter darf nicht 3, 4, 5",
+        "Dein Alter darf nicht 3, 4 oder 5",
+        "Dein Alter darf nicht 3, 4, 5 sein",
+        "Dein Alter darf nicht 3, 4 oder 5 sein",
+        "Dein Alter darf nicht gleich 3, 4, 5",
+        "Dein Alter darf nicht gleich 3, 4 oder 5",
+        "Dein Alter darf nicht gleich 3, 4, 5 sein",
         "Dein Alter darf nicht gleich 3, 4 oder 5 sein"
     ])
     fun array_one_of_array_contains_static_numbers(paramString : String)
