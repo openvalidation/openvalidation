@@ -18,6 +18,7 @@ package io.openvalidation.common.unittesting.astassertion;
 
 import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
+import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import io.openvalidation.common.data.DataPropertyType;
 
@@ -45,5 +46,26 @@ public class ArrayAssertion
         new StaticStringAssertion(
             (ASTOperandStaticString) this.model.getItems().get(position), ast, this);
     return staticString;
+  }
+
+  public StaticNumberAssertion numberAtPosition(int position) {
+    shouldNotBeEmpty(this.model.getItems(), "Array Items");
+    shouldNotBeEmpty(this.model.getItems().get(position), "Array Item At Position");
+    shouldEquals(
+        this.model.getItems().get(position).getDataType(),
+        DataPropertyType.Decimal,
+        "Array Item Type");
+
+    StaticNumberAssertion staticString =
+        new StaticNumberAssertion(
+            (ASTOperandStaticNumber) this.model.getItems().get(position), ast, this);
+    return staticString;
+  }
+
+  public ArrayAssertion numberAtPosition(double number, int index) {
+    StaticNumberAssertion numberAssertion = this.numberAtPosition(index);
+    numberAssertion.hasValue(number);
+
+    return this;
   }
 }

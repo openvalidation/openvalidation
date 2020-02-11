@@ -17,6 +17,7 @@
 package end2ast
 
 import io.openvalidation.common.ast.ASTComparisonOperator
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -184,7 +185,7 @@ class ArrayTest {
 
     @ParameterizedTest
     @ValueSource(strings = [
-          "the name SHOULD NOT be EQUAL to Boris, Donald, Jimmy"
+        "the name SHOULD NOT be EQUAL to Boris, Donald, Jimmy"
         , "the name MUST NOT be EQUAL to Boris, to Donald, to Jimmy"
         , "the name MUST NOT EQUAL Boris, Donald or Jimmy"
         , "the name MUST NOT be Boris, Donald or Jimmy"
@@ -198,21 +199,45 @@ class ArrayTest {
             r -> r.rules()
                 .hasSizeOf(1)
                 .first()
-                    .condition()
-                        .hasOperator(ASTComparisonOperator.AT_LEAST_ONE_OF)
-                        .leftProperty()
-                            .hasPath("name")
-                    .parentCondition()
-                        .rightArray()
-                            .hasSize(3)
-                            .StringAtPosition(0)
-                                .hasValue("Boris")
-                        .parentArray()
-                            .StringAtPosition(1)
-                                .hasValue("Donald")
-                        .parentArray()
-                            .StringAtPosition(2)
-                                .hasValue("Jimmy")
+                .condition()
+                .hasOperator(ASTComparisonOperator.AT_LEAST_ONE_OF)
+                .leftProperty()
+                .hasPath("name")
+                .parentCondition()
+                .rightArray()
+                .hasSize(3)
+                .StringAtPosition(0)
+                .hasValue("Boris")
+                .parentArray()
+                .StringAtPosition(1)
+                .hasValue("Donald")
+                .parentArray()
+                .StringAtPosition(2)
+                .hasValue("Jimmy")
+        }
+    }
+
+    @Disabled
+    @ParameterizedTest
+    @ValueSource(strings = [
+        "Dein Alter darf nicht gleich 3, 4 oder 5 sein"
+    ])
+    fun array_one_of_array_contains_static_numbers(paramString : String)
+    {
+
+        var input = paramString
+
+        End2AstRunner.run(input, "{Alter: 25}", "de") {
+            r -> r.rules()
+                .hasSizeOf(1)
+                .first()
+                .condition()
+                .hasOperator(ASTComparisonOperator.AT_LEAST_ONE_OF)
+                .rightArray()
+                .hasSize(3)
+                .numberAtPosition(3.0, 0)
+                .numberAtPosition(4.0, 1)
+                .numberAtPosition(5.0, 2)
         }
     }
 

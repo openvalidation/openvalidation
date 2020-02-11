@@ -17,12 +17,14 @@
 package io.openvalidation.common.ast.operand;
 
 import io.openvalidation.common.ast.ASTItem;
+import io.openvalidation.common.data.DataPropertyType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ASTOperandArray extends ASTOperandBase {
   private List<ASTOperandBase> _items = new ArrayList<>();
+  private DataPropertyType contentType;
 
   public List<ASTOperandBase> getItems() {
     return _items;
@@ -34,6 +36,14 @@ public class ASTOperandArray extends ASTOperandBase {
 
   public void add(ASTOperandBase item) {
     this._items.add(item);
+  }
+
+  public DataPropertyType getContentType() {
+    return contentType;
+  }
+
+  public void setContentType(DataPropertyType contentType) {
+    this.contentType = contentType;
   }
 
   @Override
@@ -55,5 +65,17 @@ public class ASTOperandArray extends ASTOperandBase {
     }
 
     return lst;
+  }
+
+  @Override
+  public String print(int level) {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append(this.space(level) + getType() + "\n");
+    for (ASTOperandBase base : this._items) {
+      sb.append(base.print(level + 1));
+    }
+
+    return sb.toString();
   }
 }
