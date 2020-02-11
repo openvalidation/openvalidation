@@ -228,7 +228,7 @@ class ArrayTest {
         "Dein Alter muss gleich 3, 4, 5 sein",
         "Dein Alter muss gleich 3, 4 oder 5 sein"
     ])
-    fun DE_array_one_of_array_contains_static_numbers_must(paramString : String)
+    fun DE_array_one_of_array_contains_3_static_numbers_must(paramString : String)
     {
 
         var input = paramString
@@ -258,7 +258,7 @@ class ArrayTest {
         "Dein Alter darf nicht gleich 3, 4, 5 sein",
         "Dein Alter darf nicht gleich 3, 4 oder 5 sein"
     ])
-    fun DE_array_one_of_array_contains_static_numbers_must_not(paramString : String)
+    fun DE_array_one_of_array_contains_3_static_numbers_must_not(paramString : String)
     {
 
         var input = paramString
@@ -277,4 +277,34 @@ class ArrayTest {
         }
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = [
+        "Dein Alter darf nicht 3, 5",
+        "Dein Alter darf nicht 3 oder 5",
+        "Dein Alter darf nicht 3, 5 sein",
+        "Dein Alter darf nicht 3 oder 5 sein",
+        "Dein Alter darf nicht gleich 3, 5",
+        "Dein Alter darf nicht gleich 3 oder 5",
+        "Dein Alter darf nicht gleich 3, 5 sein",
+        "Dein Alter darf nicht gleich 3 oder 5 sein"
+    ])
+    fun DE_array_one_of_array_contains_2_static_numbers_must_not(paramString : String)
+    {
+
+        var input = paramString
+
+        End2AstRunner.run(input, "{Alter: 25}", "de") {
+            r -> r.rules()
+                .hasSizeOf(1)
+                .first()
+                .condition()
+                .hasOperator(ASTComparisonOperator.AT_LEAST_ONE_OF)
+                .rightArray()
+                .hasSize(2)
+                .numberAtPosition(3.0, 0)
+                .numberAtPosition(5.0, 1)
+        }
+    }
+
+    //todo lazevedo bool is true OR boolVariable testcase
 }
