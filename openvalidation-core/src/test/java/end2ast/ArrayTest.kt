@@ -219,6 +219,36 @@ class ArrayTest {
 
     @ParameterizedTest
     @ValueSource(strings = [
+        "Dein Alter muss 3, 4, 5",
+        "Dein Alter muss 3, 4 oder 5",
+        "Dein Alter muss 3, 4, 5 sein",
+        "Dein Alter muss 3, 4 oder 5 sein",
+        "Dein Alter muss gleich 3, 4, 5",
+        "Dein Alter muss gleich 3, 4 oder 5",
+        "Dein Alter muss gleich 3, 4, 5 sein",
+        "Dein Alter muss gleich 3, 4 oder 5 sein"
+    ])
+    fun DE_array_one_of_array_contains_static_numbers_must(paramString : String)
+    {
+
+        var input = paramString
+
+        End2AstRunner.run(input, "{Alter: 25}", "de") {
+            r -> r.rules()
+                .hasSizeOf(1)
+                .first()
+                .condition()
+                .hasOperator(ASTComparisonOperator.NONE_OF)
+                .rightArray()
+                .hasSize(3)
+                .numberAtPosition(3.0, 0)
+                .numberAtPosition(4.0, 1)
+                .numberAtPosition(5.0, 2)
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = [
         "Dein Alter darf nicht 3, 4, 5",
         "Dein Alter darf nicht 3, 4 oder 5",
         "Dein Alter darf nicht 3, 4, 5 sein",
@@ -228,7 +258,7 @@ class ArrayTest {
         "Dein Alter darf nicht gleich 3, 4, 5 sein",
         "Dein Alter darf nicht gleich 3, 4 oder 5 sein"
     ])
-    fun array_one_of_array_contains_static_numbers(paramString : String)
+    fun DE_array_one_of_array_contains_static_numbers_must_not(paramString : String)
     {
 
         var input = paramString
