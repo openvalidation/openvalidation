@@ -20,8 +20,7 @@ import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
-import io.openvalidation.common.ast.operand.ASTOperandArray;
-import io.openvalidation.common.ast.operand.ASTOperandStatic;
+import io.openvalidation.common.ast.operand.*;
 import io.openvalidation.common.utils.ArrayContentUtils;
 import io.openvalidation.common.utils.LINQ;
 import java.util.function.Predicate;
@@ -89,6 +88,7 @@ public class PostModelArrayOrReplacement
 
           group.getConditions().remove(followingCondition);
           // TODO: replace source with new elements...
+          // second condition can be removed in if statement
         } else if (currentCondition.getRightOperand() instanceof ASTOperandStatic
             && currentCondition.hasEqualityComparer()) {
           ASTOperandStatic currentRightStaticOp =
@@ -107,21 +107,30 @@ public class PostModelArrayOrReplacement
           // fill array with right operand and the one from the following condition
           array.add(currentRightStaticOp);
 
-          if (followingCondition.getLeftOperand().isStatic()) {
-            String val = ((ASTOperandStatic) followingCondition.getLeftOperand()).getValue();
-            ASTOperandStatic staticOperand =
-                ArrayContentUtils.resolveStaticArrayContent(val, array.getContentType());
-            array.add(staticOperand);
-          } else {
-            array.add(followingCondition.getLeftOperand());
-          }
+          ASTOperandBase follCondLeftOp = followingCondition.getLeftOperand();
+          if (followingCondition.hasLeftOperand() && !followingCondition.hasRightOperand()) {
+            if ((follCondLeftOp instanceof ASTOperandStaticString)
+                || (follCondLeftOp instanceof ASTOperandStaticNumber)
+                || !follCondLeftOp.isBoolean()) {
+              if (follCondLeftOp instanceof ASTOperandStatic) {
+                String val = ((ASTOperandStatic) follCondLeftOp).getValue();
+                ASTOperandStatic staticOperand =
+                    ArrayContentUtils.resolveStaticArrayContent(val, array.getContentType());
+                array.add(staticOperand);
+              } else {
+                array.add(follCondLeftOp);
+              }
 
-          if (currentCondition.hasOperator(ASTComparisonOperator.EQUALS))
-            currentCondition.setOperator(ASTComparisonOperator.AT_LEAST_ONE_OF);
-          else if (currentCondition.hasOperator(ASTComparisonOperator.NOT_EQUALS))
-            currentCondition.setOperator(ASTComparisonOperator.NONE_OF);
-          currentCondition.setRightOperand(array);
-          group.getConditions().remove(followingCondition);
+              if (currentCondition.hasOperator(ASTComparisonOperator.EQUALS))
+                currentCondition.setOperator(ASTComparisonOperator.AT_LEAST_ONE_OF);
+              else if (currentCondition.hasOperator(ASTComparisonOperator.NOT_EQUALS))
+                currentCondition.setOperator(ASTComparisonOperator.NONE_OF);
+              currentCondition.setRightOperand(array);
+
+              // remove following condition after it has been merged
+              group.getConditions().remove(followingCondition);
+            }
+          }
         }
       }
     }
