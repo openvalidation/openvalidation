@@ -85,7 +85,7 @@ public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTConditi
           for (String delimiter : Constants.ARRAY_DELIMITER_ALIASES) {
             val = val.replaceAll(" " + delimiter + " ", ",");
           }
-          System.out.println();
+
           for (String v : val.split(",")) {
             ASTOperandBase extractedItem =
                 ArrayContentUtils.resolveStaticArrayContent(v, resolutionType);

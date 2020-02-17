@@ -177,7 +177,11 @@ public class HUMLFramework {
 
     public <T> Boolean ONE_OF(T leftOperand, T... rightOperand) {
         boolean value = (rightOperand != null && rightOperand.length > 0);
-        if (value && rightOperand[0] instanceof Collection) {
+        if(value && leftOperand instanceof Number && rightOperand instanceof Number[])
+        {
+            value = Arrays.stream(rightOperand).anyMatch(i -> _numComp.compare((Number) i, (Number)leftOperand) == 0);
+        }
+        else if (value && rightOperand[0] instanceof Collection) {
             value = ((Collection<T>) rightOperand[0]).stream().anyMatch(i -> i.equals(leftOperand));
         } else if (value) {
             value = Arrays.stream(rightOperand).anyMatch(i -> i.equals(leftOperand));
