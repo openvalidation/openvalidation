@@ -222,6 +222,7 @@ class ArrayTest {
         "Dein Alter muss 3, 4 oder 5",
         "Dein Alter muss 3, 4, 5 sein",
         "Dein Alter muss 3, 4 oder 5 sein",
+        "Dein Alter muss entweder 3, 4 oder 5 sein",
         "Dein Alter muss gleich 3, 4, 5",
         "Dein Alter muss gleich 3, 4 oder 5",
         "Dein Alter muss gleich 3, 4, 5 sein",

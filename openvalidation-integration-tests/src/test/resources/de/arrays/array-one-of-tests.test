@@ -1,2 +1,44 @@
+################# array implicit one of with static numbers ########################
 
+Deine Zahl muss 1 oder 2
+
+Deine Zahl muss 2 oder 3
+
+
+{Zahl: 0}
+
+
+--------------  first rule triggered -------------------
+
+{Zahl: 3}
+
+Deine Zahl muss 1 oder 2
+
+--------------  second rule triggered -------------------
+
+{Zahl: 1}
+
+Deine Zahl muss 2 oder 3
+
+################# array implicit one of with static numbers with sugar ########################
+
+Deine Zahl muss entweder 1 sein oder eben 2 sein
+
+Deine Zahl muss entweder 2 sein oder eben 3 sein
+
+
+{Zahl: 0}
+
+
+--------------  first rule triggered -------------------
+
+{Zahl: 3}
+
+Deine Zahl muss entweder 1 sein oder eben 2 sein
+
+--------------  second rule triggered -------------------
+
+{Zahl: 1}
+
+Deine Zahl muss entweder 2 sein oder eben 3 sein
 

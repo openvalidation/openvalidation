@@ -1,4 +1,39 @@
-################# array one of with static strings  ########################
+################# arrays strings one of static ########################
+
+if name one of Boris, Donald, Jimmy
+then error1
+
+if the name is one of Jenny, Lenny, Penny
+then error2
+
+{name:"lenny"}
+
+--------------  num1  -------------------
+
+{name:"Jimmy"}
+
+error1
+
+--------------  num2  -------------------
+
+{name:"Penny"}
+
+error2
+
+################# arrays strings one of based on schema ########################
+
+if key one of names
+then name is invalid
+
+{key:'', names:['']}
+
+--------------  num1  -------------------
+
+{key:Jimmy, names:[Jimmy, Jonny, Ronny, Steve]}
+
+name is invalid
+
+################# array implicit one of with static strings  ########################
 
 Your name has to be Anna or Ben
 
@@ -22,24 +57,46 @@ Your name has to be Ben or Claudia
 
 
 
-################# array one of with static numbers  ########################
+################# array implicit one of with static numbers  ########################
 
-Your age has to be 1 or 2
+Your num has to be 1 or 2
 
-Your age has to be 2 or 3
+Your num has to be 2 or 3
 
 
-{age: 0}
+{num: 0}
 
 
 --------------  first rule triggered -------------------
 
-{age: 3}
+{num: 3}
 
-Your age has to be 1 or 2
+Your num has to be 1 or 2
 
 --------------  second rule triggered -------------------
 
-{age: 1}
+{num: 1}
 
-Your age has to be 2 or 3
+Your num has to be 2 or 3
+
+################# array implicit one of with static numbers with sugar ########################
+
+Your num has to be either 1 or the number 2 my friend
+
+Your num has to be either 2 or the number 3 my friend
+
+
+{num: 0}
+
+
+--------------  first rule triggered -------------------
+
+{num: 3}
+
+Your num has to be either 1 or the number 2 my friend
+
+--------------  second rule triggered -------------------
+
+{num: 1}
+
+Your num has to be either 2 or the number 3 my friend
