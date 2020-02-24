@@ -17,6 +17,7 @@
 package end2ast
 
 import io.openvalidation.common.ast.ASTComparisonOperator
+import io.openvalidation.common.data.DataPropertyType
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -303,6 +304,27 @@ class ArrayTest {
                 .hasSize(2)
                 .numberAtPosition(3.0, 0)
                 .numberAtPosition(5.0, 1)
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = [
+        "Zahlen als array\n\nDein Alter muss eins von array"
+    ])
+    fun DE_array_one_of_array_var_contains_2_static_numbers_must_not(paramString : String)
+    {
+
+        var input = paramString
+
+        End2AstRunner.run(input, "{Alter: 25, Zahlen: [1,2,3]}", "de") {
+            r -> r.rules()
+                .hasSizeOf(1)
+                .first()
+                .condition()
+                .hasOperator(ASTComparisonOperator.NONE_OF)
+                .rightVariable("array")
+                .hasType(DataPropertyType.Array)
+                .hasArrayContentType(DataPropertyType.Decimal)
         }
     }
 
