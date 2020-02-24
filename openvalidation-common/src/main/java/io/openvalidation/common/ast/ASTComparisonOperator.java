@@ -51,6 +51,7 @@ public enum ASTComparisonOperator {
     NONE_OF.invert = ONE_OF;
     EXISTS.invert = NOT_EXISTS;
     NOT_EXISTS.invert = EXISTS;
+    AT_LEAST_ONE_OF.invert = NONE_OF;
   }
 
   public ASTComparisonOperator invert() {
