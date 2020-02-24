@@ -17,7 +17,7 @@
 package io.openvalidation.antlr;
 
 import io.openvalidation.antlr.generated.mainParser;
-import io.openvalidation.antlr.transformation.ParseTreeUtils;
+import io.openvalidation.antlr.transformation.parsetree.ParseTreeUtils;
 import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.data.DataPropertyBase;
 import io.openvalidation.common.data.DataPropertyType;

@@ -22,7 +22,6 @@ import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import io.openvalidation.common.data.DataPropertyType;
-import io.openvalidation.common.utils.ArrayContentUtils;
 import io.openvalidation.common.utils.Constants;
 import io.openvalidation.common.utils.StringUtils;
 import java.util.function.Predicate;
@@ -88,7 +87,7 @@ public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTConditi
 
           for (String v : val.split(",")) {
             ASTOperandBase extractedItem =
-                ArrayContentUtils.resolveStaticArrayContent(v, resolutionType);
+                PostProcessorUtils.resolveArrayElementString(v, resolutionType);
             resultArray.add(extractedItem);
           }
 
