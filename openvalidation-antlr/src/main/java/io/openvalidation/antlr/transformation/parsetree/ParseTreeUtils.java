@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.openvalidation.antlr.transformation;
+package io.openvalidation.antlr.transformation.parsetree;
 
 import io.openvalidation.antlr.generated.mainLexer;
 import io.openvalidation.antlr.generated.mainParser;
