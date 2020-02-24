@@ -100,3 +100,49 @@ Your num has to be either 1 or the number 2 my friend
 {num: 1}
 
 Your num has to be either 2 or the number 3 my friend
+
+################# array explicit one of as property static numbers ########################
+
+Your num has to be one of first_array
+
+Your num has to be one of second_array
+
+{num: 0, first_array: [1,2,3], second_array: [1,2,3]}
+
+
+--------------  first rule triggered -------------------
+
+{num: 3, first_array: [1,2], second_array: [2,3]}
+
+Your num has to be one of first_array
+
+--------------  second rule triggered -------------------
+
+{num: 1, first_array: [1,2], second_array: [2,3]}
+
+Your num has to be one of second_array
+
+################# array explicit one of as variable static numbers ########################
+
+first_array as f_Array
+
+second_array as s_Array
+
+Your num has to be one of f_Array
+
+Your num has to be one of s_Array
+
+{num: 0, first_array: [1,2,3], second_array: [1,2,3]}
+
+
+--------------  first rule triggered -------------------
+
+{num: 3, first_array: [1,2], second_array: [2,3]}
+
+Your num has to be one of f_Array
+
+--------------  second rule triggered -------------------
+
+{num: 1, first_array: [1,2], second_array: [2,3]}
+
+Your num has to be one of s_Array

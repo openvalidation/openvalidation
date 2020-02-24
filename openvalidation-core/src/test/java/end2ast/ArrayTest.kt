@@ -309,7 +309,9 @@ class ArrayTest {
 
     @ParameterizedTest
     @ValueSource(strings = [
-        "Zahlen als array\n\nDein Alter muss eins von array"
+        "Zahlen als array\n\nDein Alter muss eins von array",
+        "Zahlen als array\n\nDein Alter muss eins von dem array",
+        "Zahlen als array\n\nDein Alter muss eins von array sein"
     ])
     fun DE_array_one_of_array_var_contains_2_static_numbers_must_not(paramString : String)
     {
