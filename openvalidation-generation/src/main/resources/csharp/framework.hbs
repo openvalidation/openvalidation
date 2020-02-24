@@ -102,7 +102,7 @@ namespace {{params.generated_class_namespace}}
 
         public bool EQUALS(Object leftOperand, Object rightOperand)
         {
-            if (IsNumericType(leftOperand))
+            if (IsNumericType(leftOperand) && IsNumericType(rightOperand))
             {
                 return EqualityComparer<Double>.Default.Equals((double)leftOperand, (double)rightOperand);
             }
@@ -114,9 +114,9 @@ namespace {{params.generated_class_namespace}}
         {
             return !EQUALS(leftOperand, rightOperand);
         }
-        
+
         public static bool IsNumericType(object o)
-        {   
+        {
             switch (Type.GetTypeCode(o.GetType()))
             {
                 case TypeCode.Byte:
@@ -135,12 +135,12 @@ namespace {{params.generated_class_namespace}}
                     return false;
             }
         }
-        
+
         public bool EMPTY<T>(T operand)
         {
             return (operand == null);
         }
-        
+
         public bool NOT_EMPTY<T>(T operand) {
             return !EMPTY(operand);
         }
@@ -181,7 +181,7 @@ namespace {{params.generated_class_namespace}}
         {
             return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
         }
-        
+
         public Decimal SUM_OF<T>(params T[] operand)
         {
             List<Decimal> dec = new List<decimal>();
@@ -207,6 +207,10 @@ namespace {{params.generated_class_namespace}}
         public T[] FIRST<T>(IEnumerable<T> operand, int amount)
         {
             return operand.Take(amount).ToArray();
+        }
+        public T[] FIRST<T>(IEnumerable<T> operand, double amount)
+        {
+            return operand.Take((int)amount).ToArray();
         }
         
         public T FIRST<T>(IEnumerable<T> operand)
