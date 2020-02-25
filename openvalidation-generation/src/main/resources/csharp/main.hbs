@@ -1,6 +1,4 @@
-{{#if params.single_file}}
 {{tmpl "frameworkimports"}}
-{{/if}}
 
 namespace {{params.generated_class_namespace}}
 {
@@ -41,9 +39,10 @@ namespace {{params.generated_class_namespace}}
         public HUMLFramework.OpenValidationSummary Validate(Object model) {
             return this.Validate(({{params.model_type}})model);
         }
+    }
 
         {{#if params.single_file}}
             {{tmpl "framework"}}
         {{/if}}
-    }
+
 }
