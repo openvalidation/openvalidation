@@ -22,10 +22,6 @@ import io.openvalidation.common.ast.ASTVariable;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
 import io.openvalidation.common.ast.operand.*;
-import io.openvalidation.common.ast.operand.ASTOperandFunction;
-import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
-import io.openvalidation.common.ast.operand.ASTOperandVariable;
 import io.openvalidation.common.ast.operand.arithmetical.ASTOperandArithmetical;
 import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
@@ -122,6 +118,10 @@ public class VariableAssertion
 
   public FunctionAssertion operandFunction() throws Exception {
     return getAssertion(FunctionAssertion.class, ASTOperandFunction.class);
+  }
+
+  public ArrayAssertion operandArray() throws Exception {
+    return getAssertion(ArrayAssertion.class, ASTOperandArray.class);
   }
 
   public OperandArithmeticalAssertion arithmetic() throws Exception {

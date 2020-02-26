@@ -951,4 +951,26 @@ class VariableTest {
 
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = [
+        "Berlin, Paris, London as capital cities"
+    ])
+    @Throws(Exception::class)
+    internal fun variable_with_operand_array(paramStr: String) {
+
+        var input = paramStr;
+
+        End2AstRunner.run(input, """{"location": ""}""") {
+            r -> r.variables()
+                .first()
+                .hasName("capital cities")
+                .operandArray()
+                .hasSize(3)
+                .stringAtPosition("Berlin", 0)
+                .stringAtPosition("Paris", 1)
+                .stringAtPosition("London", 2)
+        }
+
+    }
+
 }

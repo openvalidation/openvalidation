@@ -31,6 +31,7 @@ public class PostProcessorFactory {
 
     // final fallback model post processors ...
     _postprocessors.add(new PostModelMissingPropertyTypeResolver());
+    _postprocessors.add(new PostModelArrayInVariableResolver());
     _postprocessors.add(new PostModelVariableResolver());
 
     _postprocessors.add(new PostModelDataTypeResolver());
