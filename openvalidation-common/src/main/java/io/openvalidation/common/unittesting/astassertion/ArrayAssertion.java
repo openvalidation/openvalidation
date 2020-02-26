@@ -68,4 +68,11 @@ public class ArrayAssertion
 
     return this;
   }
+
+  public ArrayAssertion stringAtPosition(String s, int index) {
+    StaticStringAssertion numberAssertion = this.StringAtPosition(index);
+    numberAssertion.hasValue(s);
+
+    return this;
+  }
 }

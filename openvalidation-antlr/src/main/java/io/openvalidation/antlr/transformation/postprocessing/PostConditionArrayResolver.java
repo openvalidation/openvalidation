@@ -20,10 +20,6 @@ import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
-import io.openvalidation.common.data.DataPropertyType;
-import io.openvalidation.common.utils.Constants;
-import io.openvalidation.common.utils.StringUtils;
 import java.util.function.Predicate;
 
 public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTCondition> {
@@ -51,11 +47,11 @@ public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTConditi
     ASTOperandArray rightOperandArray = null;
 
     if (rightOp != null) {
-      leftOperandArray = this.resolveArrayInOperand(leftOp, rightOp.getDataType());
+      leftOperandArray = PostProcessorUtils.resolveArrayInOperand(leftOp, rightOp.getDataType());
       if (leftOperandArray != null) condition.setLeftOperand(leftOperandArray);
     }
     if (leftOp != null) {
-      rightOperandArray = this.resolveArrayInOperand(rightOp, leftOp.getDataType());
+      rightOperandArray = PostProcessorUtils.resolveArrayInOperand(rightOp, leftOp.getDataType());
       if (rightOperandArray != null) condition.setRightOperand(rightOperandArray);
     }
 
@@ -65,37 +61,5 @@ public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTConditi
       else if (condition.getOperator() == ASTComparisonOperator.NOT_EQUALS)
         condition.setOperator(ASTComparisonOperator.NONE_OF);
     }
-  }
-
-  public ASTOperandArray resolveArrayInOperand(
-      ASTOperandBase operand, DataPropertyType resolutionType) {
-    ASTOperandArray resultArray = null;
-
-    if (operand != null && operand instanceof ASTOperandStaticString) {
-      String val = ((ASTOperandStaticString) operand).getValue();
-
-      if (!StringUtils.isNullOrEmpty(val)) {
-        val = StringUtils.trimSpecialChars(val);
-
-        if (val.contains(",")) {
-          resultArray = new ASTOperandArray();
-          resultArray.setContentType(resolutionType);
-
-          for (String delimiter : Constants.ARRAY_DELIMITER_ALIASES) {
-            val = val.replaceAll(" " + delimiter + " ", ",");
-          }
-
-          for (String v : val.split(",")) {
-            ASTOperandBase extractedItem =
-                PostProcessorUtils.resolveArrayElementString(v, resolutionType);
-            resultArray.add(extractedItem);
-          }
-
-          resultArray.setSource(operand.getPreprocessedSource());
-        }
-      }
-    }
-
-    return resultArray;
   }
 }
