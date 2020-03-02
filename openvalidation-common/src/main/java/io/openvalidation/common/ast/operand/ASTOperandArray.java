@@ -47,6 +47,12 @@ public class ASTOperandArray extends ASTOperandBase {
   }
 
   @Override
+  public DataPropertyType getDataType()
+  {
+    return DataPropertyType.Array;
+  }
+
+  @Override
   public List<ASTItem> children() {
     List<ASTItem> items = new ArrayList<>();
     items.addAll(getItems());

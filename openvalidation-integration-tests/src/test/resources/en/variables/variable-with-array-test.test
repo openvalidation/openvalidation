@@ -18,6 +18,26 @@ the location must be one of the capital cities
 
 the location must be one of the capital cities
 
+################# variable with array must be one of with strings separated by or  ########################
+
+Berlin, Paris or London as capital cities
+
+the location must be one of the capital cities
+
+
+{location:''}
+
+
+--------------  value -------------------
+
+{location:'Lisbon'}
+
+{location:'berlin'}
+
+{location:''}
+
+the location must be one of the capital cities
+
 
 ################# variable with array must be one of with numbers  ########################
 

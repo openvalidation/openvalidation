@@ -17,6 +17,7 @@
 package end2ast
 
 import io.openvalidation.common.ast.ASTArithmeticalOperator
+import io.openvalidation.common.ast.ASTComparisonOperator
 import io.openvalidation.common.data.DataPropertyType
 import org.junit.jupiter.api.Test
 
@@ -994,4 +995,35 @@ class VariableTest {
                 .stringAtPosition("London", 2)
         }
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = [
+        "    Berlin, Paris or London as capital cities\n\nthe location must be one of the capital cities"
+    ])
+    @Throws(Exception::class)
+    internal fun variable_with_operand_array_with_or_and_rule(paramStr: String) {
+
+        var input = paramStr;
+
+        End2AstRunner.run(input, """{"location": ""}""") {
+            r -> r.variables()
+                .first()
+                .hasName("capital cities")
+                .operandArray()
+                .hasSize(3)
+                .stringAtPosition("Berlin", 0)
+                .stringAtPosition("Paris", 1)
+                .stringAtPosition("London", 2)
+                .parentModel()
+                .rules()
+                .firstCondition()
+                .hasOperator(ASTComparisonOperator.NONE_OF)
+                .leftProperty("location")
+                .parentCondition()
+                .rightVariable("capital cities")
+
+        }
+    }
+
+
 }
