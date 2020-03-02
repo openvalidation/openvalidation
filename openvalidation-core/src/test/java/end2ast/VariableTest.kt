@@ -970,7 +970,28 @@ class VariableTest {
                 .stringAtPosition("Paris", 1)
                 .stringAtPosition("London", 2)
         }
-
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = [
+        "Berlin, Paris or London as capital cities",
+        "Berlin or Paris, London as capital cities",
+        "Berlin or Paris or London as capital cities"
+    ])
+    @Throws(Exception::class)
+    internal fun variable_with_operand_array_with_or(paramStr: String) {
+
+        var input = paramStr;
+
+        End2AstRunner.run(input, """{"location": ""}""") {
+            r -> r.variables()
+                .first()
+                .hasName("capital cities")
+                .operandArray()
+                .hasSize(3)
+                .stringAtPosition("Berlin", 0)
+                .stringAtPosition("Paris", 1)
+                .stringAtPosition("London", 2)
+        }
+    }
 }
