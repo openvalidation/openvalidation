@@ -19,12 +19,11 @@ package io.openvalidation.generation.tests;
 import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.builder.ASTModelBuilder;
 import io.openvalidation.common.ast.builder.ASTVariableBuilder;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
 
 public class GeneratorVariableTest {
 
@@ -369,19 +368,17 @@ public class GeneratorVariableTest {
   private static Stream<Arguments> variable_with_string_array() {
     return Stream.of(
         //            language      expected
-        Arguments.of(
-            "javascript",
-            "var capitals = huml.createVariable(\"capitals\", function(model) { return model.Antrag.Personen.Where(x -> huml.EQUALS(model.Name, \"Jefferson\") }).Name; });"),
-        Arguments.of(
-            "csharp",
-            "var capitals = huml.CreateVariable(\"capitals\", ( model) => model.Antrag.Personen.Where(x -> huml.EQUALS(model.Name, \"Jefferson\") }).Name);"),
-        // Personen wird von Java verschluckt
+       Arguments.of(
+           "javascript",
+           "var capitals = huml.createVariable(\"capitals\", function(model) { return huml.CREATE_ARRAY(\"Berlin\",\"Paris\",\"London\"); });"),
+       Arguments.of(
+           "csharp",
+           "var capitals = huml.CreateVariable(\"capitals\", ( model) => huml.CREATE_ARRAY(\"Berlin\",\"Paris\",\"London\"));"),
         Arguments.of(
             "java",
-            "HUMLFramework.Variable capitals = huml.CreateVariable(\"capitals\", ( model) -> new String[]{\"Berlin\",\"Paris\",\"London\",})"));
+            "HUMLFramework.Variable capitals = huml.CreateVariable(\"capitals\", ( model) -> huml.CREATE_ARRAY(\"Berlin\",\"Paris\",\"London\"));"));
   }
 
-  @Disabled
   @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
   @MethodSource()
   public void variable_with_string_array(String language, String expected) throws Exception {

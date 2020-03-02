@@ -328,13 +328,13 @@ public class GeneratorConditionTest {
         //                            language      expected
         Arguments.of(
             "javascript",
-            "(huml.ALL_OF(model.Skills, model.Skills) || (huml.GREATER_OR_EQUALS(model.Grade, 3.0) && huml.ONE_OF(model.Degree, [1.0,2.0,3.0])))"),
+            "(huml.ALL_OF(model.Skills, model.Skills) || (huml.GREATER_OR_EQUALS(model.Grade, 3.0) && huml.ONE_OF(model.Degree, huml.CREATE_ARRAY(1.0,2.0,3.0))))"),
         Arguments.of(
             "csharp",
-            "(huml.ALL_OF(model.Skills, model.Skills) || (huml.GREATER_OR_EQUALS(model.Grade, 3.0) && huml.ONE_OF(model.Degree, 1.0,2.0,3.0)))"),
+            "(huml.ALL_OF(model.Skills, model.Skills) || (huml.GREATER_OR_EQUALS(model.Grade, 3.0) && huml.ONE_OF(model.Degree, huml.CREATE_ARRAY(1.0,2.0,3.0))))"),
         Arguments.of(
             "java",
-            "(huml.ALL_OF(model.getSkills(), model.getSkills()) || (huml.GREATER_OR_EQUALS(model.getGrade(), 3.0) && huml.ONE_OF(model.getDegree(), 1.0,2.0,3.0)))"),
+            "(huml.ALL_OF(model.getSkills(), model.getSkills()) || (huml.GREATER_OR_EQUALS(model.getGrade(), 3.0) && huml.ONE_OF(model.getDegree(), huml.CREATE_ARRAY(1.0,2.0,3.0))))"),
         Arguments.of(
             "python",
             "(huml.ALL_OF(model.Skills, model.Skills) or \\\n"
@@ -378,13 +378,13 @@ public class GeneratorConditionTest {
         //                            language      expected
         Arguments.of(
             "javascript",
-            "((huml.GREATER_OR_EQUALS(model.Grade, 3.0) && huml.ALL_OF(model.Skills, model.Skills) || (huml.ONE_OF(model.Degree, [1.0,2.0,3.0]))))"),
+            "((huml.GREATER_OR_EQUALS(model.Grade, 3.0) && huml.ALL_OF(model.Skills, model.Skills) || (huml.ONE_OF(model.Degree, huml.CREATE_ARRAY(1.0,2.0,3.0)))))"),
         Arguments.of(
             "csharp",
-            "((huml.GREATER_OR_EQUALS(model.Grade, 3.0) && huml.ALL_OF(model.Skills, model.Skills) || (huml.ONE_OF(model.Degree, 1.0,2.0,3.0))))"),
+            "((huml.GREATER_OR_EQUALS(model.Grade, 3.0) && huml.ALL_OF(model.Skills, model.Skills) || (huml.ONE_OF(model.Degree, huml.CREATE_ARRAY(1.0,2.0,3.0)))))"),
         Arguments.of(
             "java",
-            "((huml.GREATER_OR_EQUALS(model.getGrade(), 3.0) && huml.ALL_OF(model.getSkills(), model.getSkills()) || (huml.ONE_OF(model.getDegree(), 1.0,2.0,3.0))))"),
+            "((huml.GREATER_OR_EQUALS(model.getGrade(), 3.0) && huml.ALL_OF(model.getSkills(), model.getSkills()) || (huml.ONE_OF(model.getDegree(), huml.CREATE_ARRAY(1.0,2.0,3.0)))))"),
         Arguments.of(
             "python",
             "((huml.GREATER_OR_EQUALS(model.Grade, 3.0) and \\\n"
@@ -775,9 +775,14 @@ public class GeneratorConditionTest {
   private static Stream<Arguments> at_least_one_of_condition() {
     return Stream.of(
         //                            language      expected
-        Arguments.of("javascript", "huml.AT_LEAST_ONE_OF(model.Name, [\"Boris\",\"Donald\"])"),
-        Arguments.of("csharp", "huml.AT_LEAST_ONE_OF(model.Name, \"Boris\",\"Donald\")"),
-        Arguments.of("java", "huml.AT_LEAST_ONE_OF(model.getName(), \"Boris\",\"Donald\")"),
+        Arguments.of(
+            "javascript",
+            "huml.AT_LEAST_ONE_OF(model.Name, huml.CREATE_ARRAY(\"Boris\",\"Donald\"))"),
+        Arguments.of(
+            "csharp", "huml.AT_LEAST_ONE_OF(model.Name, huml.CREATE_ARRAY(\"Boris\",\"Donald\"))"),
+        Arguments.of(
+            "java",
+            "huml.AT_LEAST_ONE_OF(model.getName(), huml.CREATE_ARRAY(\"Boris\",\"Donald\"))"),
         Arguments.of("python", "huml.AT_LEAST_ONE_OF(model.Name, [\"Boris\",\"Donald\"])"));
   }
 
