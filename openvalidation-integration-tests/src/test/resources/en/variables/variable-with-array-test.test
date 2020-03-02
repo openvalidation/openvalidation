@@ -1,0 +1,18 @@
+################# variable with array must be one of with strings  ########################
+
+Berlin, Paris, London as capital cities
+
+the location must be one of the capital cities
+
+
+{location:''}
+
+
+--------------  value -------------------
+
+{location:'Lisbon'}
+
+the location must be one of the capital cities
+
+
+
