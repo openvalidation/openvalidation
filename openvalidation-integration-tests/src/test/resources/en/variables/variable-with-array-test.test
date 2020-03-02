@@ -12,7 +12,34 @@ the location must be one of the capital cities
 
 {location:'Lisbon'}
 
+{location:'berlin'}
+
+{location:''}
+
 the location must be one of the capital cities
+
+
+################# variable with array must be one of with numbers  ########################
+
+1, 2, 3 as nice numbers
+
+your favourite must be one of the nice numbers
+
+
+{favourite: 0}
+
+
+--------------  value -------------------
+
+{favourite: 4}
+
+{favourite: -1}
+
+{favourite: 0}
+
+{favourite: 1.00000001}
+
+your favourite must be one of the nice numbers
 
 
 
