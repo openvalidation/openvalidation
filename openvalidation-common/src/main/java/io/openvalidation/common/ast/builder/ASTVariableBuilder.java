@@ -81,6 +81,15 @@ public class ASTVariableBuilder
     return conditionBuilder;
   }
 
+  public ASTOperandArrayBuilder createValueAsArray() {
+    ASTOperandArrayBuilder arrayBuilder = new ASTOperandArrayBuilder(null);
+    arrayBuilder.create();
+
+    this.model.setValue(arrayBuilder.getModel());
+
+    return arrayBuilder;
+  }
+
   public ASTOperandFunctionBuilder createValueAsFunction(String functionName) {
     ASTOperandFunctionBuilder builder = this.createValueAsFunction();
     builder.withName(functionName);

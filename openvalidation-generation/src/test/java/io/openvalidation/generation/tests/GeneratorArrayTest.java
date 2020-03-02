@@ -2,10 +2,12 @@ package io.openvalidation.generation.tests;
 
 import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.builder.ASTConditionBuilder;
-import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
 
 public class GeneratorArrayTest {
   private static Stream<Arguments> array_with_numbers() {
