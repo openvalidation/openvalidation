@@ -20,6 +20,7 @@ import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
+import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import java.util.function.Predicate;
 
 public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTCondition> {
@@ -46,12 +47,16 @@ public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTConditi
     ASTOperandArray leftOperandArray = null;
     ASTOperandArray rightOperandArray = null;
 
-    if (rightOp != null) {
-      leftOperandArray = PostProcessorUtils.resolveArrayInOperand(leftOp, rightOp.getDataType());
+    if (rightOp != null && leftOp instanceof ASTOperandStaticString) {
+      leftOperandArray =
+          PostProcessorUtils.resolveArrayFromString(
+              (ASTOperandStaticString) leftOp, rightOp.getDataType());
       if (leftOperandArray != null) condition.setLeftOperand(leftOperandArray);
     }
-    if (leftOp != null) {
-      rightOperandArray = PostProcessorUtils.resolveArrayInOperand(rightOp, leftOp.getDataType());
+    if (leftOp != null && rightOp instanceof ASTOperandStaticString) {
+      rightOperandArray =
+          PostProcessorUtils.resolveArrayFromString(
+              (ASTOperandStaticString) rightOp, leftOp.getDataType());
       if (rightOperandArray != null) condition.setRightOperand(rightOperandArray);
     }
 

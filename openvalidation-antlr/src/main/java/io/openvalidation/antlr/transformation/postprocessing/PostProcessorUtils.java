@@ -23,38 +23,42 @@ public class PostProcessorUtils {
     return resolvedOp;
   }
 
-  public static ASTOperandArray resolveArrayInOperand(ASTOperandBase operand) {
-    return resolveArrayInOperand(operand, DataPropertyType.Decimal);
+  public static ASTOperandArray resolveArrayFromString(ASTOperandStaticString operand) {
+    return resolveArrayFromString(operand, DataPropertyType.Decimal);
   }
 
-  public static ASTOperandArray resolveArrayInOperand(
-      ASTOperandBase operand, DataPropertyType resolutionType) {
+  public static ASTOperandArray resolveArrayFromString(
+      ASTOperandStaticString stringOperand, DataPropertyType resolutionType) {
     ASTOperandArray resultArray = null;
+    String val = stringOperand.getValue();
 
-    if (operand != null && operand instanceof ASTOperandStaticString) {
-      String val = ((ASTOperandStaticString) operand).getValue();
+    if (val != null && isParsableAsArray(val)) {
+      val = StringUtils.trimSpecialChars(val);
 
-      if (!StringUtils.isNullOrEmpty(val)) {
-        val = StringUtils.trimSpecialChars(val);
+      resultArray = new ASTOperandArray();
+      resultArray.setContentType(resolutionType);
 
-        if (val.contains(",")) {
-          resultArray = new ASTOperandArray();
-          resultArray.setContentType(resolutionType);
-
-          for (String delimiter : Constants.ARRAY_DELIMITER_ALIASES) {
-            val = val.replaceAll(" " + delimiter + " ", ",");
-          }
-
-          for (String v : val.split(",")) {
-            ASTOperandBase extractedItem = resolveArrayElementString(v, resolutionType);
-            resultArray.add(extractedItem);
-          }
-
-          resultArray.setSource(operand.getPreprocessedSource());
-        }
+      for (String delimiter : Constants.ARRAY_DELIMITER_ALIASES) {
+        val = val.replaceAll(" " + delimiter + " ", ",");
       }
+
+      for (String v : val.split(",")) {
+        ASTOperandBase extractedItem = resolveArrayElementString(v, resolutionType);
+        resultArray.add(extractedItem);
+      }
+
+      resultArray.setSource(stringOperand.getPreprocessedSource());
     }
 
     return resultArray;
+  }
+
+  public static boolean isParsableAsArray(String s) {
+    String cleanedString = StringUtils.trimSpecialChars(s);
+    return cleanedString.contains(",");
+  }
+
+  public static boolean isParsableAsArray(ASTOperandStaticString staticString) {
+    return isParsableAsArray(staticString.getValue());
   }
 }
