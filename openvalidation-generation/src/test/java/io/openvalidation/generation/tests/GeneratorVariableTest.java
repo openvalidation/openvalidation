@@ -368,12 +368,12 @@ public class GeneratorVariableTest {
   private static Stream<Arguments> variable_with_string_array() {
     return Stream.of(
         //            language      expected
-       Arguments.of(
-           "javascript",
-           "var capitals = huml.createVariable(\"capitals\", function(model) { return huml.CREATE_ARRAY(\"Berlin\",\"Paris\",\"London\"); });"),
-       Arguments.of(
-           "csharp",
-           "var capitals = huml.CreateVariable(\"capitals\", ( model) => huml.CREATE_ARRAY(\"Berlin\",\"Paris\",\"London\"));"),
+        Arguments.of(
+            "javascript",
+            "var capitals = huml.createVariable(\"capitals\", function(model) { return huml.CREATE_ARRAY(\"Berlin\",\"Paris\",\"London\"); });"),
+        Arguments.of(
+            "csharp",
+            "var capitals = huml.CreateVariable(\"capitals\", ( model) => huml.CREATE_ARRAY(\"Berlin\",\"Paris\",\"London\"));"),
         Arguments.of(
             "java",
             "HUMLFramework.Variable capitals = huml.CreateVariable(\"capitals\", ( model) -> huml.CREATE_ARRAY(\"Berlin\",\"Paris\",\"London\"));"));
@@ -393,6 +393,34 @@ public class GeneratorVariableTest {
               .addItem("Berlin")
               .addItem("Paris")
               .addItem("London");
+
+          return builder.getModel();
+        });
+  }
+
+  private static Stream<Arguments> variable_with_number_array() {
+    return Stream.of(
+        //            language      expected
+        Arguments.of(
+            "javascript",
+            "var numbers = huml.createVariable(\"numbers\", function(model) { return huml.CREATE_ARRAY(1.0,2.0,3.0); });"),
+        Arguments.of(
+            "csharp",
+            "var numbers = huml.CreateVariable(\"numbers\", ( model) => huml.CREATE_ARRAY(1.0,2.0,3.0));"),
+        Arguments.of(
+            "java",
+            "HUMLFramework.Variable numbers = huml.CreateVariable(\"numbers\", ( model) -> huml.CREATE_ARRAY(1.0,2.0,3.0));"));
+  }
+
+  @ParameterizedTest(name = GTE.PARAM_TEST_NAME)
+  @MethodSource()
+  public void variable_with_number_array(String language, String expected) throws Exception {
+    GTE.execute(
+        expected,
+        language,
+        p -> {
+          ASTVariableBuilder builder = new ASTVariableBuilder(new ASTModelBuilder());
+          builder.createVariable("numbers").createValueAsArray().addItem(1).addItem(2).addItem(3);
 
           return builder.getModel();
         });

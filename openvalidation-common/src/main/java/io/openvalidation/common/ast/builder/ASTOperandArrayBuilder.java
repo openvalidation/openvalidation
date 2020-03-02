@@ -18,6 +18,7 @@ package io.openvalidation.common.ast.builder;
 
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
+import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 
 public class ASTOperandArrayBuilder
@@ -34,5 +35,9 @@ public class ASTOperandArrayBuilder
 
   public ASTOperandArrayBuilder addItem(String string) {
     return this.addItem(new ASTOperandStaticString(string));
+  }
+
+  public ASTOperandArrayBuilder addItem(double number) {
+    return this.addItem(new ASTOperandStaticNumber(number));
   }
 }
