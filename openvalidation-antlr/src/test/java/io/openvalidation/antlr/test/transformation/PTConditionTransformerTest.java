@@ -161,12 +161,12 @@ public class PTConditionTransformerTest {
               .hasSizeOf(1)
               .first()
               .condition()
-              .leftProperty()
-              .hasPath("senior")
-              .hasType(DataPropertyType.Boolean)
+              .leftBoolean()
+              .isTrue()
               .parentCondition()
-              .rightBoolean()
-              .isTrue();
+              .rightProperty()
+              .hasPath("senior")
+              .hasType(DataPropertyType.Boolean);
         });
   }
 

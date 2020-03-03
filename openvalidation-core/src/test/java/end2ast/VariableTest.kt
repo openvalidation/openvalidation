@@ -1014,6 +1014,7 @@ class VariableTest {
                 .stringAtPosition("Berlin", 0)
                 .stringAtPosition("Paris", 1)
                 .stringAtPosition("London", 2)
+                .parentVariable()
                 .parentModel()
                 .rules()
                 .firstCondition()
