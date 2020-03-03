@@ -26,7 +26,6 @@ public class PostProcessorFactory {
 
   public PostProcessorFactory() {
 
-
     // final fallback model post processors ...
     _postprocessors.add(new PostModelMissingPropertyTypeResolver());
     _postprocessors.add(new PostModelArrayInVariableResolver());
@@ -43,6 +42,7 @@ public class PostProcessorFactory {
     _postprocessors.add(new PostModelDataSchemaVariableTypeResolver());
     _postprocessors.add(new PostModelConstrainedGroupConnectorInversion());
     _postprocessors.add(new PostModelStripSpecialWords());
+    _postprocessors.add(new PostModelSemanticOperatorResolver());
     _postprocessors.add(new PostModelNumbersResolver());
     _postprocessors.add(new PostModelNullCheckRulesCreator());
     _postprocessors.add(new PostModelUnlessResolver());
@@ -53,7 +53,6 @@ public class PostProcessorFactory {
     _postprocessors.add(new PostModelImplicitBoolVariables());
     _postprocessors.add(new PostModelMissingRightOperandResolver());
     _postprocessors.add(new PostModelConditionSingleOperand());
-    _postprocessors.add(new PostConditionSemanticOperatorResolver());
     _postprocessors.add(new PostModelWhereOnSimpleTypeResolver());
     _postprocessors.add(new PostModelSemanticNamesCollector());
   }

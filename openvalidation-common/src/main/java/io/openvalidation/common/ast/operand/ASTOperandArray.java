@@ -47,8 +47,7 @@ public class ASTOperandArray extends ASTOperandBase {
   }
 
   @Override
-  public DataPropertyType getDataType()
-  {
+  public DataPropertyType getDataType() {
     return DataPropertyType.Array;
   }
 
