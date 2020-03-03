@@ -546,11 +546,11 @@ class PTRuleConstrainedTransformerTest {
               .hasError("the applicant MUST be student")
               .condition()
               .hasOperator(ASTComparisonOperator.NOT_EQUALS) // negated comparison operator!!!
-              .leftProperty()
-              .hasPath("student")
+              .leftBoolean()
+              .isTrue()
               .parentCondition()
-              .rightBoolean()
-              .isTrue();
+              .rightProperty()
+              .hasPath("student");
         });
   }
 

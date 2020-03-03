@@ -35,7 +35,7 @@ import java.util.function.Predicate;
  *
  *
  */
-public class PostConditionSingleOperand
+public class PostModelConditionSingleOperand
     extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
 
   @Override

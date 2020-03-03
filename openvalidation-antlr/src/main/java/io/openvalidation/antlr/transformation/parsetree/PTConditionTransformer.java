@@ -105,7 +105,8 @@ public class PTConditionTransformer
 
     ASTCondition condition = builder.getModel();
 
-    return this.postprocess(condition.resolveImplicitBooleanCondition());
+    return condition;
+    //return this.postprocess(condition.resolveImplicitBooleanCondition());
   }
 
   public ASTCondition transformImplicitCondition(ASTItem item, ParseTree source) throws Exception {

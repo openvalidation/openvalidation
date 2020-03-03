@@ -1,8 +1,12 @@
 package io.openvalidation.common.ast.operand;
 
 import io.openvalidation.common.ast.ASTComparisonOperator;
+import io.openvalidation.common.ast.ASTItem;
 import io.openvalidation.common.data.DataSemanticOperator;
 import io.openvalidation.common.utils.NumberParsingUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ASTSemanticOperator extends ASTOperandBase {
   private DataSemanticOperator _semanticOperator;
@@ -51,5 +55,23 @@ public class ASTSemanticOperator extends ASTOperandBase {
         this._secondOperand = sop;
       }
     }
+  }
+
+  @Override
+  public <T extends ASTItem> List<T> collectItemsOfType(Class<T> cls)
+  {
+    List<T> items = new ArrayList<>();
+
+    if(cls.isInstance(this._operand))
+    {
+      items.add(cls.cast(this._operand));
+    }
+
+    if(cls.isInstance(this._secondOperand))
+    {
+      items.add(cls.cast(this._secondOperand));
+    }
+
+    return items;
   }
 }

@@ -26,7 +26,8 @@ import io.openvalidation.common.data.DataSchema;
 import io.openvalidation.common.utils.GrammarBuilder;
 import org.junit.jupiter.api.Test;
 
-public class PostConditionSingleOperandTest {
+public class PostModelConditionSingleOperandTest
+{
 
   @Test
   void test_implicit_equals_with_one_operand() throws Exception {

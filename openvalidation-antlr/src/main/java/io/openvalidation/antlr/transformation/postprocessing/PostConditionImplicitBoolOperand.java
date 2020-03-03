@@ -16,6 +16,7 @@
 
 package io.openvalidation.antlr.transformation.postprocessing;
 
+import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTOperandStatic;
 import io.openvalidation.common.data.DataPropertyType;
@@ -34,7 +35,7 @@ import java.util.function.Predicate;
  *
  *
  */
-public class PostConditionImplicitBoolOperand extends PostProcessorSelfBase<ASTCondition> {
+public class PostConditionImplicitBoolOperand extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
 
   @Override
   protected Predicate<ASTCondition> getFilter() {

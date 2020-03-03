@@ -202,12 +202,11 @@ class PTRuleTransformationTest {
               .hasSizeOf(1)
               .first()
               .condition()
-              .leftVariable()
-              .hasName("Senior")
-              .hasType(DataPropertyType.Boolean)
+              .leftBoolean(true)
               .parentCondition()
-              .rightBoolean()
-              .isTrue();
+              .rightVariable()
+              .hasName("Senior")
+              .hasType(DataPropertyType.Boolean);
         });
   }
 }

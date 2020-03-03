@@ -51,13 +51,13 @@ class RuleConstrainedTest {
                             .hasPreprocessedSource()
                             .hasError("you are not senior.")
                             .condition()
-                                .leftVariable()
+                                .leftBoolean()
+                                    .isTrue()
+                            .parentCondition()
+                                .rightVariable()
                                     .hasPreprocessedSource()
                                     .hasName("Senior")
                                     .hasType(DataPropertyType.Boolean)
-                            .parentCondition()
-                                .rightBoolean()
-                                    .isTrue()
         }
     }
 

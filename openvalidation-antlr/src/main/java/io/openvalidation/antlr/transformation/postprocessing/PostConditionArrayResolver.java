@@ -17,13 +17,14 @@
 package io.openvalidation.antlr.transformation.postprocessing;
 
 import io.openvalidation.common.ast.ASTComparisonOperator;
+import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import java.util.function.Predicate;
 
-public class PostConditionArrayResolver extends PostProcessorSelfBase<ASTCondition> {
+public class PostConditionArrayResolver extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
 
   @Override
   protected Predicate<ASTCondition> getFilter() {

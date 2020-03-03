@@ -17,10 +17,11 @@
 package io.openvalidation.antlr.transformation.postprocessing;
 
 import io.openvalidation.common.ast.ASTComparisonOperator;
+import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import java.util.function.Predicate;
 
-public class PostConditionExistOperationTrimmer extends PostProcessorSelfBase<ASTCondition> {
+public class PostConditionExistOperationTrimmer extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
 
   @Override
   protected Predicate<ASTCondition> getFilter() {

@@ -25,14 +25,16 @@ public class PostProcessorFactory {
   private List<PostProcessorBase> _postprocessors = new ArrayList<>();
 
   public PostProcessorFactory() {
-    _postprocessors.add(new PostConditionArrayResolver());
-    _postprocessors.add(new PostConditionImplicitBoolOperand());
-    _postprocessors.add(new PostConditionExistOperationTrimmer());
+
 
     // final fallback model post processors ...
     _postprocessors.add(new PostModelMissingPropertyTypeResolver());
     _postprocessors.add(new PostModelArrayInVariableResolver());
     _postprocessors.add(new PostModelVariableResolver());
+
+    _postprocessors.add(new PostConditionArrayResolver());
+    _postprocessors.add(new PostConditionImplicitBoolOperand());
+    _postprocessors.add(new PostConditionExistOperationTrimmer());
 
     _postprocessors.add(new PostModelDataTypeResolver());
     //    _postprocessors.add(new PostModelFunctionTypeResolver()); todo lazevedo 27.01.20
@@ -50,7 +52,7 @@ public class PostProcessorFactory {
     _postprocessors.add(new PostModelImplicitBoolOperand());
     _postprocessors.add(new PostModelImplicitBoolVariables());
     _postprocessors.add(new PostModelMissingRightOperandResolver());
-    _postprocessors.add(new PostConditionSingleOperand());
+    _postprocessors.add(new PostModelConditionSingleOperand());
     _postprocessors.add(new PostConditionSemanticOperatorResolver());
     _postprocessors.add(new PostModelWhereOnSimpleTypeResolver());
     _postprocessors.add(new PostModelSemanticNamesCollector());
