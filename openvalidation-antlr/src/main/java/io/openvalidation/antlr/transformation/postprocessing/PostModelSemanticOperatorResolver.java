@@ -21,7 +21,8 @@ import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.operand.ASTSemanticOperator;
 import java.util.function.Predicate;
 
-public class PostConditionSemanticOperatorResolver extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
+public class PostModelSemanticOperatorResolver
+    extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
 
   @Override
   protected Predicate<ASTCondition> getFilter() {

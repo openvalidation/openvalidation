@@ -35,7 +35,8 @@ import java.util.function.Predicate;
  *
  *
  */
-public class PostConditionImplicitBoolOperand extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
+public class PostConditionImplicitBoolOperand
+    extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
 
   @Override
   protected Predicate<ASTCondition> getFilter() {

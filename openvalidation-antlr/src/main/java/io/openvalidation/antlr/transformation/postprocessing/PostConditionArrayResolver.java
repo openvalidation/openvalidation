@@ -24,7 +24,8 @@ import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
 import java.util.function.Predicate;
 
-public class PostConditionArrayResolver extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
+public class PostConditionArrayResolver
+    extends PostProcessorSubelementBase<ASTModel, ASTCondition> {
 
   @Override
   protected Predicate<ASTCondition> getFilter() {

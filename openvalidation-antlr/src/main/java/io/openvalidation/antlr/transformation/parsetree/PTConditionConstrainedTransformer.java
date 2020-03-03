@@ -162,6 +162,6 @@ public class PTConditionConstrainedTransformer
     builder.markAsConstrainedCondition();
 
     return builder.getModel();
-    //return this.postprocess(builder.getModel().resolveImplicitBooleanCondition());
+    // return this.postprocess(builder.getModel().resolveImplicitBooleanCondition());
   }
 }

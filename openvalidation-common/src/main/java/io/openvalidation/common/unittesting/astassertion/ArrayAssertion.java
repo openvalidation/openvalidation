@@ -75,8 +75,8 @@ public class ArrayAssertion
 
     return this;
   }
-  public VariableAssertion parentVariable()
-  {
+
+  public VariableAssertion parentVariable() {
     shouldBeInstanceOf(this.parent, VariableAssertion.class, "PARENT VARIABLE");
     return (VariableAssertion) parent;
   }
