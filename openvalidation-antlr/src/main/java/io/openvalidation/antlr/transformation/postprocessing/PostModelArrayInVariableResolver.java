@@ -6,9 +6,7 @@ import io.openvalidation.common.ast.builder.ASTOperandArrayBuilder;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionBase;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
-import io.openvalidation.common.ast.operand.ASTOperandArray;
-import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.ast.operand.*;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.utils.NumberParsingUtils;
 import java.util.List;
@@ -50,58 +48,98 @@ public class PostModelArrayInVariableResolver
 
   private ASTOperandArray resolveArrayFromConditionGroup(ASTConditionGroup conditionGroup) {
 
-    // left operands of conditions can be cast to ASTOperand static string because of previous
-    // filter
-    List<ASTOperandStaticString> allLeftOperandStrings =
+    // filter all left operands of conditions
+    List<ASTOperandBase> allLeftOperands =
         conditionGroup.getAllConditions().stream()
-            .map(c -> (ASTOperandStaticString) c.getLeftOperand())
+            .map(c -> c.getLeftOperand())
             .collect(Collectors.toList());
 
-    // initially parse all as Strings
-    ASTOperandArray stringArray = extractStringArrayOperand(allLeftOperandStrings);
+    // initially parse all as ASTOperandBase
+    ASTOperandArray generalArray = extractGeneralArrayOperand(allLeftOperands);
 
-    // try to extract numerical values from the strings in the array
-    ASTOperandArray numericalArray = tryExtractArrayOperand(stringArray);
+    // try parse as numbers
+    ASTOperandArray numericalArray = tryParseEachElementAsNumerical(generalArray);
 
     if (numericalArray != null) {
       return numericalArray;
     } else {
-      return stringArray;
+      return parseAsStringArray(generalArray);
     }
   }
 
-  private static ASTOperandArray tryExtractArrayOperand(ASTOperandArray stringArray) {
-    ASTOperandArrayBuilder numericalArrayBuilder = new ASTOperandArrayBuilder(null);
-    numericalArrayBuilder.create();
+  private static ASTOperandArray parseAsStringArray(ASTOperandArray generalArray) {
+    ASTOperandArrayBuilder arrayBuilder = new ASTOperandArrayBuilder(null);
+    arrayBuilder.create().withContentType(DataPropertyType.String);
 
-    for (ASTOperandBase base : stringArray.getItems()) {
-      String s = ((ASTOperandStaticString) base).getValue();
-      Double number = NumberParsingUtils.extractNumber(s);
-
-      if (number != null) {
-        numericalArrayBuilder.addItem(number);
+    for (ASTOperandBase item : generalArray.getItems()) {
+      if (item.getDataType() == DataPropertyType.String) {
+        arrayBuilder.addItem(item);
+      } else if (item instanceof ASTOperandStatic) {
+        ASTOperandStaticString staticString;
+        staticString = new ASTOperandStaticString(((ASTOperandStatic) item).getOriginalSource());
+        staticString.setSource(item.getOriginalSource());
+        arrayBuilder.addItem(staticString);
       } else {
-        return null;
+        // if item is for example a variable of type Decimal it will simply be added. The falsely
+        // occurring variable will then be validated as false by the validator since it doesnt
+        // match the arrays content type which is String
+        arrayBuilder.addItem(item);
       }
     }
-    return numericalArrayBuilder.getModel();
+
+    return arrayBuilder.getModel();
   }
 
-  private static ASTOperandArray extractStringArrayOperand(
-      List<ASTOperandStaticString> allLeftOperandStrings) {
+  private static ASTOperandArray tryParseEachElementAsNumerical(ASTOperandArray generalArray) {
     ASTOperandArrayBuilder arrayBuilder = new ASTOperandArrayBuilder(null);
-    arrayBuilder.create();
+    arrayBuilder.create().withContentType(DataPropertyType.Decimal);
 
-    for (ASTOperandStaticString s : allLeftOperandStrings) {
-      if (PostProcessorUtils.isParsableAsArray(s)) {
-        ASTOperandArray subArray =
-            PostProcessorUtils.resolveArrayFromString(s, DataPropertyType.String);
-        for (ASTOperandBase elem : subArray.getItems()) {
-          arrayBuilder.addItem(elem);
+    for (ASTOperandBase item : generalArray.getItems()) {
+      if (item.getDataType() == DataPropertyType.Decimal) {
+        arrayBuilder.addItem(item);
+      } else {
+        boolean isParsableStaticOperand = item instanceof ASTOperandStaticString;
+        if (isParsableStaticOperand) {
+          String s = ((ASTOperandStaticString) item).getValue();
+          Double number = NumberParsingUtils.extractNumber(s);
+
+          boolean numberExtracted = number != null;
+          if (numberExtracted) {
+            ASTOperandStaticNumber num = new ASTOperandStaticNumber(number);
+            num.setSource(item.getOriginalSource());
+            arrayBuilder.addItem(num);
+          } else {
+            // at least one operand not parsable as a numerical value
+            return null;
+          }
+        } else {
+          // at least one operand not parsable as a numerical value
+          return null;
+        }
+      }
+    }
+
+    return arrayBuilder.getModel();
+  }
+
+  private static ASTOperandArray extractGeneralArrayOperand(List<ASTOperandBase> allLeftOperands) {
+    ASTOperandArrayBuilder arrayBuilder = new ASTOperandArrayBuilder(null);
+    arrayBuilder.create().withContentType(DataPropertyType.Unknown);
+
+    for (ASTOperandBase base : allLeftOperands) {
+      if (base instanceof ASTOperandStaticString) {
+        ASTOperandStaticString staticString = (ASTOperandStaticString) base;
+        if (PostProcessorUtils.isParsableAsArray(staticString)) {
+          ASTOperandArray subArray =
+              PostProcessorUtils.resolveArrayFromString(staticString, DataPropertyType.String);
+          for (ASTOperandBase elem : subArray.getItems()) {
+            arrayBuilder.addItem(elem);
+          }
+        } else {
+          arrayBuilder.addItem(staticString);
         }
       } else {
-        arrayBuilder.addItem(
-            PostProcessorUtils.resolveArrayElementString(s.getValue(), DataPropertyType.String));
+        arrayBuilder.addItem(base);
       }
     }
 
@@ -135,7 +173,7 @@ public class PostModelArrayInVariableResolver
     boolean isValid = false;
     if (varOp instanceof ASTCondition) {
       ASTCondition cond = (ASTCondition) varOp;
-      isValid = cond.getLeftOperand() instanceof ASTOperandStaticString && !cond.hasRightOperand();
+      isValid = cond.getLeftOperand() instanceof ASTOperandStatic && !cond.hasRightOperand();
     } else if (varOp instanceof ASTConditionGroup) {
       List<ASTConditionBase> conditionBases = ((ASTConditionGroup) varOp).getConditions();
       isValid = conditionBases.stream().allMatch(base -> isValidConditionBase(base));

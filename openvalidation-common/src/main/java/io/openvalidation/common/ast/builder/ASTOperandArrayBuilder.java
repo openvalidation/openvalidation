@@ -18,8 +18,8 @@ package io.openvalidation.common.ast.builder;
 
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.data.DataPropertyType;
 
 public class ASTOperandArrayBuilder
     extends ASTBuilderBase<ASTOperandArrayBuilder, ASTConditionBuilder, ASTOperandArray> {
@@ -37,7 +37,8 @@ public class ASTOperandArrayBuilder
     return this.addItem(new ASTOperandStaticString(string));
   }
 
-  public ASTOperandArrayBuilder addItem(double number) {
-    return this.addItem(new ASTOperandStaticNumber(number));
+  public ASTOperandArrayBuilder withContentType(DataPropertyType type) {
+    this.model.setContentType(type);
+    return this;
   }
 }

@@ -18,6 +18,8 @@ the location must be one of the capital cities
 
 the location must be one of the capital cities
 
+
+
 ################# variable with array must be one of with strings separated by or  ########################
 
 Berlin, Paris or London as capital cities
@@ -37,6 +39,73 @@ the location must be one of the capital cities
 {location:''}
 
 the location must be one of the capital cities
+
+
+
+################# variable with array must be one of with strings separated by or multiple  ########################
+
+Berlin or Paris or London as capital cities
+
+the location must be one of the capital cities
+
+
+{location:''}
+
+
+--------------  value -------------------
+
+{location:'Lisbon'}
+
+{location:'berlin'}
+
+{location:''}
+
+the location must be one of the capital cities
+
+
+
+################# variable with array must be one of with strings separated by or mixed  ########################
+
+Berlin or Paris, London or Madrid as capital cities
+
+the location must be one of the capital cities
+
+
+{location:''}
+
+
+--------------  value -------------------
+
+{location:'Lisbon'}
+
+{location:'berlin'}
+
+{location:''}
+
+the location must be one of the capital cities
+
+
+
+################# variable with array must be one of with strings separated by and mixed  ########################
+
+Berlin and Paris, London and Madrid as capital cities
+
+the location must be one of the capital cities
+
+
+{location:''}
+
+
+--------------  value -------------------
+
+{location:'Lisbon'}
+
+{location:'berlin'}
+
+{location:''}
+
+the location must be one of the capital cities
+
 
 
 ################# variable with array must be one of with numbers  ########################
@@ -60,6 +129,80 @@ your favourite must be one of the nice numbers
 {favourite: 1.00000001}
 
 your favourite must be one of the nice numbers
+
+
+
+################# variable with array must be one of with numbers separated by or  ########################
+
+1, 2 or 3 as nice numbers
+
+your favourite must be one of the nice numbers
+
+
+{favourite: 0}
+
+
+--------------  value -------------------
+
+{favourite: 4}
+
+{favourite: -1}
+
+{favourite: 0}
+
+{favourite: 1.00000001}
+
+your favourite must be one of the nice numbers
+
+
+
+################# variable with array must be one of with numbers separated by or multiple  ########################
+
+1 or 2 or 3 as nice numbers
+
+your favourite must be one of the nice numbers
+
+
+{favourite: 0}
+
+
+--------------  value -------------------
+
+{favourite: 4}
+
+{favourite: -1}
+
+{favourite: 0}
+
+{favourite: 1.00000001}
+
+your favourite must be one of the nice numbers
+
+
+
+################# variable with array must be one of with numbers separated by or mixed  ########################
+
+1 or 2, 3 or 100 as nice numbers
+
+your favourite must be one of the nice numbers
+
+
+{favourite: 0}
+
+
+--------------  value -------------------
+
+{favourite: 4}
+
+{favourite: -1}
+
+{favourite: 0}
+
+{favourite: 1.00000001}
+
+your favourite must be one of the nice numbers
+
+
 
 
 
