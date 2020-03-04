@@ -19,6 +19,7 @@ package io.openvalidation.generation.tests;
 import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.builder.ASTModelBuilder;
 import io.openvalidation.common.ast.builder.ASTVariableBuilder;
+import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -420,7 +421,12 @@ public class GeneratorVariableTest {
         language,
         p -> {
           ASTVariableBuilder builder = new ASTVariableBuilder(new ASTModelBuilder());
-          builder.createVariable("numbers").createValueAsArray().addItem(1).addItem(2).addItem(3);
+          builder
+              .createVariable("numbers")
+              .createValueAsArray()
+              .addItem(new ASTOperandStaticNumber(1))
+              .addItem(new ASTOperandStaticNumber(2))
+              .addItem(new ASTOperandStaticNumber(3));
 
           return builder.getModel();
         });
