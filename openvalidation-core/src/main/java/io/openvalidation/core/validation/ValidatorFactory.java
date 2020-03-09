@@ -19,6 +19,7 @@ package io.openvalidation.core.validation;
 import io.openvalidation.common.ast.*;
 import io.openvalidation.common.ast.condition.ASTCondition;
 import io.openvalidation.common.ast.condition.ASTConditionGroup;
+import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandFunction;
 import io.openvalidation.common.ast.operand.ASTOperandVariable;
@@ -52,6 +53,8 @@ public class ValidatorFactory {
       return new ASTOperandFunctionValidator((ASTOperandFunction) item);
     if (item instanceof ASTOperandLambdaCondition)
       return new ASTOperandLambdaConditionValidator((ASTOperandLambdaCondition) item);
+    if (item instanceof ASTOperandArray)
+      return new ASTOperandArrayValidator((ASTOperandArray) item);
 
     if (item instanceof ASTUnknown) return new ASTUnknownValidator((ASTUnknown) item);
 
