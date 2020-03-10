@@ -28,10 +28,10 @@ public class PostProcessorFactory {
 
     // final fallback model post processors ...
     _postprocessors.add(new PostModelMissingPropertyTypeResolver());
-    _postprocessors.add(new PostModelArrayInVariableResolver());
     _postprocessors.add(new PostModelVariableResolver());
 
-    _postprocessors.add(new PostConditionArrayResolver());
+    _postprocessors.add(new PostModelArrayConditionGroupResolver());
+    _postprocessors.add(new PostModelArrayComparisonResolver());
     _postprocessors.add(new PostConditionImplicitBoolOperand());
     _postprocessors.add(new PostConditionExistOperationTrimmer());
 
@@ -47,6 +47,7 @@ public class PostProcessorFactory {
     _postprocessors.add(new PostModelNullCheckRulesCreator());
     _postprocessors.add(new PostModelUnlessResolver());
     _postprocessors.add(new PostModelArrayOrReplacement());
+    _postprocessors.add(new PostModelArrayNumbersResolver());
     _postprocessors.add(new PostModelCleanConditionGroups());
     _postprocessors.add(new PostModelRemoveEmptyUnknownItem());
     _postprocessors.add(new PostModelImplicitBoolOperand());

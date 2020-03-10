@@ -151,4 +151,9 @@ public class PropertyAssertion
     shouldBeInstanceOf(p, OperandListAssertion.class, "PARENT OPERAND LIST");
     return (OperandListAssertion) p;
   }
+
+  public ArrayAssertion parentArray() {
+    shouldBeInstanceOf(this.parent, ArrayAssertion.class, "PARENT ARRAY");
+    return (ArrayAssertion) this.parent;
+  }
 }

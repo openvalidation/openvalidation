@@ -19,6 +19,7 @@ package end2ast
 import io.openvalidation.common.ast.ASTArithmeticalOperator
 import io.openvalidation.common.ast.ASTComparisonOperator
 import io.openvalidation.common.data.DataPropertyType
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.params.ParameterizedTest
@@ -1078,5 +1079,50 @@ class VariableTest {
         }
     }
 
+    @Test
+    @Throws(Exception::class)
+    internal fun variable_with_operand_array_with_comma_with_strings() {
+
+        var input = "Text as stringVar\n\nsomething, stringProp, stringVar as var";
+
+        End2AstRunner.run(input, """{"stringProp": ""}""") {
+            r -> r.variables()
+                .second()
+                .hasName("var")
+                .operandArray()
+                .hasSize(3)
+                .stringAtPosition("something",0)
+                .propertyAtPosition(1)
+                .hasType(DataPropertyType.String)
+                .hasPath("stringProp")
+                .parentArray()
+                .variableAtPosition(2)
+                .hasType(DataPropertyType.String)
+                .hasName("stringVar")
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    internal fun variable_with_operand_array_with_comma_with_numbers() {
+
+        var input = "5 as numVar\n\n42, numProp, numVar as var";
+
+        End2AstRunner.run(input, """{"numProp": 42}""") {
+            r -> r.variables()
+                .second()
+                .hasName("var")
+                .operandArray()
+                .hasSize(3)
+                .numberAtPosition(42.0,0)
+                .propertyAtPosition(1)
+                .hasType(DataPropertyType.Decimal)
+                .hasPath("numProp")
+                .parentArray()
+                .variableAtPosition(2)
+                .hasType(DataPropertyType.Decimal)
+                .hasName("numVar")
+        }
+    }
 
 }

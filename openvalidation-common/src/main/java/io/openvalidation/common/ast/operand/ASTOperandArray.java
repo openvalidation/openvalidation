@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 
 public class ASTOperandArray extends ASTOperandBase {
   private List<ASTOperandBase> _items = new ArrayList<>();
-  private DataPropertyType contentType;
 
   public List<ASTOperandBase> getItems() {
     return _items;
@@ -39,11 +38,19 @@ public class ASTOperandArray extends ASTOperandBase {
   }
 
   public DataPropertyType getContentType() {
-    return contentType;
-  }
+    DataPropertyType cType = DataPropertyType.Unknown;
 
-  public void setContentType(DataPropertyType contentType) {
-    this.contentType = contentType;
+    for (ASTOperandBase item : this.getItems()) {
+      DataPropertyType itemType = item.getDataType();
+      boolean cTypeSet = cType != DataPropertyType.Unknown;
+      if (cTypeSet && itemType != cType) {
+        cType = DataPropertyType.Unknown;
+        break;
+      } else {
+        cType = itemType;
+      }
+    }
+    return cType;
   }
 
   @Override

@@ -19,7 +19,6 @@ package io.openvalidation.common.ast.builder;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
-import io.openvalidation.common.data.DataPropertyType;
 
 public class ASTOperandArrayBuilder
     extends ASTBuilderBase<ASTOperandArrayBuilder, ASTConditionBuilder, ASTOperandArray> {
@@ -35,10 +34,5 @@ public class ASTOperandArrayBuilder
 
   public ASTOperandArrayBuilder addItem(String string) {
     return this.addItem(new ASTOperandStaticString(string));
-  }
-
-  public ASTOperandArrayBuilder withContentType(DataPropertyType type) {
-    this.model.setContentType(type);
-    return this;
   }
 }
