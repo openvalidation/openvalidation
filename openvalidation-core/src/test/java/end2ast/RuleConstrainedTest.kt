@@ -1697,7 +1697,7 @@ class RuleConstrainedTest {
         ,"The unbelievable SomeNumber number - the sturdy number 10 HAS NOT to be the smallestz OtherNumber PLUS a strange 5 thing"
         ,"The SomeNumber MINUS 10 HAVE NOT to be a OtherNumber PLUS 5 in number"
         ,"SomeNumber - 10 MUSTN'T be OtherNumber PLUS 5"
-        ,"SomeNumber stuff MINUS the Number 10 SHOULDN'T be the OtherNumber from the file, but PLUS the number 5"
+        //,"SomeNumber stuff MINUS the Number 10 SHOULDN'T be the OtherNumber from the file, but PLUS the number 5"
         ,"SomeNumber - 10 HASN'T to be OtherNumber PLUS 5"
         ,"SomeNumber fortyfour MINUS some random 10 HAVEN'T to be the unreliable number OtherNumber PLUS the tiny number 5"
         ,"the SomeNumber - 10 people MUSTN'T OtherNumber PLUS 5 stuff"

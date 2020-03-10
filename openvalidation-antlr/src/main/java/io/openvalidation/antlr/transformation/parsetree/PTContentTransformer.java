@@ -19,11 +19,11 @@ package io.openvalidation.antlr.transformation.parsetree;
 import io.openvalidation.antlr.generated.mainParser;
 import io.openvalidation.antlr.transformation.TransformerBase;
 import io.openvalidation.antlr.transformation.TransformerContext;
-import io.openvalidation.common.ast.operand.ASTOperandBase;
-import io.openvalidation.common.ast.operand.ASTOperandFunction;
-import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
-import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.antlr.transformation.postprocessing.PostProcessorUtils;
+import io.openvalidation.common.ast.operand.*;
+import io.openvalidation.common.utils.Constants;
 import io.openvalidation.common.utils.NumberParsingUtils;
+import io.openvalidation.common.utils.StringUtils;
 
 public class PTContentTransformer
     extends TransformerBase<PTContentTransformer, ASTOperandBase, mainParser.ContentContext> {
@@ -63,6 +63,9 @@ public class PTContentTransformer
       if (NumberParsingUtils.isNumber(content)) {
         operand = new ASTOperandStaticNumber(Double.parseDouble(content));
         operand.setSource(content);
+      } else if (PostProcessorUtils.isParsableAsArray(content)) {
+        operand = resolveArrayFromString(content);
+        operand.setSource(content);
       } else {
         operand = this.createProperty(content);
 
@@ -76,5 +79,27 @@ public class PTContentTransformer
     }
 
     return operand;
+  }
+
+  private ASTOperandArray resolveArrayFromString(String val) {
+    ASTOperandArray resultArray = null;
+
+    if (val != null && PostProcessorUtils.isParsableAsArray(val)) {
+      val = StringUtils.trimSpecialChars(val);
+
+      resultArray = new ASTOperandArray();
+      // resultArray.setContentType(resolutionType);
+
+      for (String delimiter : Constants.ARRAY_DELIMITER_ALIASES) {
+        val = val.replaceAll(" " + delimiter + " ", ",");
+      }
+
+      for (String v : val.split(",")) {
+        ASTOperandBase extractedItem = resolveContentString(StringUtils.stripSpecialWords(v));
+        resultArray.add(extractedItem);
+      }
+    }
+
+    return resultArray;
   }
 }

@@ -93,7 +93,6 @@ public class PostModelArrayOrReplacement
           ASTOperandStatic currentRightStaticOp =
               (ASTOperandStatic) currentCondition.getRightOperand();
           ASTOperandArray array = new ASTOperandArray();
-          array.setContentType(currentCondition.getLeftOperand().getDataType());
           // TODO lazevedo 11.02.20 preliminary source of this artificially created element hard to
           // reconstruct. additionally updating of parent sources required
           array.setSource(

@@ -20,6 +20,8 @@ import io.openvalidation.common.ast.ASTModel;
 import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandStaticNumber;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
+import io.openvalidation.common.ast.operand.ASTOperandVariable;
+import io.openvalidation.common.ast.operand.property.ASTOperandProperty;
 import io.openvalidation.common.data.DataPropertyType;
 
 public class ArrayAssertion
@@ -76,8 +78,31 @@ public class ArrayAssertion
     return this;
   }
 
+  public PropertyAssertion propertyAtPosition(int index) {
+    shouldNotBeEmpty(this.model.getItems(), "Array Items");
+    shouldNotBeEmpty(this.model.getItems().get(index), "Array Item At Position");
+
+    shouldBeInstanceOf(
+        this.model.getItems().get(index), ASTOperandProperty.class, "ITEM AS OPERAND PROPERTY");
+
+    return new PropertyAssertion((ASTOperandProperty) this.model.getItems().get(index), ast, this);
+  }
+
+  public VariableReferenceAssertion variableAtPosition(int index) {
+    shouldNotBeEmpty(this.model.getItems(), "Array Items");
+    shouldNotBeEmpty(this.model.getItems().get(index), "Array Item At Position");
+
+    shouldBeInstanceOf(
+        this.model.getItems().get(index), ASTOperandVariable.class, "ITEM AS OPERAND VARIABLE");
+
+    return new VariableReferenceAssertion(
+        (ASTOperandVariable) this.model.getItems().get(index), ast, this);
+  }
+
   public VariableAssertion parentVariable() {
     shouldBeInstanceOf(this.parent, VariableAssertion.class, "PARENT VARIABLE");
     return (VariableAssertion) parent;
   }
+
+  //todo lazevedo 10.03.20 add check for content type
 }

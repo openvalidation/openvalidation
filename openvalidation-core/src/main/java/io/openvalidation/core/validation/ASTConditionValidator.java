@@ -18,6 +18,7 @@ package io.openvalidation.core.validation;
 
 import io.openvalidation.common.ast.ASTComparisonOperator;
 import io.openvalidation.common.ast.condition.ASTCondition;
+import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.ast.operand.ASTOperandStatic;
 import io.openvalidation.common.ast.operand.ASTOperandStaticString;
@@ -98,25 +99,39 @@ public class ASTConditionValidator extends ValidatorBase {
       //  we can perfom a different check for static operands
     }
 
-    if (rightOperand != null
-        && leftOperand.getDataType() != rightOperand.getDataType()
-        && !(operator == ASTComparisonOperator.AT_LEAST_ONE_OF
-            || operator == ASTComparisonOperator.NONE_OF
-            || operator == ASTComparisonOperator.ONE_OF)) {
-
-      // todo jgeske 17.01.2020 further exploration of errors for comparisons in array operations
-      if (!(leftOperand.isEnumData() && rightOperand.isStringData())
-          && !(rightOperand.isEnumData() && leftOperand.isStringData())) {
-        throw new ASTValidationException(
-            "comparison contains different DataTypes. \n"
-                + "left operand is of type: '"
-                + leftOperand.getDataType()
-                + "' and "
-                + "right operand is of type: '"
-                + rightOperand.getDataType()
-                + "'",
-            _condition,
-            this.globalPosition);
+    // check if data types are different
+    if (rightOperand != null && leftOperand.getDataType() != rightOperand.getDataType()) {
+      if (!(operator == ASTComparisonOperator.AT_LEAST_ONE_OF
+          || operator == ASTComparisonOperator.NONE_OF
+          || operator == ASTComparisonOperator.ONE_OF)) {
+        // todo jgeske 17.01.2020 further exploration of errors for comparisons in array operations
+        if (!(leftOperand.isEnumData() && rightOperand.isStringData())
+            && !(rightOperand.isEnumData() && leftOperand.isStringData())) {
+          throw new ASTValidationException(
+              "comparison contains different DataTypes. \n"
+                  + "left operand is of type: '"
+                  + leftOperand.getDataType()
+                  + "' and "
+                  + "right operand is of type: '"
+                  + rightOperand.getDataType()
+                  + "'",
+              _condition,
+              this.globalPosition);
+        }
+      } else if (rightOperand instanceof ASTOperandArray) {
+        ASTOperandArray rightArray = (ASTOperandArray) rightOperand;
+        if (leftOperand.getDataType() != rightArray.getContentType()) {
+          throw new ASTValidationException(
+              "Comparison of left operand with elements of the right operand array not possible due to different data types.\n"
+                  + "Left operand is of type\t'"
+                  + leftOperand.getDataType()
+                  + "'\n"
+                  + "Right operand is of type\t'"
+                  + rightArray.getContentType()
+                  + "'",
+              _condition,
+              this.globalPosition);
+        }
       }
     }
 
