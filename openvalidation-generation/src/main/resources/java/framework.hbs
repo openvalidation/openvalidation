@@ -175,31 +175,42 @@ public class HUMLFramework {
         return GREATER_THAN(leftOperand, rightOperand) || EQUALS(leftOperand, rightOperand);
     }
 
-    public <T> Boolean ONE_OF(T leftOperand, T... rightOperand) {
-        boolean value = (rightOperand != null && rightOperand.length > 0);
-        if (value && leftOperand instanceof Number && rightOperand instanceof Number[]) {
-            value = Arrays.stream(rightOperand).anyMatch(i -> _numComp.compare((Number) i, (Number) leftOperand) == 0);
-        } else if (value && rightOperand[0] instanceof Collection) {
-            Iterator it = ((Collection<T>) rightOperand[0]).iterator();
-            if (leftOperand instanceof Number && it.hasNext() && it.next() instanceof Number) {
-                value = ((Collection<T>) rightOperand[0]).stream().anyMatch(i -> _numComp.compare((Number) i, (Number) leftOperand) == 0);
-            } else {
-                value = ((Collection<T>) rightOperand[0]).stream().anyMatch(i -> i.equals(leftOperand));
+    public <T> Boolean ONE_OF(T leftOperand, Object rightOperand)
+    {
+        boolean value = false;
+        if(leftOperand != null) {
+            if(rightOperand instanceof Collection) {
+                Iterator it = ((Collection<T>) rightOperand).iterator();
+                if(leftOperand instanceof Number && it.hasNext() && it.next() instanceof Number) {
+                    value = ((Collection<T>) rightOperand).stream().anyMatch(i -> _numComp.compare((Number) i, (Number) leftOperand) == 0);
+                }
+                else {
+                    value = ((Collection<T>) rightOperand).stream().anyMatch(i -> i.equals(leftOperand));
+                }
             }
-        } else if (value) {
-            value = Arrays.stream(rightOperand).anyMatch(i -> i.equals(leftOperand));
-        } else {
-            value = false;
+            else if(rightOperand.getClass().isArray()) {
+                List<T> l = extractListFromObject(rightOperand);
+                if(l != null && l.size() > 0) {
+                    if(l.get(0) instanceof Number) {
+                        value = l.stream().anyMatch(i -> _numComp.compare((Number) i, (Number) leftOperand) == 0);
+                    }
+                    else {
+                        value = l.stream().anyMatch(i -> i.equals(leftOperand));
+                    }
+                }
+            }
+            else {
+                return null;
+            }
         }
-
         return value;
     }
 
-    public <T> Boolean AT_LEAST_ONE_OF(T leftOperand, T... rightOperand) {
+    public <T> Boolean AT_LEAST_ONE_OF(T leftOperand, Object rightOperand) {
         return ONE_OF(leftOperand, rightOperand);
     }
 
-    public <T> Boolean NONE_OF(T leftOperand, T... rightOperand) {
+    public <T> Boolean NONE_OF(T leftOperand, Object rightOperand) {
         return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
     }
 
@@ -242,51 +253,61 @@ public class HUMLFramework {
 
         return Arrays.stream(array).collect(Collectors.toList());
     }
-    
+
     public <T> T[] WHERE(Object item, Predicate<? super T> condition){
         if(item instanceof List){
             return WHERE((List<T>)item, condition);
         } else if(item.getClass().isArray()){
-            if (item.getClass().getName().equalsIgnoreCase("[i"))//integer primitive array
-            {
-                List<Integer> lst = new ArrayList<>();
+                List<T> list = extractListFromObject(item);
+                return WHERE((List<T>)list, condition);
+        }
+
+        return null; //no valid  type resolution found
+    }
+
+    public <T> List<T> extractListFromObject(Object item)
+    {
+        List list = null;
+
+        if(item.getClass().isArray()){
+            if (item.getClass().getName().equalsIgnoreCase("[i")) {//integer primitive array
+                List< Integer> lst = new ArrayList<>();
                 for(int i : (int[])item){ lst.add(i); }
-                return WHERE((List<T>)lst, condition);
-            }else if (item.getClass().getName().equalsIgnoreCase("[b")) {//byte primitive array
+                list = lst;
+            } else if (item.getClass().getName().equalsIgnoreCase("[b")) {//byte primitive array
                 List<Byte> lst = new ArrayList<>();
                 for(byte i : (byte[])item){ lst.add(i); }
-                return WHERE((List<T>)lst, condition);
+                list = lst;
             } else if (item.getClass().getName().equalsIgnoreCase("[z")) {//boolean primitive array
                 List<Boolean> lst = new ArrayList<>();
                 for(boolean i : (boolean[])item){ lst.add(i); }
-                return WHERE((List<T>)lst, condition);
+                list = lst;
             } else if (item.getClass().getName().equalsIgnoreCase("[s")) {//short primitive array
                 List<Short> lst = new ArrayList<>();
                 for(short i : (short[])item){ lst.add(i); }
-                return WHERE((List<T>)lst, condition);
+                list = lst;
             } else if (item.getClass().getName().equalsIgnoreCase("[j")) {//long primitive array
                 List<Long> lst = new ArrayList<>();
                 for(long i : (long[])item){ lst.add(i); }
-                return WHERE((List<T>)lst, condition);
+                list = lst;
             } else if (item.getClass().getName().equalsIgnoreCase("[f")) {//float primitive array
                 List<Float> lst = new ArrayList<>();
                 for(float i : (float[])item){ lst.add(i); }
-                return WHERE((List<T>)lst, condition);
+                list = lst;
             } else if (item.getClass().getName().equalsIgnoreCase("[d")) {//double primitive array
                 List<Double> lst = new ArrayList<>();
                 for(double i : (double[])item){ lst.add(i); }
-                return WHERE((List<T>)lst, condition);
+                list = lst;
             } else if (item.getClass().getName().equalsIgnoreCase("[c")) {//char primitive array
                 List<Character> lst = new ArrayList<>();
                 for(char i : (char[])item){ lst.add(i); }
-                return WHERE((List<T>)lst, condition);
+                list = lst;
             } else {//non primitive
                 List<T> lst = Arrays.asList((T[]) item);
-                return WHERE((List<T>)lst, condition);
+                list = lst;
             }
         }
-        
-        return null; //no valid  type resolution found
+        return list;
     }
 
     public <T> T[] WHERE(T[] array, Predicate<? super T> condition) {

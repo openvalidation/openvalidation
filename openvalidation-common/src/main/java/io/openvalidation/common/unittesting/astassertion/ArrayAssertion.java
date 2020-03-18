@@ -104,5 +104,8 @@ public class ArrayAssertion
     return (VariableAssertion) parent;
   }
 
-  //todo lazevedo 10.03.20 add check for content type
+  public ArrayAssertion hasContentType(DataPropertyType type) {
+    shouldEquals(this.model.getContentType(), type, "ARRAY OPERAND CONTENT TYPE");
+    return this;
+  }
 }

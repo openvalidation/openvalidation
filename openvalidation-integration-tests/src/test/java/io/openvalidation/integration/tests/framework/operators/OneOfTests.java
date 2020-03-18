@@ -37,7 +37,8 @@ public class OneOfTests {
     HUMLFramework huml = new HUMLFramework();
     String input_left = "Franz";
     Assertions.assertTrue(
-        huml.AT_LEAST_ONE_OF(input_left, "Heins", "Jens", "Franz", "Peter", "Klaus", "Helmut"));
+        huml.AT_LEAST_ONE_OF(
+            input_left, huml.CREATE_ARRAY("Heins", "Jens", "Franz", "Peter", "Klaus", "Helmut")));
   }
 
   @Test
@@ -99,17 +100,9 @@ public class OneOfTests {
     Assertions.assertFalse(
         huml.AT_LEAST_ONE_OF(
             input_left,
-            "Heins",
-            "Jens",
-            "Franz",
-            "Peter",
-            "Klaus",
-            "Helmut",
-            "Jerry",
-            "Jerry",
-            "Franz",
-            "Jerry",
-            "Berry"));
+            huml.CREATE_ARRAY(
+                "Heins", "Jens", "Franz", "Peter", "Klaus", "Helmut", "Jerry", "Jerry", "Franz",
+                "Jerry", "Berry")));
   }
 
   @Test
@@ -141,7 +134,8 @@ public class OneOfTests {
     HUMLFramework huml = new HUMLFramework();
     int input_left = 42;
     Assertions.assertFalse(
-        huml.AT_LEAST_ONE_OF(input_left, 44, 45, 1, 0, 1024, 45, 1, 44, 0, 1024));
+        huml.AT_LEAST_ONE_OF(
+            input_left, huml.CREATE_ARRAY(44, 45, 1, 0, 1024, 45, 1, 44, 0, 1024)));
   }
 
   @Test
@@ -149,6 +143,7 @@ public class OneOfTests {
     HUMLFramework huml = new HUMLFramework();
     int input_left = 42;
     Assertions.assertTrue(
-        huml.AT_LEAST_ONE_OF(input_left, 42, 44, 45, 1, 0, 1024, 45, 1, 44, 0, 1024, 42));
+        huml.AT_LEAST_ONE_OF(
+            input_left, huml.CREATE_ARRAY(42, 44, 45, 1, 0, 1024, 45, 1, 44, 0, 1024, 42)));
   }
 }
