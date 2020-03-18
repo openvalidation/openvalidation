@@ -115,7 +115,7 @@ the location must be one of the capital cities
 your favourite must be one of the nice numbers
 
 
-{favourite: 0}
+{favourite: 1.5}
 
 
 --------------  value -------------------
@@ -139,7 +139,7 @@ your favourite must be one of the nice numbers
 your favourite must be one of the nice numbers
 
 
-{favourite: 0}
+{favourite: 1.5}
 
 
 --------------  value -------------------
@@ -163,7 +163,7 @@ your favourite must be one of the nice numbers
 your favourite must be one of the nice numbers
 
 
-{favourite: 0}
+{favourite: 1.5}
 
 
 --------------  value -------------------
@@ -187,7 +187,7 @@ your favourite must be one of the nice numbers
 your favourite must be one of the nice numbers
 
 
-{favourite: 0}
+{favourite: 1.5}
 
 
 --------------  value -------------------
@@ -201,6 +201,110 @@ your favourite must be one of the nice numbers
 {favourite: 1.00000001}
 
 your favourite must be one of the nice numbers
+
+
+################# variable with array must be one of with strings as static and property and variable  ########################
+
+cherry as stringVar
+
+apple, stringProp or stringVar as fruits
+
+
+the fruit must be one of fruits
+
+the fruit must be one of apricot, stringProp or stringVar
+
+{stringProp: "", fruit: ""}
+
+
+--------------  first error triggered -------------------
+
+{stringProp: "banana", fruit: "dragon fruit"}
+
+the fruit must be one of fruits
+
+--------------  second error triggered -------------------
+
+{stringProp: "banana", fruit: "apple"}
+
+the fruit must be one of apricot, stringProp or stringVar
+
+################# variable with array must be one of with numbers as static and property and variable 1 integers ########################
+
+3 as numVar
+
+1, numProp or numVar as numbers
+
+
+the inputNumber must be one of numbers
+
+the inputNumber must be one of 42, numProp or numVar
+
+
+{numProp: 2, inputNumber: 1.5}
+
+
+--------------  first error triggered -------------------
+
+{numProp: 2, inputNumber: 0}
+
+{numProp: 2, inputNumber: 4}
+
+{numProp: 2, inputNumber: -1}
+
+{numProp: 2, inputNumber: 1.00000001}
+
+{numProp: 2, inputNumber: 1.99999999}
+
+the inputNumber must be one of numbers
+
+--------------  second error triggered -------------------
+
+{numProp: 2, inputNumber: 1}
+
+the inputNumber must be one of 42, numProp or numVar
+
+
+################# variable with array must be one of with numbers as static and property and variable 2 integers and doubles ########################
+
+3.3 as numVar
+
+1.1, numProp or numVar as numbers
+
+
+the inputNumber must be one of numbers
+
+the inputNumber must be one of 42.42, numProp or numVar
+
+
+{numProp: 2, inputNumber: 1.5}
+
+
+--------------  first error triggered -------------------
+
+{numProp: 2, inputNumber: 0.1}
+
+{numProp: 2, inputNumber: 4.1}
+
+{numProp: 2, inputNumber: -1.1}
+
+{numProp: 2, inputNumber: 1.10000001}
+
+{numProp: 2, inputNumber: 1.09999999}
+
+the inputNumber must be one of numbers
+
+--------------  second error triggered -------------------
+
+{numProp: 2, inputNumber: 1.1}
+
+the inputNumber must be one of 42.42, numProp or numVar
+
+
+
+
+
+
 
 
 

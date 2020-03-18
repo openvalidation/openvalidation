@@ -57,7 +57,6 @@ public class SumOfTests {
   @Test
   public void sum_of_fibonacci_numbers_should_be_54() {
     HUMLFramework huml = new HUMLFramework();
-    System.out.println("asdfgh");
     Assertions.assertTrue(huml.EQUALS(huml.SUM_OF(1, 1, 2, 3, 5, 8, 13, 21), new BigDecimal(54)));
   }
 
