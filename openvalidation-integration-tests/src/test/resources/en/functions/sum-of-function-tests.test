@@ -148,3 +148,17 @@ it is a petting zoo
 
 
 it is a wild world
+
+
+################# sum of function on array variable ########################
+
+1, 2, 3 as numbers
+
+sum of numbers should be 10
+
+{dummy: 0}
+
+--------------  error always triggered  -------------------
+{dummy: 0}
+
+sum of numbers should be 10
