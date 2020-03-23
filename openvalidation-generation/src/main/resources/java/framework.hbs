@@ -214,6 +214,18 @@ public class HUMLFramework {
         return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
     }
 
+    public <T extends Number> BigDecimal SUM_OF(Object items) {
+        if(items instanceof Number[]) {
+            return SUM_OF((Number[]) items);
+        }
+        else if(items instanceof List) {
+            return SUM_OF(((List<T>) items).toArray());
+        }
+        else {
+            throw new IllegalStateException("Argument of SUM_OF must be either an array or a list");
+        }
+    }
+
     public <T extends Number> BigDecimal SUM_OF(T... items) {
         if (items == null || items.length < 1)
             return new BigDecimal(0);
