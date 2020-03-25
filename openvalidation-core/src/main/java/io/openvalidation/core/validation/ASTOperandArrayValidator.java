@@ -4,9 +4,7 @@ import io.openvalidation.common.ast.operand.ASTOperandArray;
 import io.openvalidation.common.ast.operand.ASTOperandBase;
 import io.openvalidation.common.data.DataPropertyType;
 import io.openvalidation.common.exceptions.ASTValidationException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class ASTOperandArrayValidator extends ValidatorBase {
 
@@ -21,7 +19,7 @@ public class ASTOperandArrayValidator extends ValidatorBase {
     // validate structure
     boolean arrElemsHaveDiffTypes = array.getContentType() == DataPropertyType.Unknown;
     if (arrElemsHaveDiffTypes) {
-      Set<DataPropertyType> foundTypes = new HashSet<>();
+      List<DataPropertyType> foundTypes = new ArrayList<>();
       for (ASTOperandBase base : array.getItems()) {
         foundTypes.add(base.getDataType());
       }
@@ -40,7 +38,7 @@ public class ASTOperandArrayValidator extends ValidatorBase {
     }
   }
 
-  private String buildFoundTypeListString(Set<DataPropertyType> types) {
+  private String buildFoundTypeListString(List<DataPropertyType> types) {
     StringBuilder sb = new StringBuilder("[");
     Iterator<DataPropertyType> it = types.iterator();
 
