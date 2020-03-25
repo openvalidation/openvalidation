@@ -1,10 +1,6 @@
 var HUMLFramework = function() {
     this.rules = [];
 
-    this.CLEAN = function(){
-        this.rules = [];
-    }
-
     this.appendRule = function(name, fields, error, condition, disabled) {
             this.rules.push( {
                 name : name,
@@ -49,7 +45,7 @@ var HUMLFramework = function() {
                         this.rules[x].fields.forEach(f => {
                             if(!errorSummary.fields[f])
                                 errorSummary.fields.push(f);
-                        });
+                    });
                     }
 
                 }
@@ -73,13 +69,13 @@ var HUMLFramework = function() {
     this.WHERE = function(arr, clbk) {
         var out = [];
 
-        for(var x=0; x < arr.length; x++){
+        for(var x=0; x < arr; x++){
             if (clbk(arr[x])){
-                out.push(arr[x]);
+                out.push(this[x]);
             }
         }
 
-        return (out.length == 1)? out[0] : out;
+        return (out.length() == 1)? out[0] : out;
     }
 
     this.ONE_OF = function(value, ...params){
@@ -118,17 +114,23 @@ var HUMLFramework = function() {
         return leftOperand >= rightOperand;
     }
 
-    this.AT_LEAST_ONE_OF = function(leftOperand, ...rightOperand)
+    this.AT_LEAST_ONE_OF = function(leftOperand, rightOperand)
     {
-        if(rightOperand.length == 1 && rightOperand[0].length > 0)
-            return rightOperand[0].includes(leftOperand);
-        else
-            return rightOperand.includes(leftOperand);
+        return (rightOperand && rightOperand.length > 0)?
+                    rightOperand.includes(leftOperand) : false;
     }
 
     this.NONE_OF = function(leftOperand, rightOperand)
     {
         return !this.AT_LEAST_ONE_OF(leftOperand, rightOperand);
+    }
+
+    this.SUM_OF = function(operand){
+        var value = 0;
+        for (let i=0; i<operand.length; i++) {
+            value += operand[i];
+          }
+        return value;
     }
 
     this.EMPTY = function(operand) {
@@ -146,74 +148,5 @@ var HUMLFramework = function() {
 
     this.CREATE_ARRAY = function(...x) {
         return x;
-    }
-
-    this.EXISTS = function(operand) {
-        return !this.EMPTY(operand);
-    }
-
-    this.NOT_EXISTS = function(operand) {
-        return this.EMPTY(operand);
-    }
-
-    this.SUM_OF = function(...operand){
-        if(operand.length == 1 && operand[0].length > 0)
-        {
-            var value = 0;
-            for (let i=0; i<operand[0].length; i++) {
-                value += operand[0][i];
-            }
-            return value;
-        } else {
-            var value = 0;
-            for (let i=0; i<operand.length; i++) {
-                value += operand[i];
-            }
-            return value;
-        }
-    }
-
-    this.sizeOf = function(operand){
-        if(operand != null && operand.length)
-                return operand.length;
-        return 0;
-    }
-
-    this.atPosition = function(arr, pos){
-        if(arr != null && arr.length && pos > 0 && pos <= arr.length)
-                return arr[pos-1];
-        return null;
-    }
-
-    this.FIRST = function(operand, amount){
-        if(operand != null){
-            if(!amount) amount = 1;
-            if(operand.length && operand.length > amount){
-                var out = [];
-                for(var x=0; x < amount && x < operand.length; x++){
-                    out.push(operand[x]);
-                }
-                return out.length == 1 ? out[0] : out;
-            }
-            return operand;
-        }
-        return null;
-    }
-
-    this.LAST = function(operand, amount){
-        if(operand != null){
-            if(!amount) amount = 1;
-            if(operand.length && operand.length > amount){
-                var out = [];
-                var len = operand.length - amount;
-                len = len < 0 ? 0 : len;
-                for(var x=len; x < operand.length; x++){
-                    out.push(operand[x]);
-                }
-                return out.length == 1 ? out[0] : out;
-            }
-            return operand;
-        }
-        return null;
     }
 }
