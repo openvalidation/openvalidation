@@ -100,6 +100,144 @@ the best number MUST NOT be 1
 X MUST NOT be 4
 
 
+
+################# DOCUMENTATION LISTS Defining custom lists 1 ########################
+
+None, Bachelor und Master as degrees
+
+The degree must be one of degrees
+
+The degree must not be one of degrees
+
+{degree: ""}
+
+--------------  first error triggered  -------------------
+
+{degree: Unknown}
+
+The degree must be one of degrees
+
+--------------  second error triggered  -------------------
+
+{degree: None}
+
+{degree: Bachelor}
+
+{degree: Master}
+
+The degree must not be one of degrees
+
+
+
+################# DOCUMENTATION LISTS Defining custom lists 2 ########################
+
+The degree must be one of None, Bachelor and Master
+
+The degree must not be one of None, Bachelor and Master
+
+{degree: ""}
+
+--------------  first error triggered  -------------------
+
+{degree: Unknown}
+
+The degree must be one of None, Bachelor and Master
+
+--------------  second error triggered  -------------------
+
+{degree: None}
+
+{degree: Bachelor}
+
+{degree: Master}
+
+The degree must not be one of None, Bachelor and Master
+
+
+
+################# DOCUMENTATION LISTS Defining custom lists 3 ########################
+
+Bachelor as bachelor degree
+
+None, bachelor degree and master_degree as degrees
+
+The degree must be one of degrees
+
+The degree must not be one of degrees
+
+{degree: "", master_degree: ""}
+
+--------------  first error triggered  -------------------
+
+{degree: Nix, master_degree: Master}
+
+The degree must be one of degrees
+
+--------------  second error triggered  -------------------
+
+{degree: None, master_degree: Master}
+
+{degree: Bachelor, master_degree: Master}
+
+{degree: Master, master_degree: Master}
+
+The degree must not be one of degrees
+
+
+
+################# DOCUMENTATION LISTS Quantitative validation of lists 1 ########################
+
+The age must be one of magic numbers
+
+The age must not be one of magic numbers
+
+{magic_numbers: [1], age: 1}
+
+--------------  first error triggered  -------------------
+
+{magic_numbers: [65,43,21], age: 87}
+
+The age must be one of magic numbers
+
+--------------  second error triggered  -------------------
+
+{magic_numbers: [65,43,21], age: 65}
+
+{magic_numbers: [65,43,21], age: 43}
+
+{magic_numbers: [65,43,21], age: 21}
+
+The age must not be one of magic numbers
+
+
+
+################# DOCUMENTATION LISTS Quantitative validation of lists 2 ########################
+
+The age must be 65, 43 oder 21
+
+The age must not be 65, 43 oder 21
+
+{age: 1}
+
+
+--------------  first error triggered  -------------------
+
+{age: 87}
+
+The age must be 65, 43 oder 21
+
+--------------  second error triggered  -------------------
+
+{age: 65}
+
+{age: 43}
+
+{age: 21}
+
+The age must not be 65, 43 oder 21
+
+
+
 ################# IGNORE DOCUMENTATION LISTS Filtering of lists with complex contents by property ########################
 
 applicants.age AS age list
@@ -150,6 +288,3 @@ Klaus age MUST be GREATER THAN 0
     {name: "Frieda", age: -1}]}
 
 Friedas age MUST be GREATER THAN 0
-
-
-
