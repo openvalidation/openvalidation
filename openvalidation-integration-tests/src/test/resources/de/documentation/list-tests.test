@@ -99,6 +99,137 @@ Favorit DARF NICHT 1 sein
 
 Number DARF NICHT 4 sein
 
+################# DOCUMENTATION LISTEN Definition eigener Listen 1 ########################
+
+Kein, Bachelor und Master als Abschlüsse
+
+Der Abschluss muss einer von Abschlüsse sein
+
+Der Abschluss darf keiner aus Abschlüsse sein
+
+{Abschluss: ""}
+
+--------------  first error triggered  -------------------
+
+{Abschluss: Nix}
+
+Der Abschluss muss einer von Abschlüsse sein
+
+--------------  second error triggered  -------------------
+
+{Abschluss: Bachelor}
+
+Der Abschluss darf keiner aus Abschlüsse sein
+
+
+
+################# DOCUMENTATION LISTEN Definition eigener Listen 2 ########################
+
+Der Abschluss muss einer von Kein, Bachelor und Master sein
+
+Der Abschluss darf keiner aus Kein, Bachelor und Master sein
+
+{Abschluss: ""}
+
+--------------  first error triggered  -------------------
+
+{Abschluss: Nix}
+
+Der Abschluss muss einer von Kein, Bachelor und Master sein
+
+--------------  second error triggered  -------------------
+
+{Abschluss: Kein}
+
+{Abschluss: Bachelor}
+
+{Abschluss: Master}
+
+Der Abschluss darf keiner aus Kein, Bachelor und Master sein
+
+
+
+################# DOCUMENTATION LISTEN Definition eigener Listen 3 ########################
+
+Bachelor als mittlerer Abschluss
+
+Kein, mittlerer Abschluss und Masterabschluss als Abschlüsse
+
+Der Abschluss muss einer von Abschlüsse sein
+
+Der Abschluss darf keiner aus Abschlüsse sein
+
+{Abschluss: "", Masterabschluss: ""}
+
+--------------  first error triggered  -------------------
+
+{Abschluss: Nix, Masterabschluss: Master}
+
+Der Abschluss muss einer von Abschlüsse sein
+
+--------------  second error triggered  -------------------
+
+{Abschluss: Kein, Masterabschluss: Master}
+
+{Abschluss: Bachelor, Masterabschluss: Master}
+
+{Abschluss: Master, Masterabschluss: Master}
+
+
+Der Abschluss darf keiner aus Abschlüsse sein
+
+
+
+################# DOCUMENTATION LISTEN Quantitative Validierung von Listeninhalten 1 ########################
+
+Das Alter muss eins von Magische_Alter sein
+
+Das Alter muss darf keins von Magische_Alter sein
+
+{Magische_Alter: [1], Alter: 1}
+
+--------------  first error triggered  -------------------
+
+{Magische_Alter: [65,43,21], Alter: 87}
+
+Das Alter muss eins von Magische_Alter sein
+
+--------------  second error triggered  -------------------
+
+{Magische_Alter: [65,43,21], Alter: 65}
+
+{Magische_Alter: [65,43,21], Alter: 43}
+
+{Magische_Alter: [65,43,21], Alter: 21}
+
+Das Alter muss darf keins von Magische_Alter sein
+
+
+
+################# DOCUMENTATION LISTEN Quantitative Validierung von Listeninhalten 2 ########################
+
+Das Alter muss 65, 43 oder 21 sein
+
+Das Alter darf nicht 65, 43 oder 21 sein
+
+{Alter: 1}
+
+
+--------------  first error triggered  -------------------
+
+{Alter: 87}
+
+Das Alter muss 65, 43 oder 21 sein
+
+--------------  second error triggered  -------------------
+
+{Alter: 65}
+
+{Alter: 43}
+
+{Alter: 21}
+
+Das Alter darf nicht 65, 43 oder 21 sein
 
 
 
