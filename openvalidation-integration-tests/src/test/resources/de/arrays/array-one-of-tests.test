@@ -45,9 +45,9 @@ Deine Zahl muss entweder 2 sein oder eben 3 sein
 
 ################# array explicit one of as property static numbers ########################
 
-Deine Zahl muss eine von erstes array sein
+Deine Zahl muss eine von erstes_array sein
 
-Deine Zahl muss eine von zweites array sein
+Deine Zahl muss eine von zweites_array sein
 
 {Zahl: 0, erstes_array: [1,2,3], zweites_array: [1,2,3]}
 
@@ -56,13 +56,13 @@ Deine Zahl muss eine von zweites array sein
 
 {Zahl: 3, erstes_array: [1,2], zweites_array: [2,3]}
 
-Deine Zahl muss eine von erstes array sein
+Deine Zahl muss eine von erstes_array sein
 
 --------------  second rule triggered -------------------
 
 {Zahl: 1, erstes_array: [1,2], zweites_array: [2,3]}
 
-Deine Zahl muss eine von zweites array sein
+Deine Zahl muss eine von zweites_array sein
 
 ################# array explicit one of as variable static numbers ########################
 
